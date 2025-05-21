@@ -114,7 +114,7 @@ class ReportGenerator:
                 json.dump(summary, f, ensure_ascii=False, indent=2, default=str)
             
             # Lưu phiên bản hiện tại cho trang web
-            web_file_path = 'web/assets/data/daily_summary.json'
+            web_file_path = 'docs/assets/data/daily_summary.json'
             os.makedirs(os.path.dirname(web_file_path), exist_ok=True)
             with open(web_file_path, 'w', encoding='utf-8') as f:
                 json.dump(summary, f, ensure_ascii=False, indent=2, default=str)
