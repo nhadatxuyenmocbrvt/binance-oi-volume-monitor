@@ -29,7 +29,7 @@ binance-oi-monitor/
 ├── utils/                     # Các tiện ích
 │   └── helpers.py
 │
-├── web/                       # Trang web GitHub Pages
+├── docs/                       # Trang web GitHub Pages
 │   ├── index.html
 │   ├── css/
 │   └── js/
