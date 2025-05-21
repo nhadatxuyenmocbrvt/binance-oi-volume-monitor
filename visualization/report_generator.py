@@ -10,8 +10,9 @@ class ReportGenerator:
     def __init__(self, db):
         self.db = db
         self.metrics = MarketMetrics()
-        # Đảm bảo thư mục reports tồn tại
+        # Đảm bảo các thư mục tồn tại
         os.makedirs('data/reports', exist_ok=True)
+        os.makedirs('docs/assets/data', exist_ok=True)
         logger.info("Khởi tạo ReportGenerator")
     
     def generate_symbol_report(self, symbol):
@@ -75,6 +76,41 @@ class ReportGenerator:
             logger.error(f"Lỗi khi tạo báo cáo cho {symbol}: {str(e)}")
             return None
     
+    def prepare_symbol_data_for_web(self, symbol):
+        """Chuẩn bị dữ liệu JSON cho từng symbol để hiển thị trên web"""
+        try:
+            klines_data = {}
+            for timeframe in ['1d', '4h', '1h']:
+                df = self.db.get_klines(symbol, timeframe)
+                if not df.empty:
+                    # Chuyển đổi datetime thành string để JSON có thể serialize
+                    df_copy = df.copy()
+                    if 'open_time' in df_copy.columns:
+                        df_copy['open_time'] = df_copy['open_time'].astype(str)
+                    if 'close_time' in df_copy.columns:
+                        df_copy['close_time'] = df_copy['close_time'].astype(str)
+                    
+                    klines_data[timeframe] = df_copy.to_dict('records')
+            
+            oi_data = self.db.get_open_interest(symbol)
+            if not oi_data.empty:
+                # Chuyển đổi datetime thành string
+                oi_data_copy = oi_data.copy()
+                if 'timestamp' in oi_data_copy.columns:
+                    oi_data_copy['timestamp'] = oi_data_copy['timestamp'].astype(str)
+                
+                oi_list = oi_data_copy.to_dict('records')
+            else:
+                oi_list = []
+            
+            return {
+                'klines': klines_data,
+                'open_interest': oi_list
+            }
+        except Exception as e:
+            logger.error(f"Lỗi khi chuẩn bị dữ liệu web cho {symbol}: {str(e)}")
+            return {'klines': {}, 'open_interest': []}
+    
     def generate_daily_summary(self):
         """Tạo báo cáo tổng hợp hàng ngày"""
         try:
@@ -108,18 +144,42 @@ class ReportGenerator:
             
             summary['anomalies'] = anomalies
             
-            # Lưu báo cáo tổng hợp
+            # Lưu báo cáo tổng hợp vào thư mục reports
             file_path = f'data/reports/daily_summary_{datetime.now().strftime("%Y%m%d")}.json'
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(summary, f, ensure_ascii=False, indent=2, default=str)
             
-            # Lưu phiên bản hiện tại cho trang web
-            web_file_path = 'docs/assets/data/daily_summary.json'
-            os.makedirs(os.path.dirname(web_file_path), exist_ok=True)
-            with open(web_file_path, 'w', encoding='utf-8') as f:
+            # ===== PHẦN THÊM MỚI: TẠO DỮ LIỆU CHO GITHUB PAGES =====
+            
+            # Đảm bảo thư mục assets/data tồn tại
+            os.makedirs('docs/assets/data', exist_ok=True)
+            
+            # Lưu daily_summary cho trang web
+            web_summary_path = 'docs/assets/data/daily_summary.json'
+            with open(web_summary_path, 'w', encoding='utf-8') as f:
                 json.dump(summary, f, ensure_ascii=False, indent=2, default=str)
             
-            logger.info(f"Đã tạo báo cáo tổng hợp hàng ngày tại {file_path}")
+            # Lưu danh sách symbols cho trang web
+            symbols_web_path = 'docs/assets/data/symbols.json'
+            with open(symbols_web_path, 'w') as f:
+                json.dump(SYMBOLS, f)
+            
+            # Lưu anomalies cho trang web
+            anomalies_web_path = 'docs/assets/data/anomalies.json'
+            with open(anomalies_web_path, 'w') as f:
+                json.dump(anomalies, f, default=str)
+            
+            # Lưu dữ liệu cho từng symbol
+            for symbol in SYMBOLS:
+                # Tạo dữ liệu JSON cho từng symbol
+                symbol_data = self.prepare_symbol_data_for_web(symbol)
+                
+                # Lưu vào thư mục web
+                symbol_web_path = f'docs/assets/data/{symbol}.json'
+                with open(symbol_web_path, 'w') as f:
+                    json.dump(symbol_data, f, default=str)
+            
+            logger.info(f"Đã tạo báo cáo tổng hợp hàng ngày và dữ liệu cho GitHub Pages")
             return summary
         except Exception as e:
             logger.error(f"Lỗi khi tạo báo cáo tổng hợp hàng ngày: {str(e)}")
