@@ -1,0 +1,350 @@
+2025-05-21 14:09:33,842 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:09:33,846 - data_collector.historical_data - INFO - Bắt đầu thu thập tất cả dữ liệu lịch sử
+2025-05-21 14:09:34,363 - data_collector.historical_data - INFO - Thời gian máy chủ Binance: 2025-05-21 14:09:34.305000
+2025-05-21 14:09:34,364 - data_collector.historical_data - WARNING - Giá trị LOOKBACK_DAYS (30) vượt quá 7 ngày, đã điều chỉnh thành 7 ngày cho Open Interest
+2025-05-21 14:09:34,365 - data_collector.historical_data - INFO - Timestamps đã điều chỉnh: start=1747206574305 (2025-05-14 14:09:34.305000), end=1747811374305 (2025-05-21 14:09:34.305000)
+2025-05-21 14:09:34,366 - data_collector.historical_data - INFO - Thu thập dữ liệu nến từ 2025-05-14 14:09:34.305000 đến 2025-05-21 14:09:34.305000
+2025-05-21 14:09:34,367 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho BTCUSDT - 1h
+2025-05-21 14:09:34,368 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:09:35,454 - data_collector.historical_data - INFO - Nhận được 24 nến cho BTCUSDT - 1h
+2025-05-21 14:09:35,962 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:09:37,053 - data_collector.historical_data - INFO - Nhận được 24 nến cho BTCUSDT - 1h
+2025-05-21 14:09:37,560 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:09:38,558 - data_collector.historical_data - INFO - Nhận được 24 nến cho BTCUSDT - 1h
+2025-05-21 14:09:39,072 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:09:40,116 - data_collector.historical_data - INFO - Nhận được 24 nến cho BTCUSDT - 1h
+2025-05-21 14:09:40,622 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:09:41,713 - data_collector.historical_data - INFO - Nhận được 24 nến cho BTCUSDT - 1h
+2025-05-21 14:09:42,227 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:09:43,326 - data_collector.historical_data - INFO - Nhận được 24 nến cho BTCUSDT - 1h
+2025-05-21 14:09:43,831 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:09:44,983 - data_collector.historical_data - INFO - Nhận được 24 nến cho BTCUSDT - 1h
+2025-05-21 14:09:45,500 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 nến cho BTCUSDT - 1h
+2025-05-21 14:09:45,501 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho BTCUSDT - 4h
+2025-05-21 14:09:45,503 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=4h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:09:46,554 - data_collector.historical_data - INFO - Nhận được 6 nến cho BTCUSDT - 4h
+2025-05-21 14:09:47,066 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=4h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:09:48,166 - data_collector.historical_data - INFO - Nhận được 6 nến cho BTCUSDT - 4h
+2025-05-21 14:09:48,679 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=4h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:09:49,801 - data_collector.historical_data - INFO - Nhận được 6 nến cho BTCUSDT - 4h
+2025-05-21 14:09:50,316 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=4h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:09:51,361 - data_collector.historical_data - INFO - Nhận được 6 nến cho BTCUSDT - 4h
+2025-05-21 14:09:51,872 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=4h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:09:52,823 - data_collector.historical_data - INFO - Nhận được 6 nến cho BTCUSDT - 4h
+2025-05-21 14:09:53,338 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=4h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:09:54,356 - data_collector.historical_data - INFO - Nhận được 6 nến cho BTCUSDT - 4h
+2025-05-21 14:09:54,862 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=4h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:09:55,840 - data_collector.historical_data - INFO - Nhận được 6 nến cho BTCUSDT - 4h
+2025-05-21 14:09:56,365 - data_collector.historical_data - INFO - Đã lấy tổng cộng 42 nến cho BTCUSDT - 4h
+2025-05-21 14:09:56,366 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho BTCUSDT - 1d
+2025-05-21 14:09:56,368 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1d, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:09:57,539 - data_collector.historical_data - INFO - Nhận được 1 nến cho BTCUSDT - 1d
+2025-05-21 14:09:58,044 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1d, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:09:59,141 - data_collector.historical_data - INFO - Nhận được 1 nến cho BTCUSDT - 1d
+2025-05-21 14:09:59,648 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1d, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:10:00,729 - data_collector.historical_data - INFO - Nhận được 1 nến cho BTCUSDT - 1d
+2025-05-21 14:10:01,236 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1d, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:10:02,298 - data_collector.historical_data - INFO - Nhận được 1 nến cho BTCUSDT - 1d
+2025-05-21 14:10:02,806 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1d, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:10:03,951 - data_collector.historical_data - INFO - Nhận được 1 nến cho BTCUSDT - 1d
+2025-05-21 14:10:04,459 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1d, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:10:05,532 - data_collector.historical_data - INFO - Nhận được 1 nến cho BTCUSDT - 1d
+2025-05-21 14:10:06,046 - data_collector.historical_data - INFO - Request klines: symbol=BTCUSDT, timeframe=1d, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:10:07,101 - data_collector.historical_data - INFO - Nhận được 1 nến cho BTCUSDT - 1d
+2025-05-21 14:10:07,612 - data_collector.historical_data - INFO - Đã lấy tổng cộng 7 nến cho BTCUSDT - 1d
+2025-05-21 14:10:07,613 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho ETHUSDT - 1h
+2025-05-21 14:10:07,614 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:10:08,740 - data_collector.historical_data - INFO - Nhận được 24 nến cho ETHUSDT - 1h
+2025-05-21 14:10:09,252 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:10:10,387 - data_collector.historical_data - INFO - Nhận được 24 nến cho ETHUSDT - 1h
+2025-05-21 14:10:10,900 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:10:12,054 - data_collector.historical_data - INFO - Nhận được 24 nến cho ETHUSDT - 1h
+2025-05-21 14:10:12,568 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:10:13,721 - data_collector.historical_data - INFO - Nhận được 24 nến cho ETHUSDT - 1h
+2025-05-21 14:10:14,226 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:10:15,319 - data_collector.historical_data - INFO - Nhận được 24 nến cho ETHUSDT - 1h
+2025-05-21 14:10:15,828 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:10:16,881 - data_collector.historical_data - INFO - Nhận được 24 nến cho ETHUSDT - 1h
+2025-05-21 14:10:17,391 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:10:18,358 - data_collector.historical_data - INFO - Nhận được 24 nến cho ETHUSDT - 1h
+2025-05-21 14:10:18,878 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 nến cho ETHUSDT - 1h
+2025-05-21 14:10:18,880 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho ETHUSDT - 4h
+2025-05-21 14:10:18,881 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=4h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:10:19,929 - data_collector.historical_data - INFO - Nhận được 6 nến cho ETHUSDT - 4h
+2025-05-21 14:10:20,442 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=4h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:10:21,571 - data_collector.historical_data - INFO - Nhận được 6 nến cho ETHUSDT - 4h
+2025-05-21 14:10:22,075 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=4h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:10:23,095 - data_collector.historical_data - INFO - Nhận được 6 nến cho ETHUSDT - 4h
+2025-05-21 14:10:23,599 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=4h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:10:24,707 - data_collector.historical_data - INFO - Nhận được 6 nến cho ETHUSDT - 4h
+2025-05-21 14:10:25,213 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=4h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:10:26,349 - data_collector.historical_data - INFO - Nhận được 6 nến cho ETHUSDT - 4h
+2025-05-21 14:10:26,859 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=4h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:10:27,981 - data_collector.historical_data - INFO - Nhận được 6 nến cho ETHUSDT - 4h
+2025-05-21 14:10:28,494 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=4h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:10:29,602 - data_collector.historical_data - INFO - Nhận được 6 nến cho ETHUSDT - 4h
+2025-05-21 14:10:30,122 - data_collector.historical_data - INFO - Đã lấy tổng cộng 42 nến cho ETHUSDT - 4h
+2025-05-21 14:10:30,124 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho ETHUSDT - 1d
+2025-05-21 14:10:30,125 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1d, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:10:31,305 - data_collector.historical_data - INFO - Nhận được 1 nến cho ETHUSDT - 1d
+2025-05-21 14:10:31,821 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1d, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:10:32,974 - data_collector.historical_data - INFO - Nhận được 1 nến cho ETHUSDT - 1d
+2025-05-21 14:10:33,482 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1d, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:10:34,533 - data_collector.historical_data - INFO - Nhận được 1 nến cho ETHUSDT - 1d
+2025-05-21 14:10:35,036 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1d, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:10:36,172 - data_collector.historical_data - INFO - Nhận được 1 nến cho ETHUSDT - 1d
+2025-05-21 14:10:36,674 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1d, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:10:37,705 - data_collector.historical_data - INFO - Nhận được 1 nến cho ETHUSDT - 1d
+2025-05-21 14:10:38,209 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1d, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:10:39,277 - data_collector.historical_data - INFO - Nhận được 1 nến cho ETHUSDT - 1d
+2025-05-21 14:10:39,780 - data_collector.historical_data - INFO - Request klines: symbol=ETHUSDT, timeframe=1d, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:10:40,774 - data_collector.historical_data - INFO - Nhận được 1 nến cho ETHUSDT - 1d
+2025-05-21 14:10:41,294 - data_collector.historical_data - INFO - Đã lấy tổng cộng 7 nến cho ETHUSDT - 1d
+2025-05-21 14:10:41,296 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho BNBUSDT - 1h
+2025-05-21 14:10:41,297 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:10:42,268 - data_collector.historical_data - INFO - Nhận được 24 nến cho BNBUSDT - 1h
+2025-05-21 14:10:42,777 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:10:43,897 - data_collector.historical_data - INFO - Nhận được 24 nến cho BNBUSDT - 1h
+2025-05-21 14:10:44,413 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:10:45,493 - data_collector.historical_data - INFO - Nhận được 24 nến cho BNBUSDT - 1h
+2025-05-21 14:10:45,995 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:10:47,103 - data_collector.historical_data - INFO - Nhận được 24 nến cho BNBUSDT - 1h
+2025-05-21 14:10:47,611 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:10:48,803 - data_collector.historical_data - INFO - Nhận được 24 nến cho BNBUSDT - 1h
+2025-05-21 14:10:49,305 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:10:50,474 - data_collector.historical_data - INFO - Nhận được 24 nến cho BNBUSDT - 1h
+2025-05-21 14:10:50,978 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:10:52,084 - data_collector.historical_data - INFO - Nhận được 24 nến cho BNBUSDT - 1h
+2025-05-21 14:10:52,604 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 nến cho BNBUSDT - 1h
+2025-05-21 14:10:52,604 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho BNBUSDT - 4h
+2025-05-21 14:10:52,606 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=4h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:10:53,662 - data_collector.historical_data - INFO - Nhận được 6 nến cho BNBUSDT - 4h
+2025-05-21 14:10:54,170 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=4h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:10:55,282 - data_collector.historical_data - INFO - Nhận được 6 nến cho BNBUSDT - 4h
+2025-05-21 14:10:55,786 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=4h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:10:56,944 - data_collector.historical_data - INFO - Nhận được 6 nến cho BNBUSDT - 4h
+2025-05-21 14:10:57,448 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=4h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:10:58,526 - data_collector.historical_data - INFO - Nhận được 6 nến cho BNBUSDT - 4h
+2025-05-21 14:10:59,033 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=4h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:11:00,128 - data_collector.historical_data - INFO - Nhận được 6 nến cho BNBUSDT - 4h
+2025-05-21 14:11:00,644 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=4h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:11:01,726 - data_collector.historical_data - INFO - Nhận được 6 nến cho BNBUSDT - 4h
+2025-05-21 14:11:02,231 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=4h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:11:03,303 - data_collector.historical_data - INFO - Nhận được 6 nến cho BNBUSDT - 4h
+2025-05-21 14:11:03,822 - data_collector.historical_data - INFO - Đã lấy tổng cộng 42 nến cho BNBUSDT - 4h
+2025-05-21 14:11:03,823 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho BNBUSDT - 1d
+2025-05-21 14:11:03,825 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1d, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:11:04,950 - data_collector.historical_data - INFO - Nhận được 1 nến cho BNBUSDT - 1d
+2025-05-21 14:11:05,459 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1d, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:11:06,605 - data_collector.historical_data - INFO - Nhận được 1 nến cho BNBUSDT - 1d
+2025-05-21 14:11:07,110 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1d, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:11:08,113 - data_collector.historical_data - INFO - Nhận được 1 nến cho BNBUSDT - 1d
+2025-05-21 14:11:08,615 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1d, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:11:09,680 - data_collector.historical_data - INFO - Nhận được 1 nến cho BNBUSDT - 1d
+2025-05-21 14:11:10,186 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1d, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:11:11,371 - data_collector.historical_data - INFO - Nhận được 1 nến cho BNBUSDT - 1d
+2025-05-21 14:11:11,884 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1d, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:11:12,940 - data_collector.historical_data - INFO - Nhận được 1 nến cho BNBUSDT - 1d
+2025-05-21 14:11:13,453 - data_collector.historical_data - INFO - Request klines: symbol=BNBUSDT, timeframe=1d, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:11:14,425 - data_collector.historical_data - INFO - Nhận được 1 nến cho BNBUSDT - 1d
+2025-05-21 14:11:14,950 - data_collector.historical_data - INFO - Đã lấy tổng cộng 7 nến cho BNBUSDT - 1d
+2025-05-21 14:11:14,951 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho SOLUSDT - 1h
+2025-05-21 14:11:14,952 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:11:16,014 - data_collector.historical_data - INFO - Nhận được 24 nến cho SOLUSDT - 1h
+2025-05-21 14:11:16,521 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:11:17,631 - data_collector.historical_data - INFO - Nhận được 24 nến cho SOLUSDT - 1h
+2025-05-21 14:11:18,134 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:11:19,095 - data_collector.historical_data - INFO - Nhận được 24 nến cho SOLUSDT - 1h
+2025-05-21 14:11:19,611 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:11:20,697 - data_collector.historical_data - INFO - Nhận được 24 nến cho SOLUSDT - 1h
+2025-05-21 14:11:21,212 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:11:22,223 - data_collector.historical_data - INFO - Nhận được 24 nến cho SOLUSDT - 1h
+2025-05-21 14:11:22,729 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:11:23,685 - data_collector.historical_data - INFO - Nhận được 24 nến cho SOLUSDT - 1h
+2025-05-21 14:11:24,198 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:11:25,276 - data_collector.historical_data - INFO - Nhận được 24 nến cho SOLUSDT - 1h
+2025-05-21 14:11:25,790 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 nến cho SOLUSDT - 1h
+2025-05-21 14:11:25,791 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho SOLUSDT - 4h
+2025-05-21 14:11:25,793 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=4h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:11:26,925 - data_collector.historical_data - INFO - Nhận được 6 nến cho SOLUSDT - 4h
+2025-05-21 14:11:27,427 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=4h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:11:28,482 - data_collector.historical_data - INFO - Nhận được 6 nến cho SOLUSDT - 4h
+2025-05-21 14:11:28,984 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=4h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:11:30,163 - data_collector.historical_data - INFO - Nhận được 6 nến cho SOLUSDT - 4h
+2025-05-21 14:11:30,669 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=4h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:11:31,816 - data_collector.historical_data - INFO - Nhận được 6 nến cho SOLUSDT - 4h
+2025-05-21 14:11:32,328 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=4h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:11:33,389 - data_collector.historical_data - INFO - Nhận được 6 nến cho SOLUSDT - 4h
+2025-05-21 14:11:33,901 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=4h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:11:35,168 - data_collector.historical_data - INFO - Nhận được 6 nến cho SOLUSDT - 4h
+2025-05-21 14:11:35,672 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=4h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:11:36,769 - data_collector.historical_data - INFO - Nhận được 6 nến cho SOLUSDT - 4h
+2025-05-21 14:11:37,293 - data_collector.historical_data - INFO - Đã lấy tổng cộng 42 nến cho SOLUSDT - 4h
+2025-05-21 14:11:37,294 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho SOLUSDT - 1d
+2025-05-21 14:11:37,295 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1d, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:11:38,299 - data_collector.historical_data - INFO - Nhận được 1 nến cho SOLUSDT - 1d
+2025-05-21 14:11:38,801 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1d, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:11:39,907 - data_collector.historical_data - INFO - Nhận được 1 nến cho SOLUSDT - 1d
+2025-05-21 14:11:40,417 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1d, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:11:41,516 - data_collector.historical_data - INFO - Nhận được 1 nến cho SOLUSDT - 1d
+2025-05-21 14:11:42,018 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1d, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:11:43,078 - data_collector.historical_data - INFO - Nhận được 1 nến cho SOLUSDT - 1d
+2025-05-21 14:11:43,585 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1d, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:11:44,635 - data_collector.historical_data - INFO - Nhận được 1 nến cho SOLUSDT - 1d
+2025-05-21 14:11:45,151 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1d, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:11:46,223 - data_collector.historical_data - INFO - Nhận được 1 nến cho SOLUSDT - 1d
+2025-05-21 14:11:46,734 - data_collector.historical_data - INFO - Request klines: symbol=SOLUSDT, timeframe=1d, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:11:47,814 - data_collector.historical_data - INFO - Nhận được 1 nến cho SOLUSDT - 1d
+2025-05-21 14:11:48,329 - data_collector.historical_data - INFO - Đã lấy tổng cộng 7 nến cho SOLUSDT - 1d
+2025-05-21 14:11:48,330 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho DOGEUSDT - 1h
+2025-05-21 14:11:48,332 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:11:49,429 - data_collector.historical_data - INFO - Nhận được 24 nến cho DOGEUSDT - 1h
+2025-05-21 14:11:49,933 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:11:51,093 - data_collector.historical_data - INFO - Nhận được 24 nến cho DOGEUSDT - 1h
+2025-05-21 14:11:51,604 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:11:52,698 - data_collector.historical_data - INFO - Nhận được 24 nến cho DOGEUSDT - 1h
+2025-05-21 14:11:53,200 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:11:54,313 - data_collector.historical_data - INFO - Nhận được 24 nến cho DOGEUSDT - 1h
+2025-05-21 14:11:54,825 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:11:55,827 - data_collector.historical_data - INFO - Nhận được 24 nến cho DOGEUSDT - 1h
+2025-05-21 14:11:56,337 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:11:57,486 - data_collector.historical_data - INFO - Nhận được 24 nến cho DOGEUSDT - 1h
+2025-05-21 14:11:57,988 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:11:59,088 - data_collector.historical_data - INFO - Nhận được 24 nến cho DOGEUSDT - 1h
+2025-05-21 14:11:59,611 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 nến cho DOGEUSDT - 1h
+2025-05-21 14:11:59,612 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho DOGEUSDT - 4h
+2025-05-21 14:11:59,613 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=4h, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:12:00,742 - data_collector.historical_data - INFO - Nhận được 6 nến cho DOGEUSDT - 4h
+2025-05-21 14:12:01,251 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=4h, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:12:02,294 - data_collector.historical_data - INFO - Nhận được 6 nến cho DOGEUSDT - 4h
+2025-05-21 14:12:02,807 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=4h, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:12:03,801 - data_collector.historical_data - INFO - Nhận được 6 nến cho DOGEUSDT - 4h
+2025-05-21 14:12:04,316 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=4h, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:12:05,320 - data_collector.historical_data - INFO - Nhận được 6 nến cho DOGEUSDT - 4h
+2025-05-21 14:12:05,830 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=4h, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:12:06,966 - data_collector.historical_data - INFO - Nhận được 6 nến cho DOGEUSDT - 4h
+2025-05-21 14:12:07,466 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=4h, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:12:08,557 - data_collector.historical_data - INFO - Nhận được 6 nến cho DOGEUSDT - 4h
+2025-05-21 14:12:09,062 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=4h, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:12:10,152 - data_collector.historical_data - INFO - Nhận được 6 nến cho DOGEUSDT - 4h
+2025-05-21 14:12:10,665 - data_collector.historical_data - INFO - Đã lấy tổng cộng 42 nến cho DOGEUSDT - 4h
+2025-05-21 14:12:10,666 - data_collector.historical_data - INFO - Đang lấy dữ liệu klines cho DOGEUSDT - 1d
+2025-05-21 14:12:10,667 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1d, start=2025-05-14 14:09:34.305000, end=2025-05-15 14:09:34.305000
+2025-05-21 14:12:11,730 - data_collector.historical_data - INFO - Nhận được 1 nến cho DOGEUSDT - 1d
+2025-05-21 14:12:12,245 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1d, start=2025-05-15 14:09:34.305000, end=2025-05-16 14:09:34.305000
+2025-05-21 14:12:13,225 - data_collector.historical_data - INFO - Nhận được 1 nến cho DOGEUSDT - 1d
+2025-05-21 14:12:13,726 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1d, start=2025-05-16 14:09:34.305000, end=2025-05-17 14:09:34.305000
+2025-05-21 14:12:14,728 - data_collector.historical_data - INFO - Nhận được 1 nến cho DOGEUSDT - 1d
+2025-05-21 14:12:15,242 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1d, start=2025-05-17 14:09:34.305000, end=2025-05-18 14:09:34.305000
+2025-05-21 14:12:16,385 - data_collector.historical_data - INFO - Nhận được 1 nến cho DOGEUSDT - 1d
+2025-05-21 14:12:16,892 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1d, start=2025-05-18 14:09:34.305000, end=2025-05-19 14:09:34.305000
+2025-05-21 14:12:17,983 - data_collector.historical_data - INFO - Nhận được 1 nến cho DOGEUSDT - 1d
+2025-05-21 14:12:18,497 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1d, start=2025-05-19 14:09:34.305000, end=2025-05-20 14:09:34.305000
+2025-05-21 14:12:19,496 - data_collector.historical_data - INFO - Nhận được 1 nến cho DOGEUSDT - 1d
+2025-05-21 14:12:19,998 - data_collector.historical_data - INFO - Request klines: symbol=DOGEUSDT, timeframe=1d, start=2025-05-20 14:09:34.305000, end=2025-05-21 14:09:34.305000
+2025-05-21 14:12:20,998 - data_collector.historical_data - INFO - Nhận được 1 nến cho DOGEUSDT - 1d
+2025-05-21 14:12:21,507 - data_collector.historical_data - INFO - Đã lấy tổng cộng 7 nến cho DOGEUSDT - 1d
+2025-05-21 14:12:21,994 - data_collector.historical_data - INFO - Thời gian máy chủ Binance: 2025-05-21 14:12:21.931000
+2025-05-21 14:12:21,995 - data_collector.historical_data - WARNING - Giá trị LOOKBACK_DAYS (30) vượt quá 7 ngày, đã điều chỉnh thành 7 ngày cho Open Interest
+2025-05-21 14:12:21,996 - data_collector.historical_data - INFO - Timestamps đã điều chỉnh: start=1747206741931 (2025-05-14 14:12:21.931000), end=1747811541931 (2025-05-21 14:12:21.931000)
+2025-05-21 14:12:21,997 - data_collector.historical_data - INFO - Thu thập dữ liệu Open Interest từ 2025-05-14 14:12:21.931000 đến 2025-05-21 14:12:21.931000
+2025-05-21 14:12:21,998 - data_collector.historical_data - INFO - Đang lấy dữ liệu Open Interest cho BTCUSDT
+2025-05-21 14:12:21,999 - data_collector.historical_data - INFO - Request OI: symbol=BTCUSDT, start=2025-05-14 14:12:21.931000, end=2025-05-15 14:12:21.931000
+2025-05-21 14:12:23,501 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BTCUSDT
+2025-05-21 14:12:23,502 - data_collector.historical_data - INFO - Request OI: symbol=BTCUSDT, start=2025-05-15 14:12:21.931000, end=2025-05-16 14:12:21.931000
+2025-05-21 14:12:24,977 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BTCUSDT
+2025-05-21 14:12:24,977 - data_collector.historical_data - INFO - Request OI: symbol=BTCUSDT, start=2025-05-16 14:12:21.931000, end=2025-05-17 14:12:21.931000
+2025-05-21 14:12:26,682 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BTCUSDT
+2025-05-21 14:12:26,683 - data_collector.historical_data - INFO - Request OI: symbol=BTCUSDT, start=2025-05-17 14:12:21.931000, end=2025-05-18 14:12:21.931000
+2025-05-21 14:12:28,245 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BTCUSDT
+2025-05-21 14:12:28,246 - data_collector.historical_data - INFO - Request OI: symbol=BTCUSDT, start=2025-05-18 14:12:21.931000, end=2025-05-19 14:12:21.931000
+2025-05-21 14:12:29,826 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BTCUSDT
+2025-05-21 14:12:29,827 - data_collector.historical_data - INFO - Request OI: symbol=BTCUSDT, start=2025-05-19 14:12:21.931000, end=2025-05-20 14:12:21.931000
+2025-05-21 14:12:31,448 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BTCUSDT
+2025-05-21 14:12:31,449 - data_collector.historical_data - INFO - Request OI: symbol=BTCUSDT, start=2025-05-20 14:12:21.931000, end=2025-05-21 14:12:21.931000
+2025-05-21 14:12:33,086 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BTCUSDT
+2025-05-21 14:12:33,091 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 mẫu Open Interest cho BTCUSDT
+2025-05-21 14:12:33,092 - data_collector.historical_data - INFO - Đang lấy dữ liệu Open Interest cho ETHUSDT
+2025-05-21 14:12:33,093 - data_collector.historical_data - INFO - Request OI: symbol=ETHUSDT, start=2025-05-14 14:12:21.931000, end=2025-05-15 14:12:21.931000
+2025-05-21 14:12:35,665 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho ETHUSDT
+2025-05-21 14:12:35,666 - data_collector.historical_data - INFO - Request OI: symbol=ETHUSDT, start=2025-05-15 14:12:21.931000, end=2025-05-16 14:12:21.931000
+2025-05-21 14:12:37,405 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho ETHUSDT
+2025-05-21 14:12:37,406 - data_collector.historical_data - INFO - Request OI: symbol=ETHUSDT, start=2025-05-16 14:12:21.931000, end=2025-05-17 14:12:21.931000
+2025-05-21 14:12:39,113 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho ETHUSDT
+2025-05-21 14:12:39,114 - data_collector.historical_data - INFO - Request OI: symbol=ETHUSDT, start=2025-05-17 14:12:21.931000, end=2025-05-18 14:12:21.931000
+2025-05-21 14:12:40,894 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho ETHUSDT
+2025-05-21 14:12:40,895 - data_collector.historical_data - INFO - Request OI: symbol=ETHUSDT, start=2025-05-18 14:12:21.931000, end=2025-05-19 14:12:21.931000
+2025-05-21 14:12:42,545 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho ETHUSDT
+2025-05-21 14:12:42,546 - data_collector.historical_data - INFO - Request OI: symbol=ETHUSDT, start=2025-05-19 14:12:21.931000, end=2025-05-20 14:12:21.931000
+2025-05-21 14:12:44,343 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho ETHUSDT
+2025-05-21 14:12:44,344 - data_collector.historical_data - INFO - Request OI: symbol=ETHUSDT, start=2025-05-20 14:12:21.931000, end=2025-05-21 14:12:21.931000
+2025-05-21 14:12:46,008 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho ETHUSDT
+2025-05-21 14:12:46,013 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 mẫu Open Interest cho ETHUSDT
+2025-05-21 14:12:46,014 - data_collector.historical_data - INFO - Đang lấy dữ liệu Open Interest cho BNBUSDT
+2025-05-21 14:12:46,015 - data_collector.historical_data - INFO - Request OI: symbol=BNBUSDT, start=2025-05-14 14:12:21.931000, end=2025-05-15 14:12:21.931000
+2025-05-21 14:12:47,713 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BNBUSDT
+2025-05-21 14:12:47,714 - data_collector.historical_data - INFO - Request OI: symbol=BNBUSDT, start=2025-05-15 14:12:21.931000, end=2025-05-16 14:12:21.931000
+2025-05-21 14:12:49,478 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BNBUSDT
+2025-05-21 14:12:49,479 - data_collector.historical_data - INFO - Request OI: symbol=BNBUSDT, start=2025-05-16 14:12:21.931000, end=2025-05-17 14:12:21.931000
+2025-05-21 14:12:51,239 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BNBUSDT
+2025-05-21 14:12:51,240 - data_collector.historical_data - INFO - Request OI: symbol=BNBUSDT, start=2025-05-17 14:12:21.931000, end=2025-05-18 14:12:21.931000
+2025-05-21 14:12:52,856 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BNBUSDT
+2025-05-21 14:12:52,856 - data_collector.historical_data - INFO - Request OI: symbol=BNBUSDT, start=2025-05-18 14:12:21.931000, end=2025-05-19 14:12:21.931000
+2025-05-21 14:12:54,559 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BNBUSDT
+2025-05-21 14:12:54,560 - data_collector.historical_data - INFO - Request OI: symbol=BNBUSDT, start=2025-05-19 14:12:21.931000, end=2025-05-20 14:12:21.931000
+2025-05-21 14:12:56,529 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BNBUSDT
+2025-05-21 14:12:56,530 - data_collector.historical_data - INFO - Request OI: symbol=BNBUSDT, start=2025-05-20 14:12:21.931000, end=2025-05-21 14:12:21.931000
+2025-05-21 14:12:58,318 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho BNBUSDT
+2025-05-21 14:12:58,323 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 mẫu Open Interest cho BNBUSDT
+2025-05-21 14:12:58,324 - data_collector.historical_data - INFO - Đang lấy dữ liệu Open Interest cho SOLUSDT
+2025-05-21 14:12:58,325 - data_collector.historical_data - INFO - Request OI: symbol=SOLUSDT, start=2025-05-14 14:12:21.931000, end=2025-05-15 14:12:21.931000
+2025-05-21 14:13:00,012 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho SOLUSDT
+2025-05-21 14:13:00,013 - data_collector.historical_data - INFO - Request OI: symbol=SOLUSDT, start=2025-05-15 14:12:21.931000, end=2025-05-16 14:12:21.931000
+2025-05-21 14:13:01,618 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho SOLUSDT
+2025-05-21 14:13:01,619 - data_collector.historical_data - INFO - Request OI: symbol=SOLUSDT, start=2025-05-16 14:12:21.931000, end=2025-05-17 14:12:21.931000
+2025-05-21 14:13:03,425 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho SOLUSDT
+2025-05-21 14:13:03,426 - data_collector.historical_data - INFO - Request OI: symbol=SOLUSDT, start=2025-05-17 14:12:21.931000, end=2025-05-18 14:12:21.931000
+2025-05-21 14:13:05,070 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho SOLUSDT
+2025-05-21 14:13:05,070 - data_collector.historical_data - INFO - Request OI: symbol=SOLUSDT, start=2025-05-18 14:12:21.931000, end=2025-05-19 14:12:21.931000
+2025-05-21 14:13:06,840 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho SOLUSDT
+2025-05-21 14:13:06,841 - data_collector.historical_data - INFO - Request OI: symbol=SOLUSDT, start=2025-05-19 14:12:21.931000, end=2025-05-20 14:12:21.931000
+2025-05-21 14:13:08,503 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho SOLUSDT
+2025-05-21 14:13:08,504 - data_collector.historical_data - INFO - Request OI: symbol=SOLUSDT, start=2025-05-20 14:12:21.931000, end=2025-05-21 14:12:21.931000
+2025-05-21 14:13:10,062 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho SOLUSDT
+2025-05-21 14:13:10,068 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 mẫu Open Interest cho SOLUSDT
+2025-05-21 14:13:10,069 - data_collector.historical_data - INFO - Đang lấy dữ liệu Open Interest cho DOGEUSDT
+2025-05-21 14:13:10,070 - data_collector.historical_data - INFO - Request OI: symbol=DOGEUSDT, start=2025-05-14 14:12:21.931000, end=2025-05-15 14:12:21.931000
+2025-05-21 14:13:11,779 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho DOGEUSDT
+2025-05-21 14:13:11,779 - data_collector.historical_data - INFO - Request OI: symbol=DOGEUSDT, start=2025-05-15 14:12:21.931000, end=2025-05-16 14:12:21.931000
+2025-05-21 14:13:13,503 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho DOGEUSDT
+2025-05-21 14:13:13,504 - data_collector.historical_data - INFO - Request OI: symbol=DOGEUSDT, start=2025-05-16 14:12:21.931000, end=2025-05-17 14:12:21.931000
+2025-05-21 14:13:15,129 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho DOGEUSDT
+2025-05-21 14:13:15,130 - data_collector.historical_data - INFO - Request OI: symbol=DOGEUSDT, start=2025-05-17 14:12:21.931000, end=2025-05-18 14:12:21.931000
+2025-05-21 14:13:16,779 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho DOGEUSDT
+2025-05-21 14:13:16,780 - data_collector.historical_data - INFO - Request OI: symbol=DOGEUSDT, start=2025-05-18 14:12:21.931000, end=2025-05-19 14:12:21.931000
+2025-05-21 14:13:18,479 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho DOGEUSDT
+2025-05-21 14:13:18,480 - data_collector.historical_data - INFO - Request OI: symbol=DOGEUSDT, start=2025-05-19 14:12:21.931000, end=2025-05-20 14:12:21.931000
+2025-05-21 14:13:20,249 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho DOGEUSDT
+2025-05-21 14:13:20,249 - data_collector.historical_data - INFO - Request OI: symbol=DOGEUSDT, start=2025-05-20 14:12:21.931000, end=2025-05-21 14:12:21.931000
+2025-05-21 14:13:21,953 - data_collector.historical_data - INFO - Nhận được 24 bản ghi OI cho DOGEUSDT
+2025-05-21 14:13:21,955 - data_collector.historical_data - INFO - Đã lấy tổng cộng 168 mẫu Open Interest cho DOGEUSDT
+2025-05-21 14:14:23,446 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:14:23,455 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime
+2025-05-21 14:15:31,050 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:15:31,058 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime
+2025-05-21 14:16:38,829 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:16:38,837 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime
+2025-05-21 14:17:46,874 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:17:46,883 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime
+2025-05-21 14:18:54,043 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:18:54,052 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime
+2025-05-21 14:20:01,669 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:20:01,675 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime
+2025-05-21 14:21:09,497 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:21:09,506 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime
+2025-05-21 14:22:17,005 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:22:17,013 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime
+2025-05-21 14:23:24,870 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:23:24,879 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime
+2025-05-21 14:24:32,409 - data_collector.historical_data - INFO - Khởi tạo HistoricalDataCollector với 5 symbols và 3 timeframes
+2025-05-21 14:24:32,413 - data_collector.historical_data - INFO - Thu thập dữ liệu realtime

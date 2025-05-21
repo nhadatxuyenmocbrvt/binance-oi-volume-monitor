@@ -1,0 +1,59 @@
+name: Update OI & Volume Data
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Chạy mỗi 6 giờ
+  workflow_dispatch:  # Cho phép chạy thủ công
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Create .env file
+        run: |
+          echo "BINANCE_API_KEY=${{ secrets.BINANCE_API_KEY }}" > .env
+          echo "BINANCE_API_SECRET=${{ secrets.BINANCE_API_SECRET }}" >> .env
+          echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" >> .env
+          echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
+      
+      - name: Collect historical data
+        run: python main.py --collect
+      
+      - name: Update realtime data
+        run: python main.py --update
+      
+      - name: Detect anomalies
+        run: python main.py --detect
+      
+      - name: Generate reports
+        run: python main.py --report
+      
+      - name: Push changes to GitHub Pages
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          
+          git add data/
+          git add web/
+          
+          # Kiểm tra xem có thay đổi để commit không
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update data: $(date)"
+            git push
+          fi
