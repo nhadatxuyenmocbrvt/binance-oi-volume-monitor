@@ -1,63 +1,26 @@
-2025-05-21 14:18:23,236 - data_analyzer.metrics - INFO - Khởi tạo MarketMetrics
-2025-05-21 14:18:23,280 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:18:23,286 - data_analyzer.metrics - INFO - Đã phát hiện 44 outliers cho cột volume
-2025-05-21 14:18:23,315 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:18:23,320 - data_analyzer.metrics - INFO - Đã phát hiện 34 outliers cho cột open_interest
-2025-05-21 14:18:23,369 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=-0.4630, Spearman=-0.4303
-2025-05-21 14:18:23,393 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:18:23,396 - data_analyzer.metrics - INFO - Đã phát hiện 40 outliers cho cột volume
-2025-05-21 14:18:23,422 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:18:23,426 - data_analyzer.metrics - INFO - Đã phát hiện 6 outliers cho cột open_interest
-2025-05-21 14:18:23,469 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.4203, Spearman=0.3816
-2025-05-21 14:18:23,494 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:18:23,497 - data_analyzer.metrics - INFO - Đã phát hiện 35 outliers cho cột volume
-2025-05-21 14:18:23,521 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:18:23,525 - data_analyzer.metrics - INFO - Đã phát hiện 28 outliers cho cột open_interest
-2025-05-21 14:18:23,571 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.7380, Spearman=0.7539
-2025-05-21 14:18:23,603 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:18:23,607 - data_analyzer.metrics - INFO - Đã phát hiện 48 outliers cho cột volume
-2025-05-21 14:18:23,631 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:18:23,634 - data_analyzer.metrics - INFO - Đã phát hiện 18 outliers cho cột open_interest
-2025-05-21 14:18:23,669 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.0889, Spearman=0.2365
-2025-05-21 14:18:23,694 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:18:23,697 - data_analyzer.metrics - INFO - Đã phát hiện 38 outliers cho cột volume
-2025-05-21 14:18:23,716 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:18:23,719 - data_analyzer.metrics - INFO - Đã phát hiện 40 outliers cho cột open_interest
-2025-05-21 14:18:23,756 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.7785, Spearman=0.7908
-2025-05-21 14:23:47,492 - data_analyzer.metrics - INFO - Khởi tạo MarketMetrics
-2025-05-21 14:23:47,530 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:23:47,535 - data_analyzer.metrics - INFO - Đã phát hiện 44 outliers cho cột volume
-2025-05-21 14:23:47,563 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:23:47,567 - data_analyzer.metrics - INFO - Đã phát hiện 34 outliers cho cột open_interest
-2025-05-21 14:23:47,614 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=-0.4630, Spearman=-0.4303
-2025-05-21 14:23:47,638 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:23:47,642 - data_analyzer.metrics - INFO - Đã phát hiện 40 outliers cho cột volume
-2025-05-21 14:23:47,667 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:23:47,670 - data_analyzer.metrics - INFO - Đã phát hiện 8 outliers cho cột open_interest
-2025-05-21 14:23:47,712 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.4203, Spearman=0.3816
-2025-05-21 14:23:47,737 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:23:47,740 - data_analyzer.metrics - INFO - Đã phát hiện 35 outliers cho cột volume
-2025-05-21 14:23:47,765 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:23:47,769 - data_analyzer.metrics - INFO - Đã phát hiện 28 outliers cho cột open_interest
-2025-05-21 14:23:47,813 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.7380, Spearman=0.7539
-2025-05-21 14:23:47,846 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:23:47,850 - data_analyzer.metrics - INFO - Đã phát hiện 48 outliers cho cột volume
-2025-05-21 14:23:47,877 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:23:47,880 - data_analyzer.metrics - INFO - Đã phát hiện 18 outliers cho cột open_interest
-2025-05-21 14:23:47,920 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.0889, Spearman=0.2365
-2025-05-21 14:23:47,940 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
-2025-05-21 14:23:47,944 - data_analyzer.metrics - INFO - Đã phát hiện 38 outliers cho cột volume
-2025-05-21 14:23:47,963 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
-2025-05-21 14:23:47,967 - data_analyzer.metrics - INFO - Đã phát hiện 40 outliers cho cột open_interest
-2025-05-21 14:23:48,018 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.7785, Spearman=0.7908
-2025-05-21 20:43:36,986 - data_analyzer.metrics - INFO - Khởi tạo MarketMetrics
-2025-05-21 20:43:37,010 - data_analyzer.metrics - INFO - Đã tính toán sentiment: Neutral (0.00)
-2025-05-21 20:43:37,021 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=-0.5585, Spearman=-0.5432
-2025-05-21 20:43:37,041 - data_analyzer.metrics - INFO - Đã tính toán sentiment: Neutral (0.00)
-2025-05-21 20:43:37,050 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.3430, Spearman=0.2637
-2025-05-21 20:43:37,090 - data_analyzer.metrics - INFO - Đã tính toán sentiment: Neutral (0.00)
-2025-05-21 20:43:37,099 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.7667, Spearman=0.7237
-2025-05-21 20:43:37,122 - data_analyzer.metrics - INFO - Đã tính toán sentiment: Neutral (0.00)
-2025-05-21 20:43:37,132 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.0384, Spearman=0.2718
-2025-05-21 20:43:37,152 - data_analyzer.metrics - INFO - Đã tính toán sentiment: Neutral (0.00)
-2025-05-21 20:43:37,162 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.7165, Spearman=0.7571
+2025-05-21 20:57:23,025 - data_analyzer.metrics - INFO - Khởi tạo MarketMetrics
+2025-05-21 20:57:23,065 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
+2025-05-21 20:57:23,069 - data_analyzer.metrics - INFO - Đã phát hiện 44 outliers cho cột volume
+2025-05-21 20:57:23,096 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
+2025-05-21 20:57:23,100 - data_analyzer.metrics - INFO - Đã phát hiện 34 outliers cho cột open_interest
+2025-05-21 20:57:23,146 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=-0.4521, Spearman=-0.4167
+2025-05-21 20:57:23,170 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
+2025-05-21 20:57:23,174 - data_analyzer.metrics - INFO - Đã phát hiện 40 outliers cho cột volume
+2025-05-21 20:57:23,198 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
+2025-05-21 20:57:23,202 - data_analyzer.metrics - INFO - Đã phát hiện 8 outliers cho cột open_interest
+2025-05-21 20:57:23,245 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.4094, Spearman=0.3725
+2025-05-21 20:57:23,269 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
+2025-05-21 20:57:23,273 - data_analyzer.metrics - INFO - Đã phát hiện 35 outliers cho cột volume
+2025-05-21 20:57:23,297 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
+2025-05-21 20:57:23,301 - data_analyzer.metrics - INFO - Đã phát hiện 28 outliers cho cột open_interest
+2025-05-21 20:57:23,347 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.7384, Spearman=0.7544
+2025-05-21 20:57:23,380 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
+2025-05-21 20:57:23,384 - data_analyzer.metrics - INFO - Đã phát hiện 50 outliers cho cột volume
+2025-05-21 20:57:23,410 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
+2025-05-21 20:57:23,414 - data_analyzer.metrics - INFO - Đã phát hiện 18 outliers cho cột open_interest
+2025-05-21 20:57:23,458 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.0791, Spearman=0.2293
+2025-05-21 20:57:23,483 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Volume
+2025-05-21 20:57:23,486 - data_analyzer.metrics - INFO - Đã phát hiện 38 outliers cho cột volume
+2025-05-21 20:57:23,511 - data_analyzer.metrics - INFO - Đã tính toán metrics cho Open Interest
+2025-05-21 20:57:23,515 - data_analyzer.metrics - INFO - Đã phát hiện 40 outliers cho cột open_interest
+2025-05-21 20:57:23,562 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.7791, Spearman=0.7919
