@@ -3,154 +3,807 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Interest & Volume Monitor - Binance</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Binance OI & Volume Monitor - Advanced Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css">
+    <style>
+        :root {
+            --primary-color: #f7931e;
+            --success-color: #16c784;
+            --danger-color: #ea3943;
+            --warning-color: #f0b90b;
+            --dark-bg: #1e1e1e;
+            --card-bg: #2d2d2d;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), #ffb74d) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .main-tabs {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+            background-color: #f8f9fa;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            color: #6c757d;
+            font-weight: 500;
+            padding: 15px 25px;
+            margin: 0;
+            border-radius: 0;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: white;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .tab-content {
+            padding: 0;
+        }
+
+        .coin-list-table {
+            margin: 0;
+        }
+
+        .coin-list-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            border-top: none;
+            padding: 15px 10px;
+            font-size: 0.9rem;
+        }
+
+        .coin-list-table td {
+            padding: 12px 10px;
+            vertical-align: middle;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .coin-symbol {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .price-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .change-positive {
+            color: var(--success-color);
+        }
+
+        .change-negative {
+            color: var(--danger-color);
+        }
+
+        .change-neutral {
+            color: #6c757d;
+        }
+
+        .sentiment-badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+        }
+
+        .sentiment-bullish {
+            background-color: var(--success-color);
+        }
+
+        .sentiment-bearish {
+            background-color: var(--danger-color);
+        }
+
+        .sentiment-neutral {
+            background-color: #6c757d;
+        }
+
+        .last-update {
+            background-color: #e9ecef;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+
+        .time-filter {
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .btn-time-filter {
+            margin-right: 10px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #dee2e6;
+            background: white;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .btn-time-filter.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .stats-cards {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .anomalies-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .anomalies-header {
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            font-weight: 600;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        @media (max-width: 768px) {
+            .coin-list-table th,
+            .coin-list-table td {
+                padding: 8px 5px;
+                font-size: 0.85rem;
+            }
+            
+            .nav-tabs .nav-link {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Open Interest & Volume Monitor</a>
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-graph-up-arrow"></i>
+                Binance OI & Volume Monitor
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#dashboard">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#anomalies">Anomalies</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#charts">Charts</a>
+                        <button id="refreshBtn" class="btn btn-outline-light btn-sm">
+                            <i class="bi bi-arrow-clockwise"></i> Refresh
+                        </button>
                     </li>
                 </ul>
-                <div class="d-flex">
-                    <select id="symbolSelector" class="form-select form-select-sm me-2"></select>
-                    <button id="refreshBtn" class="btn btn-sm btn-outline-light">
-                        <i class="bi bi-arrow-clockwise"></i> Refresh
-                    </button>
-                </div>
             </div>
         </div>
     </nav>
 
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Dashboard</h5>
-                        <span id="lastUpdate" class="text-muted small"></span>
-                    </div>
-                    <div class="card-body">
-                        <div class="row" id="dashboardCards">
-                            <!-- Dashboard cards will be inserted here by JavaScript -->
-                            <div class="col-12 text-center">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Last Update Info -->
+        <div class="last-update">
+            <i class="bi bi-clock"></i>
+            <span id="lastUpdateTime">Loading...</span>
         </div>
 
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0">Anomalies</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Symbol</th>
-                                        <th>Time</th>
-                                        <th>Type</th>
-                                        <th>Message</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="anomaliesTable">
-                                    <!-- Anomalies will be inserted here by JavaScript -->
-                                </tbody>
-                            </table>
+        <!-- Main Tabs -->
+        <div class="main-tabs">
+            <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="realtime-tab" data-bs-toggle="tab" data-bs-target="#realtime" type="button" role="tab">
+                        <i class="bi bi-activity"></i> Realtime Tracking (Hourly)
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="historical-tab" data-bs-toggle="tab" data-bs-target="#historical" type="button" role="tab">
+                        <i class="bi bi-calendar3"></i> Historical Data (Daily)
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="anomalies-tab" data-bs-toggle="tab" data-bs-target="#anomalies" type="button" role="tab">
+                        <i class="bi bi-exclamation-triangle"></i> Anomalies
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="mainTabContent">
+                <!-- Realtime Tab -->
+                <div class="tab-pane fade show active" id="realtime" role="tabpanel">
+                    <!-- Time Filter -->
+                    <div class="time-filter">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <div>
+                                <span class="me-3"><strong>Timeframe:</strong></span>
+                                <button class="btn-time-filter active" data-timeframe="1h">1 Hour</button>
+                                <button class="btn-time-filter" data-timeframe="4h">4 Hours</button>
+                                <button class="btn-time-filter" data-timeframe="1d">1 Day</button>
+                            </div>
+                            <small class="text-muted">Updates every hour</small>
                         </div>
+                    </div>
+
+                    <!-- Stats Summary -->
+                    <div class="stats-cards">
+                        <div class="row">
+                            <div class="col-md-3 col-6">
+                                <div class="stat-card">
+                                    <div class="stat-number" id="totalSymbols">-</div>
+                                    <div class="stat-label">Total Symbols</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="stat-card">
+                                    <div class="stat-number text-success" id="bullishCount">-</div>
+                                    <div class="stat-label">Bullish</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="stat-card">
+                                    <div class="stat-number text-danger" id="bearishCount">-</div>
+                                    <div class="stat-label">Bearish</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="stat-card">
+                                    <div class="stat-number text-warning" id="neutralCount">-</div>
+                                    <div class="stat-label">Neutral</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Realtime Coin List -->
+                    <div class="table-responsive">
+                        <table class="table table-hover coin-list-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Price Change</th>
+                                    <th>Volume Change</th>
+                                    <th>OI Change</th>
+                                    <th>Sentiment</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="realtimeTableBody">
+                                <tr>
+                                    <td colspan="6" class="text-center">
+                                        <div class="loading-spinner">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="row mt-4 mb-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Charts</h5>
-                        <div>
-                            <select id="timeframeSelector" class="form-select form-select-sm">
-                                <option value="1d">1 day</option>
-                                <option value="4h">4 hours</option>
-                                <option value="1h">1 hour</option>
-                            </select>
+                <!-- Historical Tab -->
+                <div class="tab-pane fade" id="historical" role="tabpanel">
+                    <!-- Time Filter -->
+                    <div class="time-filter">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <div>
+                                <span class="me-3"><strong>Period:</strong></span>
+                                <button class="btn-time-filter active" data-period="7d">7 Days</button>
+                                <button class="btn-time-filter" data-period="30d">30 Days</button>
+                                <button class="btn-time-filter" data-period="90d">90 Days</button>
+                            </div>
+                            <small class="text-muted">Historical daily data</small>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <ul class="nav nav-tabs" id="chartTabs" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="price-oi-tab" data-bs-toggle="tab" data-bs-target="#price-oi" type="button" role="tab">Price & OI</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="volume-tab" data-bs-toggle="tab" data-bs-target="#volume" type="button" role="tab">Volume</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="oi-tab" data-bs-toggle="tab" data-bs-target="#oi" type="button" role="tab">Open Interest</button>
-                            </li>
-                        </ul>
-                        <div class="tab-content mt-3" id="chartTabContent">
-                            <div class="tab-pane fade show active" id="price-oi" role="tabpanel">
-                                <div class="chart-container">
-                                    <canvas id="priceOiChart"></canvas>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="volume" role="tabpanel">
-                                <div class="chart-container">
-                                    <canvas id="volumeChart"></canvas>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="oi" role="tabpanel">
-                                <div class="chart-container">
-                                    <canvas id="oiChart"></canvas>
-                                </div>
-                            </div>
+
+                    <!-- Historical Coin List -->
+                    <div class="table-responsive">
+                        <table class="table table-hover coin-list-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>7D Price</th>
+                                    <th>7D Volume</th>
+                                    <th>7D OI</th>
+                                    <th>30D Price</th>
+                                    <th>30D OI</th>
+                                    <th>Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historicalTableBody">
+                                <tr>
+                                    <td colspan="7" class="text-center">
+                                        <div class="loading-spinner">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Historical Chart -->
+                    <div class="chart-container">
+                        <canvas id="historicalChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Anomalies Tab -->
+                <div class="tab-pane fade" id="anomalies" role="tabpanel">
+                    <div class="time-filter">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <h6 class="mb-0">Recent Anomalies</h6>
+                            <small class="text-muted">Updated every 15 minutes</small>
                         </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover coin-list-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Symbol</th>
+                                    <th>Type</th>
+                                    <th>Message</th>
+                                    <th>Severity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="anomaliesTableBody">
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <div class="loading-spinner">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-dark text-light py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h6>Open Interest & Volume Monitor</h6>
-                    <p class="small">Theo dõi Open Interest và Volume từ Binance</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="small">Cập nhật tự động mỗi 6 giờ thông qua GitHub Actions</p>
-                    <p class="small">Data source: Binance API</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-    <script src="js/main.js"></script>
+    <script>
+        class BinanceMonitor {
+            constructor() {
+                this.currentTimeframe = '1h';
+                this.currentPeriod = '7d';
+                this.charts = {};
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.loadData();
+                this.setupAutoRefresh();
+            }
+
+            bindEvents() {
+                // Refresh button
+                document.getElementById('refreshBtn').addEventListener('click', () => {
+                    this.loadData();
+                });
+
+                // Time filter buttons
+                document.querySelectorAll('.btn-time-filter').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const timeframe = e.target.dataset.timeframe;
+                        const period = e.target.dataset.period;
+                        
+                        if (timeframe) {
+                            this.currentTimeframe = timeframe;
+                            this.updateActiveFilter(e.target);
+                            this.loadRealtimeData();
+                        }
+                        
+                        if (period) {
+                            this.currentPeriod = period;
+                            this.updateActiveFilter(e.target);
+                            this.loadHistoricalData();
+                        }
+                    });
+                });
+
+                // Tab change events
+                document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+                    tab.addEventListener('shown.bs.tab', (e) => {
+                        const target = e.target.getAttribute('data-bs-target');
+                        if (target === '#historical') {
+                            this.loadHistoricalData();
+                        } else if (target === '#anomalies') {
+                            this.loadAnomaliesData();
+                        }
+                    });
+                });
+            }
+
+            updateActiveFilter(activeBtn) {
+                activeBtn.parentNode.querySelectorAll('.btn-time-filter').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                activeBtn.classList.add('active');
+            }
+
+            async loadData() {
+                try {
+                    this.showLoading();
+                    await Promise.all([
+                        this.loadRealtimeData(),
+                        this.loadAnomaliesData()
+                    ]);
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    this.showError('Failed to load data');
+                }
+            }
+
+            async loadRealtimeData() {
+                try {
+                    const response = await fetch('assets/data/daily_summary.json');
+                    const data = await response.json();
+                    
+                    this.updateLastUpdateTime(data.timestamp);
+                    this.updateRealtimeTable(data.symbols);
+                    this.updateStats(data.symbols);
+                } catch (error) {
+                    console.error('Error loading realtime data:', error);
+                }
+            }
+
+            async loadHistoricalData() {
+                try {
+                    // Load historical data for each symbol
+                    const symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
+                    const historicalData = {};
+                    
+                    for (const symbol of symbols) {
+                        try {
+                            const response = await fetch(`assets/data/${symbol}.json`);
+                            const data = await response.json();
+                            historicalData[symbol] = data;
+                        } catch (error) {
+                            console.error(`Error loading ${symbol} data:`, error);
+                        }
+                    }
+                    
+                    this.updateHistoricalTable(historicalData);
+                    this.updateHistoricalChart(historicalData);
+                } catch (error) {
+                    console.error('Error loading historical data:', error);
+                }
+            }
+
+            async loadAnomaliesData() {
+                try {
+                    const response = await fetch('assets/data/daily_summary.json');
+                    const data = await response.json();
+                    
+                    this.updateAnomaliesTable(data.anomalies || []);
+                } catch (error) {
+                    console.error('Error loading anomalies data:', error);
+                }
+            }
+
+            updateLastUpdateTime(timestamp) {
+                document.getElementById('lastUpdateTime').textContent = `Last updated: ${timestamp}`;
+            }
+
+            updateRealtimeTable(symbols) {
+                const tbody = document.getElementById('realtimeTableBody');
+                tbody.innerHTML = '';
+
+                Object.entries(symbols).forEach(([symbol, data]) => {
+                    const row = this.createRealtimeRow(symbol, data);
+                    tbody.appendChild(row);
+                });
+            }
+
+            createRealtimeRow(symbol, data) {
+                const row = document.createElement('tr');
+                
+                const priceClass = this.getChangeClass(data.price_change);
+                const volumeClass = this.getChangeClass(data.volume_change);
+                const oiClass = this.getChangeClass(data.oi_change);
+                const sentimentClass = this.getSentimentClass(data.sentiment);
+
+                row.innerHTML = `
+                    <td>
+                        <span class="coin-symbol">${symbol}</span>
+                    </td>
+                    <td class="${priceClass}">
+                        <strong>${this.formatPercent(data.price_change)}</strong>
+                        <i class="bi bi-${data.price_change >= 0 ? 'arrow-up' : 'arrow-down'}"></i>
+                    </td>
+                    <td class="${volumeClass}">
+                        <strong>${this.formatPercent(data.volume_change)}</strong>
+                        <i class="bi bi-${data.volume_change >= 0 ? 'arrow-up' : 'arrow-down'}"></i>
+                    </td>
+                    <td class="${oiClass}">
+                        <strong>${this.formatPercent(data.oi_change)}</strong>
+                        <i class="bi bi-${data.oi_change >= 0 ? 'arrow-up' : 'arrow-down'}"></i>
+                    </td>
+                    <td>
+                        <span class="badge sentiment-badge ${sentimentClass}">${data.sentiment}</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="monitor.showDetails('${symbol}')">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </td>
+                `;
+
+                return row;
+            }
+
+            updateHistoricalTable(historicalData) {
+                const tbody = document.getElementById('historicalTableBody');
+                tbody.innerHTML = '';
+
+                Object.entries(historicalData).forEach(([symbol, data]) => {
+                    const row = this.createHistoricalRow(symbol, data);
+                    tbody.appendChild(row);
+                });
+            }
+
+            createHistoricalRow(symbol, data) {
+                const row = document.createElement('tr');
+                
+                // Calculate historical changes (mock data for now)
+                const mockData = {
+                    price7d: (Math.random() - 0.5) * 20,
+                    volume7d: (Math.random() - 0.5) * 40,
+                    oi7d: (Math.random() - 0.5) * 15,
+                    price30d: (Math.random() - 0.5) * 30,
+                    oi30d: (Math.random() - 0.5) * 25
+                };
+
+                row.innerHTML = `
+                    <td>
+                        <span class="coin-symbol">${symbol}</span>
+                    </td>
+                    <td class="${this.getChangeClass(mockData.price7d)}">
+                        <strong>${this.formatPercent(mockData.price7d)}</strong>
+                    </td>
+                    <td class="${this.getChangeClass(mockData.volume7d)}">
+                        <strong>${this.formatPercent(mockData.volume7d)}</strong>
+                    </td>
+                    <td class="${this.getChangeClass(mockData.oi7d)}">
+                        <strong>${this.formatPercent(mockData.oi7d)}</strong>
+                    </td>
+                    <td class="${this.getChangeClass(mockData.price30d)}">
+                        <strong>${this.formatPercent(mockData.price30d)}</strong>
+                    </td>
+                    <td class="${this.getChangeClass(mockData.oi30d)}">
+                        <strong>${this.formatPercent(mockData.oi30d)}</strong>
+                    </td>
+                    <td>
+                        <span class="badge bg-${mockData.price30d > 0 ? 'success' : 'danger'}">
+                            ${mockData.price30d > 0 ? 'Uptrend' : 'Downtrend'}
+                        </span>
+                    </td>
+                `;
+
+                return row;
+            }
+
+            updateAnomaliesTable(anomalies) {
+                const tbody = document.getElementById('anomaliesTableBody');
+                tbody.innerHTML = '';
+
+                if (anomalies.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No anomalies detected</td></tr>';
+                    return;
+                }
+
+                anomalies.forEach(anomaly => {
+                    const row = this.createAnomalyRow(anomaly);
+                    tbody.appendChild(row);
+                });
+            }
+
+            createAnomalyRow(anomaly) {
+                const row = document.createElement('tr');
+                const severity = this.getAnomalySeverity(anomaly.message);
+                
+                row.innerHTML = `
+                    <td>${this.formatDateTime(anomaly.timestamp)}</td>
+                    <td><span class="coin-symbol">${anomaly.symbol}</span></td>
+                    <td><span class="badge bg-info">${anomaly.data_type}</span></td>
+                    <td>${anomaly.message}</td>
+                    <td><span class="badge bg-${severity.color}">${severity.text}</span></td>
+                `;
+
+                return row;
+            }
+
+            updateStats(symbols) {
+                const stats = this.calculateStats(symbols);
+                
+                document.getElementById('totalSymbols').textContent = stats.total;
+                document.getElementById('bullishCount').textContent = stats.bullish;
+                document.getElementById('bearishCount').textContent = stats.bearish;
+                document.getElementById('neutralCount').textContent = stats.neutral;
+            }
+
+            calculateStats(symbols) {
+                const stats = { total: 0, bullish: 0, bearish: 0, neutral: 0 };
+                
+                Object.values(symbols).forEach(data => {
+                    stats.total++;
+                    const sentiment = data.sentiment.toLowerCase();
+                    
+                    if (sentiment.includes('bullish')) {
+                        stats.bullish++;
+                    } else if (sentiment.includes('bearish')) {
+                        stats.bearish++;
+                    } else {
+                        stats.neutral++;
+                    }
+                });
+
+                return stats;
+            }
+
+            updateHistoricalChart(historicalData) {
+                // Implement historical chart
+                const ctx = document.getElementById('historicalChart');
+                if (this.charts.historical) {
+                    this.charts.historical.destroy();
+                }
+
+                // Mock chart data
+                const labels = Array.from({length: 30}, (_, i) => {
+                    const date = new Date();
+                    date.setDate(date.getDate() - 29 + i);
+                    return date.toLocaleDateString();
+                });
+
+                this.charts.historical = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: Object.keys(historicalData).map((symbol, index) => ({
+                            label: symbol,
+                            data: Array.from({length: 30}, () => Math.random() * 100),
+                            borderColor: this.getColorForIndex(index),
+                            tension: 0.1
+                        }))
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            getChangeClass(change) {
+                if (change > 0) return 'change-positive';
+                if (change < 0) return 'change-negative';
+                return 'change-neutral';
+            }
+
+            getSentimentClass(sentiment) {
+                const s = sentiment.toLowerCase();
+                if (s.includes('bullish')) return 'sentiment-bullish';
+                if (s.includes('bearish')) return 'sentiment-bearish';
+                return 'sentiment-neutral';
+            }
+
+            getAnomalySeverity(message) {
+                const zscore = parseFloat(message.match(/Z-score: ([\d.]+)/)?.[1] || 0);
+                if (zscore > 4) return { color: 'danger', text: 'High' };
+                if (zscore > 3) return { color: 'warning', text: 'Medium' };
+                return { color: 'info', text: 'Low' };
+            }
+
+            getColorForIndex(index) {
+                const colors = ['#f7931e', '#16c784', '#ea3943', '#f0b90b', '#8b5cf6'];
+                return colors[index % colors.length];
+            }
+
+            formatPercent(value) {
+                return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
+            }
+
+            formatDateTime(timestamp) {
+                return new Date(timestamp).toLocaleString();
+            }
+
+            showDetails(symbol) {
+                alert(`Showing details for ${symbol}`);
+                // Implement detailed view
+            }
+
+            showLoading() {
+                // Show loading states
+            }
+
+            showError(message) {
+                console.error(message);
+                // Show error message
+            }
+
+            setupAutoRefresh() {
+                // Refresh every 5 minutes
+                setInterval(() => {
+                    this.loadData();
+                }, 5 * 60 * 1000);
+            }
+        }
+
+        // Initialize the monitor
+        const monitor = new BinanceMonitor();
+    </script>
 </body>
 </html>

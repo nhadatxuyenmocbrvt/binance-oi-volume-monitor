@@ -1,179 +1,1090 @@
-2025-05-22 13:00:11,845 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
-2025-05-22 13:00:11,846 - data_storage.database - INFO - Đã tạo các bảng cần thiết
-2025-05-22 13:00:11,847 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
-2025-05-22 13:00:11,847 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
-2025-05-22 13:00:11,852 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
-2025-05-22 13:00:11,853 - data_storage.database - INFO - Đã tạo các bảng cần thiết
-2025-05-22 13:00:11,854 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
-2025-05-22 13:00:18,678 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BTCUSDT
-2025-05-22 13:00:18,683 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho ETHUSDT
-2025-05-22 13:00:18,689 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BNBUSDT
-2025-05-22 13:00:18,694 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho SOLUSDT
-2025-05-22 13:00:18,700 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho DOGEUSDT
-2025-05-22 13:00:18,705 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BTCUSDT
-2025-05-22 13:00:18,711 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho ETHUSDT
-2025-05-22 13:00:18,716 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BNBUSDT
-2025-05-22 13:00:18,722 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho SOLUSDT
-2025-05-22 13:00:18,727 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho DOGEUSDT
-2025-05-22 13:00:18,740 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BTCUSDT - 1h
-2025-05-22 13:00:18,744 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BTCUSDT
-2025-05-22 13:00:18,766 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho ETHUSDT - 1h
-2025-05-22 13:00:18,769 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho ETHUSDT
-2025-05-22 13:00:18,787 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BNBUSDT - 1h
-2025-05-22 13:00:18,791 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BNBUSDT
-2025-05-22 13:00:18,803 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho SOLUSDT - 1h
-2025-05-22 13:00:18,806 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho SOLUSDT
-2025-05-22 13:00:18,819 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho DOGEUSDT - 1h
-2025-05-22 13:00:18,822 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho DOGEUSDT
-2025-05-22 13:00:18,833 - data_storage.database - INFO - Đã lấy 10 mẫu anomalies
-2025-05-22 13:00:18,842 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
-2025-05-22 13:00:18,851 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 4h
-2025-05-22 13:00:18,859 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
-2025-05-22 13:00:18,866 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
-2025-05-22 13:00:18,894 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
-2025-05-22 13:00:18,903 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 4h
-2025-05-22 13:00:18,910 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
-2025-05-22 13:00:18,916 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
-2025-05-22 13:00:18,940 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
-2025-05-22 13:00:18,948 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 4h
-2025-05-22 13:00:18,954 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
-2025-05-22 13:00:18,960 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
-2025-05-22 13:00:18,982 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
-2025-05-22 13:00:18,989 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 4h
-2025-05-22 13:00:18,997 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
-2025-05-22 13:00:19,002 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
-2025-05-22 13:00:19,026 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
-2025-05-22 13:00:19,033 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 4h
-2025-05-22 13:00:19,050 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
-2025-05-22 13:00:19,058 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
-2025-05-22 13:00:19,082 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
-2025-05-22 13:00:19,085 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
-2025-05-22 13:00:20,383 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
-2025-05-22 13:00:20,385 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
-2025-05-22 13:00:21,651 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
-2025-05-22 13:00:21,654 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
-2025-05-22 13:00:22,881 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
-2025-05-22 13:00:22,883 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
-2025-05-22 13:00:24,127 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
-2025-05-22 13:00:24,129 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
-2025-05-22 13:00:26,017 - data_storage.database - INFO - Đã xuất dữ liệu sang định dạng JSON trong thư mục ./data/json
-2025-05-22 13:00:31,296 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
-2025-05-22 13:07:38,883 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
-2025-05-22 13:07:38,885 - data_storage.database - INFO - Đã tạo các bảng cần thiết
-2025-05-22 13:07:38,885 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
-2025-05-22 13:07:38,886 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
-2025-05-22 13:07:38,889 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
-2025-05-22 13:07:38,890 - data_storage.database - INFO - Đã tạo các bảng cần thiết
-2025-05-22 13:07:38,891 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
-2025-05-22 13:07:38,899 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
-2025-05-22 13:07:38,910 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
-2025-05-22 13:07:38,922 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
-2025-05-22 13:07:38,925 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
-2025-05-22 13:07:38,940 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
-2025-05-22 13:07:38,944 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
-2025-05-22 13:07:38,948 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
-2025-05-22 13:07:38,954 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
-2025-05-22 13:07:38,964 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
-2025-05-22 13:07:38,976 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
-2025-05-22 13:07:38,978 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
-2025-05-22 13:07:38,989 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
-2025-05-22 13:07:38,993 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
-2025-05-22 13:07:39,004 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
-2025-05-22 13:07:39,017 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
-2025-05-22 13:07:39,019 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
-2025-05-22 13:07:39,028 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
-2025-05-22 13:07:39,032 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
-2025-05-22 13:07:39,036 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
-2025-05-22 13:07:39,039 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
-2025-05-22 13:07:39,045 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
-2025-05-22 13:07:39,055 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
-2025-05-22 13:07:39,067 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
-2025-05-22 13:07:39,070 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
-2025-05-22 13:07:39,079 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
-2025-05-22 13:07:39,083 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
-2025-05-22 13:07:39,088 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
-2025-05-22 13:07:39,098 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
-2025-05-22 13:07:39,118 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
-2025-05-22 13:07:39,121 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
-2025-05-22 13:07:39,131 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
-2025-05-22 13:07:39,136 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
-2025-05-22 13:07:39,138 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
-2025-05-22 13:19:33,410 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
-2025-05-22 13:19:33,412 - data_storage.database - INFO - Đã tạo các bảng cần thiết
-2025-05-22 13:19:33,412 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
-2025-05-22 13:19:33,413 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
-2025-05-22 13:19:33,416 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
-2025-05-22 13:19:33,417 - data_storage.database - INFO - Đã tạo các bảng cần thiết
-2025-05-22 13:19:33,417 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
-2025-05-22 13:19:33,426 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
-2025-05-22 13:19:33,439 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
-2025-05-22 13:19:33,452 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
-2025-05-22 13:19:33,455 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
-2025-05-22 13:19:33,470 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
-2025-05-22 13:19:33,473 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
-2025-05-22 13:19:33,477 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
-2025-05-22 13:19:33,484 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
-2025-05-22 13:19:33,494 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
-2025-05-22 13:19:33,506 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
-2025-05-22 13:19:33,509 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
-2025-05-22 13:19:33,519 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
-2025-05-22 13:19:33,530 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
-2025-05-22 13:19:33,542 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
-2025-05-22 13:19:33,554 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
-2025-05-22 13:19:33,556 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
-2025-05-22 13:19:33,567 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
-2025-05-22 13:19:33,571 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
-2025-05-22 13:19:33,575 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
-2025-05-22 13:19:33,579 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
-2025-05-22 13:19:33,584 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
-2025-05-22 13:19:33,595 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
-2025-05-22 13:19:33,606 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
-2025-05-22 13:19:33,609 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
-2025-05-22 13:19:33,619 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
-2025-05-22 13:19:33,622 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
-2025-05-22 13:19:33,628 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
-2025-05-22 13:19:33,637 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
-2025-05-22 13:19:33,649 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
-2025-05-22 13:19:33,652 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
-2025-05-22 13:19:33,662 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
-2025-05-22 13:19:33,666 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
-2025-05-22 13:19:33,671 - data_storage.database - INFO - Đã lấy 12 mẫu anomalies (notified=False)
-2025-05-22 13:19:56,454 - data_storage.database - INFO - Đã đánh dấu anomaly 171 là đã thông báo
-2025-05-22 13:20:20,300 - data_storage.database - INFO - Đã đánh dấu anomaly 175 là đã thông báo
-2025-05-22 13:20:44,045 - data_storage.database - INFO - Đã đánh dấu anomaly 173 là đã thông báo
-2025-05-22 13:21:07,762 - data_storage.database - INFO - Đã đánh dấu anomaly 166 là đã thông báo
-2025-05-22 13:21:31,474 - data_storage.database - INFO - Đã đánh dấu anomaly 165 là đã thông báo
-2025-05-22 13:21:55,277 - data_storage.database - INFO - Đã đánh dấu anomaly 167 là đã thông báo
-2025-05-22 13:22:18,979 - data_storage.database - INFO - Đã đánh dấu anomaly 170 là đã thông báo
-2025-05-22 13:22:42,699 - data_storage.database - INFO - Đã đánh dấu anomaly 172 là đã thông báo
-2025-05-22 13:23:06,387 - data_storage.database - INFO - Đã đánh dấu anomaly 174 là đã thông báo
-2025-05-22 13:23:49,527 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
-2025-05-22 13:24:17,076 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
-2025-05-22 13:24:17,078 - data_storage.database - INFO - Đã tạo các bảng cần thiết
-2025-05-22 13:24:17,078 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
-2025-05-22 13:24:17,079 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
-2025-05-22 13:24:17,084 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
-2025-05-22 13:24:17,085 - data_storage.database - INFO - Đã tạo các bảng cần thiết
-2025-05-22 13:24:17,086 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
-2025-05-22 13:28:24,673 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho BTCUSDT - 1h
-2025-05-22 13:28:24,689 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho BTCUSDT - 4h
-2025-05-22 13:28:24,697 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho BTCUSDT - 1d
-2025-05-22 13:28:24,742 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho ETHUSDT - 1h
-2025-05-22 13:28:24,757 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho ETHUSDT - 4h
-2025-05-22 13:28:24,765 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho ETHUSDT - 1d
-2025-05-22 13:28:24,807 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho BNBUSDT - 1h
-2025-05-22 13:28:24,821 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho BNBUSDT - 4h
-2025-05-22 13:28:24,828 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho BNBUSDT - 1d
-2025-05-22 13:28:24,863 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho SOLUSDT - 1h
-2025-05-22 13:28:24,876 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho SOLUSDT - 4h
-2025-05-22 13:28:24,884 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho SOLUSDT - 1d
-2025-05-22 13:28:24,920 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho DOGEUSDT - 1h
-2025-05-22 13:28:24,932 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho DOGEUSDT - 4h
-2025-05-22 13:28:24,939 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho DOGEUSDT - 1d
-2025-05-22 13:28:24,967 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho BTCUSDT
-2025-05-22 13:28:24,996 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho ETHUSDT
-2025-05-22 13:28:25,026 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho BNBUSDT
-2025-05-22 13:28:25,059 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho SOLUSDT
-2025-05-22 13:28:25,088 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho DOGEUSDT
-2025-05-22 13:28:25,782 - data_storage.database - INFO - Đã xuất dữ liệu sang định dạng JSON trong thư mục ./data/json
-2025-05-22 13:28:25,788 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 14:02:36,677 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 14:02:36,678 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 14:02:36,679 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 14:02:36,680 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 14:02:36,684 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 14:02:36,685 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 14:02:36,686 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 14:06:19,592 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho BTCUSDT - 1h
+2025-05-22 14:06:19,607 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho BTCUSDT - 4h
+2025-05-22 14:06:19,615 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho BTCUSDT - 1d
+2025-05-22 14:06:19,658 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho ETHUSDT - 1h
+2025-05-22 14:06:19,663 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho ETHUSDT - 4h
+2025-05-22 14:06:19,680 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho ETHUSDT - 1d
+2025-05-22 14:06:19,718 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho BNBUSDT - 1h
+2025-05-22 14:06:19,737 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho BNBUSDT - 4h
+2025-05-22 14:06:19,745 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho BNBUSDT - 1d
+2025-05-22 14:06:19,780 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho SOLUSDT - 1h
+2025-05-22 14:06:19,799 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho SOLUSDT - 4h
+2025-05-22 14:06:19,809 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho SOLUSDT - 1d
+2025-05-22 14:06:19,851 - data_storage.database - INFO - Đã lưu 168 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 14:06:19,865 - data_storage.database - INFO - Đã lưu 42 mẫu klines cho DOGEUSDT - 4h
+2025-05-22 14:06:19,873 - data_storage.database - INFO - Đã lưu 7 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 14:06:19,899 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho BTCUSDT
+2025-05-22 14:06:19,940 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho ETHUSDT
+2025-05-22 14:06:19,963 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho BNBUSDT
+2025-05-22 14:06:19,998 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho SOLUSDT
+2025-05-22 14:06:20,026 - data_storage.database - INFO - Đã lưu 168 mẫu Open Interest cho DOGEUSDT
+2025-05-22 14:06:20,626 - data_storage.database - INFO - Đã xuất dữ liệu sang định dạng JSON trong thư mục ./data/json
+2025-05-22 14:06:20,630 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 14:21:20,658 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 14:21:20,658 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 14:21:20,667 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 14:21:20,669 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 14:21:20,708 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 14:21:20,733 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 14:21:20,737 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 14:21:20,756 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 14:21:20,760 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 14:21:20,764 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 14:21:20,776 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 14:21:20,791 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 14:21:20,807 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 14:21:20,810 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 14:21:20,823 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
+2025-05-22 14:21:20,827 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 14:21:20,843 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 14:21:20,855 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 14:21:20,861 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 14:21:20,872 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 14:21:20,875 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 14:21:20,878 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 14:21:20,883 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 14:21:20,887 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 14:21:20,902 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 14:21:20,911 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 14:21:20,919 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 14:21:20,927 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
+2025-05-22 14:21:20,933 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 14:21:20,938 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 14:21:20,952 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 14:21:20,966 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 14:21:20,969 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 14:21:20,980 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 14:21:20,984 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 14:21:20,989 - data_storage.database - INFO - Đã lấy 12 mẫu anomalies (notified=False)
+2025-05-22 14:21:43,679 - data_storage.database - INFO - Đã đánh dấu anomaly 183 là đã thông báo
+2025-05-22 14:22:07,412 - data_storage.database - INFO - Đã đánh dấu anomaly 187 là đã thông báo
+2025-05-22 14:22:31,113 - data_storage.database - INFO - Đã đánh dấu anomaly 185 là đã thông báo
+2025-05-22 14:22:54,821 - data_storage.database - INFO - Đã đánh dấu anomaly 178 là đã thông báo
+2025-05-22 14:23:18,494 - data_storage.database - INFO - Đã đánh dấu anomaly 177 là đã thông báo
+2025-05-22 14:23:42,159 - data_storage.database - INFO - Đã đánh dấu anomaly 179 là đã thông báo
+2025-05-22 14:24:06,233 - data_storage.database - INFO - Đã đánh dấu anomaly 182 là đã thông báo
+2025-05-22 14:24:29,959 - data_storage.database - INFO - Đã đánh dấu anomaly 184 là đã thông báo
+2025-05-22 14:24:53,644 - data_storage.database - INFO - Đã đánh dấu anomaly 186 là đã thông báo
+2025-05-22 14:25:17,369 - data_storage.database - INFO - Đã đánh dấu anomaly 181 là đã thông báo
+2025-05-22 14:25:41,158 - data_storage.database - INFO - Đã đánh dấu anomaly 176 là đã thông báo
+2025-05-22 14:26:04,841 - data_storage.database - INFO - Đã đánh dấu anomaly 180 là đã thông báo
+2025-05-22 14:26:05,856 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 14:41:06,504 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 14:41:06,504 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 14:41:06,504 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 14:41:06,518 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 14:41:06,530 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 14:41:06,545 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 14:41:06,551 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 14:41:06,566 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 14:41:06,570 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 14:41:06,572 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 14:41:06,580 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 14:41:06,592 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 14:41:06,602 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 14:41:06,610 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 14:41:06,621 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
+2025-05-22 14:41:06,628 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 14:41:06,640 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 14:41:06,661 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 14:41:06,664 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 14:41:06,676 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 14:41:06,680 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 14:41:06,683 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 14:41:06,687 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 14:41:06,694 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 14:41:06,705 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 14:41:06,716 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 14:41:06,721 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 14:41:06,732 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
+2025-05-22 14:41:06,735 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 14:41:06,742 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 14:41:06,754 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 14:41:06,767 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 14:41:06,770 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 14:41:06,781 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 14:41:06,784 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 14:41:06,789 - data_storage.database - INFO - Đã lấy 12 mẫu anomalies (notified=False)
+2025-05-22 14:41:29,524 - data_storage.database - INFO - Đã đánh dấu anomaly 195 là đã thông báo
+2025-05-22 14:41:53,201 - data_storage.database - INFO - Đã đánh dấu anomaly 199 là đã thông báo
+2025-05-22 14:42:16,880 - data_storage.database - INFO - Đã đánh dấu anomaly 197 là đã thông báo
+2025-05-22 14:42:40,688 - data_storage.database - INFO - Đã đánh dấu anomaly 190 là đã thông báo
+2025-05-22 14:43:04,407 - data_storage.database - INFO - Đã đánh dấu anomaly 189 là đã thông báo
+2025-05-22 14:43:28,122 - data_storage.database - INFO - Đã đánh dấu anomaly 191 là đã thông báo
+2025-05-22 14:43:51,840 - data_storage.database - INFO - Đã đánh dấu anomaly 194 là đã thông báo
+2025-05-22 14:44:15,471 - data_storage.database - INFO - Đã đánh dấu anomaly 196 là đã thông báo
+2025-05-22 14:44:39,320 - data_storage.database - INFO - Đã đánh dấu anomaly 198 là đã thông báo
+2025-05-22 14:45:52,517 - data_storage.database - INFO - Đã đánh dấu anomaly 193 là đã thông báo
+2025-05-22 14:46:16,555 - data_storage.database - INFO - Đã đánh dấu anomaly 188 là đã thông báo
+2025-05-22 14:46:40,252 - data_storage.database - INFO - Đã đánh dấu anomaly 192 là đã thông báo
+2025-05-22 14:46:41,271 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 15:01:41,475 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 15:01:41,477 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 15:01:41,478 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 15:01:41,491 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:01:41,509 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:01:41,525 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:01:41,528 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:01:41,543 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 15:01:41,545 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 15:01:41,555 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:01:41,567 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:01:41,581 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:01:41,584 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:01:41,595 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
+2025-05-22 15:01:41,599 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:01:41,614 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:01:41,628 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:01:41,631 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:01:41,643 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:01:41,647 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:01:41,651 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:01:41,658 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:01:41,669 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:01:41,683 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:01:41,687 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:01:41,697 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
+2025-05-22 15:01:41,701 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 15:01:41,708 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:01:41,720 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:01:41,734 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:01:41,738 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:01:41,750 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 15:01:41,753 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 15:01:41,758 - data_storage.database - INFO - Đã lấy 10 mẫu anomalies (notified=False)
+2025-05-22 15:02:04,514 - data_storage.database - INFO - Đã đánh dấu anomaly 205 là đã thông báo
+2025-05-22 15:02:28,235 - data_storage.database - INFO - Đã đánh dấu anomaly 209 là đã thông báo
+2025-05-22 15:02:51,986 - data_storage.database - INFO - Đã đánh dấu anomaly 207 là đã thông báo
+2025-05-22 15:03:15,707 - data_storage.database - INFO - Đã đánh dấu anomaly 201 là đã thông báo
+2025-05-22 15:03:39,444 - data_storage.database - INFO - Đã đánh dấu anomaly 200 là đã thông báo
+2025-05-22 15:04:03,251 - data_storage.database - INFO - Đã đánh dấu anomaly 202 là đã thông báo
+2025-05-22 15:04:27,015 - data_storage.database - INFO - Đã đánh dấu anomaly 204 là đã thông báo
+2025-05-22 15:04:50,771 - data_storage.database - INFO - Đã đánh dấu anomaly 206 là đã thông báo
+2025-05-22 15:05:14,599 - data_storage.database - INFO - Đã đánh dấu anomaly 208 là đã thông báo
+2025-05-22 15:05:38,341 - data_storage.database - INFO - Đã đánh dấu anomaly 203 là đã thông báo
+2025-05-22 15:05:39,350 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 15:06:20,779 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 15:06:20,782 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 15:06:20,783 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 15:06:27,616 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BTCUSDT
+2025-05-22 15:06:27,621 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho ETHUSDT
+2025-05-22 15:06:27,626 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BNBUSDT
+2025-05-22 15:06:27,632 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho SOLUSDT
+2025-05-22 15:06:27,637 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho DOGEUSDT
+2025-05-22 15:06:27,642 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BTCUSDT
+2025-05-22 15:06:27,648 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho ETHUSDT
+2025-05-22 15:06:27,653 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BNBUSDT
+2025-05-22 15:06:27,659 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho SOLUSDT
+2025-05-22 15:06:27,663 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho DOGEUSDT
+2025-05-22 15:06:27,674 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:06:27,677 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:06:27,697 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:06:27,701 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:06:27,716 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:06:27,720 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:06:27,733 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:06:27,736 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:06:27,750 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:06:27,753 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:06:27,764 - data_storage.database - INFO - Đã lấy 20 mẫu anomalies (notified=None)
+2025-05-22 15:06:27,775 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 15:06:27,783 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 4h
+2025-05-22 15:06:27,791 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:06:27,798 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:06:27,824 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 15:06:27,832 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 4h
+2025-05-22 15:06:27,840 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:06:27,847 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:06:27,874 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 15:06:27,882 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 4h
+2025-05-22 15:06:27,890 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:06:27,896 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:06:27,923 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 15:06:27,931 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 4h
+2025-05-22 15:06:27,939 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:06:27,946 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:06:27,973 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 15:06:27,980 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 4h
+2025-05-22 15:06:27,988 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:06:27,995 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:06:28,025 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 15:06:28,028 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:06:29,350 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 15:06:29,352 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:06:30,539 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 15:06:30,541 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:06:31,809 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 15:06:31,812 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:06:33,010 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 15:06:33,013 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:06:34,801 - data_storage.database - INFO - Đã xuất dữ liệu sang định dạng JSON trong thư mục ./data/json
+2025-05-22 15:06:40,493 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 15:20:39,769 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 15:20:39,772 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 15:20:39,773 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 15:20:39,786 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:20:39,810 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:20:39,825 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:20:39,829 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:20:39,846 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 15:20:39,851 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 15:20:39,858 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:20:39,871 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:20:39,886 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:20:39,889 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:20:39,902 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
+2025-05-22 15:20:39,909 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:20:39,922 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:20:39,935 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:20:39,939 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:20:39,949 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:20:39,953 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:20:39,957 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:20:39,963 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:20:39,975 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:20:39,988 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:20:39,991 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:20:40,003 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
+2025-05-22 15:20:40,007 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 15:20:40,013 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:20:40,025 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:20:40,038 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:20:40,041 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:20:40,054 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 15:20:40,058 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 15:20:40,062 - data_storage.database - INFO - Đã lấy 10 mẫu anomalies (notified=False)
+2025-05-22 15:21:02,774 - data_storage.database - INFO - Đã đánh dấu anomaly 217 là đã thông báo
+2025-05-22 15:21:26,492 - data_storage.database - INFO - Đã đánh dấu anomaly 215 là đã thông báo
+2025-05-22 15:21:50,230 - data_storage.database - INFO - Đã đánh dấu anomaly 219 là đã thông báo
+2025-05-22 15:22:14,949 - data_storage.database - INFO - Đã đánh dấu anomaly 211 là đã thông báo
+2025-05-22 15:22:38,645 - data_storage.database - INFO - Đã đánh dấu anomaly 210 là đã thông báo
+2025-05-22 15:23:02,382 - data_storage.database - INFO - Đã đánh dấu anomaly 212 là đã thông báo
+2025-05-22 15:23:26,102 - data_storage.database - INFO - Đã đánh dấu anomaly 214 là đã thông báo
+2025-05-22 15:23:49,852 - data_storage.database - INFO - Đã đánh dấu anomaly 216 là đã thông báo
+2025-05-22 15:24:13,650 - data_storage.database - INFO - Đã đánh dấu anomaly 218 là đã thông báo
+2025-05-22 15:24:37,386 - data_storage.database - INFO - Đã đánh dấu anomaly 213 là đã thông báo
+2025-05-22 15:24:38,399 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 15:39:38,606 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 15:39:38,608 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 15:39:38,609 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 15:39:38,620 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:39:38,647 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:39:38,670 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:39:38,679 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:39:38,697 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 15:39:38,704 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 15:39:38,713 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:39:38,729 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:39:38,745 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:39:38,747 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:39:38,764 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
+2025-05-22 15:39:38,771 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:39:38,785 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:39:38,799 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:39:38,802 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:39:38,816 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:39:38,820 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:39:38,820 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:39:38,831 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:39:38,842 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:39:38,857 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:39:38,860 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:39:38,872 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
+2025-05-22 15:39:38,875 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 15:39:38,886 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:39:38,898 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:39:38,912 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:39:38,915 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:39:38,927 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 15:39:38,930 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 15:39:38,935 - data_storage.database - INFO - Đã lấy 10 mẫu anomalies (notified=False)
+2025-05-22 15:40:01,728 - data_storage.database - INFO - Đã đánh dấu anomaly 227 là đã thông báo
+2025-05-22 15:40:25,419 - data_storage.database - INFO - Đã đánh dấu anomaly 225 là đã thông báo
+2025-05-22 15:40:49,183 - data_storage.database - INFO - Đã đánh dấu anomaly 229 là đã thông báo
+2025-05-22 15:41:12,925 - data_storage.database - INFO - Đã đánh dấu anomaly 221 là đã thông báo
+2025-05-22 15:41:36,640 - data_storage.database - INFO - Đã đánh dấu anomaly 220 là đã thông báo
+2025-05-22 15:42:00,443 - data_storage.database - INFO - Đã đánh dấu anomaly 222 là đã thông báo
+2025-05-22 15:42:24,127 - data_storage.database - INFO - Đã đánh dấu anomaly 224 là đã thông báo
+2025-05-22 15:42:47,876 - data_storage.database - INFO - Đã đánh dấu anomaly 226 là đã thông báo
+2025-05-22 15:43:32,528 - data_storage.database - INFO - Đã đánh dấu anomaly 228 là đã thông báo
+2025-05-22 15:43:56,231 - data_storage.database - INFO - Đã đánh dấu anomaly 223 là đã thông báo
+2025-05-22 15:43:57,237 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 15:58:58,023 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 15:58:58,025 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 15:58:58,025 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 15:58:58,035 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:58:58,052 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:58:58,068 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 15:58:58,072 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 15:58:58,085 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 15:58:58,093 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 15:58:58,096 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:58:58,111 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:58:58,127 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 15:58:58,130 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 15:58:58,141 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
+2025-05-22 15:58:58,148 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:58:58,160 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:58:58,172 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 15:58:58,177 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 15:58:58,188 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:58:58,192 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:58:58,195 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 15:58:58,202 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:58:58,214 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:58:58,228 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 15:58:58,231 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 15:58:58,242 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
+2025-05-22 15:58:58,247 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 15:58:58,253 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:58:58,265 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:58:58,279 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 15:58:58,282 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 15:58:58,294 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 15:58:58,298 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 15:58:58,302 - data_storage.database - INFO - Đã lấy 10 mẫu anomalies (notified=False)
+2025-05-22 15:59:21,023 - data_storage.database - INFO - Đã đánh dấu anomaly 237 là đã thông báo
+2025-05-22 15:59:44,821 - data_storage.database - INFO - Đã đánh dấu anomaly 235 là đã thông báo
+2025-05-22 16:01:01,179 - data_storage.database - INFO - Đã đánh dấu anomaly 239 là đã thông báo
+2025-05-22 16:01:24,888 - data_storage.database - INFO - Đã đánh dấu anomaly 231 là đã thông báo
+2025-05-22 16:01:48,574 - data_storage.database - INFO - Đã đánh dấu anomaly 230 là đã thông báo
+2025-05-22 16:02:12,274 - data_storage.database - INFO - Đã đánh dấu anomaly 232 là đã thông báo
+2025-05-22 16:02:36,026 - data_storage.database - INFO - Đã đánh dấu anomaly 234 là đã thông báo
+2025-05-22 16:02:59,712 - data_storage.database - INFO - Đã đánh dấu anomaly 236 là đã thông báo
+2025-05-22 16:03:23,390 - data_storage.database - INFO - Đã đánh dấu anomaly 238 là đã thông báo
+2025-05-22 16:03:47,064 - data_storage.database - INFO - Đã đánh dấu anomaly 233 là đã thông báo
+2025-05-22 16:03:48,078 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 16:06:41,389 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 16:06:41,395 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 16:06:41,396 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 16:06:49,032 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BTCUSDT
+2025-05-22 16:06:49,037 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho ETHUSDT
+2025-05-22 16:06:49,042 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BNBUSDT
+2025-05-22 16:06:49,047 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho SOLUSDT
+2025-05-22 16:06:49,054 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho DOGEUSDT
+2025-05-22 16:06:49,060 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BTCUSDT
+2025-05-22 16:06:49,065 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho ETHUSDT
+2025-05-22 16:06:49,069 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BNBUSDT
+2025-05-22 16:06:49,076 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho SOLUSDT
+2025-05-22 16:06:49,081 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho DOGEUSDT
+2025-05-22 16:06:49,088 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BTCUSDT - 1h
+2025-05-22 16:06:49,096 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BTCUSDT
+2025-05-22 16:06:49,113 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho ETHUSDT - 1h
+2025-05-22 16:06:49,116 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho ETHUSDT
+2025-05-22 16:06:49,131 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BNBUSDT - 1h
+2025-05-22 16:06:49,135 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BNBUSDT
+2025-05-22 16:06:49,148 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho SOLUSDT - 1h
+2025-05-22 16:06:49,151 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho SOLUSDT
+2025-05-22 16:06:49,165 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 16:06:49,168 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho DOGEUSDT
+2025-05-22 16:06:49,179 - data_storage.database - INFO - Đã lấy 20 mẫu anomalies (notified=None)
+2025-05-22 16:06:49,180 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 16:06:49,197 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 4h
+2025-05-22 16:06:49,206 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 16:06:49,212 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 16:06:49,239 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 16:06:49,247 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 4h
+2025-05-22 16:06:49,256 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 16:06:49,263 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 16:06:49,290 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 16:06:49,298 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 4h
+2025-05-22 16:06:49,306 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 16:06:49,312 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 16:06:49,327 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 16:06:49,347 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 4h
+2025-05-22 16:06:49,355 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 16:06:49,362 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 16:06:49,389 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 16:06:49,394 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 4h
+2025-05-22 16:06:49,404 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 16:06:49,411 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 16:06:49,440 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 16:06:49,444 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 16:06:50,625 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 16:06:50,637 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 16:06:51,897 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 16:06:51,906 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 16:06:53,115 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 16:06:53,118 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 16:06:54,390 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 16:06:54,393 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 16:06:56,163 - data_storage.database - INFO - Đã xuất dữ liệu sang định dạng JSON trong thư mục ./data/json
+2025-05-22 16:07:01,306 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 16:18:48,498 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 16:18:48,498 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 16:18:48,498 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 16:18:48,520 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 16:18:48,542 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 16:18:48,558 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 16:18:48,561 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 16:18:48,579 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 16:18:48,583 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 16:18:48,595 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 16:18:48,610 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 16:18:48,624 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 16:18:48,628 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 16:18:48,639 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
+2025-05-22 16:18:48,644 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 16:18:48,659 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 16:18:48,674 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 16:18:48,677 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 16:18:48,689 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 16:18:48,693 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 16:18:48,700 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 16:18:48,712 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 16:18:48,726 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 16:18:48,729 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 16:18:48,741 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
+2025-05-22 16:18:48,743 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 16:18:48,743 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 16:18:48,755 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 16:18:48,767 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 16:18:48,780 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 16:18:48,783 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 16:18:48,795 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 16:18:48,798 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 16:18:48,802 - data_storage.database - INFO - Đã lấy 10 mẫu anomalies (notified=False)
+2025-05-22 16:19:11,565 - data_storage.database - INFO - Đã đánh dấu anomaly 247 là đã thông báo
+2025-05-22 16:19:35,194 - data_storage.database - INFO - Đã đánh dấu anomaly 246 là đã thông báo
+2025-05-22 16:19:58,936 - data_storage.database - INFO - Đã đánh dấu anomaly 244 là đã thông báo
+2025-05-22 16:20:22,650 - data_storage.database - INFO - Đã đánh dấu anomaly 249 là đã thông báo
+2025-05-22 16:20:46,386 - data_storage.database - INFO - Đã đánh dấu anomaly 241 là đã thông báo
+2025-05-22 16:21:10,124 - data_storage.database - INFO - Đã đánh dấu anomaly 240 là đã thông báo
+2025-05-22 16:21:33,836 - data_storage.database - INFO - Đã đánh dấu anomaly 242 là đã thông báo
+2025-05-22 16:21:57,616 - data_storage.database - INFO - Đã đánh dấu anomaly 243 là đã thông báo
+2025-05-22 16:22:22,358 - data_storage.database - INFO - Đã đánh dấu anomaly 245 là đã thông báo
+2025-05-22 16:22:46,012 - data_storage.database - INFO - Đã đánh dấu anomaly 248 là đã thông báo
+2025-05-22 16:22:47,027 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 16:37:47,835 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 16:37:47,837 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 16:37:47,837 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 16:37:47,850 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 16:37:47,861 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 16:37:47,872 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 16:37:47,875 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 16:37:47,890 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 16:37:47,894 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 16:37:47,900 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 16:37:47,911 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 16:37:47,929 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 16:37:47,932 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 16:37:47,942 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
+2025-05-22 16:37:47,948 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 16:37:47,959 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 16:37:47,972 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 16:37:47,978 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 16:37:47,991 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 16:37:47,996 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 16:37:47,998 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 16:37:47,998 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 16:37:48,014 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 16:37:48,014 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 16:37:48,048 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
+2025-05-22 16:37:48,053 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 16:37:48,056 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 16:37:48,064 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 16:37:48,076 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 16:37:48,088 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 16:37:48,091 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 16:37:48,101 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 16:37:48,104 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 16:37:48,108 - data_storage.database - INFO - Đã lấy 10 mẫu anomalies (notified=False)
+2025-05-22 16:38:10,826 - data_storage.database - INFO - Đã đánh dấu anomaly 257 là đã thông báo
+2025-05-22 16:38:34,481 - data_storage.database - INFO - Đã đánh dấu anomaly 256 là đã thông báo
+2025-05-22 16:38:58,208 - data_storage.database - INFO - Đã đánh dấu anomaly 254 là đã thông báo
+2025-05-22 16:39:21,881 - data_storage.database - INFO - Đã đánh dấu anomaly 259 là đã thông báo
+2025-05-22 16:39:45,629 - data_storage.database - INFO - Đã đánh dấu anomaly 251 là đã thông báo
+2025-05-22 16:40:09,254 - data_storage.database - INFO - Đã đánh dấu anomaly 250 là đã thông báo
+2025-05-22 16:40:33,008 - data_storage.database - INFO - Đã đánh dấu anomaly 252 là đã thông báo
+2025-05-22 16:40:56,804 - data_storage.database - INFO - Đã đánh dấu anomaly 253 là đã thông báo
+2025-05-22 16:41:20,525 - data_storage.database - INFO - Đã đánh dấu anomaly 255 là đã thông báo
+2025-05-22 16:41:44,283 - data_storage.database - INFO - Đã đánh dấu anomaly 258 là đã thông báo
+2025-05-22 16:41:45,296 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 16:56:45,950 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 16:56:45,950 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 16:56:45,950 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 16:56:45,974 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 16:56:45,994 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 16:56:46,013 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 16:56:46,017 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 16:56:46,034 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 16:56:46,038 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 16:56:46,046 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 16:56:46,059 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 16:56:46,074 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 16:56:46,077 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 16:56:46,088 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - volume
+2025-05-22 16:56:46,092 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 16:56:46,108 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 16:56:46,121 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 16:56:46,125 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 16:56:46,136 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 16:56:46,140 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 16:56:46,147 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 16:56:46,156 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 16:56:46,172 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 16:56:46,172 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 16:56:46,186 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - volume
+2025-05-22 16:56:46,189 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 16:56:46,189 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 16:56:46,197 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 16:56:46,197 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 16:56:46,214 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 16:56:46,214 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 16:56:46,239 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 16:56:46,243 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 16:56:46,247 - data_storage.database - INFO - Đã lấy 10 mẫu anomalies (notified=False)
+2025-05-22 16:57:09,028 - data_storage.database - INFO - Đã đánh dấu anomaly 267 là đã thông báo
+2025-05-22 16:57:32,801 - data_storage.database - INFO - Đã đánh dấu anomaly 266 là đã thông báo
+2025-05-22 16:57:56,464 - data_storage.database - INFO - Đã đánh dấu anomaly 264 là đã thông báo
+2025-05-22 16:58:20,154 - data_storage.database - INFO - Đã đánh dấu anomaly 269 là đã thông báo
+2025-05-22 16:58:43,897 - data_storage.database - INFO - Đã đánh dấu anomaly 261 là đã thông báo
+2025-05-22 16:59:07,792 - data_storage.database - INFO - Đã đánh dấu anomaly 260 là đã thông báo
+2025-05-22 17:00:53,543 - data_storage.database - INFO - Đã đánh dấu anomaly 263 là đã thông báo
+2025-05-22 17:01:17,310 - data_storage.database - INFO - Đã đánh dấu anomaly 265 là đã thông báo
+2025-05-22 17:01:41,142 - data_storage.database - INFO - Đã đánh dấu anomaly 268 là đã thông báo
+2025-05-22 17:01:42,155 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 17:07:01,326 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 17:07:01,326 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 17:07:01,326 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 17:07:09,379 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BTCUSDT
+2025-05-22 17:07:09,385 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho ETHUSDT
+2025-05-22 17:07:09,390 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BNBUSDT
+2025-05-22 17:07:09,395 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho SOLUSDT
+2025-05-22 17:07:09,400 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho DOGEUSDT
+2025-05-22 17:07:09,404 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BTCUSDT
+2025-05-22 17:07:09,409 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho ETHUSDT
+2025-05-22 17:07:09,412 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BNBUSDT
+2025-05-22 17:07:09,420 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho SOLUSDT
+2025-05-22 17:07:09,425 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho DOGEUSDT
+2025-05-22 17:07:09,440 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BTCUSDT - 1h
+2025-05-22 17:07:09,444 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BTCUSDT
+2025-05-22 17:07:09,462 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho ETHUSDT - 1h
+2025-05-22 17:07:09,466 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho ETHUSDT
+2025-05-22 17:07:09,480 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BNBUSDT - 1h
+2025-05-22 17:07:09,485 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BNBUSDT
+2025-05-22 17:07:09,497 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho SOLUSDT - 1h
+2025-05-22 17:07:09,500 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho SOLUSDT
+2025-05-22 17:07:09,513 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 17:07:09,515 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho DOGEUSDT
+2025-05-22 17:07:09,526 - data_storage.database - INFO - Đã lấy 20 mẫu anomalies (notified=None)
+2025-05-22 17:07:09,535 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 17:07:09,543 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 4h
+2025-05-22 17:07:09,550 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 17:07:09,556 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 17:07:09,576 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 17:07:09,583 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 4h
+2025-05-22 17:07:09,597 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 17:07:09,605 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 17:07:09,625 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 17:07:09,631 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 4h
+2025-05-22 17:07:09,638 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 17:07:09,643 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 17:07:09,664 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 17:07:09,670 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 4h
+2025-05-22 17:07:09,674 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 17:07:09,683 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 17:07:09,704 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 17:07:09,711 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 4h
+2025-05-22 17:07:09,717 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 17:07:09,722 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 17:07:09,745 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 17:07:09,748 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 17:07:11,144 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 17:07:11,147 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 17:07:12,358 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 17:07:12,361 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 17:07:13,509 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 17:07:13,511 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 17:07:14,773 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 17:07:14,781 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 17:07:16,644 - data_storage.database - INFO - Đã xuất dữ liệu sang định dạng JSON trong thư mục ./data/json
+2025-05-22 17:07:21,779 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 17:16:42,284 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 17:16:42,286 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 17:16:42,287 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 17:16:42,303 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 17:16:42,322 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 17:16:42,337 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 17:16:42,341 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 17:16:42,357 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 17:16:42,364 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 17:16:42,378 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 17:16:42,390 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 17:16:42,394 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 17:16:42,410 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 17:16:42,420 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 17:16:42,428 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 17:16:42,439 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 17:16:42,451 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 17:16:42,455 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 17:16:42,469 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 17:16:42,479 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 17:16:42,487 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 17:16:42,498 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 17:16:42,502 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 17:16:42,507 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 17:16:42,514 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 17:16:42,526 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 17:16:42,537 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 17:16:42,542 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 17:16:42,554 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 17:16:42,558 - data_storage.database - INFO - Đã lấy 7 mẫu anomalies (notified=False)
+2025-05-22 17:17:06,207 - data_storage.database - INFO - Đã đánh dấu anomaly 274 là đã thông báo
+2025-05-22 17:17:29,886 - data_storage.database - INFO - Đã đánh dấu anomaly 273 là đã thông báo
+2025-05-22 17:17:53,543 - data_storage.database - INFO - Đã đánh dấu anomaly 272 là đã thông báo
+2025-05-22 17:18:17,249 - data_storage.database - INFO - Đã đánh dấu anomaly 271 là đã thông báo
+2025-05-22 17:18:40,983 - data_storage.database - INFO - Đã đánh dấu anomaly 275 là đã thông báo
+2025-05-22 17:19:04,733 - data_storage.database - INFO - Đã đánh dấu anomaly 270 là đã thông báo
+2025-05-22 17:19:28,419 - data_storage.database - INFO - Đã đánh dấu anomaly 262 là đã thông báo
+2025-05-22 17:19:29,436 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 17:34:30,452 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 17:34:30,452 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 17:34:30,452 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 17:34:30,474 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 17:34:30,496 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 17:34:30,515 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 17:34:30,519 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 17:34:30,539 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 17:34:30,546 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 17:34:30,559 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 17:34:30,574 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 17:34:30,577 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 17:34:30,592 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 17:34:30,605 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 17:34:30,618 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 17:34:30,618 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 17:34:30,634 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 17:34:30,641 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 17:34:30,653 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 17:34:30,665 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 17:34:30,670 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 17:34:30,682 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 17:34:30,686 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 17:34:30,690 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 17:34:30,696 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 17:34:30,708 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 17:34:30,724 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 17:34:30,727 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 17:34:30,739 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 17:34:30,743 - data_storage.database - INFO - Đã lấy 6 mẫu anomalies (notified=False)
+2025-05-22 17:34:53,500 - data_storage.database - INFO - Đã đánh dấu anomaly 280 là đã thông báo
+2025-05-22 17:35:18,375 - data_storage.database - INFO - Đã đánh dấu anomaly 279 là đã thông báo
+2025-05-22 17:35:42,075 - data_storage.database - INFO - Đã đánh dấu anomaly 278 là đã thông báo
+2025-05-22 17:36:05,765 - data_storage.database - INFO - Đã đánh dấu anomaly 277 là đã thông báo
+2025-05-22 17:36:29,535 - data_storage.database - INFO - Đã đánh dấu anomaly 281 là đã thông báo
+2025-05-22 17:36:53,168 - data_storage.database - INFO - Đã đánh dấu anomaly 276 là đã thông báo
+2025-05-22 17:36:54,186 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 17:51:54,452 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 17:51:54,452 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 17:51:54,452 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 17:51:54,474 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 17:51:54,488 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 17:51:54,504 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 17:51:54,508 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 17:51:54,525 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 17:51:54,532 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 17:51:54,545 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 17:51:54,559 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 17:51:54,562 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 17:51:54,577 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 17:51:54,589 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 17:51:54,603 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 17:51:54,606 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 17:51:54,618 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 17:51:54,625 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 17:51:54,636 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 17:51:54,650 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 17:51:54,653 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 17:51:54,664 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 17:51:54,668 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 17:51:54,670 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 17:51:54,678 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 17:51:54,687 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 17:51:54,699 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 17:51:54,701 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 17:51:54,711 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 17:51:54,715 - data_storage.database - INFO - Đã lấy 6 mẫu anomalies (notified=False)
+2025-05-22 17:52:17,454 - data_storage.database - INFO - Đã đánh dấu anomaly 286 là đã thông báo
+2025-05-22 17:52:41,171 - data_storage.database - INFO - Đã đánh dấu anomaly 285 là đã thông báo
+2025-05-22 17:53:06,581 - data_storage.database - INFO - Đã đánh dấu anomaly 284 là đã thông báo
+2025-05-22 17:54:15,008 - data_storage.database - INFO - Đã đánh dấu anomaly 283 là đã thông báo
+2025-05-22 17:54:38,719 - data_storage.database - INFO - Đã đánh dấu anomaly 287 là đã thông báo
+2025-05-22 17:55:02,409 - data_storage.database - INFO - Đã đánh dấu anomaly 282 là đã thông báo
+2025-05-22 17:55:03,418 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 18:07:22,406 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 18:07:22,406 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 18:07:22,415 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 18:07:29,062 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BTCUSDT
+2025-05-22 18:07:29,062 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho ETHUSDT
+2025-05-22 18:07:29,074 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BNBUSDT
+2025-05-22 18:07:29,078 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho SOLUSDT
+2025-05-22 18:07:29,082 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho DOGEUSDT
+2025-05-22 18:07:29,087 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BTCUSDT
+2025-05-22 18:07:29,091 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho ETHUSDT
+2025-05-22 18:07:29,095 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BNBUSDT
+2025-05-22 18:07:29,100 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho SOLUSDT
+2025-05-22 18:07:29,105 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho DOGEUSDT
+2025-05-22 18:07:29,118 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BTCUSDT - 1h
+2025-05-22 18:07:29,120 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BTCUSDT
+2025-05-22 18:07:29,137 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho ETHUSDT - 1h
+2025-05-22 18:07:29,141 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho ETHUSDT
+2025-05-22 18:07:29,152 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BNBUSDT - 1h
+2025-05-22 18:07:29,155 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BNBUSDT
+2025-05-22 18:07:29,166 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho SOLUSDT - 1h
+2025-05-22 18:07:29,169 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho SOLUSDT
+2025-05-22 18:07:29,181 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 18:07:29,184 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho DOGEUSDT
+2025-05-22 18:07:29,190 - data_storage.database - INFO - Đã lấy 20 mẫu anomalies (notified=None)
+2025-05-22 18:07:29,201 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 18:07:29,208 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 4h
+2025-05-22 18:07:29,215 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 18:07:29,220 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 18:07:29,241 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 18:07:29,248 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 4h
+2025-05-22 18:07:29,255 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 18:07:29,260 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 18:07:29,281 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 18:07:29,284 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 4h
+2025-05-22 18:07:29,293 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 18:07:29,300 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 18:07:29,337 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 18:07:29,343 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 4h
+2025-05-22 18:07:29,351 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 18:07:29,351 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 18:07:29,367 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 18:07:29,383 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 4h
+2025-05-22 18:07:29,397 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 18:07:29,400 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 18:07:29,426 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 18:07:29,429 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 18:07:30,577 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 18:07:30,579 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 18:07:31,761 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 18:07:31,764 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 18:07:32,891 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 18:07:32,894 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 18:07:34,047 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 18:07:34,060 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 18:07:35,814 - data_storage.database - INFO - Đã xuất dữ liệu sang định dạng JSON trong thư mục ./data/json
+2025-05-22 18:07:43,130 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 18:10:04,391 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 18:10:04,391 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 18:10:04,399 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 18:10:04,413 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 18:10:04,432 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 18:10:04,448 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 18:10:04,451 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 18:10:04,469 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 18:10:04,476 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 18:10:04,489 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 18:10:04,503 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 18:10:04,506 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 18:10:04,521 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 18:10:04,534 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 18:10:04,547 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 18:10:04,551 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 18:10:04,562 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 18:10:04,569 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 18:10:04,581 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 18:10:04,596 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 18:10:04,599 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 18:10:04,609 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:10:04,613 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:10:04,615 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:10:04,621 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:10:04,628 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 18:10:04,639 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 18:10:04,653 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 18:10:04,656 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 18:10:04,668 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 18:10:04,672 - data_storage.database - INFO - Đã lấy 7 mẫu anomalies (notified=False)
+2025-05-22 18:10:30,570 - data_storage.database - INFO - Đã đánh dấu anomaly 293 là đã thông báo
+2025-05-22 18:10:54,235 - data_storage.database - INFO - Đã đánh dấu anomaly 292 là đã thông báo
+2025-05-22 18:11:17,898 - data_storage.database - INFO - Đã đánh dấu anomaly 291 là đã thông báo
+2025-05-22 18:12:06,954 - data_storage.database - INFO - Đã đánh dấu anomaly 290 là đã thông báo
+2025-05-22 18:12:30,683 - data_storage.database - INFO - Đã đánh dấu anomaly 289 là đã thông báo
+2025-05-22 18:12:54,438 - data_storage.database - INFO - Đã đánh dấu anomaly 294 là đã thông báo
+2025-05-22 18:13:18,185 - data_storage.database - INFO - Đã đánh dấu anomaly 288 là đã thông báo
+2025-05-22 18:13:19,192 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 18:28:19,595 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 18:28:19,595 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 18:28:19,603 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 18:28:19,609 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 18:28:19,635 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 18:28:19,644 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 18:28:19,654 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 18:28:19,668 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 18:28:19,677 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 18:28:19,685 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 18:28:19,705 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 18:28:19,708 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 18:28:19,723 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 18:28:19,736 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 18:28:19,750 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 18:28:19,753 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 18:28:19,765 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 18:28:19,772 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 18:28:19,786 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 18:28:19,798 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 18:28:19,804 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 18:28:19,815 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:28:19,819 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:28:19,823 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:28:19,827 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:28:19,833 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 18:28:19,844 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 18:28:19,852 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 18:28:19,860 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 18:28:19,872 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 18:28:19,877 - data_storage.database - INFO - Đã lấy 7 mẫu anomalies (notified=False)
+2025-05-22 18:28:42,623 - data_storage.database - INFO - Đã đánh dấu anomaly 300 là đã thông báo
+2025-05-22 18:29:06,300 - data_storage.database - INFO - Đã đánh dấu anomaly 299 là đã thông báo
+2025-05-22 18:29:29,987 - data_storage.database - INFO - Đã đánh dấu anomaly 298 là đã thông báo
+2025-05-22 18:31:18,597 - data_storage.database - INFO - Đã đánh dấu anomaly 296 là đã thông báo
+2025-05-22 18:31:42,424 - data_storage.database - INFO - Đã đánh dấu anomaly 301 là đã thông báo
+2025-05-22 18:32:06,112 - data_storage.database - INFO - Đã đánh dấu anomaly 295 là đã thông báo
+2025-05-22 18:32:07,125 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 18:47:07,175 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 18:47:07,175 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 18:47:07,183 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 18:47:07,187 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 18:47:07,207 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 18:47:07,221 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 18:47:07,224 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 18:47:07,243 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 18:47:07,243 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 18:47:07,261 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 18:47:07,268 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 18:47:07,276 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 18:47:07,291 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 18:47:07,301 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 18:47:07,310 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 18:47:07,318 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 18:47:07,329 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 18:47:07,334 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 18:47:07,343 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 18:47:07,362 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 18:47:07,365 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 18:47:07,376 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:47:07,380 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:47:07,383 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:47:07,388 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 18:47:07,396 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 18:47:07,409 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 18:47:07,419 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 18:47:07,426 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 18:47:07,436 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 18:47:07,439 - data_storage.database - INFO - Đã lấy 7 mẫu anomalies (notified=False)
+2025-05-22 18:47:30,253 - data_storage.database - INFO - Đã đánh dấu anomaly 307 là đã thông báo
+2025-05-22 18:47:53,862 - data_storage.database - INFO - Đã đánh dấu anomaly 306 là đã thông báo
+2025-05-22 18:48:17,593 - data_storage.database - INFO - Đã đánh dấu anomaly 305 là đã thông báo
+2025-05-22 18:48:41,350 - data_storage.database - INFO - Đã đánh dấu anomaly 304 là đã thông báo
+2025-05-22 18:49:05,105 - data_storage.database - INFO - Đã đánh dấu anomaly 303 là đã thông báo
+2025-05-22 18:49:28,850 - data_storage.database - INFO - Đã đánh dấu anomaly 308 là đã thông báo
+2025-05-22 18:49:52,549 - data_storage.database - INFO - Đã đánh dấu anomaly 302 là đã thông báo
+2025-05-22 18:49:53,555 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 19:04:53,707 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 19:04:53,707 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 19:04:53,715 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 19:04:53,728 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 19:04:53,743 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 19:04:53,763 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 19:04:53,766 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 19:04:53,783 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 19:04:53,790 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 19:04:53,801 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 19:04:53,817 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 19:04:53,821 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 19:04:53,834 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 19:04:53,847 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 19:04:53,860 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 19:04:53,864 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 19:04:53,876 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 19:04:53,876 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 19:04:53,893 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 19:04:53,902 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 19:04:53,910 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 19:04:53,922 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:04:53,926 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:04:53,926 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:04:53,934 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:04:53,938 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 19:04:53,952 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 19:04:53,965 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 19:04:53,968 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 19:04:53,979 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 19:04:53,983 - data_storage.database - INFO - Đã lấy 7 mẫu anomalies (notified=False)
+2025-05-22 19:05:16,754 - data_storage.database - INFO - Đã đánh dấu anomaly 314 là đã thông báo
+2025-05-22 19:05:40,458 - data_storage.database - INFO - Đã đánh dấu anomaly 313 là đã thông báo
+2025-05-22 19:06:04,163 - data_storage.database - INFO - Đã đánh dấu anomaly 312 là đã thông báo
+2025-05-22 19:06:27,941 - data_storage.database - INFO - Đã đánh dấu anomaly 311 là đã thông báo
+2025-05-22 19:06:52,691 - data_storage.database - INFO - Đã đánh dấu anomaly 310 là đã thông báo
+2025-05-22 19:07:16,362 - data_storage.database - INFO - Đã đánh dấu anomaly 315 là đã thông báo
+2025-05-22 19:07:40,099 - data_storage.database - INFO - Đã đánh dấu anomaly 309 là đã thông báo
+2025-05-22 19:07:41,113 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 19:07:43,135 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 19:07:43,135 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 19:07:43,145 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 19:07:49,715 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BTCUSDT
+2025-05-22 19:07:49,720 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho ETHUSDT
+2025-05-22 19:07:49,725 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BNBUSDT
+2025-05-22 19:07:49,730 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho SOLUSDT
+2025-05-22 19:07:49,735 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho DOGEUSDT
+2025-05-22 19:07:49,739 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BTCUSDT
+2025-05-22 19:07:49,743 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho ETHUSDT
+2025-05-22 19:07:49,747 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BNBUSDT
+2025-05-22 19:07:49,750 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho SOLUSDT
+2025-05-22 19:07:49,755 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho DOGEUSDT
+2025-05-22 19:07:49,763 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BTCUSDT - 1h
+2025-05-22 19:07:49,765 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BTCUSDT
+2025-05-22 19:07:49,778 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho ETHUSDT - 1h
+2025-05-22 19:07:49,781 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho ETHUSDT
+2025-05-22 19:07:49,793 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho BNBUSDT - 1h
+2025-05-22 19:07:49,795 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho BNBUSDT
+2025-05-22 19:07:49,806 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho SOLUSDT - 1h
+2025-05-22 19:07:49,809 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho SOLUSDT
+2025-05-22 19:07:49,820 - data_storage.database - INFO - Đã lấy 48 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 19:07:49,822 - data_storage.database - INFO - Đã lấy 48 mẫu Open Interest cho DOGEUSDT
+2025-05-22 19:07:49,833 - data_storage.database - INFO - Đã lấy 20 mẫu anomalies (notified=None)
+2025-05-22 19:07:49,842 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 19:07:49,857 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 4h
+2025-05-22 19:07:49,864 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 19:07:49,868 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 19:07:49,894 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 19:07:49,897 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 4h
+2025-05-22 19:07:49,908 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 19:07:49,914 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 19:07:49,937 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 19:07:49,944 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 4h
+2025-05-22 19:07:49,951 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 19:07:49,956 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 19:07:49,978 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 19:07:49,985 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 4h
+2025-05-22 19:07:49,991 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 19:07:49,994 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 19:07:50,014 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 19:07:50,025 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 4h
+2025-05-22 19:07:50,027 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 19:07:50,038 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 19:07:50,061 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BTCUSDT - 1d
+2025-05-22 19:07:50,066 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 19:07:51,269 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho ETHUSDT - 1d
+2025-05-22 19:07:51,276 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 19:07:52,556 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho BNBUSDT - 1d
+2025-05-22 19:07:52,568 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 19:07:53,673 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho SOLUSDT - 1d
+2025-05-22 19:07:53,686 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 19:07:54,831 - data_storage.database - INFO - Đã lấy 62 mẫu klines cho DOGEUSDT - 1d
+2025-05-22 19:07:54,836 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 19:07:56,585 - data_storage.database - INFO - Đã xuất dữ liệu sang định dạng JSON trong thư mục ./data/json
+2025-05-22 19:08:01,840 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 19:22:41,210 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 19:22:41,212 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 19:22:41,213 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 19:22:41,228 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 19:22:41,247 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 19:22:41,262 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 19:22:41,267 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 19:22:41,286 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 19:22:41,293 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 19:22:41,306 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 19:22:41,321 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 19:22:41,324 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 19:22:41,336 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - open_interest
+2025-05-22 19:22:41,339 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - open_interest
+2025-05-22 19:22:41,344 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - open_interest
+2025-05-22 19:22:41,351 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 19:22:41,364 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 19:22:41,378 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 19:22:41,381 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 19:22:41,392 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 19:22:41,399 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 19:22:41,410 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 19:22:41,425 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 19:22:41,428 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 19:22:41,440 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:22:41,443 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:22:41,447 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:22:41,451 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:22:41,454 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:22:41,461 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 19:22:41,473 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 19:22:41,487 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 19:22:41,490 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 19:22:41,501 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 19:22:41,505 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - open_interest
+2025-05-22 19:22:41,509 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - open_interest
+2025-05-22 19:22:41,513 - data_storage.database - INFO - Đã lấy 13 mẫu anomalies (notified=False)
+2025-05-22 19:23:04,257 - data_storage.database - INFO - Đã đánh dấu anomaly 325 là đã thông báo
+2025-05-22 19:23:27,967 - data_storage.database - INFO - Đã đánh dấu anomaly 324 là đã thông báo
+2025-05-22 19:23:51,746 - data_storage.database - INFO - Đã đánh dấu anomaly 323 là đã thông báo
+2025-05-22 19:24:15,570 - data_storage.database - INFO - Đã đánh dấu anomaly 322 là đã thông báo
+2025-05-22 19:24:39,404 - data_storage.database - INFO - Đã đánh dấu anomaly 321 là đã thông báo
+2025-05-22 19:25:03,083 - data_storage.database - INFO - Đã đánh dấu anomaly 320 là đã thông báo
+2025-05-22 19:25:26,777 - data_storage.database - INFO - Đã đánh dấu anomaly 326 là đã thông báo
+2025-05-22 19:25:50,449 - data_storage.database - INFO - Đã đánh dấu anomaly 319 là đã thông báo
+2025-05-22 19:26:14,240 - data_storage.database - INFO - Đã đánh dấu anomaly 318 là đã thông báo
+2025-05-22 19:26:37,985 - data_storage.database - INFO - Đã đánh dấu anomaly 328 là đã thông báo
+2025-05-22 19:27:01,696 - data_storage.database - INFO - Đã đánh dấu anomaly 327 là đã thông báo
+2025-05-22 19:27:25,462 - data_storage.database - INFO - Đã đánh dấu anomaly 317 là đã thông báo
+2025-05-22 19:27:49,242 - data_storage.database - INFO - Đã đánh dấu anomaly 316 là đã thông báo
+2025-05-22 19:27:50,255 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-22 19:42:50,942 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-22 19:42:50,944 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-22 19:42:50,945 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-22 19:42:50,960 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 19:42:50,977 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 19:42:50,994 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BTCUSDT - 1h
+2025-05-22 19:42:50,997 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BTCUSDT
+2025-05-22 19:42:51,014 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - volume
+2025-05-22 19:42:51,021 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 19:42:51,034 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 19:42:51,048 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho ETHUSDT - 1h
+2025-05-22 19:42:51,051 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho ETHUSDT
+2025-05-22 19:42:51,063 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - open_interest
+2025-05-22 19:42:51,068 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - open_interest
+2025-05-22 19:42:51,072 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - open_interest
+2025-05-22 19:42:51,079 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 19:42:51,091 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 19:42:51,104 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho BNBUSDT - 1h
+2025-05-22 19:42:51,107 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho BNBUSDT
+2025-05-22 19:42:51,119 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - volume
+2025-05-22 19:42:51,126 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 19:42:51,137 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 19:42:51,155 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho SOLUSDT - 1h
+2025-05-22 19:42:51,158 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho SOLUSDT
+2025-05-22 19:42:51,170 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:42:51,173 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:42:51,177 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:42:51,180 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:42:51,183 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - open_interest
+2025-05-22 19:42:51,190 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 19:42:51,202 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 19:42:51,216 - data_storage.database - INFO - Đã lấy 100 mẫu klines cho DOGEUSDT - 1h
+2025-05-22 19:42:51,219 - data_storage.database - INFO - Đã lấy 100 mẫu Open Interest cho DOGEUSDT
+2025-05-22 19:42:51,230 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - volume
+2025-05-22 19:42:51,234 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - open_interest
+2025-05-22 19:42:51,238 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - open_interest
+2025-05-22 19:42:51,243 - data_storage.database - INFO - Đã lấy 13 mẫu anomalies (notified=False)
+2025-05-22 19:43:14,086 - data_storage.database - INFO - Đã đánh dấu anomaly 338 là đã thông báo
+2025-05-22 19:43:37,793 - data_storage.database - INFO - Đã đánh dấu anomaly 337 là đã thông báo
+2025-05-22 19:44:01,538 - data_storage.database - INFO - Đã đánh dấu anomaly 336 là đã thông báo
+2025-05-22 19:44:25,310 - data_storage.database - INFO - Đã đánh dấu anomaly 335 là đã thông báo
+2025-05-22 19:44:49,084 - data_storage.database - INFO - Đã đánh dấu anomaly 334 là đã thông báo
+2025-05-22 19:45:12,797 - data_storage.database - INFO - Đã đánh dấu anomaly 333 là đã thông báo
+2025-05-22 19:45:36,882 - data_storage.database - INFO - Đã đánh dấu anomaly 339 là đã thông báo
+2025-05-22 19:46:00,645 - data_storage.database - INFO - Đã đánh dấu anomaly 332 là đã thông báo
+2025-05-22 19:46:24,510 - data_storage.database - INFO - Đã đánh dấu anomaly 331 là đã thông báo
+2025-05-22 19:46:48,228 - data_storage.database - INFO - Đã đánh dấu anomaly 341 là đã thông báo
+2025-05-22 19:47:12,032 - data_storage.database - INFO - Đã đánh dấu anomaly 340 là đã thông báo
+2025-05-22 19:47:35,836 - data_storage.database - INFO - Đã đánh dấu anomaly 330 là đã thông báo
+2025-05-22 19:47:59,595 - data_storage.database - INFO - Đã đánh dấu anomaly 329 là đã thông báo
+2025-05-22 19:48:00,604 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu

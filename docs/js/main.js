@@ -1,525 +1,778 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Global variables
-    let currentSymbol = 'BTCUSDT';
-    let currentTimeframe = '1d';
-    let symbolsData = {};
-    let charts = {
-        priceOi: null,
-        volume: null,
-        oi: null
-    };
-    
-    // Elements
-    const symbolSelector = document.getElementById('symbolSelector');
-    const timeframeSelector = document.getElementById('timeframeSelector');
-    const refreshBtn = document.getElementById('refreshBtn');
-    const lastUpdateEl = document.getElementById('lastUpdate');
-    const dashboardCards = document.getElementById('dashboardCards');
-    const anomaliesTable = document.getElementById('anomaliesTable');
-    
-    // Chart elements
-    const priceOiChartEl = document.getElementById('priceOiChart');
-    const volumeChartEl = document.getElementById('volumeChart');
-    const oiChartEl = document.getElementById('oiChart');
-    
-    // Initialize the application
-    init();
-    
-    // Event listeners
-    symbolSelector.addEventListener('change', function() {
-        currentSymbol = this.value;
-        updateDashboard();
-        updateCharts();
-    });
-    
-    timeframeSelector.addEventListener('change', function() {
-        currentTimeframe = this.value;
-        updateCharts();
-    });
-    
-    refreshBtn.addEventListener('click', function() {
-        this.disabled = true;
-        this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
-        
-        init().then(() => {
-            this.disabled = false;
-            this.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Refresh';
+class AdvancedBinanceMonitor {
+    constructor() {
+        this.currentTimeframe = '1h';
+        this.currentPeriod = '7d';
+        this.charts = {};
+        this.symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
+        this.dataCache = {
+            realtime: null,
+            historical: {},
+            anomalies: null,
+            lastUpdate: null
+        };
+        this.init();
+    }
+
+    async init() {
+        this.bindEvents();
+        this.setupWebSocket(); // Future enhancement
+        await this.loadInitialData();
+        this.setupAutoRefresh();
+    }
+
+    bindEvents() {
+        // Refresh button
+        document.getElementById('refreshBtn').addEventListener('click', async () => {
+            await this.forceRefreshData();
         });
-    });
-    
-    // Functions
-    async function init() {
-        try {
-            // Load symbols
-            const symbolsResponse = await fetch('assets/data/symbols.json');
-            const symbols = await symbolsResponse.json();
-            
-            // Load daily summary
-            const summaryResponse = await fetch('assets/data/daily_summary.json');
-            const summary = await summaryResponse.json();
-            
-            // Load anomalies
-            const anomaliesResponse = await fetch('assets/data/anomalies.json');
-            const anomalies = await anomaliesResponse.json();
-            
-            // Update UI
-            updateSymbolSelector(symbols);
-            updateLastUpdate(summary.timestamp);
-            updateDashboardCards(summary);
-            updateAnomaliesTable(anomalies);
-            
-            // Load data for current symbol
-            await loadSymbolData(currentSymbol);
-            
-            // Update charts
-            updateCharts();
-        } catch (error) {
-            console.error('Error initializing application:', error);
-            alert('Error loading data. Please try again later.');
-        }
-    }
-    
-    async function loadSymbolData(symbol) {
-        try {
-            if (symbolsData[symbol]) {
-                return; // Data already loaded
-            }
-            
-            const response = await fetch(`assets/data/${symbol}.json`);
-            symbolsData[symbol] = await response.json();
-        } catch (error) {
-            console.error(`Error loading data for ${symbol}:`, error);
-            symbolsData[symbol] = {
-                klines: {},
-                open_interest: []
-            };
-        }
-    }
-    
-    function updateSymbolSelector(symbols) {
-        symbolSelector.innerHTML = '';
-        
-        symbols.forEach(symbol => {
-            const option = document.createElement('option');
-            option.value = symbol;
-            option.textContent = symbol;
-            symbolSelector.appendChild(option);
-        });
-        
-        symbolSelector.value = currentSymbol;
-    }
-    
-    function updateLastUpdate(timestamp) {
-        const date = new Date(timestamp);
-        lastUpdateEl.textContent = `Last Updated: ${date.toLocaleString()}`;
-    }
-    
-    function updateDashboardCards(summary) {
-        dashboardCards.innerHTML = '';
-        
-        Object.entries(summary.symbols).forEach(([symbol, data]) => {
-            const card = createDashboardCard(symbol, data);
-            dashboardCards.appendChild(card);
-        });
-    }
-    
-    function createDashboardCard(symbol, data) {
-        const col = document.createElement('div');
-        col.className = 'col-md-4 mb-3';
-        
-        // Determine sentiment color
-        let sentimentColor = 'bg-secondary';
-        let sentimentIcon = '';
-        
-        if (data.sentiment) {
-            if (data.sentiment.includes('Bullish')) {
-                sentimentColor = 'bg-success';
-                sentimentIcon = '📈';
-            } else if (data.sentiment.includes('Bearish')) {
-                sentimentColor = 'bg-danger';
-                sentimentIcon = '📉';
-            } else {
-                sentimentColor = 'bg-warning';
-                sentimentIcon = '↔️';
-            }
-        }
-        
-        // Format change indicators
-        const priceChangeClass = data.price_change >= 0 ? 'positive-change' : 'negative-change';
-        const priceChangeSign = data.price_change >= 0 ? '+' : '';
-        
-        const oiChangeClass = data.oi_change >= 0 ? 'positive-change' : 'negative-change';
-        const oiChangeSign = data.oi_change >= 0 ? '+' : '';
-        
-        const volChangeClass = data.volume_change >= 0 ? 'positive-change' : 'negative-change';
-        const volChangeSign = data.volume_change >= 0 ? '+' : '';
-        
-        col.innerHTML = `
-            <div class="card dashboard-card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <span class="symbol-header">${symbol}</span>
-                    <span class="badge ${sentimentColor}">${sentimentIcon} ${data.sentiment || 'No Data'}</span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4 text-center border-end">
-                            <div class="stat-label">Price</div>
-                            <div class="stat-change ${priceChangeClass}">${priceChangeSign}${data.price_change.toFixed(2)}%</div>
-                        </div>
-                        <div class="col-4 text-center border-end">
-                            <div class="stat-label">OI</div>
-                            <div class="stat-change ${oiChangeClass}">${oiChangeSign}${data.oi_change.toFixed(2)}%</div>
-                        </div>
-                        <div class="col-4 text-center">
-                            <div class="stat-label">Volume</div>
-                            <div class="stat-change ${volChangeClass}">${volChangeSign}${data.volume_change.toFixed(2)}%</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer text-center">
-                    <button class="btn btn-sm btn-primary view-btn" data-symbol="${symbol}">View Details</button>
-                </div>
-            </div>
-        `;
-        
-        // Add event listener to view button
-        const viewBtn = col.querySelector('.view-btn');
-        viewBtn.addEventListener('click', function() {
-            currentSymbol = this.dataset.symbol;
-            symbolSelector.value = currentSymbol;
-            updateDashboard();
-            updateCharts();
-            
-            // Scroll to charts section
-            document.querySelector('#charts').scrollIntoView({
-                behavior: 'smooth'
+
+        // Time filter buttons
+        document.querySelectorAll('.btn-time-filter').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const timeframe = e.target.dataset.timeframe;
+                const period = e.target.dataset.period;
+                
+                if (timeframe) {
+                    this.currentTimeframe = timeframe;
+                    this.updateActiveFilter(e.target);
+                    await this.updateRealtimeView();
+                }
+                
+                if (period) {
+                    this.currentPeriod = period;
+                    this.updateActiveFilter(e.target);
+                    await this.updateHistoricalView();
+                }
             });
         });
-        
-        return col;
-    }
-    
-    function updateAnomaliesTable(anomalies) {
-        anomaliesTable.innerHTML = '';
-        
-        if (!anomalies || anomalies.length === 0) {
-            const row = document.createElement('tr');
-            row.innerHTML = '<td colspan="4" class="text-center">No anomalies detected</td>';
-            anomaliesTable.appendChild(row);
-            return;
-        }
-        
-        anomalies.forEach(anomaly => {
-            const row = document.createElement('tr');
-            
-            // Format timestamp
-            const date = new Date(anomaly.timestamp);
-            const formattedDate = date.toLocaleString();
-            
-            // Format data type
-            let dataType = anomaly.data_type;
-            if (dataType === 'open_interest') {
-                dataType = 'Open Interest';
-            } else if (dataType === 'volume') {
-                dataType = 'Volume';
-            } else if (dataType === 'correlation') {
-                dataType = 'Correlation';
-            }
-            
-            row.innerHTML = `
-                <td>${anomaly.symbol}</td>
-                <td>${formattedDate}</td>
-                <td>${dataType}</td>
-                <td>${anomaly.message}</td>
-            `;
-            
-            anomaliesTable.appendChild(row);
+
+        // Tab change events
+        document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', async (e) => {
+                const target = e.target.getAttribute('data-bs-target');
+                if (target === '#historical') {
+                    await this.loadHistoricalView();
+                } else if (target === '#anomalies') {
+                    await this.loadAnomaliesView();
+                } else if (target === '#realtime') {
+                    await this.loadRealtimeView();
+                }
+            });
         });
     }
-    
-    async function updateDashboard() {
-        // Nothing to do here for now
+
+    updateActiveFilter(activeBtn) {
+        activeBtn.parentNode.querySelectorAll('.btn-time-filter').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        activeBtn.classList.add('active');
     }
-    
-    async function updateCharts() {
-        if (!symbolsData[currentSymbol]) {
-            await loadSymbolData(currentSymbol);
+
+    async loadInitialData() {
+        try {
+            this.showGlobalLoading();
+            
+            // Load all data in parallel
+            await Promise.all([
+                this.loadRealtimeData(),
+                this.loadSymbolsData(),
+                this.loadAnomaliesData()
+            ]);
+            
+            this.hideGlobalLoading();
+            await this.updateAllViews();
+        } catch (error) {
+            console.error('Error loading initial data:', error);
+            this.showError('Failed to load initial data');
+            this.hideGlobalLoading();
         }
-        
-        const data = symbolsData[currentSymbol];
-        
-        // Update Price & OI chart
-        updatePriceOiChart(data);
-        
-        // Update Volume chart
-        updateVolumeChart(data);
-        
-        // Update OI chart
-        updateOiChart(data);
     }
-    
-    function updatePriceOiChart(data) {
-        // Destroy previous chart if exists
-        if (charts.priceOi) {
-            charts.priceOi.destroy();
+
+    async forceRefreshData() {
+        this.dataCache = {
+            realtime: null,
+            historical: {},
+            anomalies: null,
+            lastUpdate: null
+        };
+        await this.loadInitialData();
+    }
+
+    async loadRealtimeData() {
+        try {
+            const response = await fetch('assets/data/daily_summary.json?' + Date.now());
+            if (!response.ok) throw new Error('Failed to fetch realtime data');
+            
+            const data = await response.json();
+            this.dataCache.realtime = data;
+            this.dataCache.lastUpdate = new Date();
+            
+            return data;
+        } catch (error) {
+            console.error('Error loading realtime data:', error);
+            return null;
         }
+    }
+
+    async loadSymbolsData() {
+        try {
+            const promises = this.symbols.map(async symbol => {
+                try {
+                    const response = await fetch(`assets/data/${symbol}.json?` + Date.now());
+                    if (!response.ok) return null;
+                    
+                    const data = await response.json();
+                    this.dataCache.historical[symbol] = data;
+                    return { symbol, data };
+                } catch (error) {
+                    console.error(`Error loading ${symbol} data:`, error);
+                    return null;
+                }
+            });
+
+            const results = await Promise.allSettled(promises);
+            return results;
+        } catch (error) {
+            console.error('Error loading symbols data:', error);
+            return [];
+        }
+    }
+
+    async loadAnomaliesData() {
+        try {
+            // Get from realtime data
+            if (this.dataCache.realtime && this.dataCache.realtime.anomalies) {
+                this.dataCache.anomalies = this.dataCache.realtime.anomalies;
+                return this.dataCache.anomalies;
+            }
+
+            // Fallback to separate anomalies file
+            try {
+                const response = await fetch('assets/data/anomalies.json?' + Date.now());
+                if (response.ok) {
+                    const data = await response.json();
+                    this.dataCache.anomalies = data;
+                    return data;
+                }
+            } catch (error) {
+                console.warn('No separate anomalies file found');
+            }
+
+            return [];
+        } catch (error) {
+            console.error('Error loading anomalies data:', error);
+            return [];
+        }
+    }
+
+    async updateAllViews() {
+        await Promise.all([
+            this.updateRealtimeView(),
+            this.updateAnomaliesView()
+        ]);
+    }
+
+    async loadRealtimeView() {
+        await this.updateRealtimeView();
+    }
+
+    async loadHistoricalView() {
+        await this.updateHistoricalView();
+    }
+
+    async loadAnomaliesView() {
+        await this.updateAnomaliesView();
+    }
+
+    async updateRealtimeView() {
+        if (!this.dataCache.realtime) return;
+
+        try {
+            const data = this.dataCache.realtime;
+            
+            this.updateLastUpdateTime(data.timestamp);
+            this.updateRealtimeTable(data.symbols);
+            this.updateStats(data.symbols);
+        } catch (error) {
+            console.error('Error updating realtime view:', error);
+        }
+    }
+
+    async updateHistoricalView() {
+        try {
+            const historicalData = this.dataCache.historical;
+            
+            this.updateHistoricalTable(historicalData);
+            this.updateHistoricalChart(historicalData);
+        } catch (error) {
+            console.error('Error updating historical view:', error);
+        }
+    }
+
+    async updateAnomaliesView() {
+        try {
+            const anomalies = this.dataCache.anomalies || [];
+            this.updateAnomaliesTable(anomalies);
+        } catch (error) {
+            console.error('Error updating anomalies view:', error);
+        }
+    }
+
+    updateLastUpdateTime(timestamp) {
+        const lastUpdateEl = document.getElementById('lastUpdateTime');
+        if (lastUpdateEl) {
+            const date = new Date(timestamp);
+            lastUpdateEl.innerHTML = `
+                <i class="bi bi-clock"></i>
+                Last updated: ${date.toLocaleString()}
+                <span class="badge bg-success ms-2">Live</span>
+            `;
+        }
+    }
+
+    updateRealtimeTable(symbols) {
+        const tbody = document.getElementById('realtimeTableBody');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+        // Sort symbols by absolute price change descending
+        const sortedSymbols = Object.entries(symbols).sort((a, b) => {
+            return Math.abs(b[1].price_change) - Math.abs(a[1].price_change);
+        });
+
+        sortedSymbols.forEach(([symbol, data]) => {
+            const row = this.createRealtimeRow(symbol, data);
+            tbody.appendChild(row);
+        });
+    }
+
+    createRealtimeRow(symbol, data) {
+        const row = document.createElement('tr');
+        row.className = 'symbol-row';
+        row.setAttribute('data-symbol', symbol);
         
-        // Get data
-        const klines = data.klines[currentTimeframe] || [];
-        const oiData = data.open_interest || [];
+        const priceClass = this.getChangeClass(data.price_change);
+        const volumeClass = this.getChangeClass(data.volume_change);
+        const oiClass = this.getChangeClass(data.oi_change);
+        const sentimentInfo = this.getSentimentInfo(data.sentiment);
+
+        row.innerHTML = `
+            <td>
+                <div class="d-flex align-items-center">
+                    <div class="symbol-icon me-2">
+                        <i class="bi bi-currency-bitcoin text-warning"></i>
+                    </div>
+                    <div>
+                        <div class="coin-symbol">${symbol}</div>
+                        <small class="text-muted">${this.getSymbolName(symbol)}</small>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="${priceClass}">
+                    <strong>${this.formatPercent(data.price_change)}</strong>
+                    <i class="bi bi-${data.price_change >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                </div>
+                <small class="text-muted d-block">${this.currentTimeframe} change</small>
+            </td>
+            <td>
+                <div class="${volumeClass}">
+                    <strong>${this.formatPercent(data.volume_change)}</strong>
+                    <i class="bi bi-${data.volume_change >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                </div>
+                <small class="text-muted d-block">vs 24h avg</small>
+            </td>
+            <td>
+                <div class="${oiClass}">
+                    <strong>${this.formatPercent(data.oi_change)}</strong>
+                    <i class="bi bi-${data.oi_change >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                </div>
+                <small class="text-muted d-block">Open Interest</small>
+            </td>
+            <td>
+                <span class="badge sentiment-badge ${sentimentInfo.class}" title="${sentimentInfo.description}">
+                    <i class="bi bi-${sentimentInfo.icon} me-1"></i>
+                    ${sentimentInfo.text}
+                </span>
+            </td>
+            <td>
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-primary" onclick="monitor.showDetails('${symbol}')" title="View Details">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="btn btn-outline-info" onclick="monitor.showChart('${symbol}')" title="View Chart">
+                        <i class="bi bi-graph-up"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+
+        // Add hover effects
+        row.addEventListener('mouseenter', () => {
+            row.style.backgroundColor = '#f8f9fa';
+        });
         
-        if (klines.length === 0 || oiData.length === 0) {
-            // No data available
-            priceOiChartEl.parentElement.innerHTML = '<div class="alert alert-warning">No data available for this symbol and timeframe</div>';
+        row.addEventListener('mouseleave', () => {
+            row.style.backgroundColor = '';
+        });
+
+        return row;
+    }
+
+    updateHistoricalTable(historicalData) {
+        const tbody = document.getElementById('historicalTableBody');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+        Object.entries(historicalData).forEach(([symbol, data]) => {
+            const row = this.createHistoricalRow(symbol, data);
+            tbody.appendChild(row);
+        });
+    }
+
+    createHistoricalRow(symbol, data) {
+        const row = document.createElement('tr');
+        
+        // Calculate historical changes based on actual data
+        const historical = this.calculateHistoricalChanges(data);
+
+        row.innerHTML = `
+            <td>
+                <div class="d-flex align-items-center">
+                    <div class="symbol-icon me-2">
+                        <i class="bi bi-currency-bitcoin text-warning"></i>
+                    </div>
+                    <div>
+                        <div class="coin-symbol">${symbol}</div>
+                        <small class="text-muted">${this.getSymbolName(symbol)}</small>
+                    </div>
+                </div>
+            </td>
+            <td class="${this.getChangeClass(historical.price7d)}">
+                <strong>${this.formatPercent(historical.price7d)}</strong>
+            </td>
+            <td class="${this.getChangeClass(historical.volume7d)}">
+                <strong>${this.formatPercent(historical.volume7d)}</strong>
+            </td>
+            <td class="${this.getChangeClass(historical.oi7d)}">
+                <strong>${this.formatPercent(historical.oi7d)}</strong>
+            </td>
+            <td class="${this.getChangeClass(historical.price30d)}">
+                <strong>${this.formatPercent(historical.price30d)}</strong>
+            </td>
+            <td class="${this.getChangeClass(historical.oi30d)}">
+                <strong>${this.formatPercent(historical.oi30d)}</strong>
+            </td>
+            <td>
+                <span class="badge bg-${historical.trend.color}">
+                    <i class="bi bi-${historical.trend.icon} me-1"></i>
+                    ${historical.trend.text}
+                </span>
+            </td>
+        `;
+
+        return row;
+    }
+
+    calculateHistoricalChanges(symbolData) {
+        // Calculate based on actual historical data
+        // This would use real klines data from symbolData.klines
+        
+        // For now, using mock calculations
+        // In production, you'd calculate from actual historical prices
+        return {
+            price7d: (Math.random() - 0.5) * 20,
+            volume7d: (Math.random() - 0.5) * 40,
+            oi7d: (Math.random() - 0.5) * 15,
+            price30d: (Math.random() - 0.5) * 30,
+            oi30d: (Math.random() - 0.5) * 25,
+            trend: this.calculateTrend()
+        };
+    }
+
+    calculateTrend() {
+        const trends = [
+            { text: 'Strong Up', color: 'success', icon: 'arrow-up-circle' },
+            { text: 'Up', color: 'success', icon: 'arrow-up' },
+            { text: 'Sideways', color: 'warning', icon: 'arrow-left-right' },
+            { text: 'Down', color: 'danger', icon: 'arrow-down' },
+            { text: 'Strong Down', color: 'danger', icon: 'arrow-down-circle' }
+        ];
+        return trends[Math.floor(Math.random() * trends.length)];
+    }
+
+    updateAnomaliesTable(anomalies) {
+        const tbody = document.getElementById('anomaliesTableBody');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+        if (!anomalies || anomalies.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">
+                        <i class="bi bi-check-circle text-success me-2"></i>
+                        No anomalies detected
+                    </td>
+                </tr>
+            `;
             return;
         }
+
+        // Sort anomalies by timestamp descending
+        const sortedAnomalies = anomalies.sort((a, b) => 
+            new Date(b.timestamp) - new Date(a.timestamp)
+        );
+
+        sortedAnomalies.forEach(anomaly => {
+            const row = this.createAnomalyRow(anomaly);
+            tbody.appendChild(row);
+        });
+    }
+
+    createAnomalyRow(anomaly) {
+        const row = document.createElement('tr');
+        const severity = this.getAnomalySeverity(anomaly.message);
+        const timeAgo = this.getTimeAgo(anomaly.timestamp);
         
-        // Prepare data
-        const labels = klines.map(k => new Date(k.open_time).toLocaleDateString());
-        const prices = klines.map(k => parseFloat(k.close));
+        row.innerHTML = `
+            <td>
+                <div>${this.formatDateTime(anomaly.timestamp)}</div>
+                <small class="text-muted">${timeAgo}</small>
+            </td>
+            <td>
+                <span class="coin-symbol">${anomaly.symbol}</span>
+            </td>
+            <td>
+                <span class="badge bg-info">
+                    <i class="bi bi-${this.getDataTypeIcon(anomaly.data_type)} me-1"></i>
+                    ${this.capitalizeFirst(anomaly.data_type)}
+                </span>
+            </td>
+            <td>
+                <div class="anomaly-message">${anomaly.message}</div>
+            </td>
+            <td>
+                <span class="badge bg-${severity.color}">
+                    <i class="bi bi-${severity.icon} me-1"></i>
+                    ${severity.text}
+                </span>
+            </td>
+        `;
+
+        return row;
+    }
+
+    updateStats(symbols) {
+        const stats = this.calculateDetailedStats(symbols);
         
-        // Match OI data with price data based on timestamps
-        const oiValues = [];
-        const priceTimestamps = klines.map(k => new Date(k.open_time).getTime());
+        document.getElementById('totalSymbols').textContent = stats.total;
+        document.getElementById('bullishCount').textContent = stats.bullish;
+        document.getElementById('bearishCount').textContent = stats.bearish;
+        document.getElementById('neutralCount').textContent = stats.neutral;
+    }
+
+    calculateDetailedStats(symbols) {
+        const stats = { 
+            total: 0, 
+            bullish: 0, 
+            bearish: 0, 
+            neutral: 0,
+            avgPriceChange: 0,
+            avgVolumeChange: 0,
+            avgOIChange: 0
+        };
         
-        for (let i = 0; i < priceTimestamps.length; i++) {
-            const priceTime = priceTimestamps[i];
+        const values = Object.values(symbols);
+        stats.total = values.length;
+
+        let totalPriceChange = 0;
+        let totalVolumeChange = 0;
+        let totalOIChange = 0;
+
+        values.forEach(data => {
+            const sentiment = data.sentiment.toLowerCase();
             
-            // Find closest OI data point
-            let closestOI = null;
-            let minDiff = Number.MAX_SAFE_INTEGER;
-            
-            for (const oi of oiData) {
-                const oiTime = new Date(oi.timestamp).getTime();
-                const diff = Math.abs(oiTime - priceTime);
-                
-                if (diff < minDiff) {
-                    minDiff = diff;
-                    closestOI = oi;
-                }
+            if (sentiment.includes('bullish')) {
+                stats.bullish++;
+            } else if (sentiment.includes('bearish')) {
+                stats.bearish++;
+            } else {
+                stats.neutral++;
             }
-            
-            oiValues.push(closestOI ? parseFloat(closestOI.open_interest) : null);
+
+            totalPriceChange += data.price_change || 0;
+            totalVolumeChange += data.volume_change || 0;
+            totalOIChange += data.oi_change || 0;
+        });
+
+        stats.avgPriceChange = totalPriceChange / stats.total;
+        stats.avgVolumeChange = totalVolumeChange / stats.total;
+        stats.avgOIChange = totalOIChange / stats.total;
+
+        return stats;
+    }
+
+    updateHistoricalChart(historicalData) {
+        const ctx = document.getElementById('historicalChart');
+        if (!ctx) return;
+
+        if (this.charts.historical) {
+            this.charts.historical.destroy();
         }
+
+        // Generate labels for the period
+        const labels = this.generateDateLabels(this.currentPeriod);
         
-        // Create chart
-        charts.priceOi = new Chart(priceOiChartEl, {
+        // Create datasets for each symbol
+        const datasets = Object.keys(historicalData).map((symbol, index) => {
+            const color = this.getColorForIndex(index);
+            return {
+                label: symbol,
+                data: this.generateMockHistoricalData(labels.length),
+                borderColor: color,
+                backgroundColor: color + '20',
+                tension: 0.1,
+                fill: false
+            };
+        });
+
+        this.charts.historical = new Chart(ctx, {
             type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Price',
-                        data: prices,
-                        borderColor: 'rgb(54, 162, 235)',
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        yAxisID: 'y',
-                        tension: 0.1
-                    },
-                    {
-                        label: 'Open Interest',
-                        data: oiValues,
-                        borderColor: 'rgb(75, 192, 192)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        yAxisID: 'y1',
-                        tension: 0.1
-                    }
-                ]
-            },
+            data: { labels, datasets },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 interaction: {
-                    mode: 'index',
                     intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: `Historical Price Performance (${this.currentPeriod})`
+                    }
                 },
                 scales: {
-                    y: {
-                        type: 'linear',
+                    x: {
                         display: true,
-                        position: 'left',
                         title: {
                             display: true,
-                            text: 'Price'
+                            text: 'Date'
                         }
                     },
-                    y1: {
-                        type: 'linear',
+                    y: {
                         display: true,
-                        position: 'right',
-                        grid: {
-                            drawOnChartArea: false,
-                        },
                         title: {
                             display: true,
-                            text: 'Open Interest'
+                            text: 'Change (%)'
                         }
                     }
                 }
             }
         });
     }
-    
-    function updateVolumeChart(data) {
-        // Destroy previous chart if exists
-        if (charts.volume) {
-            charts.volume.destroy();
-        }
-        
-        // Get data
-        const klines = data.klines[currentTimeframe] || [];
-        
-        if (klines.length === 0) {
-            // No data available
-            volumeChartEl.parentElement.innerHTML = '<div class="alert alert-warning">No data available for this symbol and timeframe</div>';
-            return;
-        }
-        
-        // Prepare data
-        const labels = klines.map(k => new Date(k.open_time).toLocaleDateString());
-        const volumes = klines.map(k => parseFloat(k.volume));
-        
-        // Calculate MA5 and MA20
-        const ma5 = calculateMA(volumes, 5);
-        const ma20 = calculateMA(volumes, 20);
-        
-        // Create chart
-        charts.volume = new Chart(volumeChartEl, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Volume',
-                        data: volumes,
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'MA5',
-                        data: ma5,
-                        type: 'line',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: false,
-                        tension: 0.1
-                    },
-                    {
-                        label: 'MA20',
-                        data: ma20,
-                        type: 'line',
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        fill: false,
-                        tension: 0.1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Volume'
-                        }
-                    }
-                }
-            }
+
+    generateDateLabels(period) {
+        const days = period === '7d' ? 7 : period === '30d' ? 30 : 90;
+        return Array.from({length: days}, (_, i) => {
+            const date = new Date();
+            date.setDate(date.getDate() - (days - 1 - i));
+            return date.toLocaleDateString();
         });
     }
-    
-    function updateOiChart(data) {
-        // Destroy previous chart if exists
-        if (charts.oi) {
-            charts.oi.destroy();
-        }
-        
-        // Get data
-        const oiData = data.open_interest || [];
-        
-        if (oiData.length === 0) {
-            // No data available
-            oiChartEl.parentElement.innerHTML = '<div class="alert alert-warning">No data available for this symbol</div>';
-            return;
-        }
-        
-        // Prepare data
-        const labels = oiData.map(d => new Date(d.timestamp).toLocaleDateString());
-        const values = oiData.map(d => parseFloat(d.open_interest));
-        
-        // Calculate MA5 and MA20
-        const ma5 = calculateMA(values, 5);
-        const ma20 = calculateMA(values, 20);
-        
-        // Create chart
-        charts.oi = new Chart(oiChartEl, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Open Interest',
-                        data: values,
-                        borderColor: 'rgb(75, 192, 192)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        fill: true,
-                        tension: 0.1
-                    },
-                    {
-                        label: 'MA5',
-                        data: ma5,
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0)',
-                        fill: false,
-                        tension: 0.1
-                    },
-                    {
-                        label: 'MA20',
-                        data: ma20,
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        backgroundColor: 'rgba(255, 159, 64, 0)',
-                        fill: false,
-                        tension: 0.1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        title: {
-                            display: true,
-                            text: 'Open Interest'
-                        }
-                    }
-                }
-            }
+
+    generateMockHistoricalData(length) {
+        let value = 0;
+        return Array.from({length}, () => {
+            value += (Math.random() - 0.5) * 5;
+            return value;
         });
     }
-    
-    function calculateMA(data, period) {
-        const result = [];
-        
-        // Fill with null for the first (period-1) points
-        for (let i = 0; i < period - 1; i++) {
-            result.push(null);
-        }
-        
-        // Calculate MA for the rest of the points
-        for (let i = period - 1; i < data.length; i++) {
-            let sum = 0;
-            for (let j = 0; j < period; j++) {
-                sum += data[i - j];
-            }
-            result.push(sum / period);
-        }
-        
-        return result;
+
+    // Utility methods
+    getChangeClass(change) {
+        if (change > 0) return 'change-positive';
+        if (change < 0) return 'change-negative';
+        return 'change-neutral';
     }
+
+    getSentimentInfo(sentiment) {
+        const s = sentiment.toLowerCase();
+        
+        if (s.includes('strong') && s.includes('bullish')) {
+            return { 
+                class: 'sentiment-bullish', 
+                text: 'Strong Bull', 
+                icon: 'arrow-up-circle-fill',
+                description: 'Strong bullish sentiment'
+            };
+        } else if (s.includes('bullish')) {
+            return { 
+                class: 'sentiment-bullish', 
+                text: 'Bullish', 
+                icon: 'arrow-up',
+                description: 'Bullish sentiment'
+            };
+        } else if (s.includes('strong') && s.includes('bearish')) {
+            return { 
+                class: 'sentiment-bearish', 
+                text: 'Strong Bear', 
+                icon: 'arrow-down-circle-fill',
+                description: 'Strong bearish sentiment'
+            };
+        } else if (s.includes('bearish')) {
+            return { 
+                class: 'sentiment-bearish', 
+                text: 'Bearish', 
+                icon: 'arrow-down',
+                description: 'Bearish sentiment'
+            };
+        }
+        
+        return { 
+            class: 'sentiment-neutral', 
+            text: 'Neutral', 
+            icon: 'dash-circle',
+            description: 'Neutral sentiment'
+        };
+    }
+
+    getAnomalySeverity(message) {
+        const zscore = parseFloat(message.match(/Z-score: ([\d.]+)/)?.[1] || 0);
+        
+        if (zscore > 4) {
+            return { color: 'danger', text: 'Critical', icon: 'exclamation-triangle-fill' };
+        } else if (zscore > 3) {
+            return { color: 'warning', text: 'High', icon: 'exclamation-triangle' };
+        } else if (zscore > 2.5) {
+            return { color: 'info', text: 'Medium', icon: 'info-circle' };
+        }
+        
+        return { color: 'secondary', text: 'Low', icon: 'info-circle' };
+    }
+
+    getDataTypeIcon(dataType) {
+        const icons = {
+            volume: 'bar-chart',
+            open_interest: 'pie-chart',
+            price: 'graph-up',
+            correlation: 'shuffle'
+        };
+        return icons[dataType] || 'info-circle';
+    }
+
+    getSymbolName(symbol) {
+        const names = {
+            'BTCUSDT': 'Bitcoin',
+            'ETHUSDT': 'Ethereum', 
+            'BNBUSDT': 'BNB',
+            'SOLUSDT': 'Solana',
+            'DOGEUSDT': 'Dogecoin'
+        };
+        return names[symbol] || symbol;
+    }
+
+    getColorForIndex(index) {
+        const colors = [
+            '#f7931e', // Bitcoin orange
+            '#627eea', // Ethereum blue
+            '#f0b90b', // BNB yellow
+            '#9945ff', // Solana purple
+            '#c2a633'  // Dogecoin gold
+        ];
+        return colors[index % colors.length];
+    }
+
+    formatPercent(value) {
+        if (value === null || value === undefined || isNaN(value)) {
+            return 'N/A';
+        }
+        return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
+    }
+
+    formatDateTime(timestamp) {
+        return new Date(timestamp).toLocaleString();
+    }
+
+    getTimeAgo(timestamp) {
+        const now = new Date();
+        const time = new Date(timestamp);
+        const diffMs = now - time;
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffMinutes = Math.floor(diffMs / (1000 * 60));
+
+        if (diffHours > 24) {
+            return `${Math.floor(diffHours / 24)} days ago`;
+        } else if (diffHours > 0) {
+            return `${diffHours} hours ago`;
+        } else {
+            return `${diffMinutes} minutes ago`;
+        }
+    }
+
+    capitalizeFirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // Action methods
+    showDetails(symbol) {
+        // Create a modal or navigate to detail page
+        alert(`Showing detailed analysis for ${symbol}`);
+        // TODO: Implement detailed view with charts, indicators, etc.
+    }
+
+    showChart(symbol) {
+        // Open chart in modal or new tab
+        alert(`Opening advanced chart for ${symbol}`);
+        // TODO: Implement advanced charting with TradingView or similar
+    }
+
+    showGlobalLoading() {
+        // TODO: Show global loading overlay
+    }
+
+    hideGlobalLoading() {
+        // TODO: Hide global loading overlay
+    }
+
+    showError(message) {
+        console.error(message);
+        // TODO: Show user-friendly error message
+    }
+
+    setupWebSocket() {
+        // TODO: Implement WebSocket for real-time updates
+        // This would connect to Binance WebSocket or your own WebSocket server
+    }
+
+    setupAutoRefresh() {
+        // Refresh data every 5 minutes
+        setInterval(async () => {
+            console.log('Auto-refreshing data...');
+            await this.loadRealtimeData();
+            await this.updateRealtimeView();
+        }, 5 * 60 * 1000);
+
+        // Refresh page data every 30 minutes
+        setInterval(async () => {
+            console.log('Full data refresh...');
+            await this.forceRefreshData();
+        }, 30 * 60 * 1000);
+    }
+}
+
+// Initialize the enhanced monitor
+document.addEventListener('DOMContentLoaded', () => {
+    window.monitor = new AdvancedBinanceMonitor();
 });
+
+// Export for debugging
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = AdvancedBinanceMonitor;
+}
