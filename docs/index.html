@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binance OI & Volume Monitor - Advanced Dashboard</title>
+    <title>Theo Dõi OI & Volume Binance - Bảng Điều Khiển Nâng Cao</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css">
@@ -221,7 +221,7 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 <i class="bi bi-graph-up-arrow"></i>
-                Binance OI & Volume Monitor
+                Theo Dõi OI & Volume Binance
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -230,7 +230,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <button id="refreshBtn" class="btn btn-outline-light btn-sm">
-                            <i class="bi bi-arrow-clockwise"></i> Refresh
+                            <i class="bi bi-arrow-clockwise"></i> Làm Mới
                         </button>
                     </li>
                 </ul>
@@ -239,89 +239,89 @@
     </nav>
 
     <div class="container mt-4">
-        <!-- Last Update Info -->
+        <!-- Thông tin cập nhật cuối -->
         <div class="last-update">
             <i class="bi bi-clock"></i>
-            <span id="lastUpdateTime">Loading...</span>
+            <span id="lastUpdateTime">Đang tải...</span>
         </div>
 
-        <!-- Main Tabs -->
+        <!-- Tabs chính -->
         <div class="main-tabs">
             <ul class="nav nav-tabs" id="mainTabs" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="realtime-tab" data-bs-toggle="tab" data-bs-target="#realtime" type="button" role="tab">
-                        <i class="bi bi-activity"></i> Realtime Tracking (Hourly)
+                        <i class="bi bi-activity"></i> Theo Dõi Thời Gian Thực (Theo Giờ)
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="historical-tab" data-bs-toggle="tab" data-bs-target="#historical" type="button" role="tab">
-                        <i class="bi bi-calendar3"></i> Historical Data (Daily)
+                        <i class="bi bi-calendar3"></i> Dữ Liệu Lịch Sử (Theo Ngày)
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="anomalies-tab" data-bs-toggle="tab" data-bs-target="#anomalies" type="button" role="tab">
-                        <i class="bi bi-exclamation-triangle"></i> Anomalies
+                        <i class="bi bi-exclamation-triangle"></i> Bất Thường
                     </button>
                 </li>
             </ul>
 
             <div class="tab-content" id="mainTabContent">
-                <!-- Realtime Tab -->
+                <!-- Tab Thời Gian Thực -->
                 <div class="tab-pane fade show active" id="realtime" role="tabpanel">
-                    <!-- Time Filter -->
+                    <!-- Bộ lọc thời gian -->
                     <div class="time-filter">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
                             <div>
-                                <span class="me-3"><strong>Timeframe:</strong></span>
-                                <button class="btn-time-filter active" data-timeframe="1h">1 Hour</button>
-                                <button class="btn-time-filter" data-timeframe="4h">4 Hours</button>
-                                <button class="btn-time-filter" data-timeframe="1d">1 Day</button>
+                                <span class="me-3"><strong>Khung Thời Gian:</strong></span>
+                                <button class="btn-time-filter active" data-timeframe="1h">1 Giờ</button>
+                                <button class="btn-time-filter" data-timeframe="4h">4 Giờ</button>
+                                <button class="btn-time-filter" data-timeframe="1d">1 Ngày</button>
                             </div>
-                            <small class="text-muted">Updates every hour</small>
+                            <small class="text-muted">Cập nhật mỗi giờ</small>
                         </div>
                     </div>
 
-                    <!-- Stats Summary -->
+                    <!-- Thống kê tổng quan -->
                     <div class="stats-cards">
                         <div class="row">
                             <div class="col-md-3 col-6">
                                 <div class="stat-card">
                                     <div class="stat-number" id="totalSymbols">-</div>
-                                    <div class="stat-label">Total Symbols</div>
+                                    <div class="stat-label">Tổng Số Coin</div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-6">
                                 <div class="stat-card">
                                     <div class="stat-number text-success" id="bullishCount">-</div>
-                                    <div class="stat-label">Bullish</div>
+                                    <div class="stat-label">Tăng Giá</div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-6">
                                 <div class="stat-card">
                                     <div class="stat-number text-danger" id="bearishCount">-</div>
-                                    <div class="stat-label">Bearish</div>
+                                    <div class="stat-label">Giảm Giá</div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-6">
                                 <div class="stat-card">
                                     <div class="stat-number text-warning" id="neutralCount">-</div>
-                                    <div class="stat-label">Neutral</div>
+                                    <div class="stat-label">Trung Tính</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Realtime Coin List -->
+                    <!-- Danh sách coin thời gian thực -->
                     <div class="table-responsive">
                         <table class="table table-hover coin-list-table mb-0">
                             <thead>
                                 <tr>
-                                    <th>Symbol</th>
-                                    <th>Price Change</th>
-                                    <th>Volume Change</th>
-                                    <th>OI Change</th>
-                                    <th>Sentiment</th>
-                                    <th>Action</th>
+                                    <th>Coin</th>
+                                    <th>Thay Đổi Giá</th>
+                                    <th>Thay Đổi Volume</th>
+                                    <th>Thay Đổi OI</th>
+                                    <th>Xu Hướng</th>
+                                    <th>Thao Tác</th>
                                 </tr>
                             </thead>
                             <tbody id="realtimeTableBody">
@@ -329,7 +329,7 @@
                                     <td colspan="6" class="text-center">
                                         <div class="loading-spinner">
                                             <div class="spinner-border text-primary" role="status">
-                                                <span class="visually-hidden">Loading...</span>
+                                                <span class="visually-hidden">Đang tải...</span>
                                             </div>
                                         </div>
                                     </td>
@@ -339,33 +339,33 @@
                     </div>
                 </div>
 
-                <!-- Historical Tab -->
+                <!-- Tab Lịch Sử -->
                 <div class="tab-pane fade" id="historical" role="tabpanel">
-                    <!-- Time Filter -->
+                    <!-- Bộ lọc thời gian -->
                     <div class="time-filter">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
                             <div>
-                                <span class="me-3"><strong>Period:</strong></span>
-                                <button class="btn-time-filter active" data-period="7d">7 Days</button>
-                                <button class="btn-time-filter" data-period="30d">30 Days</button>
-                                <button class="btn-time-filter" data-period="90d">90 Days</button>
+                                <span class="me-3"><strong>Giai Đoạn:</strong></span>
+                                <button class="btn-time-filter active" data-period="7d">7 Ngày</button>
+                                <button class="btn-time-filter" data-period="30d">30 Ngày</button>
+                                <button class="btn-time-filter" data-period="90d">90 Ngày</button>
                             </div>
-                            <small class="text-muted">Historical daily data</small>
+                            <small class="text-muted">Dữ liệu lịch sử theo ngày</small>
                         </div>
                     </div>
 
-                    <!-- Historical Coin List -->
+                    <!-- Danh sách coin lịch sử -->
                     <div class="table-responsive">
                         <table class="table table-hover coin-list-table mb-0">
                             <thead>
                                 <tr>
-                                    <th>Symbol</th>
-                                    <th>7D Price</th>
-                                    <th>7D Volume</th>
-                                    <th>7D OI</th>
-                                    <th>30D Price</th>
-                                    <th>30D OI</th>
-                                    <th>Trend</th>
+                                    <th>Coin</th>
+                                    <th>Giá 7 Ngày</th>
+                                    <th>Volume 7 Ngày</th>
+                                    <th>OI 7 Ngày</th>
+                                    <th>Giá 30 Ngày</th>
+                                    <th>OI 30 Ngày</th>
+                                    <th>Xu Hướng</th>
                                 </tr>
                             </thead>
                             <tbody id="historicalTableBody">
@@ -373,7 +373,7 @@
                                     <td colspan="7" class="text-center">
                                         <div class="loading-spinner">
                                             <div class="spinner-border text-primary" role="status">
-                                                <span class="visually-hidden">Loading...</span>
+                                                <span class="visually-hidden">Đang tải...</span>
                                             </div>
                                         </div>
                                     </td>
@@ -382,18 +382,18 @@
                         </table>
                     </div>
 
-                    <!-- Historical Chart -->
+                    <!-- Biểu đồ lịch sử -->
                     <div class="chart-container">
                         <canvas id="historicalChart"></canvas>
                     </div>
                 </div>
 
-                <!-- Anomalies Tab -->
+                <!-- Tab Bất Thường -->
                 <div class="tab-pane fade" id="anomalies" role="tabpanel">
                     <div class="time-filter">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <h6 class="mb-0">Recent Anomalies</h6>
-                            <small class="text-muted">Updated every 15 minutes</small>
+                            <h6 class="mb-0">Bất Thường Gần Đây</h6>
+                            <small class="text-muted">Cập nhật mỗi 15 phút</small>
                         </div>
                     </div>
 
@@ -401,11 +401,11 @@
                         <table class="table table-hover coin-list-table mb-0">
                             <thead>
                                 <tr>
-                                    <th>Time</th>
-                                    <th>Symbol</th>
-                                    <th>Type</th>
-                                    <th>Message</th>
-                                    <th>Severity</th>
+                                    <th>Thời Gian</th>
+                                    <th>Coin</th>
+                                    <th>Loại</th>
+                                    <th>Thông Điệp</th>
+                                    <th>Mức Độ</th>
                                 </tr>
                             </thead>
                             <tbody id="anomaliesTableBody">
@@ -413,7 +413,7 @@
                                     <td colspan="5" class="text-center">
                                         <div class="loading-spinner">
                                             <div class="spinner-border text-primary" role="status">
-                                                <span class="visually-hidden">Loading...</span>
+                                                <span class="visually-hidden">Đang tải...</span>
                                             </div>
                                         </div>
                                     </td>
@@ -430,169 +430,185 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <script>
-        class BinanceMonitor {
+        class TheoDoi_OI_Volume_Binance {
             constructor() {
-                this.currentTimeframe = '1h';
-                this.currentPeriod = '7d';
-                this.charts = {};
+                this.khungThoiGianHienTai = '1h';
+                this.giaiDoanHienTai = '7d';
+                this.bieuDo = {};
+                this.duLieuCache = {
+                    thoiGianThuc: null,
+                    lichSu: {},
+                    batThuong: null,
+                    capNhatCuoi: null
+                };
                 this.init();
             }
 
             init() {
-                this.bindEvents();
-                this.loadData();
-                this.setupAutoRefresh();
+                this.ganSuKien();
+                this.taiDuLieuBanDau();
+                this.thietLapTuDongLamMoi();
             }
 
-            bindEvents() {
-                // Refresh button
+            ganSuKien() {
+                // Nút làm mới
                 document.getElementById('refreshBtn').addEventListener('click', () => {
-                    this.loadData();
+                    this.taiDuLieu();
                 });
 
-                // Time filter buttons
+                // Các nút bộ lọc thời gian
                 document.querySelectorAll('.btn-time-filter').forEach(btn => {
                     btn.addEventListener('click', (e) => {
-                        const timeframe = e.target.dataset.timeframe;
-                        const period = e.target.dataset.period;
+                        const khungThoiGian = e.target.dataset.timeframe;
+                        const giaiDoan = e.target.dataset.period;
                         
-                        if (timeframe) {
-                            this.currentTimeframe = timeframe;
-                            this.updateActiveFilter(e.target);
-                            this.loadRealtimeData();
+                        if (khungThoiGian) {
+                            this.khungThoiGianHienTai = khungThoiGian;
+                            this.capNhatBoLocHoatDong(e.target);
+                            this.taiDuLieuThoiGianThuc();
                         }
                         
-                        if (period) {
-                            this.currentPeriod = period;
-                            this.updateActiveFilter(e.target);
-                            this.loadHistoricalData();
+                        if (giaiDoan) {
+                            this.giaiDoanHienTai = giaiDoan;
+                            this.capNhatBoLocHoatDong(e.target);
+                            this.taiDuLieuLichSu();
                         }
                     });
                 });
 
-                // Tab change events
+                // Sự kiện chuyển tab
                 document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
                     tab.addEventListener('shown.bs.tab', (e) => {
                         const target = e.target.getAttribute('data-bs-target');
                         if (target === '#historical') {
-                            this.loadHistoricalData();
+                            this.taiDuLieuLichSu();
                         } else if (target === '#anomalies') {
-                            this.loadAnomaliesData();
+                            this.taiDuLieuBatThuong();
                         }
                     });
                 });
             }
 
-            updateActiveFilter(activeBtn) {
-                activeBtn.parentNode.querySelectorAll('.btn-time-filter').forEach(btn => {
+            capNhatBoLocHoatDong(nutHoatDong) {
+                nutHoatDong.parentNode.querySelectorAll('.btn-time-filter').forEach(btn => {
                     btn.classList.remove('active');
                 });
-                activeBtn.classList.add('active');
+                nutHoatDong.classList.add('active');
             }
 
-            async loadData() {
+            async taiDuLieuBanDau() {
                 try {
-                    this.showLoading();
+                    this.hienThiDangTai();
                     await Promise.all([
-                        this.loadRealtimeData(),
-                        this.loadAnomaliesData()
+                        this.taiDuLieuThoiGianThuc(),
+                        this.taiDuLieuBatThuong()
                     ]);
+                    this.anDangTai();
                 } catch (error) {
-                    console.error('Error loading data:', error);
-                    this.showError('Failed to load data');
+                    console.error('Lỗi khi tải dữ liệu ban đầu:', error);
+                    this.hienThiLoi('Không thể tải dữ liệu ban đầu');
                 }
             }
 
-            async loadRealtimeData() {
+            async taiDuLieu() {
+                try {
+                    await this.taiDuLieuBanDau();
+                } catch (error) {
+                    console.error('Lỗi khi tải dữ liệu:', error);
+                    this.hienThiLoi('Không thể tải dữ liệu');
+                }
+            }
+
+            async taiDuLieuThoiGianThuc() {
                 try {
                     const response = await fetch('assets/data/daily_summary.json');
                     const data = await response.json();
                     
-                    this.updateLastUpdateTime(data.timestamp);
-                    this.updateRealtimeTable(data.symbols);
-                    this.updateStats(data.symbols);
+                    this.capNhatThoiGianCapNhatCuoi(data.timestamp);
+                    this.capNhatBangThoiGianThuc(data.symbols);
+                    this.capNhatThongKe(data.symbols);
                 } catch (error) {
-                    console.error('Error loading realtime data:', error);
+                    console.error('Lỗi khi tải dữ liệu thời gian thực:', error);
                 }
             }
 
-            async loadHistoricalData() {
+            async taiDuLieuLichSu() {
                 try {
-                    // Load historical data for each symbol
+                    // Tải dữ liệu lịch sử cho từng symbol
                     const symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
-                    const historicalData = {};
+                    const duLieuLichSu = {};
                     
                     for (const symbol of symbols) {
                         try {
                             const response = await fetch(`assets/data/${symbol}.json`);
                             const data = await response.json();
-                            historicalData[symbol] = data;
+                            duLieuLichSu[symbol] = data;
                         } catch (error) {
-                            console.error(`Error loading ${symbol} data:`, error);
+                            console.error(`Lỗi khi tải dữ liệu ${symbol}:`, error);
                         }
                     }
                     
-                    this.updateHistoricalTable(historicalData);
-                    this.updateHistoricalChart(historicalData);
+                    this.capNhatBangLichSu(duLieuLichSu);
+                    this.capNhatBieuDoLichSu(duLieuLichSu);
                 } catch (error) {
-                    console.error('Error loading historical data:', error);
+                    console.error('Lỗi khi tải dữ liệu lịch sử:', error);
                 }
             }
 
-            async loadAnomaliesData() {
+            async taiDuLieuBatThuong() {
                 try {
                     const response = await fetch('assets/data/daily_summary.json');
                     const data = await response.json();
                     
-                    this.updateAnomaliesTable(data.anomalies || []);
+                    this.capNhatBangBatThuong(data.anomalies || []);
                 } catch (error) {
-                    console.error('Error loading anomalies data:', error);
+                    console.error('Lỗi khi tải dữ liệu bất thường:', error);
                 }
             }
 
-            updateLastUpdateTime(timestamp) {
-                document.getElementById('lastUpdateTime').textContent = `Last updated: ${timestamp}`;
+            capNhatThoiGianCapNhatCuoi(timestamp) {
+                document.getElementById('lastUpdateTime').textContent = `Cập nhật lần cuối: ${timestamp}`;
             }
 
-            updateRealtimeTable(symbols) {
+            capNhatBangThoiGianThuc(symbols) {
                 const tbody = document.getElementById('realtimeTableBody');
                 tbody.innerHTML = '';
 
                 Object.entries(symbols).forEach(([symbol, data]) => {
-                    const row = this.createRealtimeRow(symbol, data);
+                    const row = this.taoHangThoiGianThuc(symbol, data);
                     tbody.appendChild(row);
                 });
             }
 
-            createRealtimeRow(symbol, data) {
+            taoHangThoiGianThuc(symbol, data) {
                 const row = document.createElement('tr');
                 
-                const priceClass = this.getChangeClass(data.price_change);
-                const volumeClass = this.getChangeClass(data.volume_change);
-                const oiClass = this.getChangeClass(data.oi_change);
-                const sentimentClass = this.getSentimentClass(data.sentiment);
+                const lopGia = this.layLopThayDoi(data.price_change);
+                const lopVolume = this.layLopThayDoi(data.volume_change);
+                const lopOI = this.layLopThayDoi(data.oi_change);
+                const lopXuHuong = this.layLopXuHuong(data.sentiment);
 
                 row.innerHTML = `
                     <td>
                         <span class="coin-symbol">${symbol}</span>
                     </td>
-                    <td class="${priceClass}">
-                        <strong>${this.formatPercent(data.price_change)}</strong>
+                    <td class="${lopGia}">
+                        <strong>${this.dinhDangPhanTram(data.price_change)}</strong>
                         <i class="bi bi-${data.price_change >= 0 ? 'arrow-up' : 'arrow-down'}"></i>
                     </td>
-                    <td class="${volumeClass}">
-                        <strong>${this.formatPercent(data.volume_change)}</strong>
+                    <td class="${lopVolume}">
+                        <strong>${this.dinhDangPhanTram(data.volume_change)}</strong>
                         <i class="bi bi-${data.volume_change >= 0 ? 'arrow-up' : 'arrow-down'}"></i>
                     </td>
-                    <td class="${oiClass}">
-                        <strong>${this.formatPercent(data.oi_change)}</strong>
+                    <td class="${lopOI}">
+                        <strong>${this.dinhDangPhanTram(data.oi_change)}</strong>
                         <i class="bi bi-${data.oi_change >= 0 ? 'arrow-up' : 'arrow-down'}"></i>
                     </td>
                     <td>
-                        <span class="badge sentiment-badge ${sentimentClass}">${data.sentiment}</span>
+                        <span class="badge sentiment-badge ${lopXuHuong}">${this.dichXuHuong(data.sentiment)}</span>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="monitor.showDetails('${symbol}')">
+                        <button class="btn btn-sm btn-outline-primary" onclick="monitor.hienThiChiTiet('${symbol}')">
                             <i class="bi bi-eye"></i>
                         </button>
                     </td>
@@ -601,25 +617,25 @@
                 return row;
             }
 
-            updateHistoricalTable(historicalData) {
+            capNhatBangLichSu(duLieuLichSu) {
                 const tbody = document.getElementById('historicalTableBody');
                 tbody.innerHTML = '';
 
-                Object.entries(historicalData).forEach(([symbol, data]) => {
-                    const row = this.createHistoricalRow(symbol, data);
+                Object.entries(duLieuLichSu).forEach(([symbol, data]) => {
+                    const row = this.taoHangLichSu(symbol, data);
                     tbody.appendChild(row);
                 });
             }
 
-            createHistoricalRow(symbol, data) {
+            taoHangLichSu(symbol, data) {
                 const row = document.createElement('tr');
                 
-                // Calculate historical changes (mock data for now)
-                const mockData = {
-                    price7d: (Math.random() - 0.5) * 20,
+                // Tính toán thay đổi lịch sử (dữ liệu mô phỏng cho demo)
+                const duLieuGia = {
+                    gia7d: (Math.random() - 0.5) * 20,
                     volume7d: (Math.random() - 0.5) * 40,
                     oi7d: (Math.random() - 0.5) * 15,
-                    price30d: (Math.random() - 0.5) * 30,
+                    gia30d: (Math.random() - 0.5) * 30,
                     oi30d: (Math.random() - 0.5) * 25
                 };
 
@@ -627,24 +643,24 @@
                     <td>
                         <span class="coin-symbol">${symbol}</span>
                     </td>
-                    <td class="${this.getChangeClass(mockData.price7d)}">
-                        <strong>${this.formatPercent(mockData.price7d)}</strong>
+                    <td class="${this.layLopThayDoi(duLieuGia.gia7d)}">
+                        <strong>${this.dinhDangPhanTram(duLieuGia.gia7d)}</strong>
                     </td>
-                    <td class="${this.getChangeClass(mockData.volume7d)}">
-                        <strong>${this.formatPercent(mockData.volume7d)}</strong>
+                    <td class="${this.layLopThayDoi(duLieuGia.volume7d)}">
+                        <strong>${this.dinhDangPhanTram(duLieuGia.volume7d)}</strong>
                     </td>
-                    <td class="${this.getChangeClass(mockData.oi7d)}">
-                        <strong>${this.formatPercent(mockData.oi7d)}</strong>
+                    <td class="${this.layLopThayDoi(duLieuGia.oi7d)}">
+                        <strong>${this.dinhDangPhanTram(duLieuGia.oi7d)}</strong>
                     </td>
-                    <td class="${this.getChangeClass(mockData.price30d)}">
-                        <strong>${this.formatPercent(mockData.price30d)}</strong>
+                    <td class="${this.layLopThayDoi(duLieuGia.gia30d)}">
+                        <strong>${this.dinhDangPhanTram(duLieuGia.gia30d)}</strong>
                     </td>
-                    <td class="${this.getChangeClass(mockData.oi30d)}">
-                        <strong>${this.formatPercent(mockData.oi30d)}</strong>
+                    <td class="${this.layLopThayDoi(duLieuGia.oi30d)}">
+                        <strong>${this.dinhDangPhanTram(duLieuGia.oi30d)}</strong>
                     </td>
                     <td>
-                        <span class="badge bg-${mockData.price30d > 0 ? 'success' : 'danger'}">
-                            ${mockData.price30d > 0 ? 'Uptrend' : 'Downtrend'}
+                        <span class="badge bg-${duLieuGia.gia30d > 0 ? 'success' : 'danger'}">
+                            ${duLieuGia.gia30d > 0 ? 'Tăng' : 'Giảm'}
                         </span>
                     </td>
                 `;
@@ -652,158 +668,201 @@
                 return row;
             }
 
-            updateAnomaliesTable(anomalies) {
+            capNhatBangBatThuong(batThuong) {
                 const tbody = document.getElementById('anomaliesTableBody');
                 tbody.innerHTML = '';
 
-                if (anomalies.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No anomalies detected</td></tr>';
+                if (batThuong.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Không phát hiện bất thường nào</td></tr>';
                     return;
                 }
 
-                anomalies.forEach(anomaly => {
-                    const row = this.createAnomalyRow(anomaly);
+                batThuong.forEach(anomaly => {
+                    const row = this.taoHangBatThuong(anomaly);
                     tbody.appendChild(row);
                 });
             }
 
-            createAnomalyRow(anomaly) {
+            taoHangBatThuong(anomaly) {
                 const row = document.createElement('tr');
-                const severity = this.getAnomalySeverity(anomaly.message);
+                const mucDo = this.layMucDoBatThuong(anomaly.message);
                 
                 row.innerHTML = `
-                    <td>${this.formatDateTime(anomaly.timestamp)}</td>
+                    <td>${this.dinhDangThoiGian(anomaly.timestamp)}</td>
                     <td><span class="coin-symbol">${anomaly.symbol}</span></td>
-                    <td><span class="badge bg-info">${anomaly.data_type}</span></td>
+                    <td><span class="badge bg-info">${this.dichLoaiBatThuong(anomaly.data_type)}</span></td>
                     <td>${anomaly.message}</td>
-                    <td><span class="badge bg-${severity.color}">${severity.text}</span></td>
+                    <td><span class="badge bg-${mucDo.mau}">${mucDo.chuoi}</span></td>
                 `;
 
                 return row;
             }
 
-            updateStats(symbols) {
-                const stats = this.calculateStats(symbols);
+            capNhatThongKe(symbols) {
+                const thongKe = this.tinhThongKe(symbols);
                 
-                document.getElementById('totalSymbols').textContent = stats.total;
-                document.getElementById('bullishCount').textContent = stats.bullish;
-                document.getElementById('bearishCount').textContent = stats.bearish;
-                document.getElementById('neutralCount').textContent = stats.neutral;
+                document.getElementById('totalSymbols').textContent = thongKe.tong;
+                document.getElementById('bullishCount').textContent = thongKe.tang;
+                document.getElementById('bearishCount').textContent = thongKe.giam;
+                document.getElementById('neutralCount').textContent = thongKe.trungTinh;
             }
 
-            calculateStats(symbols) {
-                const stats = { total: 0, bullish: 0, bearish: 0, neutral: 0 };
+            tinhThongKe(symbols) {
+                const thongKe = { tong: 0, tang: 0, giam: 0, trungTinh: 0 };
                 
                 Object.values(symbols).forEach(data => {
-                    stats.total++;
-                    const sentiment = data.sentiment.toLowerCase();
+                    thongKe.tong++;
+                    const xuHuong = data.sentiment.toLowerCase();
                     
-                    if (sentiment.includes('bullish')) {
-                        stats.bullish++;
-                    } else if (sentiment.includes('bearish')) {
-                        stats.bearish++;
+                    if (xuHuong.includes('bullish')) {
+                        thongKe.tang++;
+                    } else if (xuHuong.includes('bearish')) {
+                        thongKe.giam++;
                     } else {
-                        stats.neutral++;
+                        thongKe.trungTinh++;
                     }
                 });
 
-                return stats;
+                return thongKe;
             }
 
-            updateHistoricalChart(historicalData) {
-                // Implement historical chart
+            capNhatBieuDoLichSu(duLieuLichSu) {
+                // Triển khai biểu đồ lịch sử
                 const ctx = document.getElementById('historicalChart');
-                if (this.charts.historical) {
-                    this.charts.historical.destroy();
+                if (this.bieuDo.lichSu) {
+                    this.bieuDo.lichSu.destroy();
                 }
 
-                // Mock chart data
-                const labels = Array.from({length: 30}, (_, i) => {
-                    const date = new Date();
-                    date.setDate(date.getDate() - 29 + i);
-                    return date.toLocaleDateString();
+                // Dữ liệu biểu đồ mô phỏng
+                const nhan = Array.from({length: 30}, (_, i) => {
+                    const ngay = new Date();
+                    ngay.setDate(ngay.getDate() - 29 + i);
+                    return ngay.toLocaleDateString('vi-VN');
                 });
 
-                this.charts.historical = new Chart(ctx, {
+                this.bieuDo.lichSu = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: labels,
-                        datasets: Object.keys(historicalData).map((symbol, index) => ({
+                        labels: nhan,
+                        datasets: Object.keys(duLieuLichSu).map((symbol, index) => ({
                             label: symbol,
                             data: Array.from({length: 30}, () => Math.random() * 100),
-                            borderColor: this.getColorForIndex(index),
+                            borderColor: this.layMauChoViTri(index),
                             tension: 0.1
                         }))
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Biểu Đồ Lịch Sử Giá'
+                            }
+                        },
                         scales: {
                             y: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Thay Đổi (%)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Ngày'
+                                }
                             }
                         }
                     }
                 });
             }
 
-            getChangeClass(change) {
-                if (change > 0) return 'change-positive';
-                if (change < 0) return 'change-negative';
+            layLopThayDoi(thayDoi) {
+                if (thayDoi > 0) return 'change-positive';
+                if (thayDoi < 0) return 'change-negative';
                 return 'change-neutral';
             }
 
-            getSentimentClass(sentiment) {
-                const s = sentiment.toLowerCase();
+            layLopXuHuong(xuHuong) {
+                const s = xuHuong.toLowerCase();
                 if (s.includes('bullish')) return 'sentiment-bullish';
                 if (s.includes('bearish')) return 'sentiment-bearish';
                 return 'sentiment-neutral';
             }
 
-            getAnomalySeverity(message) {
-                const zscore = parseFloat(message.match(/Z-score: ([\d.]+)/)?.[1] || 0);
-                if (zscore > 4) return { color: 'danger', text: 'High' };
-                if (zscore > 3) return { color: 'warning', text: 'Medium' };
-                return { color: 'info', text: 'Low' };
+            layMucDoBatThuong(thongDiep) {
+                const zscore = parseFloat(thongDiep.match(/Z-score: ([\d.]+)/)?.[1] || 0);
+                if (zscore > 4) return { mau: 'danger', chuoi: 'Cao' };
+                if (zscore > 3) return { mau: 'warning', chuoi: 'Trung Bình' };
+                return { mau: 'info', chuoi: 'Thấp' };
             }
 
-            getColorForIndex(index) {
-                const colors = ['#f7931e', '#16c784', '#ea3943', '#f0b90b', '#8b5cf6'];
-                return colors[index % colors.length];
+            layMauChoViTri(viTri) {
+                const mau = ['#f7931e', '#16c784', '#ea3943', '#f0b90b', '#8b5cf6'];
+                return mau[viTri % mau.length];
             }
 
-            formatPercent(value) {
-                return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
+            dinhDangPhanTram(giaTri) {
+                return `${giaTri >= 0 ? '+' : ''}${giaTri.toFixed(2)}%`;
             }
 
-            formatDateTime(timestamp) {
-                return new Date(timestamp).toLocaleString();
+            dinhDangThoiGian(timestamp) {
+                return new Date(timestamp).toLocaleString('vi-VN');
             }
 
-            showDetails(symbol) {
-                alert(`Showing details for ${symbol}`);
-                // Implement detailed view
+            dichXuHuong(sentiment) {
+                const dich = {
+                    'neutral': 'Trung Tính',
+                    'bullish': 'Tăng Giá',
+                    'bearish': 'Giảm Giá',
+                    'strong bullish': 'Tăng Mạnh',
+                    'strong bearish': 'Giảm Mạnh',
+                    'moderate bullish': 'Tăng Vừa',
+                    'potential bearish': 'Có Thể Giảm'
+                };
+                return dich[sentiment.toLowerCase()] || sentiment;
             }
 
-            showLoading() {
-                // Show loading states
+            dichLoaiBatThuong(loai) {
+                const dich = {
+                    'volume': 'Khối Lượng',
+                    'open_interest': 'OI',
+                    'price': 'Giá',
+                    'correlation': 'Tương Quan'
+                };
+                return dich[loai] || loai;
             }
 
-            showError(message) {
-                console.error(message);
-                // Show error message
+            hienThiChiTiet(symbol) {
+                alert(`Hiển thị chi tiết cho ${symbol}`);
+                // Triển khai chi tiết
             }
 
-            setupAutoRefresh() {
-                // Refresh every 5 minutes
+            hienThiDangTai() {
+                // Hiển thị trạng thái đang tải
+            }
+
+            anDangTai() {
+                // Ẩn trạng thái đang tải
+            }
+
+            hienThiLoi(thongDiep) {
+                console.error(thongDiep);
+                // Hiển thị thông báo lỗi
+            }
+
+            thietLapTuDongLamMoi() {
+                // Làm mới mỗi 5 phút
                 setInterval(() => {
-                    this.loadData();
+                    this.taiDuLieu();
                 }, 5 * 60 * 1000);
             }
         }
 
-        // Initialize the monitor
-        const monitor = new BinanceMonitor();
+        // Khởi tạo hệ thống theo dõi
+        const monitor = new TheoDoi_OI_Volume_Binance();
     </script>
 </body>
 </html>
