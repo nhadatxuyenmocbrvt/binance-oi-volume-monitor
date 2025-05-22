@@ -121,16 +121,24 @@ def detect_anomalies():
     
     try:
         detector = AnomalyDetector(db)
-        bot = TelegramBot()
         
         total_anomalies = 0
         # Phát hiện bất thường cho từng symbol
         for symbol in SYMBOLS:
-            anomalies = detector.detect_all_anomalies(symbol)
-            total_anomalies += len(anomalies)
+            try:
+                anomalies = detector.detect_all_anomalies(symbol)
+                total_anomalies += len(anomalies)
+                logger.info(f"📊 {symbol}: {len(anomalies)} anomalies")
+            except Exception as e:
+                logger.error(f"❌ Lỗi khi phát hiện anomalies cho {symbol}: {str(e)}")
         
         # Gửi các cảnh báo chưa được thông báo
-        bot.send_anomalies(db)
+        try:
+            bot = TelegramBot()
+            bot.send_anomalies(db)
+            logger.info("📱 Đã gửi cảnh báo qua Telegram")
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi gửi cảnh báo Telegram: {str(e)}")
         
         logger.info(f"✅ Hoàn thành phát hiện bất thường: {total_anomalies} anomalies tổng cộng")
         return True

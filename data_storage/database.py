@@ -387,26 +387,38 @@ class Database:
             logger.error(f"Lỗi khi lấy dữ liệu ticker: {str(e)}")
             return pd.DataFrame()
 
-    def get_anomalies(self, limit=20):
-        """Lấy danh sách các bất thường đã phát hiện - ĐÃ SỬA"""
-        try:
-            query = "SELECT * FROM anomalies ORDER BY timestamp DESC"
-            
-            # Thêm LIMIT vào query nếu cần
-            if limit:
-                query += f" LIMIT {limit}"
-            
-            df = pd.read_sql_query(query, self.conn)
-            
-            # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
-            if not df.empty:
-                df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
-            
-            logger.info(f"Đã lấy {len(df)} mẫu anomalies")
-            return df
-        except Exception as e:
-            logger.error(f"Lỗi khi lấy dữ liệu anomalies: {str(e)}")
-            return pd.DataFrame()
+    def get_anomalies(self, limit=20, notified=None):
+            """Lấy danh sách các bất thường đã phát hiện - ĐÃ SỬA HOÀN CHỈNH"""
+            try:
+                query = "SELECT * FROM anomalies"
+                params = []
+                
+                # Thêm điều kiện WHERE nếu có notified parameter
+                if notified is not None:
+                    query += " WHERE notified = ?"
+                    params.append(1 if notified else 0)
+                
+                query += " ORDER BY timestamp DESC"
+                
+                # Thêm LIMIT vào query nếu cần
+                if limit:
+                    query += f" LIMIT {limit}"
+                
+                # Thực thi query với hoặc không có parameters
+                if params:
+                    df = pd.read_sql_query(query, self.conn, params=params)
+                else:
+                    df = pd.read_sql_query(query, self.conn)
+                
+                # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
+                if not df.empty:
+                    df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
+                
+                logger.info(f"Đã lấy {len(df)} mẫu anomalies (notified={notified})")
+                return df
+            except Exception as e:
+                logger.error(f"Lỗi khi lấy dữ liệu anomalies: {str(e)}")
+                return pd.DataFrame()
     
     def mark_anomaly_as_notified(self, anomaly_id):
         """Đánh dấu một bất thường đã được thông báo"""
