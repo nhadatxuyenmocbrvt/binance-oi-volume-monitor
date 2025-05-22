@@ -134,55 +134,145 @@ class MarketMetrics:
             logger.error(f"Lỗi khi phát hiện outliers: {str(e)}")
             return []
     
-    def calculate_market_sentiment(self, price_df, oi_df, volume_df):
-        """Tính toán chỉ số sentiment dựa trên giá, OI và volume"""
+    def calculate_safe_percentage_change(self, df, column, periods=1):
+        """Tính toán phần trăm thay đổi an toàn - THÊM MỚI"""
         try:
+            if df.empty or len(df) < periods + 1:
+                logger.warning(f"Không đủ dữ liệu để tính phần trăm thay đổi cho {column}")
+                return 0.0
+            
+            # Lấy giá trị hiện tại và trước đó
+            current_value = df[column].iloc[-1]
+            previous_value = df[column].iloc[-(periods + 1)]
+            
+            # Kiểm tra giá trị hợp lệ
+            if pd.isna(current_value) or pd.isna(previous_value) or previous_value == 0:
+                return 0.0
+            
+            # Tính phần trăm thay đổi
+            change = ((current_value - previous_value) / previous_value) * 100
+            return round(change, 4)
+        except Exception as e:
+            logger.error(f"Lỗi khi tính phần trăm thay đổi cho {column}: {str(e)}")
+            return 0.0
+    
+    def calculate_24h_percentage_change(self, df, column, timeframe='1h'):
+        """Tính toán phần trăm thay đổi 24h - THÊM MỚI"""
+        try:
+            if df.empty:
+                return 0.0
+            
+            # Xác định số periods cho 24h
+            periods_24h = 24 if timeframe == '1h' else (6 if timeframe == '4h' else 1)
+            
+            if len(df) < periods_24h + 1:
+                # Nếu không đủ dữ liệu 24h, tính với dữ liệu có sẵn
+                return self.calculate_safe_percentage_change(df, column, periods=1)
+            
+            # Tính với 24h data
+            return self.calculate_safe_percentage_change(df, column, periods=periods_24h)
+        except Exception as e:
+            logger.error(f"Lỗi khi tính phần trăm thay đổi 24h: {str(e)}")
+            return 0.0
+    
+    def calculate_market_sentiment(self, price_df, oi_df, volume_df):
+        """Tính toán chỉ số sentiment dựa trên giá, OI và volume - ĐÃ SỬA"""
+        try:
+            # Khởi tạo giá trị mặc định
+            default_result = {
+                'sentiment_score': 0,
+                'sentiment_label': "Neutral",
+                'price_change': 0.0,
+                'oi_change': 0.0,
+                'volume_change': 0.0
+            }
+            
             if price_df.empty or oi_df.empty or volume_df.empty:
                 logger.warning("DataFrame rỗng, không thể tính toán sentiment")
-                return None
+                return default_result
             
-            # Tính các chỉ số thay đổi
-            price_change = price_df['close'].pct_change().iloc[-1] if len(price_df) > 1 else 0
-            oi_change = oi_df['open_interest'].pct_change().iloc[-1] if len(oi_df) > 1 else 0
-            volume_change = volume_df['volume'].pct_change().iloc[-1] if len(volume_df) > 1 else 0
+            # Tính các chỉ số thay đổi với cách an toàn hơn
+            price_change = 0.0
+            oi_change = 0.0  
+            volume_change = 0.0
             
-            # Tính chỉ số sentiment (ví dụ đơn giản)
-            # 1. Giá tăng + OI tăng + Volume tăng = Bullish mạnh
-            # 2. Giá tăng + OI tăng + Volume giảm = Bullish trung bình
-            # 3. Giá tăng + OI giảm = Bearish tiềm ẩn
-            # 4. Giá giảm + OI tăng = Bearish mạnh
-            # 5. Giá giảm + OI giảm = Thị trường không rõ ràng
+            # Tính thay đổi giá
+            if len(price_df) > 1:
+                price_change = self.calculate_safe_percentage_change(price_df, 'close')
             
-            sentiment = 0  # Trung tính
+            # Tính thay đổi Open Interest
+            if len(oi_df) > 1:
+                oi_change = self.calculate_safe_percentage_change(oi_df, 'open_interest')
+            
+            # Tính thay đổi Volume
+            if len(volume_df) > 1:
+                volume_change = self.calculate_safe_percentage_change(volume_df, 'volume')
+            
+            # Logic sentiment cải thiện với ngưỡng
+            sentiment = 0
             sentiment_label = "Neutral"
             
-            if price_change > 0 and oi_change > 0:
-                if volume_change > 0:
+            # Định nghĩa ngưỡng để xác định thay đổi có ý nghĩa
+            price_threshold = 0.5  # 0.5%
+            oi_threshold = 1.0     # 1.0%
+            volume_threshold = 5.0 # 5.0%
+            
+            # Phân loại mức độ thay đổi
+            price_positive = price_change > price_threshold
+            price_negative = price_change < -price_threshold
+            oi_positive = oi_change > oi_threshold
+            oi_negative = oi_change < -oi_threshold
+            volume_positive = volume_change > volume_threshold
+            
+            # Tính điểm sentiment
+            if price_positive and oi_positive:
+                if volume_positive:
                     sentiment = 2  # Bullish mạnh
                     sentiment_label = "Strong Bullish"
                 else:
                     sentiment = 1  # Bullish trung bình
                     sentiment_label = "Moderate Bullish"
-            elif price_change > 0 and oi_change < 0:
-                sentiment = -0.5  # Bearish tiềm ẩn
-                sentiment_label = "Potential Bearish"
-            elif price_change < 0 and oi_change > 0:
+            elif price_positive and oi_negative:
+                sentiment = -0.5  # Bearish tiềm ẩn (short covering)
+                sentiment_label = "Potential Bearish (Short Covering)"
+            elif price_negative and oi_positive:
                 sentiment = -2  # Bearish mạnh
                 sentiment_label = "Strong Bearish"
-            elif price_change < 0 and oi_change < 0:
-                sentiment = -0.2  # Không rõ ràng, hơi nghiêng về bearish
-                sentiment_label = "Unclear (Slight Bearish)"
+            elif price_negative and oi_negative:
+                if volume_positive:
+                    sentiment = -0.3  # Không rõ ràng (liquidation)
+                    sentiment_label = "Unclear (Liquidation)"
+                else:
+                    sentiment = -0.1  # Weak bearish
+                    sentiment_label = "Weak Bearish"
+            elif abs(price_change) < price_threshold and abs(oi_change) < oi_threshold:
+                sentiment = 0
+                sentiment_label = "Neutral"
+            else:
+                # Các trường hợp khác
+                if price_positive:
+                    sentiment = 0.5
+                    sentiment_label = "Slight Bullish"
+                elif price_negative:
+                    sentiment = -0.5
+                    sentiment_label = "Slight Bearish"
             
             result = {
-                'sentiment_score': sentiment,
+                'sentiment_score': round(sentiment, 2),
                 'sentiment_label': sentiment_label,
                 'price_change': price_change,
                 'oi_change': oi_change,
                 'volume_change': volume_change
             }
             
-            logger.info(f"Đã tính toán sentiment: {sentiment_label} ({sentiment:.2f})")
+            logger.info(f"Sentiment: {sentiment_label} ({sentiment:.2f}) - Price: {price_change:.2f}%, OI: {oi_change:.2f}%, Volume: {volume_change:.2f}%")
             return result
         except Exception as e:
             logger.error(f"Lỗi khi tính toán sentiment: {str(e)}")
-            return None
+            return {
+                'sentiment_score': 0,
+                'sentiment_label': "Error",
+                'price_change': 0.0,
+                'oi_change': 0.0,
+                'volume_change': 0.0
+            }

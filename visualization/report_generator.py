@@ -15,32 +15,35 @@ class ReportGenerator:
         os.makedirs('docs/assets/data', exist_ok=True)
         logger.info("Khởi tạo ReportGenerator")
     
+# Các methods phụ trợ đã được chuyển vào metrics.py
+    
     def generate_symbol_report(self, symbol):
-        """Tạo báo cáo cho một symbol"""
+        """Tạo báo cáo cho một symbol - ĐÃ SỬA ĐỂ SỬ DỤNG DỮ LIỆU THỰC"""
         try:
-            # Lấy dữ liệu
-            price_df = self.db.get_klines(symbol, '1d')
-            oi_df = self.db.get_open_interest(symbol)
-            volume_df = price_df.copy()  # Volume nằm trong price_df
+            # Lấy dữ liệu thực tế từ database
+            price_df = self.db.get_klines(symbol, '1h', limit=48)  # 48h để có đủ dữ liệu
+            oi_df = self.db.get_open_interest(symbol, limit=48)
             
-            # Tính toán sentiment
-            sentiment = self.metrics.calculate_market_sentiment(price_df, oi_df, volume_df)
+            # Tính toán thông tin giá
+            price_info = {'current': None, 'change_percent': 0.0}
+            if not price_df.empty:
+                price_info['current'] = float(price_df['close'].iloc[-1])
+                price_info['change_percent'] = self.metrics.calculate_24h_percentage_change(price_df, 'close', '1h')
             
-            # Tính toán các thay đổi
-            if not price_df.empty and len(price_df) > 1:
-                price_change = price_df['close'].pct_change().iloc[-1] * 100
-            else:
-                price_change = 0
-                
-            if not oi_df.empty and len(oi_df) > 1:
-                oi_change = oi_df['open_interest'].pct_change().iloc[-1] * 100
-            else:
-                oi_change = 0
-                
-            if not volume_df.empty and len(volume_df) > 1:
-                volume_change = volume_df['volume'].pct_change().iloc[-1] * 100
-            else:
-                volume_change = 0
+            # Tính toán thông tin volume  
+            volume_info = {'current': None, 'change_percent': 0.0}
+            if not price_df.empty:
+                volume_info['current'] = float(price_df['volume'].iloc[-1])
+                volume_info['change_percent'] = self.metrics.calculate_24h_percentage_change(price_df, 'volume', '1h')
+            
+            # Tính toán thông tin Open Interest
+            oi_info = {'current': None, 'change_percent': 0.0}
+            if not oi_df.empty:
+                oi_info['current'] = float(oi_df['open_interest'].iloc[-1])
+                oi_info['change_percent'] = self.metrics.calculate_safe_percentage_change(oi_df, 'open_interest')
+            
+            # Tính toán sentiment với dữ liệu thực tế
+            sentiment = self.metrics.calculate_market_sentiment(price_df, oi_df, price_df)
             
             # Tính toán tương quan
             correlation = self.metrics.calculate_correlation(price_df, oi_df)
@@ -49,18 +52,9 @@ class ReportGenerator:
             report = {
                 'symbol': symbol,
                 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                'price': {
-                    'current': float(price_df['close'].iloc[-1]) if not price_df.empty else None,
-                    'change_percent': price_change
-                },
-                'open_interest': {
-                    'current': float(oi_df['open_interest'].iloc[-1]) if not oi_df.empty else None,
-                    'change_percent': oi_change
-                },
-                'volume': {
-                    'current': float(volume_df['volume'].iloc[-1]) if not volume_df.empty else None,
-                    'change_percent': volume_change
-                },
+                'price': price_info,
+                'open_interest': oi_info,
+                'volume': volume_info,
                 'correlation': correlation['pearson_correlation'] if correlation else None,
                 'sentiment': sentiment
             }
@@ -70,7 +64,7 @@ class ReportGenerator:
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(report, f, ensure_ascii=False, indent=2, default=str)
             
-            logger.info(f"Đã tạo báo cáo cho {symbol} tại {file_path}")
+            logger.info(f"Đã tạo báo cáo cho {symbol}: Price {price_info['change_percent']:.2f}%, OI {oi_info['change_percent']:.2f}%, Volume {volume_info['change_percent']:.2f}%")
             return report
         except Exception as e:
             logger.error(f"Lỗi khi tạo báo cáo cho {symbol}: {str(e)}")
@@ -128,7 +122,15 @@ class ReportGenerator:
                         'price_change': report['price']['change_percent'],
                         'oi_change': report['open_interest']['change_percent'],
                         'volume_change': report['volume']['change_percent'],
-                        'sentiment': report['sentiment']['sentiment_label'] if report['sentiment'] else None
+                        'sentiment': report['sentiment']['sentiment_label'] if report['sentiment'] else 'Neutral'
+                    }
+                else:
+                    # Nếu không tạo được báo cáo, đặt giá trị mặc định
+                    summary['symbols'][symbol] = {
+                        'price_change': 0.0,
+                        'oi_change': 0.0,
+                        'volume_change': 0.0,
+                        'sentiment': 'Neutral'
                     }
             
             # Lấy danh sách các bất thường gần đây

@@ -299,26 +299,29 @@ class Database:
             logger.error(f"Lỗi khi lưu thông tin bất thường: {str(e)}")
             return False
     
-    def get_klines(self, symbol, timeframe, limit=None):
-        """Lấy dữ liệu nến từ cơ sở dữ liệu"""
+    def get_klines(self, symbol, timeframe, limit=100):
+        """Lấy dữ liệu nến từ cơ sở dữ liệu - ĐÃ SỬA"""
         try:
-            query = f'''
+            # SỬA: Sử dụng parameterized query và đúng cú pháp LIMIT
+            query = '''
             SELECT * FROM klines 
-            WHERE symbol = '{symbol}' AND timeframe = '{timeframe}'
+            WHERE symbol = ? AND timeframe = ?
             ORDER BY open_time DESC
             '''
             
+            # Thêm LIMIT vào query nếu cần
             if limit:
                 query += f" LIMIT {limit}"
             
-            df = pd.read_sql_query(query, self.conn)
+            df = pd.read_sql_query(query, self.conn, params=(symbol, timeframe))
             
             # Chuyển đổi các cột thời gian sang datetime với định dạng linh hoạt
             if not df.empty:
-                # Sử dụng format='mixed' để tự động nhận diện định dạng datetime
-                # và errors='coerce' để xử lý bất kỳ định dạng không hợp lệ
                 df['open_time'] = pd.to_datetime(df['open_time'], format='mixed', errors='coerce')
                 df['close_time'] = pd.to_datetime(df['close_time'], format='mixed', errors='coerce')
+                
+                # SỬA: Sắp xếp lại theo thời gian tăng dần để tính toán đúng
+                df = df.sort_values('open_time').reset_index(drop=True)
             
             logger.info(f"Đã lấy {len(df)} mẫu klines cho {symbol} - {timeframe}")
             return df
@@ -326,24 +329,28 @@ class Database:
             logger.error(f"Lỗi khi lấy dữ liệu klines: {str(e)}")
             return pd.DataFrame()
 
-    def get_open_interest(self, symbol, limit=None):
-        """Lấy dữ liệu Open Interest từ cơ sở dữ liệu"""
+    def get_open_interest(self, symbol, limit=100):
+        """Lấy dữ liệu Open Interest từ cơ sở dữ liệu - ĐÃ SỬA"""
         try:
-            query = f'''
+            # SỬA: Sử dụng parameterized query và đúng cú pháp LIMIT
+            query = '''
             SELECT * FROM open_interest 
-            WHERE symbol = '{symbol}'
+            WHERE symbol = ?
             ORDER BY timestamp DESC
             '''
             
+            # Thêm LIMIT vào query nếu cần
             if limit:
                 query += f" LIMIT {limit}"
             
-            df = pd.read_sql_query(query, self.conn)
+            df = pd.read_sql_query(query, self.conn, params=(symbol,))
             
             # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
             if not df.empty:
-                # Sử dụng format='mixed' để tự động nhận diện định dạng datetime
                 df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
+                
+                # SỬA: Sắp xếp lại theo thời gian tăng dần để tính toán đúng
+                df = df.sort_values('timestamp').reset_index(drop=True)
             
             logger.info(f"Đã lấy {len(df)} mẫu Open Interest cho {symbol}")
             return df
@@ -351,24 +358,28 @@ class Database:
             logger.error(f"Lỗi khi lấy dữ liệu Open Interest: {str(e)}")
             return pd.DataFrame()
 
-    def get_ticker(self, symbol, limit=None):
-        """Lấy dữ liệu ticker từ cơ sở dữ liệu"""
+    def get_ticker(self, symbol, limit=100):
+        """Lấy dữ liệu ticker từ cơ sở dữ liệu - ĐÃ SỬA"""
         try:
-            query = f'''
+            # SỬA: Sử dụng parameterized query và đúng cú pháp LIMIT
+            query = '''
             SELECT * FROM ticker 
-            WHERE symbol = '{symbol}'
+            WHERE symbol = ?
             ORDER BY timestamp DESC
             '''
             
+            # Thêm LIMIT vào query nếu cần
             if limit:
                 query += f" LIMIT {limit}"
             
-            df = pd.read_sql_query(query, self.conn)
+            df = pd.read_sql_query(query, self.conn, params=(symbol,))
             
             # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
             if not df.empty:
-                # Sử dụng format='mixed' để tự động nhận diện định dạng datetime
                 df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
+                
+                # SỬA: Sắp xếp lại theo thời gian tăng dần để tính toán đúng
+                df = df.sort_values('timestamp').reset_index(drop=True)
             
             logger.info(f"Đã lấy {len(df)} mẫu ticker cho {symbol}")
             return df
@@ -376,16 +387,12 @@ class Database:
             logger.error(f"Lỗi khi lấy dữ liệu ticker: {str(e)}")
             return pd.DataFrame()
 
-    def get_anomalies(self, limit=100, notified=None):
-        """Lấy danh sách các bất thường đã phát hiện"""
+    def get_anomalies(self, limit=20):
+        """Lấy danh sách các bất thường đã phát hiện - ĐÃ SỬA"""
         try:
-            query = "SELECT * FROM anomalies"
+            query = "SELECT * FROM anomalies ORDER BY timestamp DESC"
             
-            if notified is not None:
-                query += f" WHERE notified = {1 if notified else 0}"
-            
-            query += " ORDER BY timestamp DESC"
-            
+            # Thêm LIMIT vào query nếu cần
             if limit:
                 query += f" LIMIT {limit}"
             
@@ -393,7 +400,6 @@ class Database:
             
             # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
             if not df.empty:
-                # Sử dụng format='mixed' để tự động nhận diện định dạng datetime
                 df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
             
             logger.info(f"Đã lấy {len(df)} mẫu anomalies")
@@ -429,15 +435,16 @@ class Database:
             klines_df = pd.read_sql_query(query, self.conn)
             
             # Xử lý đúng định dạng thời gian - FIX ISSUE
-            try:
-                # Thử chuyển đổi với định dạng từ cơ sở dữ liệu
-                klines_df['open_time'] = pd.to_datetime(klines_df['open_time'], errors='coerce')
-            except:
-                # Nếu lỗi, thử với định dạng ISO
-                klines_df['open_time'] = pd.to_datetime(klines_df['open_time'], format='ISO8601', errors='coerce')
-            
-            # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
-            klines_df['open_time'] = klines_df['open_time'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+            if not klines_df.empty:
+                try:
+                    # Thử chuyển đổi với định dạng từ cơ sở dữ liệu
+                    klines_df['open_time'] = pd.to_datetime(klines_df['open_time'], errors='coerce')
+                except:
+                    # Nếu lỗi, thử với định dạng ISO
+                    klines_df['open_time'] = pd.to_datetime(klines_df['open_time'], format='ISO8601', errors='coerce')
+                
+                # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
+                klines_df['open_time'] = klines_df['open_time'].dt.strftime('%Y-%m-%dT%H:%M:%S')
             
             # Xuất dữ liệu Open Interest
             query = '''
@@ -448,15 +455,16 @@ class Database:
             oi_df = pd.read_sql_query(query, self.conn)
             
             # Xử lý đúng định dạng thời gian - FIX ISSUE
-            try:
-                # Thử chuyển đổi với định dạng từ cơ sở dữ liệu
-                oi_df['timestamp'] = pd.to_datetime(oi_df['timestamp'], errors='coerce')
-            except:
-                # Nếu lỗi, thử với định dạng ISO
-                oi_df['timestamp'] = pd.to_datetime(oi_df['timestamp'], format='ISO8601', errors='coerce')
-            
-            # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
-            oi_df['timestamp'] = oi_df['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+            if not oi_df.empty:
+                try:
+                    # Thử chuyển đổi với định dạng từ cơ sở dữ liệu
+                    oi_df['timestamp'] = pd.to_datetime(oi_df['timestamp'], errors='coerce')
+                except:
+                    # Nếu lỗi, thử với định dạng ISO
+                    oi_df['timestamp'] = pd.to_datetime(oi_df['timestamp'], format='ISO8601', errors='coerce')
+                
+                # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
+                oi_df['timestamp'] = oi_df['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
             
             # Xuất dữ liệu anomalies
             query = '''
@@ -468,47 +476,52 @@ class Database:
             anomalies_df = pd.read_sql_query(query, self.conn)
             
             # Xử lý đúng định dạng thời gian - FIX ISSUE
-            try:
-                # Thử chuyển đổi với định dạng từ cơ sở dữ liệu
-                anomalies_df['timestamp'] = pd.to_datetime(anomalies_df['timestamp'], errors='coerce')
-            except:
-                # Nếu lỗi, thử với định dạng ISO
-                anomalies_df['timestamp'] = pd.to_datetime(anomalies_df['timestamp'], format='ISO8601', errors='coerce')
-            
-            # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
-            anomalies_df['timestamp'] = anomalies_df['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+            if not anomalies_df.empty:
+                try:
+                    # Thử chuyển đổi với định dạng từ cơ sở dữ liệu
+                    anomalies_df['timestamp'] = pd.to_datetime(anomalies_df['timestamp'], errors='coerce')
+                except:
+                    # Nếu lỗi, thử với định dạng ISO
+                    anomalies_df['timestamp'] = pd.to_datetime(anomalies_df['timestamp'], format='ISO8601', errors='coerce')
+                
+                # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
+                anomalies_df['timestamp'] = anomalies_df['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
             
             # Tạo dữ liệu tổng hợp cho mỗi symbol
-            for symbol in klines_df['symbol'].unique():
-                symbol_data = {
-                    'klines': {},
-                    'open_interest': []
-                }
-                
-                # Dữ liệu klines cho từng timeframe
-                for timeframe in klines_df[klines_df['symbol'] == symbol]['timeframe'].unique():
-                    df_filtered = klines_df[(klines_df['symbol'] == symbol) & (klines_df['timeframe'] == timeframe)]
-                    symbol_data['klines'][timeframe] = df_filtered.to_dict(orient='records')
-                
-                # Dữ liệu Open Interest
-                df_filtered = oi_df[oi_df['symbol'] == symbol]
-                symbol_data['open_interest'] = df_filtered.to_dict(orient='records')
-                
-                # Lưu dữ liệu cho symbol
-                with open(f"{output_dir}/{symbol}.json", 'w', encoding='utf-8') as f:
-                    import json
-                    json.dump(symbol_data, f, ensure_ascii=False)
+            if not klines_df.empty:
+                for symbol in klines_df['symbol'].unique():
+                    symbol_data = {
+                        'klines': {},
+                        'open_interest': []
+                    }
+                    
+                    # Dữ liệu klines cho từng timeframe
+                    for timeframe in klines_df[klines_df['symbol'] == symbol]['timeframe'].unique():
+                        df_filtered = klines_df[(klines_df['symbol'] == symbol) & (klines_df['timeframe'] == timeframe)]
+                        symbol_data['klines'][timeframe] = df_filtered.to_dict(orient='records')
+                    
+                    # Dữ liệu Open Interest
+                    if not oi_df.empty:
+                        df_filtered = oi_df[oi_df['symbol'] == symbol]
+                        symbol_data['open_interest'] = df_filtered.to_dict(orient='records')
+                    
+                    # Lưu dữ liệu cho symbol
+                    with open(f"{output_dir}/{symbol}.json", 'w', encoding='utf-8') as f:
+                        import json
+                        json.dump(symbol_data, f, ensure_ascii=False)
             
             # Lưu dữ liệu anomalies
-            with open(f"{output_dir}/anomalies.json", 'w', encoding='utf-8') as f:
-                import json
-                json.dump(anomalies_df.to_dict(orient='records'), f, ensure_ascii=False)
+            if not anomalies_df.empty:
+                with open(f"{output_dir}/anomalies.json", 'w', encoding='utf-8') as f:
+                    import json
+                    json.dump(anomalies_df.to_dict(orient='records'), f, ensure_ascii=False)
             
             # Lưu danh sách các symbols có sẵn
-            symbols_list = list(klines_df['symbol'].unique())
-            with open(f"{output_dir}/symbols.json", 'w', encoding='utf-8') as f:
-                import json
-                json.dump(symbols_list, f, ensure_ascii=False)
+            if not klines_df.empty:
+                symbols_list = list(klines_df['symbol'].unique())
+                with open(f"{output_dir}/symbols.json", 'w', encoding='utf-8') as f:
+                    import json
+                    json.dump(symbols_list, f, ensure_ascii=False)
             
             logger.info(f"Đã xuất dữ liệu sang định dạng JSON trong thư mục {output_dir}")
             return True

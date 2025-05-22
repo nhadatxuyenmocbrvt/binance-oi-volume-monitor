@@ -2,6 +2,7 @@ import os
 import time
 import argparse
 import schedule
+import subprocess
 from datetime import datetime, timedelta
 from config.settings import setup_logging, SYMBOLS, UPDATE_INTERVAL
 from data_collector.historical_data import HistoricalDataCollector
@@ -100,6 +101,58 @@ def generate_reports():
     
     db.close()
     logger.info("Hoàn thành tạo báo cáo và biểu đồ")
+    
+    return True
+
+def push_to_github():
+    """Đẩy dữ liệu lên GitHub"""
+    try:
+        logger.info("Bắt đầu đẩy dữ liệu lên GitHub")
+        
+        # Thêm thay đổi
+        add_data_cmd = ["git", "add", "data/"]
+        add_docs_cmd = ["git", "add", "docs/"]
+        
+        # Thực thi lệnh git add
+        subprocess.run(add_data_cmd, check=True)
+        subprocess.run(add_docs_cmd, check=True)
+        
+        # Kiểm tra xem có thay đổi để commit không
+        status_cmd = ["git", "diff", "--staged", "--quiet"]
+        status_result = subprocess.run(status_cmd)
+        
+        # Nếu có thay đổi (exit code khác 0)
+        if status_result.returncode != 0:
+            # Tạo commit message với timestamp
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            commit_cmd = ["git", "commit", "-m", f"Update data: {timestamp}"]
+            
+            # Thực thi lệnh git commit
+            subprocess.run(commit_cmd, check=True)
+            
+            # Đẩy lên GitHub
+            push_cmd = ["git", "push"]
+            subprocess.run(push_cmd, check=True)
+            
+            logger.info(f"Đã đẩy dữ liệu lên GitHub thành công lúc {timestamp}")
+            return True
+        else:
+            logger.info("Không có thay đổi để commit")
+            return False
+    
+    except subprocess.CalledProcessError as e:
+        logger.error(f"Lỗi khi đẩy dữ liệu lên GitHub: {e}")
+        return False
+    except Exception as e:
+        logger.error(f"Lỗi không xác định khi đẩy dữ liệu lên GitHub: {str(e)}")
+        return False
+
+def generate_reports_and_push():
+    """Tạo báo cáo và biểu đồ, sau đó đẩy lên GitHub"""
+    success = generate_reports()
+    if success:
+        return push_to_github()
+    return False
 
 def send_daily_report():
     """Gửi báo cáo hàng ngày qua Telegram"""
@@ -161,10 +214,10 @@ def schedule_tasks():
     schedule.every(UPDATE_INTERVAL).seconds.do(update_realtime_data)
     
     # Phát hiện bất thường và gửi cảnh báo mỗi 5 phút
-    schedule.every(5).minutes.do(detect_anomalies)
+    schedule.every(15).minutes.do(detect_anomalies)
     
-    # Tạo báo cáo và biểu đồ mỗi giờ
-    schedule.every(1).hours.do(generate_reports)
+    # Tạo báo cáo và biểu đồ, sau đó đẩy lên GitHub mỗi giờ
+    schedule.every(60).minutes.do(generate_reports_and_push)
     
     # Gửi báo cáo hàng ngày lúc 20:00
     schedule.every().day.at("20:00").do(send_daily_report)
@@ -192,6 +245,7 @@ def initialize():
     os.makedirs('data/charts', exist_ok=True)
     os.makedirs('data/reports', exist_ok=True)
     os.makedirs('logs', exist_ok=True)
+    os.makedirs('docs/assets/data', exist_ok=True)
     
     # Khởi tạo cơ sở dữ liệu
     db = Database()
@@ -206,6 +260,8 @@ def main():
     parser.add_argument('--update', action='store_true', help='Cập nhật dữ liệu realtime')
     parser.add_argument('--detect', action='store_true', help='Phát hiện bất thường')
     parser.add_argument('--report', action='store_true', help='Tạo báo cáo và biểu đồ')
+    parser.add_argument('--push', action='store_true', help='Đẩy dữ liệu lên GitHub')
+    parser.add_argument('--report-push', action='store_true', help='Tạo báo cáo và đẩy lên GitHub')
     parser.add_argument('--daily', action='store_true', help='Gửi báo cáo hàng ngày')
     parser.add_argument('--schedule', action='store_true', help='Chạy các tác vụ theo lịch')
     args = parser.parse_args()
@@ -222,6 +278,10 @@ def main():
         detect_anomalies()
     elif args.report:
         generate_reports()
+    elif args.push:
+        push_to_github()
+    elif args.report_push:
+        generate_reports_and_push()
     elif args.daily:
         send_daily_report()
     elif args.schedule:
