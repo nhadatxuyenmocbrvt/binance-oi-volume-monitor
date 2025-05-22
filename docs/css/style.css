@@ -1,4 +1,4 @@
-/* Enhanced styles for Binance OI & Volume Monitor */
+/* Enhanced styles for Binance OI & Volume Monitor with 24H Tracking */
 
 :root {
     --primary-color: #f7931e;
@@ -74,6 +74,196 @@ body {
     0% { opacity: 1; }
     50% { opacity: 0.7; }
     100% { opacity: 1; }
+}
+
+/* ===== 24H OVERVIEW SECTION - THÊM MỚI ===== */
+.hourly-overview {
+    background: linear-gradient(135deg, #e8f5e8, #f0f9ff);
+    border: 2px solid #4ade80;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.hourly-overview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4ade80, #22c55e, #16a34a);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.hourly-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #065f46;
+    margin-bottom: 20px;
+}
+
+.hourly-title i {
+    font-size: 1.5rem;
+    color: #059669;
+}
+
+.hourly-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.hourly-stat-item {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    transition: var(--transition);
+    position: relative;
+}
+
+.hourly-stat-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hourly-stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--primary-color), #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hourly-stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* ===== MINI CHARTS - THÊM MỚI ===== */
+.mini-chart-container {
+    width: 120px;
+    height: 50px;
+    position: relative;
+    margin: 0 auto;
+    background: rgba(247, 147, 30, 0.05);
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid rgba(247, 147, 30, 0.1);
+}
+
+.mini-chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 4px;
+}
+
+.chart-label {
+    display: block;
+    text-align: center;
+    margin-top: 4px;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chart-cell {
+    width: 140px;
+    text-align: center;
+    padding: 8px 5px !important;
+}
+
+/* ===== TREND INDICATORS - THÊM MỚI ===== */
+.trend-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-top: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.trend-strong {
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+    color: #166534;
+    border: 1px solid #22c55e;
+}
+
+.trend-moderate {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+    border: 1px solid #f59e0b;
+}
+
+.trend-weak {
+    background: linear-gradient(135deg, #fecaca, #fca5a5);
+    color: #991b1b;
+    border: 1px solid #ef4444;
+}
+
+.trend-neutral {
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    color: #475569;
+    border: 1px solid #94a3b8;
+}
+
+/* ===== PERFORMANCE BADGES - THÊM MỚI ===== */
+.performance-badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.performance-excellent {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.performance-good {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+.performance-average {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.performance-poor {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
 }
 
 /* Tabs */
@@ -426,6 +616,38 @@ body {
         margin-bottom: 8px;
         font-size: 0.85rem;
     }
+
+    /* ===== RESPONSIVE 24H COMPONENTS ===== */
+    .hourly-overview {
+        margin: 15px 10px;
+        padding: 20px 15px;
+    }
+
+    .hourly-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .hourly-stat-item {
+        padding: 15px 10px;
+    }
+
+    .hourly-stat-value {
+        font-size: 1.5rem;
+    }
+
+    .mini-chart-container {
+        width: 80px;
+        height: 35px;
+    }
+
+    .chart-cell {
+        width: 90px;
+    }
+
+    .chart-label {
+        font-size: 0.6rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -465,6 +687,35 @@ body {
         padding: 4px 8px;
         font-size: 0.75rem;
     }
+
+    /* ===== MOBILE 24H COMPONENTS ===== */
+    .hourly-stats {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .hourly-stat-value {
+        font-size: 1.3rem;
+    }
+
+    .mini-chart-container {
+        width: 70px;
+        height: 30px;
+    }
+
+    .chart-cell {
+        width: 80px;
+    }
+
+    .trend-indicator {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+
+    .performance-badge {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
 }
 
 /* Dark Mode Support */
@@ -489,6 +740,16 @@ body {
     .coin-symbol {
         color: #f8f9fa;
     }
+
+    .hourly-overview {
+        background: linear-gradient(135deg, #1f2937, #374151);
+        border-color: #4ade80;
+    }
+
+    .hourly-stat-item {
+        background: rgba(55, 65, 81, 0.9);
+        border-color: rgba(74, 222, 128, 0.3);
+    }
 }
 
 /* Animations */
@@ -509,6 +770,10 @@ body {
 
 .stat-card {
     animation: fadeInUp 0.3s ease-out;
+}
+
+.hourly-stat-item {
+    animation: fadeInUp 0.4s ease-out;
 }
 
 /* Custom Scrollbar */
@@ -540,7 +805,9 @@ body {
 @media print {
     .navbar,
     .time-filter,
-    .btn-group {
+    .btn-group,
+    .hourly-overview .trend-indicator,
+    .mini-chart-container {
         display: none;
     }
     
@@ -550,5 +817,10 @@ body {
     
     body {
         background: white;
+    }
+    
+    .hourly-overview {
+        background: white;
+        border: 1px solid #ccc;
     }
 }

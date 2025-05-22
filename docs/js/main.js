@@ -1,7 +1,7 @@
 /**
- * Hệ Thống Theo Dõi OI & Volume Binance - Phiên Bản Việt Hóa
+ * Hệ Thống Theo Dõi OI & Volume Binance - Phiên Bản Việt Hóa với 24H Tracking
  * Tác giả: AI Assistant
- * Mô tả: Theo dõi Open Interest và Volume của các coin trên Binance
+ * Mô tả: Theo dõi Open Interest và Volume của các coin trên Binance theo giờ
  */
 
 class HeThongTheoDoi_Binance_VietNam {
@@ -14,7 +14,8 @@ class HeThongTheoDoi_Binance_VietNam {
             thoiGianThuc: null,
             lichSu: {},
             batThuong: null,
-            capNhatLanCuoi: null
+            capNhatLanCuoi: null,
+            hourly24h: null  // THÊM MỚI - Dữ liệu 24h theo giờ
         };
         this.khoiTao();
     }
@@ -62,6 +63,7 @@ class HeThongTheoDoi_Binance_VietNam {
                     await this.taiGiaoDienBatThuong();
                 } else if (dich === '#realtime') {
                     await this.taiGiaoDienThoiGianThuc();
+                    await this.taiDuLieu24hTheoGio(); // THÊM MỚI
                 }
             });
         });
@@ -82,7 +84,8 @@ class HeThongTheoDoi_Binance_VietNam {
             await Promise.all([
                 this.taiDuLieuThoiGianThuc(),
                 this.taiDuLieuCacCoin(),
-                this.taiDuLieuBatThuong()
+                this.taiDuLieuBatThuong(),
+                this.taiDuLieu24hTheoGio()  // THÊM MỚI
             ]);
             
             this.anDangTaiToanCuc();
@@ -99,9 +102,32 @@ class HeThongTheoDoi_Binance_VietNam {
             thoiGianThuc: null,
             lichSu: {},
             batThuong: null,
-            capNhatLanCuoi: null
+            capNhatLanCuoi: null,
+            hourly24h: null
         };
         await this.taiDuLieuBanDau();
+    }
+
+    async taiDuLieu24hTheoGio() {
+        /**
+         * Tải dữ liệu 24h theo giờ - THÊM MỚI
+         */
+        try {
+            const phanHoi = await fetch('assets/data/hourly_24h_summary.json?' + Date.now());
+            if (!phanHoi.ok) {
+                console.warn('Không thể tải dữ liệu 24h theo giờ');
+                return null;
+            }
+            
+            const duLieu = await phanHoi.json();
+            this.khoLuuTru.hourly24h = duLieu;
+            
+            console.log('✅ Đã tải dữ liệu 24h theo giờ:', duLieu);
+            return duLieu;
+        } catch (loi) {
+            console.error('Lỗi khi tải dữ liệu 24h theo giờ:', loi);
+            return null;
+        }
     }
 
     async taiDuLieuThoiGianThuc() {
@@ -174,12 +200,14 @@ class HeThongTheoDoi_Binance_VietNam {
     async capNhatTatCaGiaoDien() {
         await Promise.all([
             this.capNhatGiaoDienThoiGianThuc(),
-            this.capNhatGiaoDienBatThuong()
+            this.capNhatGiaoDienBatThuong(),
+            this.capNhatBieuDo24hTheoGio()  // THÊM MỚI
         ]);
     }
 
     async taiGiaoDienThoiGianThuc() {
         await this.capNhatGiaoDienThoiGianThuc();
+        await this.capNhatBieuDo24hTheoGio();  // THÊM MỚI
     }
 
     async taiGiaoDienLichSu() {
@@ -224,6 +252,340 @@ class HeThongTheoDoi_Binance_VietNam {
         }
     }
 
+    async capNhatBieuDo24hTheoGio() {
+        /**
+         * Cập nhật biểu đồ 24h theo giờ - THÊM MỚI
+         */
+        try {
+            if (!this.khoLuuTru.hourly24h) {
+                console.warn('Chưa có dữ liệu 24h theo giờ');
+                return;
+            }
+
+            const duLieu24h = this.khoLuuTru.hourly24h;
+            
+            // Tạo hoặc cập nhật biểu đồ 24h
+            this.taoBieuDo24hChoCacSymbol(duLieu24h);
+            
+            // Cập nhật bảng với xu hướng 24h
+            this.capNhatBangVoiXuHuong24h(duLieu24h);
+            
+            console.log('✅ Đã cập nhật biểu đồ 24h theo giờ');
+        } catch (loi) {
+            console.error('❌ Lỗi khi cập nhật biểu đồ 24h:', loi);
+        }
+    }
+
+    taoBieuDo24hChoCacSymbol(duLieu24h) {
+        /**
+         * Tạo biểu đồ mini 24h cho từng symbol - THÊM MỚI
+         */
+        try {
+            if (!duLieu24h.symbols) return;
+
+            // Lấy nhãn thời gian (24 giờ)
+            const nhanThoiGian = this.taoNhanThoiGian24h();
+
+            Object.entries(duLieu24h.symbols).forEach(([symbol, data]) => {
+                // Tìm hoặc tạo container cho biểu đồ mini
+                let chartContainer = document.getElementById(`mini-chart-${symbol}`);
+                if (!chartContainer) {
+                    // Tạo container mới nếu chưa có
+                    chartContainer = this.taoContainerBieuDoMini(symbol);
+                }
+
+                if (chartContainer) {
+                    this.taoBieuDoMini24h(symbol, data, nhanThoiGian);
+                }
+            });
+        } catch (loi) {
+            console.error('Lỗi khi tạo biểu đồ 24h:', loi);
+        }
+    }
+
+    taoContainerBieuDoMini(symbol) {
+        /**
+         * Tạo container cho biểu đồ mini trong bảng - THÊM MỚI
+         */
+        try {
+            // Tìm hàng của symbol trong bảng
+            const symbolRow = document.querySelector(`tr[data-symbol="${symbol}"]`);
+            if (!symbolRow) return null;
+
+            // Tìm cột thao tác hoặc tạo cột mới cho biểu đồ
+            let chartCell = symbolRow.querySelector('.chart-cell');
+            if (!chartCell) {
+                chartCell = document.createElement('td');
+                chartCell.className = 'chart-cell';
+                chartCell.innerHTML = `
+                    <div class="mini-chart-container">
+                        <canvas id="mini-chart-${symbol}" width="100" height="30"></canvas>
+                        <small class="chart-label">24h Trend</small>
+                    </div>
+                `;
+                
+                // Thêm vào cuối hàng
+                symbolRow.appendChild(chartCell);
+            }
+
+            return document.getElementById(`mini-chart-${symbol}`);
+        } catch (loi) {
+            console.error(`Lỗi khi tạo container biểu đồ cho ${symbol}:`, loi);
+            return null;
+        }
+    }
+
+    taoBieuDoMini24h(symbol, data, labels) {
+        /**
+         * Tạo biểu đồ mini 24h cho một symbol - THÊM MỚI
+         */
+        try {
+            const canvas = document.getElementById(`mini-chart-${symbol}`);
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            
+            // Xóa biểu đồ cũ nếu có
+            if (this.cacBieuDo[`mini-${symbol}`]) {
+                this.cacBieuDo[`mini-${symbol}`].destroy();
+            }
+
+            // Chuẩn bị dữ liệu
+            const priceChanges = data.hourly_price_changes || [];
+            const volumeChanges = data.hourly_volume_changes || [];
+
+            // Tạo biểu đồ đường đơn giản
+            this.cacBieuDo[`mini-${symbol}`] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Thay đổi giá',
+                        data: priceChanges,
+                        borderColor: this.layMauChoSymbol(symbol),
+                        backgroundColor: 'transparent',
+                        borderWidth: 1.5,
+                        pointRadius: 0,
+                        pointHoverRadius: 3,
+                        tension: 0.2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                title: (context) => `${context[0].label}`,
+                                label: (context) => `${context.parsed.y.toFixed(2)}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { display: false },
+                        y: { display: false }
+                    },
+                    elements: {
+                        point: { radius: 0 }
+                    }
+                }
+            });
+
+        } catch (loi) {
+            console.error(`Lỗi khi tạo biểu đồ mini cho ${symbol}:`, loi);
+        }
+    }
+
+    capNhatBangVoiXuHuong24h(duLieu24h) {
+        /**
+         * Cập nhật bảng với thông tin xu hướng 24h - THÊM MỚI
+         */
+        try {
+            if (!duLieu24h.symbols) return;
+
+            Object.entries(duLieu24h.symbols).forEach(([symbol, data]) => {
+                const row = document.querySelector(`tr[data-symbol="${symbol}"]`);
+                if (!row) return;
+
+                // Cập nhật các ô với dữ liệu 24h
+                this.capNhatCacODuLieu24h(row, symbol, data);
+            });
+
+        } catch (loi) {
+            console.error('Lỗi khi cập nhật bảng với xu hướng 24h:', loi);
+        }
+    }
+
+    capNhatCacODuLieu24h(row, symbol, data24h) {
+        /**
+         * Cập nhật các ô dữ liệu với thông tin 24h - THÊM MỚI
+         */
+        try {
+            // Tìm và cập nhật ô thay đổi giá
+            const priceCell = row.querySelector('td:nth-child(2)');
+            if (priceCell) {
+                const priceChange24h = data24h.price_change_24h || 0;
+                const trend24h = this.tinhXuHuong24h(data24h.hourly_price_changes || []);
+                
+                priceCell.innerHTML = `
+                    <div class="${this.layLopThayDoi(priceChange24h)}">
+                        <strong>${this.dinhDangPhanTram(priceChange24h)}</strong>
+                        <i class="bi bi-${priceChange24h >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                    </div>
+                    <small class="text-muted d-block">
+                        24h: ${trend24h.label} 
+                        <span class="badge badge-sm bg-${trend24h.color}">${trend24h.strength}</span>
+                    </small>
+                `;
+            }
+
+            // Tương tự cho volume và OI...
+            this.capNhatOVolume24h(row, data24h);
+            this.capNhatOOI24h(row, data24h);
+
+        } catch (loi) {
+            console.error(`Lỗi khi cập nhật ô dữ liệu 24h cho ${symbol}:`, loi);
+        }
+    }
+
+    capNhatOVolume24h(row, data24h) {
+        /**
+         * Cập nhật ô Volume với dữ liệu 24h - THÊM MỚI
+         */
+        const volumeCell = row.querySelector('td:nth-child(3)');
+        if (volumeCell) {
+            const volumeChange24h = data24h.volume_change_24h || 0;
+            const volatility = this.tinhDoBoiDong(data24h.hourly_volume_changes || []);
+            
+            volumeCell.innerHTML = `
+                <div class="${this.layLopThayDoi(volumeChange24h)}">
+                    <strong>${this.dinhDangPhanTram(volumeChange24h)}</strong>
+                    <i class="bi bi-${volumeChange24h >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                </div>
+                <small class="text-muted d-block">
+                    Biến động: ${volatility}
+                </small>
+            `;
+        }
+    }
+
+    capNhatOOI24h(row, data24h) {
+        /**
+         * Cập nhật ô Open Interest với dữ liệu 24h - THÊM MỚI
+         */
+        const oiCell = row.querySelector('td:nth-child(4)');
+        if (oiCell) {
+            const oiChange24h = data24h.oi_change_24h || 0;
+            const stability = this.tinhDoOnDinh(data24h.hourly_oi_changes || []);
+            
+            oiCell.innerHTML = `
+                <div class="${this.layLopThayDoi(oiChange24h)}">
+                    <strong>${this.dinhDangPhanTram(oiChange24h)}</strong>
+                    <i class="bi bi-${oiChange24h >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                </div>
+                <small class="text-muted d-block">
+                    Ổn định: ${stability}
+                </small>
+            `;
+        }
+    }
+
+    tinhXuHuong24h(hourlyChanges) {
+        /**
+         * Tính toán xu hướng 24h từ dữ liệu theo giờ - THÊM MỚI
+         */
+        if (!hourlyChanges || hourlyChanges.length === 0) {
+            return { label: 'Không rõ', color: 'secondary', strength: 'N/A' };
+        }
+
+        const positiveHours = hourlyChanges.filter(change => change > 0).length;
+        const negativeHours = hourlyChanges.filter(change => change < 0).length;
+        const totalHours = hourlyChanges.length;
+
+        const positiveRatio = positiveHours / totalHours;
+        
+        if (positiveRatio > 0.7) {
+            return { label: 'Tăng mạnh', color: 'success', strength: 'Mạnh' };
+        } else if (positiveRatio > 0.6) {
+            return { label: 'Tăng', color: 'success', strength: 'Vừa' };
+        } else if (positiveRatio > 0.4) {
+            return { label: 'Sideway', color: 'warning', strength: 'Yếu' };
+        } else if (positiveRatio > 0.3) {
+            return { label: 'Giảm', color: 'danger', strength: 'Vừa' };
+        } else {
+            return { label: 'Giảm mạnh', color: 'danger', strength: 'Mạnh' };
+        }
+    }
+
+    tinhDoBoiDong(hourlyChanges) {
+        /**
+         * Tính độ biến động từ dữ liệu theo giờ - THÊM MỚI
+         */
+        if (!hourlyChanges || hourlyChanges.length === 0) return 'N/A';
+
+        const variance = this.tinhPhuongSai(hourlyChanges);
+        const stdDev = Math.sqrt(variance);
+
+        if (stdDev > 50) return 'Rất cao';
+        if (stdDev > 30) return 'Cao';
+        if (stdDev > 15) return 'Trung bình';
+        if (stdDev > 5) return 'Thấp';
+        return 'Rất thấp';
+    }
+
+    tinhDoOnDinh(hourlyChanges) {
+        /**
+         * Tính độ ổn định từ dữ liệu OI theo giờ - THÊM MỚI
+         */
+        if (!hourlyChanges || hourlyChanges.length === 0) return 'N/A';
+
+        const avgChange = hourlyChanges.reduce((sum, change) => sum + Math.abs(change), 0) / hourlyChanges.length;
+
+        if (avgChange < 0.5) return 'Rất ổn định';
+        if (avgChange < 1) return 'Ổn định';
+        if (avgChange < 2) return 'Trung bình';
+        if (avgChange < 5) return 'Không ổn định';
+        return 'Rất biến động';
+    }
+
+    tinhPhuongSai(arr) {
+        /**
+         * Tính phương sai của mảng số - THÊM MỚI
+         */
+        const mean = arr.reduce((sum, val) => sum + val, 0) / arr.length;
+        return arr.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / arr.length;
+    }
+
+    taoNhanThoiGian24h() {
+        /**
+         * Tạo nhãn thời gian cho 24 giờ - THÊM MỚI
+         */
+        const labels = [];
+        for (let i = 23; i >= 0; i--) {
+            const hour = new Date();
+            hour.setHours(hour.getHours() - i);
+            labels.push(hour.getHours().toString().padStart(2, '0') + ':00');
+        }
+        return labels;
+    }
+
+    layMauChoSymbol(symbol) {
+        /**
+         * Lấy màu đặc trưng cho từng symbol - THÊM MỚI
+         */
+        const mauSymbol = {
+            'BTCUSDT': '#f7931e',
+            'ETHUSDT': '#627eea',
+            'BNBUSDT': '#f0b90b',
+            'SOLUSDT': '#9945ff',
+            'DOGEUSDT': '#c2a633'
+        };
+        return mauSymbol[symbol] || '#6c757d';
+    }
+
     capNhatThoiGianCapNhatCuoi(thoiGian) {
         const phanTuCapNhat = document.getElementById('lastUpdateTime');
         if (phanTuCapNhat) {
@@ -231,7 +593,7 @@ class HeThongTheoDoi_Binance_VietNam {
             phanTuCapNhat.innerHTML = `
                 <i class="bi bi-clock"></i>
                 Cập nhật lần cuối: ${ngay.toLocaleString('vi-VN')}
-                <span class="badge bg-success ms-2">Trực Tuyến</span>
+                <span class="badge bg-success ms-2">Trực Tuyến 24H</span>
             `;
         }
     }
@@ -251,6 +613,11 @@ class HeThongTheoDoi_Binance_VietNam {
             const hang = this.taoHangThoiGianThuc(symbol, duLieu);
             tbody.appendChild(hang);
         });
+
+        // Sau khi tạo bảng, cập nhật với dữ liệu 24h nếu có
+        if (this.khoLuuTru.hourly24h) {
+            this.capNhatBangVoiXuHuong24h(this.khoLuuTru.hourly24h);
+        }
     }
 
     taoHangThoiGianThuc(symbol, duLieu) {
@@ -738,13 +1105,13 @@ class HeThongTheoDoi_Binance_VietNam {
     // Các phương thức hành động
     hienThiChiTiet(symbol) {
         // Tạo modal hoặc điều hướng đến trang chi tiết
-        alert(`Hiển thị phân tích chi tiết cho ${symbol}`);
-        // TODO: Triển khai view chi tiết với biểu đồ, chỉ báo, v.v.
+        alert(`Hiển thị phân tích chi tiết cho ${symbol} với dữ liệu 24h theo giờ`);
+        // TODO: Triển khai view chi tiết với biểu đồ 24h, chỉ báo, v.v.
     }
 
     hienThiBieuDo(symbol) {
         // Mở biểu đồ trong modal hoặc tab mới
-        alert(`Mở biểu đồ nâng cao cho ${symbol}`);
+        alert(`Mở biểu đồ nâng cao cho ${symbol} với tracking 24h`);
         // TODO: Triển khai biểu đồ nâng cao với TradingView hoặc tương tự
     }
 
@@ -769,16 +1136,24 @@ class HeThongTheoDoi_Binance_VietNam {
     thietLapTuDongLamMoi() {
         // Làm mới dữ liệu mỗi 5 phút
         setInterval(async () => {
-            console.log('Tự động làm mới dữ liệu...');
+            console.log('🔄 Tự động làm mới dữ liệu...');
             await this.taiDuLieuThoiGianThuc();
+            await this.taiDuLieu24hTheoGio(); // Cập nhật dữ liệu 24h
             await this.capNhatGiaoDienThoiGianThuc();
         }, 5 * 60 * 1000);
 
         // Làm mới toàn bộ dữ liệu mỗi 30 phút
         setInterval(async () => {
-            console.log('Làm mới toàn bộ dữ liệu...');
+            console.log('🔄 Làm mới toàn bộ dữ liệu...');
             await this.lamMoiDuLieuManh();
         }, 30 * 60 * 1000);
+
+        // Làm mới dữ liệu 24h theo giờ mỗi giờ - THÊM MỚI
+        setInterval(async () => {
+            console.log('🕒 Làm mới dữ liệu 24h theo giờ...');
+            await this.taiDuLieu24hTheoGio();
+            await this.capNhatBieuDo24hTheoGio();
+        }, 60 * 60 * 1000); // Mỗi giờ
     }
 }
 

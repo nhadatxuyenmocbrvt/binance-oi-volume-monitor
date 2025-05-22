@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theo Dõi OI & Volume Binance - Bảng Điều Khiển Nâng Cao</title>
+    <title>Theo Dõi OI & Volume Binance - Bảng Điều Khiển 24H Nâng Cao</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css">
@@ -202,6 +202,128 @@
             height: 200px;
         }
 
+        /* ===== STYLES MỚI CHO 24H TRACKING ===== */
+        .mini-chart-container {
+            width: 120px;
+            height: 40px;
+            position: relative;
+        }
+
+        .mini-chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .chart-label {
+            display: block;
+            text-align: center;
+            margin-top: 2px;
+            font-size: 0.7rem;
+            color: #6c757d;
+        }
+
+        .chart-cell {
+            width: 140px;
+            text-align: center;
+        }
+
+        .trend-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-top: 2px;
+        }
+
+        .trend-strong {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .trend-moderate {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .trend-weak {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .hourly-overview {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid #e1bee7;
+        }
+
+        .hourly-title {
+            font-weight: 600;
+            color: #4a148c;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .performance-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .performance-excellent {
+            background-color: #c8e6c9;
+            color: #1b5e20;
+        }
+
+        .performance-good {
+            background-color: #dcedc8;
+            color: #33691e;
+        }
+
+        .performance-average {
+            background-color: #fff9c4;
+            color: #f57f17;
+        }
+
+        .performance-poor {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+
+        .hourly-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .hourly-stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hourly-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .hourly-stat-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         @media (max-width: 768px) {
             .coin-list-table th,
             .coin-list-table td {
@@ -213,6 +335,25 @@
                 padding: 10px 15px;
                 font-size: 0.9rem;
             }
+
+            .mini-chart-container {
+                width: 80px;
+                height: 30px;
+            }
+
+            .chart-cell {
+                width: 100px;
+            }
+
+            .hourly-overview {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .hourly-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -221,7 +362,7 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 <i class="bi bi-graph-up-arrow"></i>
-                Theo Dõi OI & Volume Binance
+                Theo Dõi OI & Volume Binance 24H
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -242,7 +383,19 @@
         <!-- Thông tin cập nhật cuối -->
         <div class="last-update">
             <i class="bi bi-clock"></i>
-            <span id="lastUpdateTime">Đang tải...</span>
+            <span id="lastUpdateTime">Đang tải dữ liệu 24h...</span>
+        </div>
+
+        <!-- ===== THÊM MỚI: Tổng quan 24h ===== -->
+        <div class="hourly-overview" id="hourlyOverview" style="display: none;">
+            <div class="hourly-title">
+                <i class="bi bi-stopwatch"></i>
+                <span>Tổng Quan 24 Giờ Qua</span>
+                <span class="badge bg-primary">Cập nhật theo giờ</span>
+            </div>
+            <div class="hourly-stats" id="hourlyStats">
+                <!-- Dữ liệu sẽ được cập nhật bằng JavaScript -->
+            </div>
         </div>
 
         <!-- Tabs chính -->
@@ -250,7 +403,7 @@
             <ul class="nav nav-tabs" id="mainTabs" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="realtime-tab" data-bs-toggle="tab" data-bs-target="#realtime" type="button" role="tab">
-                        <i class="bi bi-activity"></i> Theo Dõi Thời Gian Thực (Theo Giờ)
+                        <i class="bi bi-activity"></i> Theo Dõi Thời Gian Thực (24H)
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -277,7 +430,10 @@
                                 <button class="btn-time-filter" data-timeframe="4h">4 Giờ</button>
                                 <button class="btn-time-filter" data-timeframe="1d">1 Ngày</button>
                             </div>
-                            <small class="text-muted">Cập nhật mỗi giờ</small>
+                            <small class="text-muted">
+                                <i class="bi bi-clock-history"></i>
+                                Cập nhật mỗi giờ với tracking 24h
+                            </small>
                         </div>
                     </div>
 
@@ -311,7 +467,7 @@
                         </div>
                     </div>
 
-                    <!-- Danh sách coin thời gian thực -->
+                    <!-- Danh sách coin thời gian thực với biểu đồ mini 24h -->
                     <div class="table-responsive">
                         <table class="table table-hover coin-list-table mb-0">
                             <thead>
@@ -321,15 +477,16 @@
                                     <th>Thay Đổi Volume</th>
                                     <th>Thay Đổi OI</th>
                                     <th>Xu Hướng</th>
+                                    <th>Biểu Đồ 24H</th>
                                     <th>Thao Tác</th>
                                 </tr>
                             </thead>
                             <tbody id="realtimeTableBody">
                                 <tr>
-                                    <td colspan="6" class="text-center">
+                                    <td colspan="7" class="text-center">
                                         <div class="loading-spinner">
                                             <div class="spinner-border text-primary" role="status">
-                                                <span class="visually-hidden">Đang tải...</span>
+                                                <span class="visually-hidden">Đang tải dữ liệu 24h...</span>
                                             </div>
                                         </div>
                                     </td>
@@ -429,440 +586,6 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-    <script>
-        class TheoDoi_OI_Volume_Binance {
-            constructor() {
-                this.khungThoiGianHienTai = '1h';
-                this.giaiDoanHienTai = '7d';
-                this.bieuDo = {};
-                this.duLieuCache = {
-                    thoiGianThuc: null,
-                    lichSu: {},
-                    batThuong: null,
-                    capNhatCuoi: null
-                };
-                this.init();
-            }
-
-            init() {
-                this.ganSuKien();
-                this.taiDuLieuBanDau();
-                this.thietLapTuDongLamMoi();
-            }
-
-            ganSuKien() {
-                // Nút làm mới
-                document.getElementById('refreshBtn').addEventListener('click', () => {
-                    this.taiDuLieu();
-                });
-
-                // Các nút bộ lọc thời gian
-                document.querySelectorAll('.btn-time-filter').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const khungThoiGian = e.target.dataset.timeframe;
-                        const giaiDoan = e.target.dataset.period;
-                        
-                        if (khungThoiGian) {
-                            this.khungThoiGianHienTai = khungThoiGian;
-                            this.capNhatBoLocHoatDong(e.target);
-                            this.taiDuLieuThoiGianThuc();
-                        }
-                        
-                        if (giaiDoan) {
-                            this.giaiDoanHienTai = giaiDoan;
-                            this.capNhatBoLocHoatDong(e.target);
-                            this.taiDuLieuLichSu();
-                        }
-                    });
-                });
-
-                // Sự kiện chuyển tab
-                document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
-                    tab.addEventListener('shown.bs.tab', (e) => {
-                        const target = e.target.getAttribute('data-bs-target');
-                        if (target === '#historical') {
-                            this.taiDuLieuLichSu();
-                        } else if (target === '#anomalies') {
-                            this.taiDuLieuBatThuong();
-                        }
-                    });
-                });
-            }
-
-            capNhatBoLocHoatDong(nutHoatDong) {
-                nutHoatDong.parentNode.querySelectorAll('.btn-time-filter').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                nutHoatDong.classList.add('active');
-            }
-
-            async taiDuLieuBanDau() {
-                try {
-                    this.hienThiDangTai();
-                    await Promise.all([
-                        this.taiDuLieuThoiGianThuc(),
-                        this.taiDuLieuBatThuong()
-                    ]);
-                    this.anDangTai();
-                } catch (error) {
-                    console.error('Lỗi khi tải dữ liệu ban đầu:', error);
-                    this.hienThiLoi('Không thể tải dữ liệu ban đầu');
-                }
-            }
-
-            async taiDuLieu() {
-                try {
-                    await this.taiDuLieuBanDau();
-                } catch (error) {
-                    console.error('Lỗi khi tải dữ liệu:', error);
-                    this.hienThiLoi('Không thể tải dữ liệu');
-                }
-            }
-
-            async taiDuLieuThoiGianThuc() {
-                try {
-                    const response = await fetch('assets/data/daily_summary.json');
-                    const data = await response.json();
-                    
-                    this.capNhatThoiGianCapNhatCuoi(data.timestamp);
-                    this.capNhatBangThoiGianThuc(data.symbols);
-                    this.capNhatThongKe(data.symbols);
-                } catch (error) {
-                    console.error('Lỗi khi tải dữ liệu thời gian thực:', error);
-                }
-            }
-
-            async taiDuLieuLichSu() {
-                try {
-                    // Tải dữ liệu lịch sử cho từng symbol
-                    const symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
-                    const duLieuLichSu = {};
-                    
-                    for (const symbol of symbols) {
-                        try {
-                            const response = await fetch(`assets/data/${symbol}.json`);
-                            const data = await response.json();
-                            duLieuLichSu[symbol] = data;
-                        } catch (error) {
-                            console.error(`Lỗi khi tải dữ liệu ${symbol}:`, error);
-                        }
-                    }
-                    
-                    this.capNhatBangLichSu(duLieuLichSu);
-                    this.capNhatBieuDoLichSu(duLieuLichSu);
-                } catch (error) {
-                    console.error('Lỗi khi tải dữ liệu lịch sử:', error);
-                }
-            }
-
-            async taiDuLieuBatThuong() {
-                try {
-                    const response = await fetch('assets/data/daily_summary.json');
-                    const data = await response.json();
-                    
-                    this.capNhatBangBatThuong(data.anomalies || []);
-                } catch (error) {
-                    console.error('Lỗi khi tải dữ liệu bất thường:', error);
-                }
-            }
-
-            capNhatThoiGianCapNhatCuoi(timestamp) {
-                document.getElementById('lastUpdateTime').textContent = `Cập nhật lần cuối: ${timestamp}`;
-            }
-
-            capNhatBangThoiGianThuc(symbols) {
-                const tbody = document.getElementById('realtimeTableBody');
-                tbody.innerHTML = '';
-
-                Object.entries(symbols).forEach(([symbol, data]) => {
-                    const row = this.taoHangThoiGianThuc(symbol, data);
-                    tbody.appendChild(row);
-                });
-            }
-
-            taoHangThoiGianThuc(symbol, data) {
-                const row = document.createElement('tr');
-                
-                const lopGia = this.layLopThayDoi(data.price_change);
-                const lopVolume = this.layLopThayDoi(data.volume_change);
-                const lopOI = this.layLopThayDoi(data.oi_change);
-                const lopXuHuong = this.layLopXuHuong(data.sentiment);
-
-                row.innerHTML = `
-                    <td>
-                        <span class="coin-symbol">${symbol}</span>
-                    </td>
-                    <td class="${lopGia}">
-                        <strong>${this.dinhDangPhanTram(data.price_change)}</strong>
-                        <i class="bi bi-${data.price_change >= 0 ? 'arrow-up' : 'arrow-down'}"></i>
-                    </td>
-                    <td class="${lopVolume}">
-                        <strong>${this.dinhDangPhanTram(data.volume_change)}</strong>
-                        <i class="bi bi-${data.volume_change >= 0 ? 'arrow-up' : 'arrow-down'}"></i>
-                    </td>
-                    <td class="${lopOI}">
-                        <strong>${this.dinhDangPhanTram(data.oi_change)}</strong>
-                        <i class="bi bi-${data.oi_change >= 0 ? 'arrow-up' : 'arrow-down'}"></i>
-                    </td>
-                    <td>
-                        <span class="badge sentiment-badge ${lopXuHuong}">${this.dichXuHuong(data.sentiment)}</span>
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="monitor.hienThiChiTiet('${symbol}')">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </td>
-                `;
-
-                return row;
-            }
-
-            capNhatBangLichSu(duLieuLichSu) {
-                const tbody = document.getElementById('historicalTableBody');
-                tbody.innerHTML = '';
-
-                Object.entries(duLieuLichSu).forEach(([symbol, data]) => {
-                    const row = this.taoHangLichSu(symbol, data);
-                    tbody.appendChild(row);
-                });
-            }
-
-            taoHangLichSu(symbol, data) {
-                const row = document.createElement('tr');
-                
-                // Tính toán thay đổi lịch sử (dữ liệu mô phỏng cho demo)
-                const duLieuGia = {
-                    gia7d: (Math.random() - 0.5) * 20,
-                    volume7d: (Math.random() - 0.5) * 40,
-                    oi7d: (Math.random() - 0.5) * 15,
-                    gia30d: (Math.random() - 0.5) * 30,
-                    oi30d: (Math.random() - 0.5) * 25
-                };
-
-                row.innerHTML = `
-                    <td>
-                        <span class="coin-symbol">${symbol}</span>
-                    </td>
-                    <td class="${this.layLopThayDoi(duLieuGia.gia7d)}">
-                        <strong>${this.dinhDangPhanTram(duLieuGia.gia7d)}</strong>
-                    </td>
-                    <td class="${this.layLopThayDoi(duLieuGia.volume7d)}">
-                        <strong>${this.dinhDangPhanTram(duLieuGia.volume7d)}</strong>
-                    </td>
-                    <td class="${this.layLopThayDoi(duLieuGia.oi7d)}">
-                        <strong>${this.dinhDangPhanTram(duLieuGia.oi7d)}</strong>
-                    </td>
-                    <td class="${this.layLopThayDoi(duLieuGia.gia30d)}">
-                        <strong>${this.dinhDangPhanTram(duLieuGia.gia30d)}</strong>
-                    </td>
-                    <td class="${this.layLopThayDoi(duLieuGia.oi30d)}">
-                        <strong>${this.dinhDangPhanTram(duLieuGia.oi30d)}</strong>
-                    </td>
-                    <td>
-                        <span class="badge bg-${duLieuGia.gia30d > 0 ? 'success' : 'danger'}">
-                            ${duLieuGia.gia30d > 0 ? 'Tăng' : 'Giảm'}
-                        </span>
-                    </td>
-                `;
-
-                return row;
-            }
-
-            capNhatBangBatThuong(batThuong) {
-                const tbody = document.getElementById('anomaliesTableBody');
-                tbody.innerHTML = '';
-
-                if (batThuong.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Không phát hiện bất thường nào</td></tr>';
-                    return;
-                }
-
-                batThuong.forEach(anomaly => {
-                    const row = this.taoHangBatThuong(anomaly);
-                    tbody.appendChild(row);
-                });
-            }
-
-            taoHangBatThuong(anomaly) {
-                const row = document.createElement('tr');
-                const mucDo = this.layMucDoBatThuong(anomaly.message);
-                
-                row.innerHTML = `
-                    <td>${this.dinhDangThoiGian(anomaly.timestamp)}</td>
-                    <td><span class="coin-symbol">${anomaly.symbol}</span></td>
-                    <td><span class="badge bg-info">${this.dichLoaiBatThuong(anomaly.data_type)}</span></td>
-                    <td>${anomaly.message}</td>
-                    <td><span class="badge bg-${mucDo.mau}">${mucDo.chuoi}</span></td>
-                `;
-
-                return row;
-            }
-
-            capNhatThongKe(symbols) {
-                const thongKe = this.tinhThongKe(symbols);
-                
-                document.getElementById('totalSymbols').textContent = thongKe.tong;
-                document.getElementById('bullishCount').textContent = thongKe.tang;
-                document.getElementById('bearishCount').textContent = thongKe.giam;
-                document.getElementById('neutralCount').textContent = thongKe.trungTinh;
-            }
-
-            tinhThongKe(symbols) {
-                const thongKe = { tong: 0, tang: 0, giam: 0, trungTinh: 0 };
-                
-                Object.values(symbols).forEach(data => {
-                    thongKe.tong++;
-                    const xuHuong = data.sentiment.toLowerCase();
-                    
-                    if (xuHuong.includes('bullish')) {
-                        thongKe.tang++;
-                    } else if (xuHuong.includes('bearish')) {
-                        thongKe.giam++;
-                    } else {
-                        thongKe.trungTinh++;
-                    }
-                });
-
-                return thongKe;
-            }
-
-            capNhatBieuDoLichSu(duLieuLichSu) {
-                // Triển khai biểu đồ lịch sử
-                const ctx = document.getElementById('historicalChart');
-                if (this.bieuDo.lichSu) {
-                    this.bieuDo.lichSu.destroy();
-                }
-
-                // Dữ liệu biểu đồ mô phỏng
-                const nhan = Array.from({length: 30}, (_, i) => {
-                    const ngay = new Date();
-                    ngay.setDate(ngay.getDate() - 29 + i);
-                    return ngay.toLocaleDateString('vi-VN');
-                });
-
-                this.bieuDo.lichSu = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: nhan,
-                        datasets: Object.keys(duLieuLichSu).map((symbol, index) => ({
-                            label: symbol,
-                            data: Array.from({length: 30}, () => Math.random() * 100),
-                            borderColor: this.layMauChoViTri(index),
-                            tension: 0.1
-                        }))
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Biểu Đồ Lịch Sử Giá'
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Thay Đổi (%)'
-                                }
-                            },
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Ngày'
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            layLopThayDoi(thayDoi) {
-                if (thayDoi > 0) return 'change-positive';
-                if (thayDoi < 0) return 'change-negative';
-                return 'change-neutral';
-            }
-
-            layLopXuHuong(xuHuong) {
-                const s = xuHuong.toLowerCase();
-                if (s.includes('bullish')) return 'sentiment-bullish';
-                if (s.includes('bearish')) return 'sentiment-bearish';
-                return 'sentiment-neutral';
-            }
-
-            layMucDoBatThuong(thongDiep) {
-                const zscore = parseFloat(thongDiep.match(/Z-score: ([\d.]+)/)?.[1] || 0);
-                if (zscore > 4) return { mau: 'danger', chuoi: 'Cao' };
-                if (zscore > 3) return { mau: 'warning', chuoi: 'Trung Bình' };
-                return { mau: 'info', chuoi: 'Thấp' };
-            }
-
-            layMauChoViTri(viTri) {
-                const mau = ['#f7931e', '#16c784', '#ea3943', '#f0b90b', '#8b5cf6'];
-                return mau[viTri % mau.length];
-            }
-
-            dinhDangPhanTram(giaTri) {
-                return `${giaTri >= 0 ? '+' : ''}${giaTri.toFixed(2)}%`;
-            }
-
-            dinhDangThoiGian(timestamp) {
-                return new Date(timestamp).toLocaleString('vi-VN');
-            }
-
-            dichXuHuong(sentiment) {
-                const dich = {
-                    'neutral': 'Trung Tính',
-                    'bullish': 'Tăng Giá',
-                    'bearish': 'Giảm Giá',
-                    'strong bullish': 'Tăng Mạnh',
-                    'strong bearish': 'Giảm Mạnh',
-                    'moderate bullish': 'Tăng Vừa',
-                    'potential bearish': 'Có Thể Giảm'
-                };
-                return dich[sentiment.toLowerCase()] || sentiment;
-            }
-
-            dichLoaiBatThuong(loai) {
-                const dich = {
-                    'volume': 'Khối Lượng',
-                    'open_interest': 'OI',
-                    'price': 'Giá',
-                    'correlation': 'Tương Quan'
-                };
-                return dich[loai] || loai;
-            }
-
-            hienThiChiTiet(symbol) {
-                alert(`Hiển thị chi tiết cho ${symbol}`);
-                // Triển khai chi tiết
-            }
-
-            hienThiDangTai() {
-                // Hiển thị trạng thái đang tải
-            }
-
-            anDangTai() {
-                // Ẩn trạng thái đang tải
-            }
-
-            hienThiLoi(thongDiep) {
-                console.error(thongDiep);
-                // Hiển thị thông báo lỗi
-            }
-
-            thietLapTuDongLamMoi() {
-                // Làm mới mỗi 5 phút
-                setInterval(() => {
-                    this.taiDuLieu();
-                }, 5 * 60 * 1000);
-            }
-        }
-
-        // Khởi tạo hệ thống theo dõi
-        const monitor = new TheoDoi_OI_Volume_Binance();
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
