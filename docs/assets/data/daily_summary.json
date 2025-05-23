@@ -1,35 +1,35 @@
 {
-  "timestamp": "2025-05-23 18:24:50",
+  "timestamp": "2025-05-23 19:38:13",
   "symbols": {
     "BTCUSDT": {
-      "price_change": -0.2106,
-      "oi_change": 0.2656,
-      "volume_change": -71.3909,
+      "price_change": -2.6971,
+      "oi_change": -3.3638,
+      "volume_change": 237.8292,
       "sentiment": "Neutral"
     },
     "ETHUSDT": {
-      "price_change": -0.2914,
-      "oi_change": -0.4808,
-      "volume_change": -51.7272,
-      "sentiment": "Slight Bearish"
+      "price_change": -3.9793,
+      "oi_change": -3.4874,
+      "volume_change": 294.181,
+      "sentiment": "Weak Bearish"
     },
     "BNBUSDT": {
-      "price_change": -0.9182,
-      "oi_change": -0.2662,
-      "volume_change": -63.8982,
-      "sentiment": "Neutral"
+      "price_change": -3.3596,
+      "oi_change": 0.1271,
+      "volume_change": 467.0758,
+      "sentiment": "Slight Bearish"
     },
     "SOLUSDT": {
-      "price_change": 3.6459,
-      "oi_change": -0.4924,
-      "volume_change": -39.9686,
-      "sentiment": "Slight Bearish"
+      "price_change": -0.4424,
+      "oi_change": -1.6469,
+      "volume_change": 406.7639,
+      "sentiment": "Neutral"
     },
     "DOGEUSDT": {
-      "price_change": 1.4199,
-      "oi_change": -0.2703,
-      "volume_change": -49.1713,
-      "sentiment": "Slight Bearish"
+      "price_change": -3.4063,
+      "oi_change": -1.4781,
+      "volume_change": 387.3704,
+      "sentiment": "Unclear (Liquidation)"
     }
   },
   "anomalies": [
@@ -61,7 +61,7 @@
       "symbol": "ETHUSDT",
       "timestamp": "2025-05-23 12:14:31",
       "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho ETHUSDT: 1754362.41 (Z-score: 2.59)"
+      "message": "Phát hiện bất thường về Open Interest cho ETHUSDT: 1754362.41 (Z-score: 2.58)"
     },
     {
       "symbol": "DOGEUSDT",
@@ -73,7 +73,31 @@
       "symbol": "ETHUSDT",
       "timestamp": "2025-05-23 11:12:05",
       "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho ETHUSDT: 1770349.42 (Z-score: 3.21)"
+      "message": "Phát hiện bất thường về Open Interest cho ETHUSDT: 1770349.42 (Z-score: 3.19)"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "timestamp": "2025-05-23 11:00:00",
+      "data_type": "volume",
+      "message": "Phát hiện bất thường về Volume cho ETHUSDT: 1194866.61 (Z-score: 3.01)"
+    },
+    {
+      "symbol": "BNBUSDT",
+      "timestamp": "2025-05-23 11:00:00",
+      "data_type": "volume",
+      "message": "Phát hiện bất thường về Volume cho BNBUSDT: 107441.08 (Z-score: 3.72)"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "timestamp": "2025-05-23 11:00:00",
+      "data_type": "volume",
+      "message": "Phát hiện bất thường về Volume cho SOLUSDT: 3891944.59 (Z-score: 3.13)"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "timestamp": "2025-05-23 11:00:00",
+      "data_type": "volume",
+      "message": "Phát hiện bất thường về Volume cho DOGEUSDT: 924420171.00 (Z-score: 3.22)"
     },
     {
       "symbol": "DOGEUSDT",
@@ -128,30 +152,6 @@
       "timestamp": "2025-05-23 07:08:35",
       "data_type": "open_interest",
       "message": "Phát hiện bất thường về Open Interest cho BTCUSDT: 88461.98 (Z-score: 2.67)"
-    },
-    {
-      "symbol": "BTCUSDT",
-      "timestamp": "2025-05-23 06:06:41",
-      "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho BTCUSDT: 88375.71 (Z-score: 2.81)"
-    },
-    {
-      "symbol": "DOGEUSDT",
-      "timestamp": "2025-05-23 06:00:00",
-      "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho DOGEUSDT: 2038570747.00 (Z-score: 2.57)"
-    },
-    {
-      "symbol": "BTCUSDT",
-      "timestamp": "2025-05-23 05:02:38",
-      "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho BTCUSDT: 88411.80 (Z-score: 2.75)"
-    },
-    {
-      "symbol": "DOGEUSDT",
-      "timestamp": "2025-05-23 05:00:00",
-      "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho DOGEUSDT: 2039076032.00 (Z-score: 2.58)"
     }
   ]
 }
