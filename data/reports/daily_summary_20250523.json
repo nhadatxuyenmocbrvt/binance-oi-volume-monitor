@@ -1,43 +1,55 @@
 {
-  "timestamp": "2025-05-23 08:10:35",
+  "timestamp": "2025-05-23 09:11:11",
   "symbols": {
     "BTCUSDT": {
-      "price_change": 1.3206,
-      "oi_change": -0.5882,
-      "volume_change": -83.1314,
+      "price_change": 0.8338,
+      "oi_change": 0.6676,
+      "volume_change": -97.1275,
       "sentiment": "Neutral"
     },
     "ETHUSDT": {
-      "price_change": 3.1706,
-      "oi_change": 0.6534,
-      "volume_change": -85.3637,
+      "price_change": 3.6187,
+      "oi_change": 0.3957,
+      "volume_change": -80.0508,
       "sentiment": "Neutral"
     },
     "BNBUSDT": {
-      "price_change": 1.2636,
-      "oi_change": -0.0944,
-      "volume_change": -90.4302,
+      "price_change": 1.0512,
+      "oi_change": 0.4024,
+      "volume_change": -94.4763,
       "sentiment": "Neutral"
     },
     "SOLUSDT": {
-      "price_change": 4.6019,
-      "oi_change": 0.4291,
-      "volume_change": -84.5692,
+      "price_change": 5.3851,
+      "oi_change": 1.1666,
+      "volume_change": -65.1379,
       "sentiment": "Neutral"
     },
     "DOGEUSDT": {
-      "price_change": 2.1907,
-      "oi_change": 0.6479,
-      "volume_change": -87.9187,
-      "sentiment": "Slight Bearish"
+      "price_change": 3.6271,
+      "oi_change": 1.6994,
+      "volume_change": -74.7614,
+      "sentiment": "Neutral"
     }
   },
   "anomalies": [
     {
       "symbol": "DOGEUSDT",
+      "timestamp": "2025-05-23 08:10:18",
+      "data_type": "open_interest",
+      "message": "Phát hiện bất thường về Open Interest cho DOGEUSDT: 1967198828.00 (Z-score: 3.86)"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "timestamp": "2025-05-23 08:10:13",
+      "data_type": "open_interest",
+      "message": "Phát hiện bất thường về Open Interest cho BTCUSDT: 87941.68 (Z-score: 3.09)"
+    },
+    {
+      "symbol": "DOGEUSDT",
       "timestamp": "2025-05-23 07:08:41",
       "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho DOGEUSDT: 1954535733.00 (Z-score: 3.02)"
+      "message": "Phát hiện bất thường về Open Interest cho DOGEUSDT: 1954535733.00 (Z-score: 2.52)"
     },
     {
       "symbol": "BTCUSDT",
@@ -71,15 +83,27 @@
     },
     {
       "symbol": "BTCUSDT",
+      "timestamp": "2025-05-23 01:00:00",
+      "data_type": "open_interest",
+      "message": "Phát hiện bất thường về Open Interest cho BTCUSDT: 88103.81 (Z-score: 2.86)"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "timestamp": "2025-05-23 01:00:00",
+      "data_type": "open_interest",
+      "message": "Phát hiện bất thường về Open Interest cho DOGEUSDT: 1963270924.00 (Z-score: 3.45)"
+    },
+    {
+      "symbol": "BTCUSDT",
       "timestamp": "2025-05-23 00:00:00",
       "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho BTCUSDT: 88030.20 (Z-score: 3.35)"
+      "message": "Phát hiện bất thường về Open Interest cho BTCUSDT: 88030.20 (Z-score: 2.96)"
     },
     {
       "symbol": "DOGEUSDT",
       "timestamp": "2025-05-23 00:00:00",
       "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho DOGEUSDT: 1954965094.00 (Z-score: 3.07)"
+      "message": "Phát hiện bất thường về Open Interest cho DOGEUSDT: 1954965094.00 (Z-score: 2.56)"
     },
     {
       "symbol": "BNBUSDT",
@@ -128,30 +152,6 @@
       "timestamp": "2025-05-22 19:07:48",
       "data_type": "open_interest",
       "message": "Phát hiện bất thường về Open Interest cho SOLUSDT: 7707593.63 (Z-score: 2.57)"
-    },
-    {
-      "symbol": "ETHUSDT",
-      "timestamp": "2025-05-22 19:07:45",
-      "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho ETHUSDT: 1722792.73 (Z-score: 2.90)"
-    },
-    {
-      "symbol": "DOGEUSDT",
-      "timestamp": "2025-05-22 18:07:28",
-      "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho DOGEUSDT: 1952009691.00 (Z-score: 2.71)"
-    },
-    {
-      "symbol": "SOLUSDT",
-      "timestamp": "2025-05-22 18:07:27",
-      "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho SOLUSDT: 7703182.36 (Z-score: 2.53)"
-    },
-    {
-      "symbol": "SOLUSDT",
-      "timestamp": "2025-05-22 17:07:07",
-      "data_type": "open_interest",
-      "message": "Phát hiện bất thường về Open Interest cho SOLUSDT: 7700562.70 (Z-score: 2.51)"
     }
   ]
 }
