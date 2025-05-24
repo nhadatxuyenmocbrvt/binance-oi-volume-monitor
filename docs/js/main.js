@@ -69,8 +69,88 @@ class HeThongTheoDoi_Binance_VietNam {
             });
         });
 
-        // THÊM MỚI: Sự kiện cho tracking 24h
+        // Sự kiện cho tracking 24h
         this.capNhatSuKienTuyChon24h();
+    }
+
+    capNhatSuKienTuyChon24h() {
+        // Thêm sự kiện cho các nút lọc trong tab tracking 24h
+        document.addEventListener('click', async (e) => {
+            // Nút lọc theo symbol
+            if (e.target.classList.contains('btn-symbol-filter')) {
+                const symbol = e.target.dataset.symbol;
+                await this.locTheoSymbol24h(symbol);
+            }
+            
+            // Nút lọc theo thời gian
+            if (e.target.classList.contains('btn-time-range-filter')) {
+                const timeRange = e.target.dataset.timeRange;
+                await this.locTheoThoiGian24h(timeRange);
+            }
+            
+            // Nút xuất dữ liệu
+            if (e.target.id === 'exportTracking24h') {
+                this.xuatDuLieu24h();
+            }
+        });
+
+        // Thêm tooltip cho các điểm dữ liệu
+        this.thietLapTooltip24h();
+    }
+
+    async locTheoSymbol24h(symbol) {
+        if (this.khoLuuTru.tracking24h) {
+            // Cập nhật biểu đồ chỉ hiển thị symbol được chọn
+            this.capNhatBieuDoTracking24h(this.khoLuuTru.tracking24h, [symbol]);
+        }
+    }
+
+    async locTheoThoiGian24h(timeRange) {
+        if (this.khoLuuTru.tracking24h) {
+            // Cập nhật biểu đồ với khoảng thời gian được chọn
+            this.capNhatBieuDoTracking24h(this.khoLuuTru.tracking24h, null, timeRange);
+        }
+    }
+
+    xuatDuLieu24h() {
+        if (!this.khoLuuTru.tracking24h) {
+            alert('Không có dữ liệu để xuất');
+            return;
+        }
+
+        // Chuyển đổi dữ liệu sang CSV
+        const csvData = this.chuyenDoiDuLieu24hSangCSV();
+        
+        // Tạo và tải file CSV
+        const blob = new Blob([csvData], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `tracking_24h_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }
+
+    chuyenDoiDuLieu24hSangCSV() {
+        let csv = 'Symbol,Hour,Timestamp,Price,Price_Change_1h,Volume,Volume_Change_1h,OI,OI_Change_1h\n';
+        
+        Object.entries(this.khoLuuTru.tracking24h.symbols).forEach(([symbol, data]) => {
+            data.hours_data.forEach(hourData => {
+                csv += `${symbol},${hourData.hour},${hourData.hour_timestamp},${hourData.price || 0},${hourData.price_change_1h || 0},${hourData.volume || 0},${hourData.volume_change_1h || 0},${hourData.oi || 0},${hourData.oi_change_1h || 0}\n`;
+            });
+        });
+        
+        return csv;
+    }
+
+    thietLapTooltip24h() {
+        // Thiết lập tooltip cho các phần tử trong tracking 24h
+        const tooltipElements = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipElements.forEach(element => {
+            new bootstrap.Tooltip(element);
+        });
     }
 
     capNhatBoLocHoatDong(nutHoatDong) {
@@ -183,13 +263,14 @@ class HeThongTheoDoi_Binance_VietNam {
         try {
             const phanHoi = await fetch('assets/data/tracking_24h.json?' + Date.now());
             if (!phanHoi.ok) {
-                console.warn('Không thể tải dữ liệu tracking 24h');
+                console.warn('Không thể tải dữ liệu tracking 24h - File có thể chưa được tạo');
                 return null;
             }
             
             const duLieu = await phanHoi.json();
             this.khoLuuTru.tracking24h = duLieu;
             
+            console.log('✅ Đã tải thành công dữ liệu tracking 24h:', duLieu);
             return duLieu;
         } catch (loi) {
             console.error('Lỗi khi tải dữ liệu tracking 24h:', loi);
@@ -259,14 +340,16 @@ class HeThongTheoDoi_Binance_VietNam {
         try {
             const tracking24h = this.khoLuuTru.tracking24h;
             if (!tracking24h) {
-                this.hienThiThongBaoTracking24h('Chưa có dữ liệu tracking 24h');
+                this.hienThiThongBaoTracking24h('Chưa có dữ liệu tracking 24h. Vui lòng chạy lại hệ thống để tạo dữ liệu.');
                 return;
             }
             
             this.capNhatBieuDoTracking24h(tracking24h);
             this.capNhatThongKeTracking24h(tracking24h);
+            this.capNhatBangTracking24h(tracking24h);
         } catch (loi) {
             console.error('Lỗi khi cập nhật giao diện tracking 24h:', loi);
+            this.hienThiThongBaoTracking24h('Có lỗi khi hiển thị dữ liệu tracking 24h');
         }
     }
 
@@ -519,7 +602,7 @@ class HeThongTheoDoi_Binance_VietNam {
         return hang;
     }
 
-    capNhatBieuDoTracking24h(tracking24h) {
+    capNhatBieuDoTracking24h(tracking24h, symbolsToShow = null, timeRange = null) {
         const container = document.getElementById('tracking24hChart');
         if (!container) return;
 
@@ -533,7 +616,7 @@ class HeThongTheoDoi_Binance_VietNam {
         const ctx = document.getElementById('tracking24hCanvas');
 
         // Chuẩn bị dữ liệu biểu đồ
-        const duLieuBieuDo = this.chuanBiDuLieuBieuDo24h(tracking24h);
+        const duLieuBieuDo = this.chuanBiDuLieuBieuDo24h(tracking24h, symbolsToShow, timeRange);
 
         this.cacBieuDo.tracking24h = new Chart(ctx, {
             type: 'line',
@@ -549,13 +632,25 @@ class HeThongTheoDoi_Binance_VietNam {
                     legend: {
                         display: true,
                         position: 'top'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            title: function(context) {
+                                return `Giờ: ${context[0].label}`;
+                            },
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y.toFixed(2)}%`;
+                            }
+                        }
                     }
                 },
                 scales: {
                     x: {
                         title: {
                             display: true,
-                            text: 'Giờ'
+                            text: 'Giờ trong ngày'
                         }
                     },
                     y: {
@@ -573,24 +668,27 @@ class HeThongTheoDoi_Binance_VietNam {
         });
     }
 
-    chuanBiDuLieuBieuDo24h(tracking24h) {
+    chuanBiDuLieuBieuDo24h(tracking24h, symbolsToShow = null, timeRange = null) {
         const labels = [];
         const datasets = [];
 
-        // Tạo labels cho 24 giờ
-        for (let i = 0; i < 24; i++) {
+        // Tạo labels cho 24 giờ hoặc khoảng thời gian được chỉ định
+        const maxHours = timeRange === '12h' ? 12 : timeRange === '6h' ? 6 : 24;
+        for (let i = 0; i < maxHours; i++) {
             labels.push(`${i.toString().padStart(2, '0')}:00`);
         }
 
         // Tạo dataset cho từng symbol
-        this.danhSachCoin.forEach((symbol, index) => {
+        const symbolsToDisplay = symbolsToShow || this.danhSachCoin;
+        symbolsToDisplay.forEach((symbol, index) => {
             const symbolData = tracking24h.symbols[symbol];
             if (symbolData && symbolData.hours_data) {
-                const data = new Array(24).fill(0);
+                const data = new Array(maxHours).fill(0);
                 
-                symbolData.hours_data.forEach(hourData => {
-                    const hour = new Date(hourData.hour_timestamp).getHours();
-                    data[hour] = hourData.price_change_1h || 0;
+                symbolData.hours_data.slice(0, maxHours).forEach((hourData, idx) => {
+                    if (idx < maxHours) {
+                        data[idx] = hourData.price_change_1h || 0;
+                    }
                 });
 
                 datasets.push({
@@ -599,7 +697,9 @@ class HeThongTheoDoi_Binance_VietNam {
                     borderColor: this.layMauChoViTri(index),
                     backgroundColor: this.layMauChoViTri(index) + '20',
                     tension: 0.3,
-                    fill: false
+                    fill: false,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
                 });
             }
         });
@@ -613,37 +713,100 @@ class HeThongTheoDoi_Binance_VietNam {
 
         let html = '<div class="row">';
 
+        // Thống kê tổng quan
+        html += `
+            <div class="col-12 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">📊 Tổng Quan 24h</h6>
+                        <div class="row text-center">
+                            <div class="col-3">
+                                <div class="text-info">
+                                    <strong>${tracking24h.summary?.total_symbols || 0}</strong>
+                                </div>
+                                <small class="text-muted">Tổng Symbols</small>
+                            </div>
+                            <div class="col-3">
+                                <div class="text-warning">
+                                    <strong>${tracking24h.summary?.most_volatile || 'N/A'}</strong>
+                                </div>
+                                <small class="text-muted">Biến động nhất</small>
+                            </div>
+                            <div class="col-3">
+                                <div class="text-primary">
+                                    <strong>${tracking24h.summary?.highest_volume_change || 'N/A'}</strong>
+                                </div>
+                                <small class="text-muted">Volume cao nhất</small>
+                            </div>
+                            <div class="col-3">
+                                <div class="text-success">
+                                    <strong>${tracking24h.summary?.highest_oi_change || 'N/A'}</strong>
+                                </div>
+                                <small class="text-muted">OI cao nhất</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
         // Thống kê cho từng symbol
         this.danhSachCoin.forEach(symbol => {
             const symbolData = tracking24h.symbols[symbol];
             if (symbolData) {
                 const volatility = symbolData.price_volatility || 0;
                 const price24h = symbolData.price_24h_change || 0;
+                const volume24h = symbolData.volume_24h_change || 0;
+                const oi24h = symbolData.oi_24h_change || 0;
                 const maxChange = symbolData.max_price_change_hour;
 
                 html += `
-                    <div class="col-md-4 col-lg-2 mb-3">
+                    <div class="col-md-6 col-lg-4 mb-3">
                         <div class="card h-100">
-                            <div class="card-body text-center">
-                                <h6 class="card-title">${symbol}</h6>
-                                <div class="mb-2">
-                                    <div class="text-${price24h >= 0 ? 'success' : 'danger'}">
-                                        <strong>${this.dinhDangPhanTram(price24h)}</strong>
-                                    </div>
-                                    <small class="text-muted">24h Change</small>
-                                </div>
-                                <div class="mb-2">
-                                    <div class="text-info">
-                                        <strong>${volatility.toFixed(2)}%</strong>
-                                    </div>
-                                    <small class="text-muted">Volatility</small>
-                                </div>
-                                ${maxChange ? `
-                                    <div>
-                                        <div class="text-warning">
-                                            <strong>${maxChange.hour}</strong>
+                            <div class="card-body">
+                                <h6 class="card-title d-flex align-items-center">
+                                    <i class="bi bi-currency-bitcoin text-warning me-2"></i>
+                                    ${symbol}
+                                </h6>
+                                
+                                <div class="row">
+                                    <div class="col-6 mb-2">
+                                        <div class="text-${price24h >= 0 ? 'success' : 'danger'}">
+                                            <strong>${this.dinhDangPhanTram(price24h)}</strong>
                                         </div>
-                                        <small class="text-muted">Max Change</small>
+                                        <small class="text-muted">Giá 24h</small>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div class="text-info">
+                                            <strong>${volatility.toFixed(2)}%</strong>
+                                        </div>
+                                        <small class="text-muted">Volatility</small>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div class="text-${volume24h >= 0 ? 'success' : 'danger'}">
+                                            <strong>${this.dinhDangPhanTram(volume24h)}</strong>
+                                        </div>
+                                        <small class="text-muted">Volume 24h</small>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div class="text-${oi24h >= 0 ? 'success' : 'danger'}">
+                                            <strong>${this.dinhDangPhanTram(oi24h)}</strong>
+                                        </div>
+                                        <small class="text-muted">OI 24h</small>
+                                    </div>
+                                </div>
+                                
+                                ${maxChange ? `
+                                    <div class="mt-2 p-2 bg-light rounded">
+                                        <div class="text-warning text-center">
+                                            <strong>Giờ ${maxChange.hour}:00</strong>
+                                        </div>
+                                        <div class="text-center">
+                                            <span class="badge bg-${maxChange.change >= 0 ? 'success' : 'danger'}">
+                                                ${this.dinhDangPhanTram(maxChange.change)}
+                                            </span>
+                                        </div>
+                                        <small class="text-muted d-block text-center">Thay đổi lớn nhất</small>
                                     </div>
                                 ` : ''}
                             </div>
@@ -657,6 +820,96 @@ class HeThongTheoDoi_Binance_VietNam {
         statsContainer.innerHTML = html;
     }
 
+    capNhatBangTracking24h(tracking24h) {
+        const tableContainer = document.getElementById('tracking24hTable');
+        if (!tableContainer) return;
+
+        let html = `
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Giá Hiện Tại</th>
+                            <th>Thay Đổi 24h</th>
+                            <th>Volume 24h</th>
+                            <th>OI 24h</th>
+                            <th>Volatility</th>
+                            <th>Giờ Hot</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        this.danhSachCoin.forEach(symbol => {
+            const symbolData = tracking24h.symbols[symbol];
+            if (symbolData) {
+                const price24h = symbolData.price_24h_change || 0;
+                const volume24h = symbolData.volume_24h_change || 0;
+                const oi24h = symbolData.oi_24h_change || 0;
+                const volatility = symbolData.price_volatility || 0;
+                const maxChange = symbolData.max_price_change_hour;
+                const currentPrice = symbolData.current_price || 0;
+
+                html += `
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-currency-bitcoin text-warning me-2"></i>
+                                <div>
+                                    <div class="coin-symbol">${symbol}</div>
+                                    <small class="text-muted">${this.layTenCoin(symbol)}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>$${currentPrice.toLocaleString()}</strong>
+                        </td>
+                        <td class="${this.layLopThayDoi(price24h)}">
+                            <strong>${this.dinhDangPhanTram(price24h)}</strong>
+                            <i class="bi bi-${price24h >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                        </td>
+                        <td class="${this.layLopThayDoi(volume24h)}">
+                            <strong>${this.dinhDangPhanTram(volume24h)}</strong>
+                        </td>
+                        <td class="${this.layLopThayDoi(oi24h)}">
+                            <strong>${this.dinhDangPhanTram(oi24h)}</strong>
+                        </td>
+                        <td>
+                            <span class="badge bg-${volatility > 2 ? 'danger' : volatility > 1 ? 'warning' : 'success'}">
+                                ${volatility.toFixed(2)}%
+                            </span>
+                        </td>
+                        <td>
+                            ${maxChange ? `
+                                <div class="text-center">
+                                    <div class="fw-bold">${maxChange.hour}:00</div>
+                                    <small class="text-${maxChange.change >= 0 ? 'success' : 'danger'}">
+                                        ${this.dinhDangPhanTram(maxChange.change)}
+                                    </small>
+                                </div>
+                            ` : 'N/A'}
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary btn-symbol-filter" data-symbol="${symbol}">
+                                <i class="bi bi-funnel"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
+        });
+
+        html += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        tableContainer.innerHTML = html;
+    }
+
     hienThiThongBaoTracking24h(thongBao) {
         const container = document.getElementById('tracking24hChart');
         if (container) {
@@ -664,6 +917,30 @@ class HeThongTheoDoi_Binance_VietNam {
                 <div class="text-center py-5">
                     <i class="bi bi-clock-history display-1 text-muted"></i>
                     <p class="text-muted mt-3">${thongBao}</p>
+                    <button class="btn btn-primary mt-2" onclick="monitor.lamMoiDuLieuManh()">
+                        <i class="bi bi-arrow-clockwise me-2"></i>Làm Mới Dữ Liệu
+                    </button>
+                </div>
+            `;
+        }
+
+        // Cũng hiển thị trong stats và table
+        const statsContainer = document.getElementById('tracking24hStats');
+        if (statsContainer) {
+            statsContainer.innerHTML = `
+                <div class="alert alert-info text-center">
+                    <i class="bi bi-info-circle me-2"></i>
+                    ${thongBao}
+                </div>
+            `;
+        }
+
+        const tableContainer = document.getElementById('tracking24hTable');
+        if (tableContainer) {
+            tableContainer.innerHTML = `
+                <div class="alert alert-warning text-center">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    Không có dữ liệu để hiển thị bảng tracking 24h
                 </div>
             `;
         }
@@ -952,32 +1229,61 @@ class HeThongTheoDoi_Binance_VietNam {
         const tracking24hTab = document.querySelector('[data-bs-target="#tracking24h"]');
         if (tracking24hTab) {
             tracking24hTab.click();
+            // Đợi tab load xong rồi focus vào symbol
+            setTimeout(() => {
+                this.locTheoSymbol24h(symbol);
+            }, 300);
         }
-        // TODO: Highlight symbol trong biểu đồ tracking 24h
     }
 
     hienThiDangTaiToanCuc() {
-        // TODO: Hiển thị overlay đang tải toàn cục
+        // Hiển thị loading overlay
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+            loadingOverlay.style.display = 'flex';
+        }
     }
 
     anDangTaiToanCuc() {
-        // TODO: Ẩn overlay đang tải toàn cục
+        // Ẩn loading overlay
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+            loadingOverlay.style.display = 'none';
+        }
     }
 
     hienThiLoi(thongDiep) {
         console.error(thongDiep);
-        // TODO: Hiển thị thông báo lỗi thân thiện với người dùng
+        // Hiển thị toast error
+        const toastContainer = document.getElementById('toastContainer');
+        if (toastContainer) {
+            const toastHtml = `
+                <div class="toast align-items-center text-white bg-danger border-0" role="alert">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            ${thongDiep}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>
+                </div>
+            `;
+            toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+            const toast = new bootstrap.Toast(toastContainer.lastElementChild);
+            toast.show();
+        }
     }
 
     thietLapWebSocket() {
         // TODO: Triển khai WebSocket để cập nhật thời gian thực
         // Kết nối đến Binance WebSocket hoặc WebSocket server của riêng bạn
+        console.log('WebSocket sẽ được triển khai trong tương lai');
     }
 
     thietLapTuDongLamMoi() {
         // Làm mới dữ liệu mỗi 5 phút
         setInterval(async () => {
-            console.log('Tự động làm mới dữ liệu...');
+            console.log('🔄 Tự động làm mới dữ liệu...');
             await this.taiDuLieuThoiGianThuc();
             await this.taiDuLieuTracking24h();
             await this.capNhatGiaoDienThoiGianThuc();
@@ -986,7 +1292,7 @@ class HeThongTheoDoi_Binance_VietNam {
 
         // Làm mới toàn bộ dữ liệu mỗi 30 phút
         setInterval(async () => {
-            console.log('Làm mới toàn bộ dữ liệu...');
+            console.log('🔄 Làm mới toàn bộ dữ liệu...');
             await this.lamMoiDuLieuManh();
         }, 30 * 60 * 1000);
     }

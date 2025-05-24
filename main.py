@@ -50,6 +50,47 @@ def collect_historical_data():
     finally:
         db.close()
 
+def update_hourly_data():
+    """Cập nhật dữ liệu mỗi giờ - THÊM MỚI"""
+    logger.info("⏰ Bắt đầu cập nhật dữ liệu hàng giờ")
+    
+    try:
+        collector = HistoricalDataCollector()
+        db = Database()
+        
+        logger.info("📡 Thu thập dữ liệu realtime...")
+        realtime_data = collector.collect_realtime_data()
+        
+        # Lưu dữ liệu realtime vào database với timestamp hiện tại
+        current_hour = datetime.now().replace(minute=0, second=0, microsecond=0)
+        
+        if realtime_data and 'ticker' in realtime_data and 'open_interest' in realtime_data:
+            saved_count = 0
+            for symbol in realtime_data['ticker']:
+                # Cập nhật timestamp thành giờ tròn
+                realtime_data['ticker'][symbol]['timestamp'] = current_hour
+                if db.save_ticker(symbol, realtime_data['ticker'][symbol]):
+                    saved_count += 1
+            
+            for symbol in realtime_data['open_interest']:
+                # Cập nhật timestamp thành giờ tròn
+                realtime_data['open_interest'][symbol]['timestamp'] = current_hour
+                db.save_realtime_open_interest(symbol, realtime_data['open_interest'][symbol])
+            
+            logger.info(f"💾 Đã lưu dữ liệu hàng giờ cho {saved_count} symbols lúc {current_hour.strftime('%H:00')}")
+        
+        # Lưu dữ liệu 24h tracking
+        db.save_hourly_tracking(current_hour)
+        
+        return True
+        
+    except Exception as e:
+        logger.error(f"❌ Lỗi khi cập nhật dữ liệu hàng giờ: {str(e)}")
+        return False
+    finally:
+        if 'db' in locals():
+            db.close()
+
 def update_realtime_and_generate_reports():
     """Cập nhật dữ liệu realtime, tạo báo cáo và đẩy lên GitHub - chạy 1h/lần"""
     logger.info("⚡ Bắt đầu chu kỳ realtime (1h/lần): Update → Reports → Push")
@@ -78,10 +119,15 @@ def update_realtime_and_generate_reports():
         logger.info("📊 Tạo báo cáo và biểu đồ...")
         report_gen = ReportGenerator(db)
         
-        # Tạo báo cáo tổng hợp
+        # Tạo báo cáo tổng hợp với dữ liệu 24h
         summary = report_gen.generate_daily_summary()
         if summary:
             logger.info("✅ Đã tạo báo cáo tổng hợp")
+        
+        # Tạo dữ liệu 24h cho web
+        hourly_data = report_gen.generate_24h_data()
+        if hourly_data:
+            logger.info("📈 Đã tạo dữ liệu 24h tracking")
         
         # Tạo biểu đồ cho từng symbol (tùy chọn - có thể comment nếu không cần)
         try:
@@ -160,6 +206,9 @@ def generate_reports():
         
         # Tạo báo cáo tổng hợp
         summary = report_gen.generate_daily_summary()
+        
+        # Tạo dữ liệu 24h
+        hourly_data = report_gen.generate_24h_data()
         
         # Tạo biểu đồ cho từng symbol
         for symbol in SYMBOLS:
@@ -275,16 +324,20 @@ def send_daily_report():
         db.close()
 
 def schedule_tasks():
-    """Lập lịch các tác vụ định kỳ - PHIÊN BẢN TỐI ƯU"""
-    logger.info("⏰ Thiết lập lịch trình các tác vụ tối ưu")
+    """Lập lịch các tác vụ định kỳ - ĐÃ CẬP NHẬT VỚI TRACKING 24H"""
+    logger.info("⏰ Thiết lập lịch trình các tác vụ với tracking 24h")
     
     # 📊 THU THẬP DỮ LIỆU LỊCH SỬ: 24H/LẦN (mỗi ngày lúc 00:05)
     schedule.every().day.at("00:05").do(collect_historical_data)
     logger.info("✅ Lịch thu thập dữ liệu lịch sử: mỗi ngày lúc 00:05")
     
-    # ⚡ CẬP NHẬT REALTIME + TẠO BÁO CÁO + PUSH: 1H/LẦN 
-    schedule.every(60).minutes.do(update_realtime_and_generate_reports)
-    logger.info("✅ Lịch cập nhật realtime + báo cáo + push: mỗi 60 phút")
+    # ⏰ CẬP NHẬT DỮ LIỆU HÀNG GIỜ: MỖI GIỜ ĐÚNG (0 phút)
+    schedule.every().hour.at(":00").do(update_hourly_data)
+    logger.info("✅ Lịch cập nhật dữ liệu hàng giờ: mỗi giờ đúng")
+    
+    # ⚡ CẬP NHẬT REALTIME + TẠO BÁO CÁO + PUSH: 30 PHÚT/LẦN
+    schedule.every(30).minutes.do(update_realtime_and_generate_reports)
+    logger.info("✅ Lịch cập nhật realtime + báo cáo + push: mỗi 30 phút")
     
     # 🔍 PHÁT HIỆN BẤT THƯỜNG: 15 PHÚT/LẦN
     schedule.every(15).minutes.do(detect_anomalies)
@@ -294,15 +347,16 @@ def schedule_tasks():
     schedule.every().day.at("20:00").do(send_daily_report)
     logger.info("✅ Lịch gửi báo cáo Telegram: mỗi ngày lúc 20:00")
     
-    logger.info("🎯 Đã thiết lập lịch trình tối ưu:")
+    logger.info("🎯 Đã thiết lập lịch trình tracking 24h:")
     logger.info("   📊 Dữ liệu lịch sử: 24h/lần")
-    logger.info("   ⚡ Realtime + Reports: 1h/lần") 
+    logger.info("   ⏰ Tracking hàng giờ: mỗi giờ đúng")
+    logger.info("   ⚡ Realtime + Reports: 30 phút/lần") 
     logger.info("   🔍 Anomaly detection: 15 phút/lần")
     logger.info("   📱 Daily Telegram: 1 lần/ngày")
 
 def run_scheduled_tasks():
     """Chạy các tác vụ đã lên lịch"""
-    logger.info("🚀 Bắt đầu chạy các tác vụ theo lịch trình tối ưu")
+    logger.info("🚀 Bắt đầu chạy các tác vụ theo lịch trình tracking 24h")
     
     while True:
         try:
@@ -345,24 +399,25 @@ def initialize():
     logger.info("✅ Hoàn thành khởi tạo hệ thống")
 
 def main():
-    """Hàm chính của ứng dụng - PHIÊN BẢN TỐI ƯU HOÀN CHỈNH"""
+    """Hàm chính của ứng dụng - ĐÃ CẬP NHẬT VỚI TRACKING 24H"""
     parser = argparse.ArgumentParser(
-        description='Hệ thống theo dõi Open Interest và Volume từ Binance - Phiên bản tối ưu',
+        description='Hệ thống theo dõi Open Interest và Volume từ Binance - Tracking 24h',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Ví dụ sử dụng:
-  python main.py --schedule          # Chạy theo lịch trình tối ưu (khuyến nghị)
-  python main.py --collect           # Thu thập dữ liệu lịch sử (24h/lần)
-  python main.py --realtime          # Cập nhật realtime + báo cáo + push (1h/lần)
-  python main.py --detect            # Phát hiện bất thường
-  python main.py --daily             # Gửi báo cáo Telegram
+  python main.py --schedule          # Chạy theo lịch trình tracking 24h (khuyến nghị)
+  python main.py --collect           # Thu thập dữ liệu lịch sử
+  python main.py --realtime          # Cập nhật realtime + báo cáo + push
+  python main.py --hourly            # Cập nhật dữ liệu hàng giờ
         """
     )
     
     parser.add_argument('--collect', action='store_true', 
                        help='Thu thập dữ liệu lịch sử (24h/lần)')
     parser.add_argument('--realtime', action='store_true', 
-                       help='Cập nhật realtime + tạo báo cáo + push GitHub (1h/lần)')
+                       help='Cập nhật realtime + tạo báo cáo + push GitHub (30 phút/lần)')
+    parser.add_argument('--hourly', action='store_true', 
+                       help='Cập nhật dữ liệu hàng giờ (1h/lần)')
     parser.add_argument('--detect', action='store_true', 
                        help='Phát hiện bất thường (15 phút/lần)')
     parser.add_argument('--report', action='store_true', 
@@ -372,13 +427,13 @@ Ví dụ sử dụng:
     parser.add_argument('--daily', action='store_true', 
                        help='Gửi báo cáo hàng ngày qua Telegram')
     parser.add_argument('--schedule', action='store_true', 
-                       help='Chạy tất cả tác vụ theo lịch trình tối ưu (khuyến nghị)')
+                       help='Chạy tất cả tác vụ theo lịch trình tracking 24h (khuyến nghị)')
     
     args = parser.parse_args()
     
     # Hiển thị thông tin khởi động
     logger.info("="*60)
-    logger.info("🚀 BINANCE OI & VOLUME MONITOR - PHIÊN BẢN TỐI ƯU")
+    logger.info("🚀 BINANCE OI & VOLUME MONITOR - TRACKING 24H")
     logger.info("="*60)
     logger.info(f"⏰ Khởi động lúc: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info(f"📊 Theo dõi {len(SYMBOLS)} symbols: {', '.join(SYMBOLS)}")
@@ -402,6 +457,11 @@ Ví dụ sử dụng:
             success = update_realtime_and_generate_reports()
             return 0 if success else 1
             
+        elif args.hourly:
+            logger.info("⏰ CHẾ ĐỘ: Cập nhật dữ liệu hàng giờ")
+            success = update_hourly_data()
+            return 0 if success else 1
+            
         elif args.detect:
             logger.info("🔍 CHẾ ĐỘ: Phát hiện bất thường")
             success = detect_anomalies()
@@ -423,24 +483,35 @@ Ví dụ sử dụng:
             return 0 if success else 1
             
         elif args.schedule:
-            logger.info("⏰ CHẾ ĐỘ: Chạy theo lịch trình tối ưu")
+            logger.info("⏰ CHẾ ĐỘ: Chạy theo lịch trình tracking 24h")
             schedule_tasks()
             run_scheduled_tasks()
             return 0
             
         else:
-            # Chế độ mặc định: thu thập dữ liệu lịch sử và chạy theo lịch
-            logger.info("🎯 CHẾ ĐỘ MẶC ĐỊNH: Thu thập lịch sử + chạy lịch trình")
-            logger.info("💡 Gợi ý: Sử dụng --schedule để chạy chế độ tối ưu")
+            # Chế độ mặc định: setup đầy đủ với tracking 24h
+            logger.info("🎯 CHẾ ĐỘ MẶC ĐỊNH: Setup tracking 24h")
+            logger.info("📋 Quy trình: Thu thập lịch sử → Realtime + Báo cáo + Push → Tracking 24h")
             
-            # Thu thập dữ liệu lịch sử trước
-            if collect_historical_data():
-                # Sau đó chạy theo lịch
-                schedule_tasks()
-                run_scheduled_tasks()
-            else:
-                logger.error("❌ Không thể thu thập dữ liệu lịch sử ban đầu")
+            # Bước 1: Thu thập dữ liệu lịch sử
+            logger.info("🔄 Bước 1/3: Thu thập dữ liệu lịch sử...")
+            if not collect_historical_data():
+                logger.error("❌ Không thể thu thập dữ liệu lịch sử")
                 return 1
+            
+            # Bước 2: Cập nhật realtime + tạo báo cáo + push
+            logger.info("⚡ Bước 2/3: Cập nhật realtime + tạo báo cáo + push...")
+            if not update_realtime_and_generate_reports():
+                logger.warning("⚠️ Có lỗi khi cập nhật realtime, nhưng tiếp tục...")
+            
+            # Bước 3: Chạy theo lịch trình tracking 24h
+            logger.info("⏰ Bước 3/3: Thiết lập tracking 24h...")
+            schedule_tasks()
+            
+            logger.info("✅ Hoàn thành setup - Tracking 24h đã được kích hoạt!")
+            logger.info("🔄 Hệ thống sẽ theo dõi từng giờ và cập nhật web...")
+            
+            run_scheduled_tasks()
             return 0
             
     except KeyboardInterrupt:

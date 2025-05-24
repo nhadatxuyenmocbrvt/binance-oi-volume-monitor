@@ -1,6 +1,6 @@
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from config.settings import SYMBOLS, setup_logging
 from data_analyzer.metrics import MarketMetrics
 
@@ -104,6 +104,147 @@ class ReportGenerator:
         except Exception as e:
             logger.error(f"Lỗi khi chuẩn bị dữ liệu web cho {symbol}: {str(e)}")
             return {'klines': {}, 'open_interest': []}
+
+    def generate_24h_data(self):
+        """Tạo dữ liệu tracking 24h cho trang web"""
+        try:
+            logger.info("📈 Bắt đầu tạo dữ liệu tracking 24h")
+            
+            tracking_data = {
+                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'symbols': {},
+                'summary': {
+                    'total_symbols': len(SYMBOLS),
+                    'most_volatile': None,
+                    'highest_volume_change': None,
+                    'highest_oi_change': None
+                }
+            }
+            
+            max_volatility = 0
+            max_volume_change = 0
+            max_oi_change = 0
+            
+            for symbol in SYMBOLS:
+                try:
+                    # Lấy dữ liệu 1h cho 24 giờ qua
+                    price_df = self.db.get_klines(symbol, '1h', limit=24)
+                    oi_df = self.db.get_open_interest(symbol, limit=24)
+                    
+                    if price_df.empty:
+                        logger.warning(f"Không có dữ liệu giá cho {symbol}")
+                        continue
+                    
+                    # Tính toán dữ liệu theo từng giờ
+                    hours_data = []
+                    
+                    for i in range(len(price_df)):
+                        hour_data = {
+                            'hour_timestamp': price_df.iloc[i]['open_time'].strftime('%Y-%m-%d %H:%M:%S') if i < len(price_df) else None,
+                            'hour': i,
+                            'price': float(price_df.iloc[i]['close']) if i < len(price_df) else None,
+                            'volume': float(price_df.iloc[i]['volume']) if i < len(price_df) else None,
+                            'price_change_1h': 0.0,
+                            'volume_change_1h': 0.0,
+                            'oi': None,
+                            'oi_change_1h': 0.0
+                        }
+                        
+                        # Tính thay đổi giá so với giờ trước
+                        if i > 0:
+                            prev_price = float(price_df.iloc[i-1]['close'])
+                            curr_price = float(price_df.iloc[i]['close'])
+                            hour_data['price_change_1h'] = ((curr_price - prev_price) / prev_price) * 100
+                            
+                            prev_volume = float(price_df.iloc[i-1]['volume'])
+                            curr_volume = float(price_df.iloc[i]['volume'])
+                            if prev_volume > 0:
+                                hour_data['volume_change_1h'] = ((curr_volume - prev_volume) / prev_volume) * 100
+                        
+                        # Thêm dữ liệu OI nếu có
+                        if not oi_df.empty and i < len(oi_df):
+                            hour_data['oi'] = float(oi_df.iloc[i]['open_interest'])
+                            if i > 0 and i < len(oi_df):
+                                prev_oi = float(oi_df.iloc[i-1]['open_interest'])
+                                curr_oi = float(oi_df.iloc[i]['open_interest'])
+                                if prev_oi > 0:
+                                    hour_data['oi_change_1h'] = ((curr_oi - prev_oi) / prev_oi) * 100
+                        
+                        hours_data.append(hour_data)
+                    
+                    # Tính toán các thống kê tổng hợp
+                    if len(price_df) >= 2:
+                        # Thay đổi giá 24h
+                        price_24h_change = ((float(price_df.iloc[-1]['close']) - float(price_df.iloc[0]['close'])) / float(price_df.iloc[0]['close'])) * 100
+                        
+                        # Độ biến động (volatility) = standard deviation của thay đổi giá theo giờ
+                        price_changes = [h['price_change_1h'] for h in hours_data if h['price_change_1h'] != 0]
+                        price_volatility = 0
+                        if len(price_changes) > 1:
+                            import statistics
+                            price_volatility = statistics.stdev(price_changes)
+                        
+                        # Tìm giờ có thay đổi giá cao nhất
+                        max_change_hour = max(hours_data, key=lambda x: abs(x['price_change_1h']))
+                        
+                        # Thay đổi volume 24h
+                        volume_24h_change = 0
+                        if len(price_df) >= 2:
+                            volume_24h_change = ((float(price_df.iloc[-1]['volume']) - float(price_df.iloc[0]['volume'])) / float(price_df.iloc[0]['volume'])) * 100
+                        
+                        # Thay đổi OI 24h
+                        oi_24h_change = 0
+                        if not oi_df.empty and len(oi_df) >= 2:
+                            oi_24h_change = ((float(oi_df.iloc[-1]['open_interest']) - float(oi_df.iloc[0]['open_interest'])) / float(oi_df.iloc[0]['open_interest'])) * 100
+                        
+                        symbol_data = {
+                            'hours_data': hours_data,
+                            'price_24h_change': price_24h_change,
+                            'volume_24h_change': volume_24h_change,
+                            'oi_24h_change': oi_24h_change,
+                            'price_volatility': price_volatility,
+                            'max_price_change_hour': {
+                                'hour': max_change_hour['hour'],
+                                'change': max_change_hour['price_change_1h'],
+                                'timestamp': max_change_hour['hour_timestamp']
+                            },
+                            'current_price': float(price_df.iloc[-1]['close']),
+                            'current_volume': float(price_df.iloc[-1]['volume']),
+                            'current_oi': float(oi_df.iloc[-1]['open_interest']) if not oi_df.empty else 0
+                        }
+                        
+                        tracking_data['symbols'][symbol] = symbol_data
+                        
+                        # Cập nhật summary
+                        if price_volatility > max_volatility:
+                            max_volatility = price_volatility
+                            tracking_data['summary']['most_volatile'] = symbol
+                        
+                        if abs(volume_24h_change) > max_volume_change:
+                            max_volume_change = abs(volume_24h_change)
+                            tracking_data['summary']['highest_volume_change'] = symbol
+                        
+                        if abs(oi_24h_change) > max_oi_change:
+                            max_oi_change = abs(oi_24h_change)
+                            tracking_data['summary']['highest_oi_change'] = symbol
+                    
+                    logger.info(f"Đã tạo dữ liệu tracking 24h cho {symbol}")
+                    
+                except Exception as e:
+                    logger.error(f"Lỗi khi tạo dữ liệu tracking 24h cho {symbol}: {str(e)}")
+                    continue
+            
+            # Lưu dữ liệu tracking 24h vào file JSON
+            tracking_file_path = 'docs/assets/data/tracking_24h.json'
+            with open(tracking_file_path, 'w', encoding='utf-8') as f:
+                json.dump(tracking_data, f, ensure_ascii=False, indent=2, default=str)
+            
+            logger.info(f"✅ Đã tạo dữ liệu tracking 24h thành công với {len(tracking_data['symbols'])} symbols")
+            return tracking_data
+            
+        except Exception as e:
+            logger.error(f"Lỗi khi tạo dữ liệu tracking 24h: {str(e)}")
+            return None
     
     def generate_daily_summary(self):
         """Tạo báo cáo tổng hợp hàng ngày"""
@@ -180,6 +321,13 @@ class ReportGenerator:
                 symbol_web_path = f'docs/assets/data/{symbol}.json'
                 with open(symbol_web_path, 'w') as f:
                     json.dump(symbol_data, f, default=str)
+            
+            # ===== TẠO DỮ LIỆU TRACKING 24H =====
+            tracking_24h_data = self.generate_24h_data()
+            if tracking_24h_data:
+                logger.info("✅ Đã tạo dữ liệu tracking 24h thành công")
+            else:
+                logger.warning("⚠️ Không thể tạo dữ liệu tracking 24h")
             
             logger.info(f"Đã tạo báo cáo tổng hợp hàng ngày và dữ liệu cho GitHub Pages")
             return summary

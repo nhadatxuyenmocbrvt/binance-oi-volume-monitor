@@ -157,7 +157,7 @@ class MarketMetrics:
             return 0.0
     
     def calculate_24h_percentage_change(self, df, column, timeframe='1h'):
-        """Tính toán phần trăm thay đổi 24h - THÊM MỚI"""
+        """Tính toán phần trăm thay đổi 24h - ĐÃ CẬP NHẬT CHO TRACKING 24H"""
         try:
             if df.empty:
                 return 0.0
@@ -174,6 +174,154 @@ class MarketMetrics:
         except Exception as e:
             logger.error(f"Lỗi khi tính phần trăm thay đổi 24h: {str(e)}")
             return 0.0
+    
+    def calculate_hourly_volatility(self, df, column, hours=24):
+        """Tính toán độ biến động theo giờ - THÊM MỚI CHO TRACKING 24H"""
+        try:
+            if df.empty or len(df) < 2:
+                return 0.0
+            
+            # Lấy dữ liệu theo số giờ chỉ định
+            recent_df = df.tail(hours) if len(df) > hours else df
+            
+            # Tính phần trăm thay đổi giữa các giờ
+            pct_changes = recent_df[column].pct_change().dropna()
+            
+            if len(pct_changes) == 0:
+                return 0.0
+            
+            # Tính độ lệch chuẩn (volatility)
+            volatility = pct_changes.std() * 100  # Convert to percentage
+            
+            return round(volatility, 4)
+        except Exception as e:
+            logger.error(f"Lỗi khi tính volatility: {str(e)}")
+            return 0.0
+    
+    def calculate_hourly_trend(self, df, column, hours=24):
+        """Tính toán xu hướng theo giờ - THÊM MỚI CHO TRACKING 24H"""
+        try:
+            if df.empty or len(df) < hours:
+                return {'trend': 'neutral', 'strength': 0, 'direction': 0}
+            
+            # Lấy dữ liệu gần nhất
+            recent_df = df.tail(hours)
+            
+            # Tính tổng thay đổi
+            total_change = self.calculate_safe_percentage_change(recent_df, column, periods=len(recent_df)-1)
+            
+            # Tính số lần tăng/giảm
+            pct_changes = recent_df[column].pct_change().dropna()
+            positive_changes = (pct_changes > 0).sum()
+            negative_changes = (pct_changes < 0).sum()
+            
+            # Xác định xu hướng
+            if abs(total_change) < 1:  # Thay đổi < 1%
+                trend = 'neutral'
+            elif total_change > 0:
+                trend = 'bullish'
+            else:
+                trend = 'bearish'
+            
+            # Tính strength (0-100)
+            strength = min(abs(total_change) * 10, 100)  # Scale to 0-100
+            
+            # Direction ratio
+            total_moves = positive_changes + negative_changes
+            direction = (positive_changes / total_moves * 100) if total_moves > 0 else 50
+            
+            return {
+                'trend': trend,
+                'strength': round(strength, 2),
+                'direction': round(direction, 2),
+                'total_change': total_change,
+                'positive_moves': int(positive_changes),
+                'negative_moves': int(negative_changes)
+            }
+            
+        except Exception as e:
+            logger.error(f"Lỗi khi tính hourly trend: {str(e)}")
+            return {'trend': 'neutral', 'strength': 0, 'direction': 0}
+    
+    def calculate_peak_hours(self, df, column, hours=24):
+        """Tìm giờ có biến động cao nhất - THÊM MỚI CHO TRACKING 24H"""
+        try:
+            if df.empty or len(df) < 2:
+                return None
+            
+            # Lấy dữ liệu gần nhất
+            recent_df = df.tail(hours) if len(df) > hours else df
+            
+            # Tính phần trăm thay đổi
+            recent_df = recent_df.copy()
+            recent_df['pct_change'] = recent_df[column].pct_change()
+            recent_df['abs_change'] = recent_df['pct_change'].abs()
+            
+            # Tìm giờ có biến động lớn nhất
+            if 'timestamp' in recent_df.columns:
+                time_col = 'timestamp'
+            elif 'open_time' in recent_df.columns:
+                time_col = 'open_time'
+            elif 'hour_timestamp' in recent_df.columns:
+                time_col = 'hour_timestamp'
+            else:
+                return None
+            
+            max_change_idx = recent_df['abs_change'].idxmax()
+            if pd.isna(max_change_idx):
+                return None
+            
+            peak_row = recent_df.loc[max_change_idx]
+            
+            return {
+                'timestamp': peak_row[time_col],
+                'hour': peak_row[time_col].strftime('%H:00') if hasattr(peak_row[time_col], 'strftime') else str(peak_row[time_col]),
+                'change_percent': round(peak_row['pct_change'] * 100, 4),
+                'value': peak_row[column]
+            }
+            
+        except Exception as e:
+            logger.error(f"Lỗi khi tìm peak hours: {str(e)}")
+            return None
+    
+    def calculate_moving_average_hourly(self, df, column, window=6):
+        """Tính moving average theo giờ - THÊM MỚI CHO TRACKING 24H"""
+        try:
+            if df.empty or len(df) < window:
+                return df
+            
+            df_copy = df.copy()
+            df_copy[f'{column}_ma{window}h'] = df_copy[column].rolling(window=window).mean()
+            
+            return df_copy
+        except Exception as e:
+            logger.error(f"Lỗi khi tính moving average hourly: {str(e)}")
+            return df
+    
+    def calculate_support_resistance_levels(self, df, column, hours=24):
+        """Tính mức hỗ trợ và kháng cự theo giờ - THÊM MỚI CHO TRACKING 24H"""
+        try:
+            if df.empty or len(df) < hours:
+                return {'support': None, 'resistance': None}
+            
+            # Lấy dữ liệu gần nhất
+            recent_df = df.tail(hours)
+            values = recent_df[column].values
+            
+            # Tính percentiles làm support/resistance
+            support_level = np.percentile(values, 25)  # 25th percentile
+            resistance_level = np.percentile(values, 75)  # 75th percentile
+            
+            return {
+                'support': round(support_level, 4),
+                'resistance': round(resistance_level, 4),
+                'current': round(values[-1], 4),
+                'range_percent': round(((resistance_level - support_level) / support_level) * 100, 2)
+            }
+            
+        except Exception as e:
+            logger.error(f"Lỗi khi tính support/resistance: {str(e)}")
+            return {'support': None, 'resistance': None}
     
     def calculate_market_sentiment(self, price_df, oi_df, volume_df):
         """Tính toán chỉ số sentiment dựa trên giá, OI và volume - ĐÃ SỬA"""

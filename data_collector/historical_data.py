@@ -49,6 +49,68 @@ class HistoricalDataCollector:
         
         return start_timestamp, end_timestamp
 
+    def _get_24h_hourly_time_range(self):
+        """Tính toán thời gian cho dữ liệu 24h theo giờ - THÊM MỚI"""
+        server_time = self.api.get_server_time()
+        server_datetime = datetime.fromtimestamp(server_time/1000)
+        
+        # Làm tròn xuống giờ hiện tại
+        current_hour = server_datetime.replace(minute=0, second=0, microsecond=0)
+        
+        # Tính 24 giờ trước (từ giờ hiện tại trở về)
+        start_time = current_hour - timedelta(hours=23)  # 23 giờ trước + giờ hiện tại = 24 điểm
+        end_time = current_hour + timedelta(hours=1)  # Thêm 1 giờ để đảm bảo có dữ liệu giờ hiện tại
+        
+        start_timestamp = int(start_time.timestamp() * 1000)
+        end_timestamp = int(end_time.timestamp() * 1000)
+        
+        logger.info(f"Thời gian 24h theo giờ: từ {start_time} đến {end_time}")
+        return start_timestamp, end_timestamp
+
+    def collect_24h_hourly_data(self):
+        """Thu thập dữ liệu 24h theo từng giờ - THÊM MỚI"""
+        logger.info("🕒 Bắt đầu thu thập dữ liệu 24h theo giờ")
+        start_time, end_time = self._get_24h_hourly_time_range()
+        
+        result = {
+            'klines': {},
+            'open_interest': {}
+        }
+        
+        for symbol in self.symbols:
+            logger.info(f"📊 Thu thập dữ liệu 24h cho {symbol}")
+            
+            try:
+                # Thu thập dữ liệu klines 1h cho 24h
+                klines_data = self.api.get_klines(symbol, '1h', start_time, end_time, limit=24)
+                if klines_data is not None and not klines_data.empty:
+                    result['klines'][symbol] = klines_data
+                    logger.info(f"✅ Nhận được {len(klines_data)} nến 1h cho {symbol}")
+                else:
+                    logger.warning(f"⚠️ Không có dữ liệu klines cho {symbol}")
+                    result['klines'][symbol] = pd.DataFrame()
+                
+                time.sleep(0.5)  # Tránh rate limit
+                
+                # Thu thập dữ liệu Open Interest cho 24h
+                oi_data = self.api.get_open_interest(symbol, period='1h', start_time=start_time, end_time=end_time)
+                if oi_data is not None and not oi_data.empty:
+                    result['open_interest'][symbol] = oi_data
+                    logger.info(f"✅ Nhận được {len(oi_data)} điểm OI cho {symbol}")
+                else:
+                    logger.warning(f"⚠️ Không có dữ liệu OI cho {symbol}")
+                    result['open_interest'][symbol] = pd.DataFrame()
+                
+                time.sleep(0.5)  # Tránh rate limit
+                
+            except Exception as e:
+                logger.error(f"❌ Lỗi khi thu thập dữ liệu 24h cho {symbol}: {str(e)}")
+                result['klines'][symbol] = pd.DataFrame()
+                result['open_interest'][symbol] = pd.DataFrame()
+        
+        logger.info("✅ Hoàn thành thu thập dữ liệu 24h theo giờ")
+        return result
+
     def collect_open_interest_data(self):
         """Thu thập dữ liệu Open Interest lịch sử cho tất cả symbols"""
         start_time, end_time = self._get_start_end_time()
@@ -167,61 +229,6 @@ class HistoricalDataCollector:
                 except Exception as e:
                     logger.error(f"Lỗi khi lấy dữ liệu klines cho {symbol} - {timeframe}: {str(e)}")
                     result[symbol][timeframe] = pd.DataFrame()
-        
-        return result
-    
-    def collect_open_interest_data(self):
-        """Thu thập dữ liệu Open Interest lịch sử cho tất cả symbols"""
-        start_time, end_time = self._get_start_end_time()
-        logger.info(f"Thu thập dữ liệu Open Interest từ {datetime.fromtimestamp(start_time/1000)} đến {datetime.fromtimestamp(end_time/1000)}")
-        
-        result = {}
-        for symbol in self.symbols:
-            logger.info(f"Đang lấy dữ liệu Open Interest cho {symbol}")
-            try:
-                # Lấy dữ liệu theo nhiều lần nếu khoảng thời gian lớn
-                all_data = []
-                current_start = start_time
-                
-                # Giới hạn số lần request để tránh vòng lặp vô tận
-                max_requests = 30
-                request_count = 0
-                
-                while current_start < end_time and request_count < max_requests:
-                    # Giới hạn khoảng thời gian mỗi request để tránh lỗi
-                    current_end = min(current_start + (1000 * 60 * 60 * 24), end_time)  # Giới hạn 1 ngày mỗi request
-                    
-                    # In thông tin request để debug
-                    start_date = datetime.fromtimestamp(current_start/1000)
-                    end_date = datetime.fromtimestamp(current_end/1000)
-                    logger.info(f"Request OI: symbol={symbol}, start={start_date}, end={end_date}")
-                    
-                    # Thêm thời gian chờ trước mỗi request để tránh rate limit
-                    time.sleep(0.5)
-                    
-                    df = self.api.get_open_interest(symbol, period='1h', start_time=current_start, end_time=current_end)
-                    
-                    if df is not None and not df.empty:
-                        all_data.append(df)
-                        logger.info(f"Nhận được {len(df)} bản ghi OI cho {symbol}")
-                    else:
-                        logger.warning(f"Không nhận được dữ liệu OI cho {symbol} trong khoảng {start_date} - {end_date}")
-                    
-                    # Cập nhật thời gian bắt đầu cho request tiếp theo
-                    current_start = current_end
-                    request_count += 1
-                
-                if all_data:
-                    # Gộp tất cả dữ liệu
-                    result[symbol] = pd.concat(all_data).drop_duplicates()
-                    logger.info(f"Đã lấy tổng cộng {len(result[symbol])} mẫu Open Interest cho {symbol}")
-                else:
-                    logger.warning(f"Không có dữ liệu Open Interest cho {symbol}")
-                    result[symbol] = pd.DataFrame()
-                    
-            except Exception as e:
-                logger.error(f"Lỗi khi lấy dữ liệu Open Interest cho {symbol}: {str(e)}")
-                result[symbol] = pd.DataFrame()
         
         return result
     

@@ -1,7 +1,7 @@
 import os
 import sqlite3
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from config.settings import DB_PATH, setup_logging
 
 logger = setup_logging(__name__, 'database.log')
@@ -89,6 +89,22 @@ class Database:
                 message TEXT NOT NULL,
                 notified BOOLEAN DEFAULT 0,
                 UNIQUE(symbol, timestamp, data_type)
+            )
+            ''')
+            
+            # BẢNG MỚI: Tracking 24h hàng giờ
+            cursor.execute('''
+            CREATE TABLE IF NOT EXISTS hourly_tracking (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                symbol TEXT NOT NULL,
+                hour_timestamp TIMESTAMP NOT NULL,
+                price REAL NOT NULL,
+                volume REAL NOT NULL,
+                open_interest REAL NOT NULL,
+                price_change_1h REAL DEFAULT 0,
+                volume_change_1h REAL DEFAULT 0,
+                oi_change_1h REAL DEFAULT 0,
+                UNIQUE(symbol, hour_timestamp)
             )
             ''')
             
@@ -299,6 +315,168 @@ class Database:
             logger.error(f"Lỗi khi lưu thông tin bất thường: {str(e)}")
             return False
     
+    def save_hourly_tracking(self, hour_timestamp):
+        """Lưu dữ liệu tracking 24h - THÊM MỚI"""
+        try:
+            cursor = self.conn.cursor()
+            from config.settings import SYMBOLS
+            
+            for symbol in SYMBOLS:
+                # Lấy dữ liệu gần nhất từ các bảng
+                price_data = self.get_latest_price(symbol)
+                volume_data = self.get_latest_volume(symbol)
+                oi_data = self.get_latest_oi(symbol)
+                
+                # Tính thay đổi so với giờ trước
+                prev_data = self.get_hourly_data(symbol, hour_timestamp - timedelta(hours=1))
+                
+                price_change_1h = 0
+                volume_change_1h = 0
+                oi_change_1h = 0
+                
+                if prev_data:
+                    if prev_data['price'] > 0:
+                        price_change_1h = ((price_data - prev_data['price']) / prev_data['price']) * 100
+                    if prev_data['volume'] > 0:
+                        volume_change_1h = ((volume_data - prev_data['volume']) / prev_data['volume']) * 100
+                    if prev_data['open_interest'] > 0:
+                        oi_change_1h = ((oi_data - prev_data['open_interest']) / prev_data['open_interest']) * 100
+                
+                # Lưu dữ liệu tracking
+                data = (
+                    symbol,
+                    hour_timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+                    price_data,
+                    volume_data,
+                    oi_data,
+                    price_change_1h,
+                    volume_change_1h,
+                    oi_change_1h
+                )
+                
+                cursor.execute('''
+                INSERT OR REPLACE INTO hourly_tracking 
+                (symbol, hour_timestamp, price, volume, open_interest, 
+                 price_change_1h, volume_change_1h, oi_change_1h)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ''', data)
+            
+            self.conn.commit()
+            logger.info(f"Đã lưu dữ liệu tracking 24h cho {hour_timestamp.strftime('%H:00')}")
+            return True
+        except Exception as e:
+            self.conn.rollback()
+            logger.error(f"Lỗi khi lưu dữ liệu tracking 24h: {str(e)}")
+            return False
+    
+    def get_latest_price(self, symbol):
+        """Lấy giá mới nhất của symbol"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute('''
+            SELECT last_price FROM ticker 
+            WHERE symbol = ? 
+            ORDER BY timestamp DESC 
+            LIMIT 1
+            ''', (symbol,))
+            
+            result = cursor.fetchone()
+            return result[0] if result else 0
+        except Exception as e:
+            logger.error(f"Lỗi khi lấy giá mới nhất cho {symbol}: {str(e)}")
+            return 0
+    
+    def get_latest_volume(self, symbol):
+        """Lấy volume mới nhất của symbol"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute('''
+            SELECT volume FROM ticker 
+            WHERE symbol = ? 
+            ORDER BY timestamp DESC 
+            LIMIT 1
+            ''', (symbol,))
+            
+            result = cursor.fetchone()
+            return result[0] if result else 0
+        except Exception as e:
+            logger.error(f"Lỗi khi lấy volume mới nhất cho {symbol}: {str(e)}")
+            return 0
+    
+    def get_latest_oi(self, symbol):
+        """Lấy Open Interest mới nhất của symbol"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute('''
+            SELECT open_interest FROM open_interest 
+            WHERE symbol = ? 
+            ORDER BY timestamp DESC 
+            LIMIT 1
+            ''', (symbol,))
+            
+            result = cursor.fetchone()
+            return result[0] if result else 0
+        except Exception as e:
+            logger.error(f"Lỗi khi lấy OI mới nhất cho {symbol}: {str(e)}")
+            return 0
+    
+    def get_hourly_data(self, symbol, hour_timestamp):
+        """Lấy dữ liệu tracking theo giờ"""
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute('''
+            SELECT price, volume, open_interest 
+            FROM hourly_tracking 
+            WHERE symbol = ? AND hour_timestamp = ?
+            ''', (symbol, hour_timestamp.strftime('%Y-%m-%d %H:%M:%S')))
+            
+            result = cursor.fetchone()
+            if result:
+                return {
+                    'price': result[0],
+                    'volume': result[1],
+                    'open_interest': result[2]
+                }
+            return None
+        except Exception as e:
+            logger.error(f"Lỗi khi lấy dữ liệu hourly cho {symbol}: {str(e)}")
+            return None
+    
+    def get_24h_tracking_data(self, symbol=None):
+        """Lấy dữ liệu tracking 24h - THÊM MỚI"""
+        try:
+            # Lấy 24 giờ gần nhất
+            end_time = datetime.now().replace(minute=0, second=0, microsecond=0)
+            start_time = end_time - timedelta(hours=23)
+            
+            if symbol:
+                query = '''
+                SELECT symbol, hour_timestamp, price, volume, open_interest,
+                       price_change_1h, volume_change_1h, oi_change_1h
+                FROM hourly_tracking 
+                WHERE symbol = ? AND hour_timestamp >= ? AND hour_timestamp <= ?
+                ORDER BY hour_timestamp ASC
+                '''
+                df = pd.read_sql_query(query, self.conn, params=(symbol, start_time, end_time))
+            else:
+                query = '''
+                SELECT symbol, hour_timestamp, price, volume, open_interest,
+                       price_change_1h, volume_change_1h, oi_change_1h
+                FROM hourly_tracking 
+                WHERE hour_timestamp >= ? AND hour_timestamp <= ?
+                ORDER BY symbol, hour_timestamp ASC
+                '''
+                df = pd.read_sql_query(query, self.conn, params=(start_time, end_time))
+            
+            if not df.empty:
+                df['hour_timestamp'] = pd.to_datetime(df['hour_timestamp'])
+            
+            logger.info(f"Đã lấy {len(df)} mẫu tracking 24h cho {symbol or 'all symbols'}")
+            return df
+        except Exception as e:
+            logger.error(f"Lỗi khi lấy dữ liệu tracking 24h: {str(e)}")
+            return pd.DataFrame()
+    
     def get_klines(self, symbol, timeframe, limit=100):
         """Lấy dữ liệu nến từ cơ sở dữ liệu - ĐÃ SỬA"""
         try:
@@ -387,38 +565,26 @@ class Database:
             logger.error(f"Lỗi khi lấy dữ liệu ticker: {str(e)}")
             return pd.DataFrame()
 
-    def get_anomalies(self, limit=20, notified=None):
-            """Lấy danh sách các bất thường đã phát hiện - ĐÃ SỬA HOÀN CHỈNH"""
-            try:
-                query = "SELECT * FROM anomalies"
-                params = []
-                
-                # Thêm điều kiện WHERE nếu có notified parameter
-                if notified is not None:
-                    query += " WHERE notified = ?"
-                    params.append(1 if notified else 0)
-                
-                query += " ORDER BY timestamp DESC"
-                
-                # Thêm LIMIT vào query nếu cần
-                if limit:
-                    query += f" LIMIT {limit}"
-                
-                # Thực thi query với hoặc không có parameters
-                if params:
-                    df = pd.read_sql_query(query, self.conn, params=params)
-                else:
-                    df = pd.read_sql_query(query, self.conn)
-                
-                # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
-                if not df.empty:
-                    df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
-                
-                logger.info(f"Đã lấy {len(df)} mẫu anomalies (notified={notified})")
-                return df
-            except Exception as e:
-                logger.error(f"Lỗi khi lấy dữ liệu anomalies: {str(e)}")
-                return pd.DataFrame()
+    def get_anomalies(self, limit=20):
+        """Lấy danh sách các bất thường đã phát hiện - ĐÃ SỬA"""
+        try:
+            query = "SELECT * FROM anomalies ORDER BY timestamp DESC"
+            
+            # Thêm LIMIT vào query nếu cần
+            if limit:
+                query += f" LIMIT {limit}"
+            
+            df = pd.read_sql_query(query, self.conn)
+            
+            # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
+            if not df.empty:
+                df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
+            
+            logger.info(f"Đã lấy {len(df)} mẫu anomalies")
+            return df
+        except Exception as e:
+            logger.error(f"Lỗi khi lấy dữ liệu anomalies: {str(e)}")
+            return pd.DataFrame()
     
     def mark_anomaly_as_notified(self, anomaly_id):
         """Đánh dấu một bất thường đã được thông báo"""
@@ -434,7 +600,7 @@ class Database:
             return False
     
     def export_to_json(self, output_dir='./data/json'):
-        """Xuất dữ liệu để sử dụng cho GitHub Pages"""
+        """Xuất dữ liệu để sử dụng cho GitHub Pages - ĐÃ CẬP NHẬT VỚI 24H TRACKING"""
         try:
             os.makedirs(output_dir, exist_ok=True)
             
@@ -499,12 +665,23 @@ class Database:
                 # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
                 anomalies_df['timestamp'] = anomalies_df['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
             
+            # XUẤT DỮ LIỆU TRACKING 24H - THÊM MỚI
+            tracking_24h_df = self.get_24h_tracking_data()
+            if not tracking_24h_df.empty:
+                tracking_24h_df['hour_timestamp'] = tracking_24h_df['hour_timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+                
+                # Lưu tracking 24h
+                with open(f"{output_dir}/tracking_24h.json", 'w', encoding='utf-8') as f:
+                    import json
+                    json.dump(tracking_24h_df.to_dict(orient='records'), f, ensure_ascii=False)
+            
             # Tạo dữ liệu tổng hợp cho mỗi symbol
             if not klines_df.empty:
                 for symbol in klines_df['symbol'].unique():
                     symbol_data = {
                         'klines': {},
-                        'open_interest': []
+                        'open_interest': [],
+                        'tracking_24h': []
                     }
                     
                     # Dữ liệu klines cho từng timeframe
@@ -516,6 +693,11 @@ class Database:
                     if not oi_df.empty:
                         df_filtered = oi_df[oi_df['symbol'] == symbol]
                         symbol_data['open_interest'] = df_filtered.to_dict(orient='records')
+                    
+                    # Dữ liệu tracking 24h cho symbol
+                    if not tracking_24h_df.empty:
+                        df_filtered = tracking_24h_df[tracking_24h_df['symbol'] == symbol]
+                        symbol_data['tracking_24h'] = df_filtered.to_dict(orient='records')
                     
                     # Lưu dữ liệu cho symbol
                     with open(f"{output_dir}/{symbol}.json", 'w', encoding='utf-8') as f:
@@ -535,7 +717,7 @@ class Database:
                     import json
                     json.dump(symbols_list, f, ensure_ascii=False)
             
-            logger.info(f"Đã xuất dữ liệu sang định dạng JSON trong thư mục {output_dir}")
+            logger.info(f"Đã xuất dữ liệu sang định dạng JSON (bao gồm tracking 24h) trong thư mục {output_dir}")
             return True
         except Exception as e:
             logger.error(f"Lỗi khi xuất dữ liệu sang JSON: {str(e)}")
