@@ -260,3 +260,37 @@
 2025-05-24 22:08:45,982 - data_storage.database - INFO - Đã lấy 50 mẫu anomalies
 2025-05-24 22:08:45,987 - data_storage.database - INFO - ✅ Đã xuất dữ liệu JSON tối ưu trong thư mục ./data/json và ./docs/assets/data
 2025-05-24 22:08:45,989 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-24 22:17:16,794 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-24 22:17:16,796 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-24 22:17:16,796 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-24 22:17:16,797 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-24 22:17:18,436 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-24 22:17:18,438 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-24 22:17:18,439 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-24 22:17:33,636 - data_storage.database - INFO - 💾 Saving Volume for BTCUSDT: 188,892.68 contracts, Quote Volume: 20,475,028,547.25 USDT
+2025-05-24 22:17:33,644 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BTCUSDT
+2025-05-24 22:17:33,645 - data_storage.database - INFO - 💾 Saving OI for BTCUSDT: 85,023.61 contracts, 9,273,405,673.37 USDT
+2025-05-24 22:17:33,647 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BTCUSDT
+2025-05-24 22:17:33,648 - data_storage.database - INFO - 💾 Saving Volume for ETHUSDT: 4,006,300.79 contracts, Quote Volume: 10,217,115,492.04 USDT
+2025-05-24 22:17:33,650 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho ETHUSDT
+2025-05-24 22:17:33,651 - data_storage.database - INFO - 💾 Saving OI for ETHUSDT: 1,657,139.84 contracts, 4,237,505,417.43 USDT
+2025-05-24 22:17:33,653 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho ETHUSDT
+2025-05-24 22:17:33,654 - data_storage.database - INFO - 💾 Saving Volume for BNBUSDT: 534,201.78 contracts, Quote Volume: 356,598,908.15 USDT
+2025-05-24 22:17:33,657 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BNBUSDT
+2025-05-24 22:17:33,658 - data_storage.database - INFO - 💾 Saving OI for BNBUSDT: 544,091.59 contracts, 366,521,858.69 USDT
+2025-05-24 22:17:33,660 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BNBUSDT
+2025-05-24 22:17:33,661 - data_storage.database - INFO - 💾 Saving Volume for SOLUSDT: 20,330,839.71 contracts, Quote Volume: 3,594,522,618.50 USDT
+2025-05-24 22:17:33,663 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho SOLUSDT
+2025-05-24 22:17:33,664 - data_storage.database - INFO - 💾 Saving OI for SOLUSDT: 7,460,583.68 contracts, 1,315,897,749.48 USDT
+2025-05-24 22:17:33,667 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho SOLUSDT
+2025-05-24 22:17:33,668 - data_storage.database - INFO - 💾 Saving Volume for DOGEUSDT: 4,875,116,897.00 contracts, Quote Volume: 1,120,950,956.60 USDT
+2025-05-24 22:17:33,670 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho DOGEUSDT
+2025-05-24 22:17:33,671 - data_storage.database - INFO - 💾 Saving OI for DOGEUSDT: 1,839,295,809.00 contracts, 419,598,552.91 USDT
+2025-05-24 22:17:33,673 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho DOGEUSDT
+2025-05-24 22:17:33,675 - data_storage.database - INFO - DEBUG BTCUSDT tracking values: price=109068.7, volume=20475028547.25, oi=9273405673.371601
+2025-05-24 22:17:33,676 - data_storage.database - INFO - DEBUG ETHUSDT tracking values: price=2557.16, volume=10217115492.04, oi=4237505417.4323196
+2025-05-24 22:17:33,677 - data_storage.database - INFO - DEBUG BNBUSDT tracking values: price=673.72, volume=356598908.146, oi=366521858.68759996
+2025-05-24 22:17:33,678 - data_storage.database - INFO - DEBUG SOLUSDT tracking values: price=176.41, volume=3594522618.4995, oi=1315897749.4784
+2025-05-24 22:17:33,679 - data_storage.database - INFO - DEBUG DOGEUSDT tracking values: price=0.22807, volume=1120950956.60457, oi=419598552.90717
+2025-05-24 22:17:33,680 - data_storage.database - INFO - Đã lưu dữ liệu tracking 24h cho 22:00
+2025-05-24 22:17:33,687 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu

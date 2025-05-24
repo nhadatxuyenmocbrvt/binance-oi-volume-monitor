@@ -368,8 +368,9 @@ class Database:
         """Lấy volume mới nhất của symbol theo USDT"""
         try:
             cursor = self.conn.cursor()
+            # Thay đổi từ volume sang quote_volume
             cursor.execute('''
-            SELECT quote_volume FROM ticker  # Thay đổi từ volume sang quote_volume
+            SELECT quote_volume FROM ticker 
             WHERE symbol = ? 
             ORDER BY timestamp DESC 
             LIMIT 1
@@ -385,8 +386,9 @@ class Database:
         """Lấy Open Interest mới nhất của symbol theo USDT"""
         try:
             cursor = self.conn.cursor()
+            # Thay đổi từ open_interest sang open_interest_value
             cursor.execute('''
-            SELECT open_interest_value FROM open_interest  # Thay đổi từ open_interest sang open_interest_value
+            SELECT open_interest_value FROM open_interest
             WHERE symbol = ? 
             ORDER BY timestamp DESC 
             LIMIT 1
