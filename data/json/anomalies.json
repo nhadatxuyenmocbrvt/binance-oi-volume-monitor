@@ -1,5 +1,15 @@
 [
   {
+    "id": 1313,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-24T19:26:37",
+    "data_type": "30d_OI",
+    "value": 85545.3,
+    "z_score": 3.001228930028681,
+    "message": "Bất thường OI 30d cho BTCUSDT: 85545.30 (Z-score: 3.00)",
+    "notified": 0
+  },
+  {
     "id": 1312,
     "symbol": "BNBUSDT",
     "timestamp": "2025-05-24T11:00:00",
@@ -487,16 +497,6 @@
     "value": 88417.913,
     "z_score": 2.740435462484072,
     "message": "Phát hiện bất thường về Open Interest cho BTCUSDT: 88417.91 (Z-score: 2.74)",
-    "notified": 1
-  },
-  {
-    "id": 602,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-05-22T21:17:11",
-    "data_type": "open_interest",
-    "value": 7703541.29,
-    "z_score": 2.535645065912966,
-    "message": "Phát hiện bất thường về Open Interest cho SOLUSDT: 7703541.29 (Z-score: 2.54)",
     "notified": 1
   }
 ]

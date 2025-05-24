@@ -1,6 +1,6 @@
 /**
  * Simple OI & Volume Monitor JavaScript
- * Tối ưu cho theo dõi OI và Volume theo giờ và ngày
+ * Fixed: Smart data path detection for GitHub Pages
  */
 
 class SimpleOIVolumeMonitor {
@@ -10,6 +10,7 @@ class SimpleOIVolumeMonitor {
         this.charts = {};
         this.symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
         this.updateInterval = null;
+        this.dataSource = null; // Will be detected
         
         this.init();
     }
@@ -68,15 +69,26 @@ class SimpleOIVolumeMonitor {
         this.showLoading();
         
         try {
-            // Thử load từ nhiều nguồn dữ liệu
+            // Detect data source first
             const dataSource = await this.detectDataSource();
             
             if (!dataSource) {
                 throw new Error('Không tìm thấy nguồn dữ liệu hợp lệ');
             }
             
-            // Load data cho từng symbol
-            const promises = this.symbols.map(symbol => this.loadSymbolData(symbol, dataSource));
+            this.dataSource = dataSource;
+            console.log('✅ Data source detected:', dataSource);
+            
+            // Load symbols list
+            const symbols = await this.loadSymbolsList();
+            if (!symbols || symbols.length === 0) {
+                throw new Error('Danh sách symbols trống hoặc không hợp lệ');
+            }
+            
+            console.log('✅ Symbols loaded:', symbols);
+            
+            // Load data for each symbol
+            const promises = symbols.map(symbol => this.loadSymbolData(symbol));
             await Promise.all(promises);
             
             // Update UI
@@ -84,42 +96,80 @@ class SimpleOIVolumeMonitor {
             this.renderCoins();
             this.hideLoading();
             
-            console.log('✅ Đã load thành công dữ liệu cho tất cả symbols');
+            console.log('✅ All data loaded successfully');
             
         } catch (error) {
-            console.error('❌ Lỗi khi load dữ liệu:', error);
+            console.error('❌ Error loading data:', error);
             this.showError('Lỗi khi tải dữ liệu: ' + error.message);
             this.hideLoading();
         }
     }
     
     async detectDataSource() {
-        // Thử các nguồn dữ liệu có thể có
+        // Thử các nguồn dữ liệu có thể có theo thứ tự ưu tiên
         const possibleSources = [
-            'data/json/',      // Local
-            './data/json/',    // Relative
-            '/data/json/',     // Absolute
-            'assets/data/'     // GitHub Pages alternative
+            './assets/data/',        // GitHub Pages main path
+            './data/json/',          // Relative path
+            '../data/json/',         // Parent directory
+            'assets/data/',          // Without leading ./
+            'data/json/',            // Direct path
+            '/binance-oi-volume-monitor/assets/data/',  // Full GitHub Pages path
+            '/binance-oi-volume-monitor/data/json/',    // Full GitHub Pages path alt
         ];
         
         for (const source of possibleSources) {
             try {
+                console.log(`🔍 Trying data source: ${source}`);
                 const response = await fetch(`${source}symbols.json`);
                 if (response.ok) {
-                    console.log(`✅ Tìm thấy nguồn dữ liệu: ${source}`);
-                    return source;
+                    const data = await response.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        console.log(`✅ Found working data source: ${source}`);
+                        return source;
+                    }
                 }
             } catch (e) {
+                console.log(`❌ Failed: ${source} - ${e.message}`);
                 // Continue to next source
             }
         }
         
+        console.error('❌ No working data source found');
         return null;
     }
     
-    async loadSymbolData(symbol, dataSource) {
+    async loadSymbolsList() {
         try {
-            const response = await fetch(`${dataSource}${symbol}.json`);
+            const response = await fetch(`${this.dataSource}symbols.json`);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const symbols = await response.json();
+            
+            if (!Array.isArray(symbols)) {
+                throw new Error('Symbols data is not an array');
+            }
+            
+            if (symbols.length === 0) {
+                throw new Error('Symbols array is empty');
+            }
+            
+            return symbols;
+            
+        } catch (error) {
+            console.error('❌ Error loading symbols:', error);
+            
+            // Fallback to hardcoded symbols
+            console.log('🔄 Using fallback symbols');
+            return this.symbols;
+        }
+    }
+    
+    async loadSymbolData(symbol) {
+        try {
+            console.log(`📊 Loading data for ${symbol}`);
+            const response = await fetch(`${this.dataSource}${symbol}.json`);
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
@@ -216,7 +266,11 @@ class SimpleOIVolumeMonitor {
         
         container.innerHTML = '';
         
-        this.symbols.forEach(symbol => {
+        // Use loaded symbols if available, fallback to default
+        const symbolsToRender = Object.keys(this.coinsData).length > 0 ? 
+            Object.keys(this.coinsData) : this.symbols;
+        
+        symbolsToRender.forEach(symbol => {
             if (this.coinsData[symbol]) {
                 const coinCard = this.createCoinCard(symbol, this.coinsData[symbol]);
                 container.appendChild(coinCard);
@@ -225,7 +279,7 @@ class SimpleOIVolumeMonitor {
         
         // Render charts after DOM is updated
         setTimeout(() => {
-            this.symbols.forEach(symbol => {
+            symbolsToRender.forEach(symbol => {
                 if (this.coinsData[symbol]) {
                     this.renderCoinChart(symbol, this.coinsData[symbol]);
                 }
@@ -603,6 +657,8 @@ class SimpleOIVolumeMonitor {
         if (errorMessage) errorMessage.textContent = message;
         if (errorDiv) errorDiv.classList.remove('d-none');
         if (loadingDiv) loadingDiv.classList.add('d-none');
+        
+        console.error('Error:', message);
     }
     
     destroy() {
