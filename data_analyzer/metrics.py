@@ -15,154 +15,92 @@ class OptimizedOIVolumeMetrics:
     def __init__(self):
         logger.info("🔧 Khởi tạo OptimizedOIVolumeMetrics - Focus OI & Volume")
     
-    def calculate_hourly_oi_metrics(self, df, hours=24):
-        """
-        Tính toán metrics OI theo giờ (24h focus)
-        """
+    # Hàm tính toán metrics cho OI (hourly)
+    def calculate_hourly_oi_metrics(self, df):
+        """Tính toán các metrics OI theo giờ"""
         try:
-            if df.empty or len(df) < 2:
-                logger.warning("Không đủ dữ liệu để tính OI metrics hàng giờ")
+            if df.empty:
                 return self._get_empty_oi_metrics()
             
-            # Lấy dữ liệu gần nhất
-            recent_df = df.tail(hours) if len(df) > hours else df
-            recent_df = recent_df.copy()
+            # Lấy dữ liệu OI hiện tại và 24h trước
+            current_oi = float(df['open_interest'].iloc[-1])
+            previous_oi = float(df['open_interest'].iloc[0]) if len(df) > 1 else current_oi
             
-            # Tính các metrics cơ bản
-            current_oi = recent_df['open_interest'].iloc[-1]
-            first_oi = recent_df['open_interest'].iloc[0]
+            # Tính thay đổi
+            oi_change_24h = ((current_oi - previous_oi) / previous_oi * 100) if previous_oi != 0 else 0
             
-            # Thay đổi 24h
-            oi_change_24h = ((current_oi - first_oi) / first_oi) * 100 if first_oi > 0 else 0
+            # Tính các metrics khác
+            max_oi = float(df['open_interest'].max())
+            min_oi = float(df['open_interest'].min())
+            avg_oi = float(df['open_interest'].mean())
             
-            # Thay đổi từng giờ
-            recent_df['oi_hourly_change'] = recent_df['open_interest'].pct_change() * 100
-            
-            # Volatility (độ biến động)
-            oi_volatility = recent_df['oi_hourly_change'].std()
-            
-            # Trend analysis
-            positive_hours = (recent_df['oi_hourly_change'] > 0).sum()
-            negative_hours = (recent_df['oi_hourly_change'] < 0).sum()
-            total_hours = len(recent_df) - 1  # Trừ 1 vì pct_change tạo NaN đầu tiên
-            
-            # Trend strength
-            trend_direction = 'bullish' if positive_hours > negative_hours else ('bearish' if negative_hours > positive_hours else 'neutral')
-            trend_strength = abs(positive_hours - negative_hours) / total_hours * 100 if total_hours > 0 else 0
-            
-            # Moving averages
-            if len(recent_df) >= 6:
-                recent_df['oi_ma6h'] = recent_df['open_interest'].rolling(window=6).mean()
-                oi_above_ma = current_oi > recent_df['oi_ma6h'].iloc[-1]
+            # Tính volatility (độ biến động)
+            if len(df) > 1:
+                std_oi = float(df['open_interest'].std())
+                volatility = (std_oi / avg_oi * 100) if avg_oi != 0 else 0
             else:
-                oi_above_ma = None
+                volatility = 0
             
-            # Peak và trough analysis
-            max_oi = recent_df['open_interest'].max()
-            min_oi = recent_df['open_interest'].min()
-            oi_range_pct = ((max_oi - min_oi) / min_oi) * 100 if min_oi > 0 else 0
+            # Thêm log để debug
+            print(f"OI Data: current={current_oi}, previous={previous_oi}, change={oi_change_24h}%")
             
-            # Support/Resistance levels
-            q25 = recent_df['open_interest'].quantile(0.25)
-            q75 = recent_df['open_interest'].quantile(0.75)
-            
-            metrics = {
+            return {
                 'current_oi': current_oi,
-                'oi_change_24h': round(oi_change_24h, 4),
-                'oi_volatility': round(oi_volatility, 4),
-                'trend_direction': trend_direction,
-                'trend_strength': round(trend_strength, 2),
-                'positive_hours': int(positive_hours),
-                'negative_hours': int(negative_hours),
-                'oi_above_ma6h': oi_above_ma,
-                'oi_range_24h_pct': round(oi_range_pct, 2),
-                'support_level': round(q25, 2),
-                'resistance_level': round(q75, 2),
-                'max_oi_24h': max_oi,
-                'min_oi_24h': min_oi,
-                'total_data_points': len(recent_df)
+                'previous_oi': previous_oi,
+                'oi_change_24h': oi_change_24h,
+                'max_oi': max_oi,
+                'min_oi': min_oi,
+                'avg_oi': avg_oi,
+                'volatility': volatility,
+                'data_points': len(df)
             }
             
-            logger.info(f"✅ Tính toán OI metrics 24h: {trend_direction} {oi_change_24h:.2f}%")
-            return metrics
-            
         except Exception as e:
-            logger.error(f"❌ Lỗi khi tính OI metrics hàng giờ: {str(e)}")
+            print(f"Error calculating OI metrics: {e}")
             return self._get_empty_oi_metrics()
-    
-    def calculate_hourly_volume_metrics(self, df, hours=24):
-        """
-        Tính toán metrics Volume theo giờ (24h focus)
-        """
+
+    # Hàm tính toán metrics cho Volume (hourly)
+    def calculate_hourly_volume_metrics(self, df):
+        """Tính toán các metrics Volume theo giờ"""
         try:
-            if df.empty or len(df) < 2:
-                logger.warning("Không đủ dữ liệu để tính Volume metrics hàng giờ")
+            if df.empty:
                 return self._get_empty_volume_metrics()
             
-            # Lấy dữ liệu gần nhất
-            recent_df = df.tail(hours) if len(df) > hours else df
-            recent_df = recent_df.copy()
+            # Lấy dữ liệu Volume hiện tại và 24h trước
+            current_volume = float(df['volume'].iloc[-1])
+            previous_volume = float(df['volume'].iloc[0]) if len(df) > 1 else current_volume
             
-            # Tính các metrics cơ bản
-            current_volume = recent_df['volume'].iloc[-1]
-            first_volume = recent_df['volume'].iloc[0]
+            # Tính thay đổi
+            volume_change_24h = ((current_volume - previous_volume) / previous_volume * 100) if previous_volume != 0 else 0
             
-            # Thay đổi 24h
-            volume_change_24h = ((current_volume - first_volume) / first_volume) * 100 if first_volume > 0 else 0
+            # Tính các metrics khác
+            max_volume = float(df['volume'].max())
+            min_volume = float(df['volume'].min())
+            avg_volume = float(df['volume'].mean())
             
-            # Thay đổi từng giờ
-            recent_df['volume_hourly_change'] = recent_df['volume'].pct_change() * 100
-            
-            # Volume metrics đặc biệt
-            total_volume_24h = recent_df['volume'].sum()
-            avg_volume_24h = recent_df['volume'].mean()
-            volume_volatility = recent_df['volume_hourly_change'].std()
-            
-            # Spike detection (volume đột biến)
-            volume_mean = recent_df['volume'].mean()
-            volume_std = recent_df['volume'].std()
-            spike_threshold = volume_mean + (2 * volume_std)
-            volume_spikes = (recent_df['volume'] > spike_threshold).sum()
-            
-            # Trend analysis
-            positive_hours = (recent_df['volume_hourly_change'] > 0).sum()
-            negative_hours = (recent_df['volume_hourly_change'] < 0).sum()
-            total_hours = len(recent_df) - 1
-            
-            trend_direction = 'increasing' if positive_hours > negative_hours else ('decreasing' if negative_hours > positive_hours else 'stable')
-            
-            # Volume concentration (phân phối volume trong ngày)
-            volume_concentration = (recent_df['volume'].max() / avg_volume_24h) if avg_volume_24h > 0 else 0
-            
-            # Moving averages
-            if len(recent_df) >= 6:
-                recent_df['volume_ma6h'] = recent_df['volume'].rolling(window=6).mean()
-                volume_above_ma = current_volume > recent_df['volume_ma6h'].iloc[-1]
+            # Tính volatility (độ biến động)
+            if len(df) > 1:
+                std_volume = float(df['volume'].std())
+                volatility = (std_volume / avg_volume * 100) if avg_volume != 0 else 0
             else:
-                volume_above_ma = None
+                volatility = 0
+                
+            # Thêm log để debug
+            print(f"Volume Data: current={current_volume}, previous={previous_volume}, change={volume_change_24h}%")
             
-            metrics = {
+            return {
                 'current_volume': current_volume,
-                'volume_change_24h': round(volume_change_24h, 4),
-                'total_volume_24h': total_volume_24h,
-                'avg_volume_24h': round(avg_volume_24h, 2),
-                'volume_volatility': round(volume_volatility, 4),
-                'trend_direction': trend_direction,
-                'volume_spikes': int(volume_spikes),
-                'volume_concentration': round(volume_concentration, 2),
-                'volume_above_ma6h': volume_above_ma,
-                'max_volume_24h': recent_df['volume'].max(),
-                'min_volume_24h': recent_df['volume'].min(),
-                'positive_hours': int(positive_hours),
-                'negative_hours': int(negative_hours),
-                'total_data_points': len(recent_df)
+                'previous_volume': previous_volume,
+                'volume_change_24h': volume_change_24h,
+                'max_volume': max_volume,
+                'min_volume': min_volume,
+                'avg_volume': avg_volume,
+                'volatility': volatility,
+                'data_points': len(df)
             }
             
-            logger.info(f"✅ Tính toán Volume metrics 24h: {trend_direction} {volume_change_24h:.2f}%")
-            return metrics
-            
         except Exception as e:
-            logger.error(f"❌ Lỗi khi tính Volume metrics hàng giờ: {str(e)}")
+            print(f"Error calculating Volume metrics: {e}")
             return self._get_empty_volume_metrics()
     
     def calculate_daily_oi_metrics(self, df, days=30):

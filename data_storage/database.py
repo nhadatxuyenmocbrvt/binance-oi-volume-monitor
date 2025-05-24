@@ -171,6 +171,7 @@ class Database:
             logger.error(f"Lỗi khi lưu dữ liệu klines cho {symbol} - {timeframe}: {str(e)}")
             return 0
     
+    # Sửa hàm save_open_interest để đảm bảo lưu giá trị đúng
     def save_open_interest(self, symbol, df):
         """Lưu dữ liệu Open Interest vào cơ sở dữ liệu"""
         try:
@@ -182,6 +183,12 @@ class Database:
             df_to_save = df[['timestamp', 'sumOpenInterest', 'sumOpenInterestValue']].copy()
             df_to_save.columns = ['timestamp', 'open_interest', 'open_interest_value']
             df_to_save['symbol'] = symbol
+            
+            # Log để debug giá trị
+            if not df_to_save.empty:
+                logger.info(f"Debug: First OI record for {symbol}: " + 
+                            f"OI={df_to_save['open_interest'].iloc[0]}, " + 
+                            f"Value={df_to_save['open_interest_value'].iloc[0]}")
             
             cursor = self.conn.cursor()
             for _, row in df_to_save.iterrows():
@@ -205,70 +212,8 @@ class Database:
             self.conn.rollback()
             logger.error(f"Lỗi khi lưu dữ liệu Open Interest cho {symbol}: {str(e)}")
             return 0
-    
-    def save_ticker(self, symbol, ticker_data):
-        """Lưu dữ liệu ticker (volume realtime) vào cơ sở dữ liệu"""
-        try:
-            cursor = self.conn.cursor()
             
-            timestamp = ticker_data['timestamp']
-            if isinstance(timestamp, datetime):
-                timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
-                
-            data = (
-                symbol,
-                timestamp,
-                ticker_data['volume'],
-                ticker_data['quoteVolume'],
-                ticker_data['count'],
-                ticker_data['lastPrice'],
-                ticker_data['priceChangePercent']
-            )
-            
-            cursor.execute('''
-            INSERT OR REPLACE INTO ticker 
-            (symbol, timestamp, volume, quote_volume, trade_count, last_price, price_change_percent)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            ''', data)
-            
-            self.conn.commit()
-            logger.info(f"Đã lưu dữ liệu ticker cho {symbol}")
-            return True
-        except Exception as e:
-            self.conn.rollback()
-            logger.error(f"Lỗi khi lưu dữ liệu ticker cho {symbol}: {str(e)}")
-            return False
-    
-    def save_realtime_open_interest(self, symbol, oi_data):
-        """Lưu dữ liệu Open Interest realtime vào cơ sở dữ liệu"""
-        try:
-            cursor = self.conn.cursor()
-            
-            timestamp = oi_data['timestamp']
-            if isinstance(timestamp, datetime):
-                timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
-                
-            data = (
-                symbol,
-                timestamp,
-                oi_data['openInterest'],
-                0  # Không có giá trị OI value
-            )
-            
-            cursor.execute('''
-            INSERT OR REPLACE INTO open_interest 
-            (symbol, timestamp, open_interest, open_interest_value)
-            VALUES (?, ?, ?, ?)
-            ''', data)
-            
-            self.conn.commit()
-            logger.info(f"Đã lưu dữ liệu Open Interest realtime cho {symbol}")
-            return True
-        except Exception as e:
-            self.conn.rollback()
-            logger.error(f"Lỗi khi lưu dữ liệu Open Interest realtime cho {symbol}: {str(e)}")
-            return False
-    
+    # Sửa hàm save_hourly_tracking để hiển thị đúng giá trị
     def save_hourly_tracking(self, hour_timestamp):
         """Lưu dữ liệu tracking 24h - TỐI ƯU"""
         try:
@@ -279,6 +224,9 @@ class Database:
                 price_data = self.get_latest_price(symbol)
                 volume_data = self.get_latest_volume(symbol)
                 oi_data = self.get_latest_oi(symbol)
+                
+                # Log debug values
+                logger.info(f"DEBUG {symbol} tracking values: price={price_data}, volume={volume_data}, oi={oi_data}")
                 
                 # Tính thay đổi so với giờ trước
                 prev_data = self.get_hourly_data(symbol, hour_timestamp - timedelta(hours=1))
@@ -310,7 +258,7 @@ class Database:
                 cursor.execute('''
                 INSERT OR REPLACE INTO hourly_tracking 
                 (symbol, hour_timestamp, price, volume, open_interest, 
-                 price_change_1h, volume_change_1h, oi_change_1h)
+                price_change_1h, volume_change_1h, oi_change_1h)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 ''', data)
             
@@ -320,6 +268,83 @@ class Database:
         except Exception as e:
             self.conn.rollback()
             logger.error(f"Lỗi khi lưu dữ liệu tracking 24h: {str(e)}")
+            return False
+    
+    def save_ticker(self, symbol, ticker_data):
+        """Lưu dữ liệu ticker (volume realtime) vào cơ sở dữ liệu - ĐÃ SỬA"""
+        try:
+            cursor = self.conn.cursor()
+            
+            timestamp = ticker_data['timestamp']
+            if isinstance(timestamp, datetime):
+                timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+            
+            # Đảm bảo lưu volume theo USDT
+            volume = float(ticker_data['volume'])
+            quote_volume = float(ticker_data['quoteVolume'])  # ĐẢM BẢO SỬ DỤNG quoteVolume
+            
+            # Log để debug
+            logger.info(f"💾 Saving Volume for {symbol}: {volume:,.2f} contracts, Quote Volume: {quote_volume:,.2f} USDT")
+            
+            data = (
+                symbol,
+                timestamp,
+                volume,
+                quote_volume,
+                ticker_data.get('count', 0),
+                float(ticker_data['lastPrice']),
+                float(ticker_data['priceChangePercent'])
+            )
+            
+            cursor.execute('''
+            INSERT OR REPLACE INTO ticker 
+            (symbol, timestamp, volume, quote_volume, trade_count, last_price, price_change_percent)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            ''', data)
+            
+            self.conn.commit()
+            logger.info(f"Đã lưu dữ liệu ticker cho {symbol}")
+            return True
+        except Exception as e:
+            self.conn.rollback()
+            logger.error(f"Lỗi khi lưu dữ liệu ticker cho {symbol}: {str(e)}")
+            return False
+    
+    def save_realtime_open_interest(self, symbol, oi_data):
+        """Lưu dữ liệu Open Interest realtime vào cơ sở dữ liệu - ĐÃ SỬA"""
+        try:
+            cursor = self.conn.cursor()
+            
+            timestamp = oi_data['timestamp']
+            if isinstance(timestamp, datetime):
+                timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+            
+            # Đảm bảo lưu cả giá trị OI theo contracts và theo USDT
+            open_interest = float(oi_data['openInterest'])
+            open_interest_value = float(oi_data.get('openInterestValue', 0))  # SỬA: Lấy giá trị thực tế
+            
+            # Log để debug
+            logger.info(f"💾 Saving OI for {symbol}: {open_interest:,.2f} contracts, {open_interest_value:,.2f} USDT")
+            
+            data = (
+                symbol,
+                timestamp,
+                open_interest,
+                open_interest_value  # SỬA: Dùng giá trị thực tế
+            )
+            
+            cursor.execute('''
+            INSERT OR REPLACE INTO open_interest 
+            (symbol, timestamp, open_interest, open_interest_value)
+            VALUES (?, ?, ?, ?)
+            ''', data)
+            
+            self.conn.commit()
+            logger.info(f"Đã lưu dữ liệu Open Interest realtime cho {symbol}")
+            return True
+        except Exception as e:
+            self.conn.rollback()
+            logger.error(f"Lỗi khi lưu dữ liệu Open Interest realtime cho {symbol}: {str(e)}")
             return False
     
     def get_latest_price(self, symbol):
@@ -546,7 +571,7 @@ class Database:
             return False
     
     def export_symbol_data(self, symbol):
-        """Xuất dữ liệu chi tiết cho một symbol"""
+        """Xuất dữ liệu chi tiết cho một symbol - ĐÃ SỬA"""
         try:
             symbol_data = {
                 'symbol': symbol,
@@ -559,18 +584,18 @@ class Database:
             # 1. Xuất dữ liệu klines (30 ngày gần nhất cho 1d)
             timeframes = ['1h', '4h', '1d']
             for timeframe in timeframes:
-                klines_df = self.get_klines(symbol, timeframe, limit=30 if timeframe == '1d' else 168)  # 30 ngày hoặc 1 tuần
+                klines_df = self.get_klines(symbol, timeframe, limit=30 if timeframe == '1d' else 168)
                 
                 if not klines_df.empty:
                     # Chỉ lấy các cột cần thiết
-                    klines_clean = klines_df[['open_time', 'open', 'high', 'low', 'close', 'volume']].copy()
+                    klines_clean = klines_df[['open_time', 'open', 'high', 'low', 'close', 'volume', 'quote_volume']].copy()
                     klines_clean['open_time'] = klines_clean['open_time'].dt.strftime('%Y-%m-%dT%H:%M:%S')
                     symbol_data['klines'][timeframe] = klines_clean.to_dict(orient='records')
             
-            # 2. Xuất dữ liệu Open Interest (30 ngày gần nhất)
-            oi_df = self.get_open_interest(symbol, limit=720)  # 30 ngày * 24 giờ
+            # 2. Xuất dữ liệu Open Interest (30 ngày gần nhất) - ĐÃ SỬA để lấy cả open_interest_value
+            oi_df = self.get_open_interest(symbol, limit=720)
             if not oi_df.empty:
-                oi_clean = oi_df[['timestamp', 'open_interest']].copy()
+                oi_clean = oi_df[['timestamp', 'open_interest', 'open_interest_value']].copy()
                 oi_clean['timestamp'] = oi_clean['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
                 symbol_data['open_interest'] = oi_clean.to_dict(orient='records')
             

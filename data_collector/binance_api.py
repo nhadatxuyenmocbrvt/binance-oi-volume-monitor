@@ -303,6 +303,9 @@ class OptimizedBinanceAPI:
         
         if data:
             df = self._process_oi_data(data)
+            # Log một mẫu giá trị để debug
+            if not df.empty:
+                logger.info(f"🔍 Sample OI data for {symbol}: OI={df['sumOpenInterest'].iloc[0]}, Value={df['sumOpenInterestValue'].iloc[0]}")
             logger.info(f"✅ Retrieved {len(df)} OI points for {symbol} {period}")
             return df
         
@@ -343,6 +346,10 @@ class OptimizedBinanceAPI:
             df = self.get_open_interest(symbol, period, current_start, current_end, 500)
             
             if df is not None and not df.empty:
+                # Log để debug giá trị OI
+                logger.info(f"🔍 OI value range for chunk {chunk_count+1}: {df['sumOpenInterest'].min()} - {df['sumOpenInterest'].max()}")
+                logger.info(f"🔍 OI value in USD range: {df['sumOpenInterestValue'].min()} - {df['sumOpenInterestValue'].max()}")
+                
                 all_data.append(df)
                 logger.info(f"📊 OI Chunk {chunk_count + 1}: {len(df)} points from {datetime.fromtimestamp(current_start/1000)}")
             else:
@@ -357,6 +364,14 @@ class OptimizedBinanceAPI:
         if all_data:
             result = pd.concat(all_data, ignore_index=True).drop_duplicates(subset=['timestamp'])
             logger.info(f"✅ Total {len(result)} OI points collected for {symbol} ({chunk_count} chunks)")
+            
+            # Log thêm thông tin để debug
+            if not result.empty:
+                logger.info(f"📈 Final OI data summary for {symbol}:")
+                logger.info(f"   - OI range: {result['sumOpenInterest'].min()} - {result['sumOpenInterest'].max()}")
+                logger.info(f"   - OI value range: {result['sumOpenInterestValue'].min()} - {result['sumOpenInterestValue'].max()}")
+                logger.info(f"   - Date range: {result['timestamp'].min()} - {result['timestamp'].max()}")
+            
             return result.sort_values('timestamp').reset_index(drop=True)
         
         logger.warning(f"⚠️ No OI data collected for {symbol}")
@@ -406,7 +421,22 @@ class OptimizedBinanceAPI:
         data = self._make_request(endpoint, params=params)
         
         if data and 'openInterest' in data:
-            logger.info(f"📊 Current OI for {symbol}: {data['openInterest']}")
+            # Chuyển từ string sang float để tính toán
+            open_interest = float(data['openInterest'])
+            logger.info(f"📊 Current OI for {symbol}: {open_interest}")
+            
+            # Lấy thêm giá hiện tại để tính OI theo USDT
+            ticker = self.get_ticker(symbol)
+            if ticker and 'lastPrice' in ticker:
+                price = float(ticker['lastPrice'])
+                oi_value = open_interest * price
+                logger.info(f"💰 Current OI Value (USDT) for {symbol}: {oi_value}")
+                
+                # Thêm giá trị USDT vào kết quả
+                data['openInterestValue'] = oi_value
+                # Thêm timestamp hiện tại
+                data['timestamp'] = datetime.now()
+            
             return data
         
         logger.warning(f"⚠️ No current OI data for {symbol}")
@@ -502,6 +532,10 @@ class OptimizedBinanceAPI:
         # Remove the ignore column
         df = df.drop('ignore', axis=1)
         
+        # Log sample data để debug
+        if not df.empty:
+            logger.info(f"📊 Sample volume: {df['volume'].iloc[0]}, Quote volume: {df['quote_volume'].iloc[0]}")
+        
         return df
     
     def _process_oi_data(self, data):
@@ -516,9 +550,18 @@ class OptimizedBinanceAPI:
         
         # Convert data types
         if 'sumOpenInterest' in df.columns:
+            # Đảm bảo đơn vị chính xác - đây là giá trị gốc, không cần chia thêm
             df['sumOpenInterest'] = pd.to_numeric(df['sumOpenInterest'], errors='coerce')
+            # Log giá trị để debug
+            if not df.empty:
+                logger.info(f"📊 Sample OI value: {df['sumOpenInterest'].iloc[0]}")
+        
         if 'sumOpenInterestValue' in df.columns:
+            # Đây là giá trị theo USDT
             df['sumOpenInterestValue'] = pd.to_numeric(df['sumOpenInterestValue'], errors='coerce')
+            # Log giá trị để debug
+            if not df.empty:
+                logger.info(f"💰 Sample OI value (USDT): {df['sumOpenInterestValue'].iloc[0]}")
         
         # Convert timestamp
         if 'timestamp' in df.columns:

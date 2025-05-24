@@ -238,7 +238,7 @@ class OptimizedHistoricalDataCollector:
     
     def collect_realtime_data(self):
         """
-        Thu thập dữ liệu realtime cho tất cả symbols
+        Thu thập dữ liệu realtime cho tất cả symbols - ĐÃ SỬA
         Tối ưu cho cập nhật tracking
         """
         logger.info("⚡ Thu thập dữ liệu realtime cho tracking")
@@ -265,15 +265,12 @@ class OptimizedHistoricalDataCollector:
                         'symbol': symbol,
                         'timestamp': datetime.now(),
                         'volume': float(ticker_data['volume']),
-                        'quoteVolume': float(ticker_data['quoteVolume']),
+                        'quoteVolume': float(ticker_data['quoteVolume']),  # ĐẢM BẢO LƯU quoteVolume
                         'count': int(ticker_data['count']),
                         'lastPrice': float(ticker_data['lastPrice']),
-                        'priceChangePercent': float(ticker_data['priceChangePercent']),
-                        'openPrice': float(ticker_data['openPrice']),
-                        'highPrice': float(ticker_data['highPrice']),
-                        'lowPrice': float(ticker_data['lowPrice'])
+                        'priceChangePercent': float(ticker_data['priceChangePercent'])
                     }
-                    logger.info(f"   📈 Ticker: {ticker_data['lastPrice']} ({ticker_data['priceChangePercent']}%)")
+                    logger.info(f"   📈 Ticker: {ticker_data['lastPrice']} ({ticker_data['priceChangePercent']}%), Volume: {ticker_data['quoteVolume']} USDT")
                 
                 # Rate limiting
                 time.sleep(0.2)
@@ -284,9 +281,10 @@ class OptimizedHistoricalDataCollector:
                     result['open_interest'][symbol] = {
                         'symbol': symbol,
                         'timestamp': datetime.now(),
-                        'openInterest': float(oi_data['openInterest'])
+                        'openInterest': float(oi_data['openInterest']),
+                        'openInterestValue': float(oi_data.get('openInterestValue', 0))  # THÊM openInterestValue
                     }
-                    logger.info(f"   📊 OI: {oi_data['openInterest']}")
+                    logger.info(f"   📊 OI: {oi_data['openInterest']} contracts, Value: {oi_data.get('openInterestValue', 0)} USDT")
                 
                 result['success_count'] += 1
                 
