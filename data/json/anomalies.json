@@ -1,15 +1,5 @@
 [
   {
-    "id": 185,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-25T05:00:00",
-    "data_type": "24h_OI",
-    "value": 4120104266.9807997,
-    "z_score": 2.905010073047356,
-    "message": "Bất thường OI 24h cho ETHUSDT: 4120104266.98 (Z-score: 2.91)",
-    "notified": 0
-  },
-  {
     "id": 186,
     "symbol": "ETHUSDT",
     "timestamp": "2025-05-25T05:00:00",
@@ -17,6 +7,16 @@
     "value": 1622599.349,
     "z_score": 2.5558445643491323,
     "message": "Bất thường OI 30d cho ETHUSDT: 1622599.35 (Z-score: 2.56)",
+    "notified": 0
+  },
+  {
+    "id": 201,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-25T05:00:00",
+    "data_type": "24h_OI",
+    "value": 4120104266.9807997,
+    "z_score": 2.905010073047356,
+    "message": "Bất thường OI 24h cho ETHUSDT: 4120104266.98 (Z-score: 2.91)",
     "notified": 0
   },
   {
@@ -180,13 +180,53 @@
     "notified": 0
   },
   {
-    "id": 187,
+    "id": 202,
     "symbol": "BNBUSDT",
     "timestamp": "2025-05-24T06:00:00",
     "data_type": "24h_OI",
     "value": 353019190.797,
     "z_score": 2.731835667089885,
     "message": "Bất thường OI 24h cho BNBUSDT: 353019190.80 (Z-score: 2.73)",
+    "notified": 0
+  },
+  {
+    "id": 204,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-24T06:00:00",
+    "data_type": "30d_OI",
+    "value": 528210.9,
+    "z_score": 2.7542194802756765,
+    "message": "Bất thường OI 30d cho BNBUSDT: 528210.90 (Z-score: 2.75)",
+    "notified": 0
+  },
+  {
+    "id": 207,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-24T06:00:00",
+    "data_type": "30d_OI",
+    "value": 7576488.28,
+    "z_score": 2.683156247849411,
+    "message": "Bất thường OI 30d cho SOLUSDT: 7576488.28 (Z-score: 2.68)",
+    "notified": 0
+  },
+  {
+    "id": 203,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-24T05:00:00",
+    "data_type": "30d_OI",
+    "value": 529338.9,
+    "z_score": 2.5262948497317286,
+    "message": "Bất thường OI 30d cho BNBUSDT: 529338.90 (Z-score: 2.53)",
+    "notified": 0
+  },
+  {
+    "id": 206,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-24T05:00:00",
+    "data_type": "30d_OI",
+    "value": 7580124.99,
+    "z_score": 2.7911362207222346,
+    "message": "Bất thường OI 30d cho SOLUSDT: 7580124.99 (Z-score: 2.79)",
     "notified": 0
   },
   {
@@ -280,7 +320,7 @@
     "notified": 0
   },
   {
-    "id": 184,
+    "id": 200,
     "symbol": "BTCUSDT",
     "timestamp": "1970-01-01T00:00:00",
     "data_type": "30d_Volume",
@@ -290,7 +330,7 @@
     "notified": 0
   },
   {
-    "id": 188,
+    "id": 205,
     "symbol": "BNBUSDT",
     "timestamp": "1970-01-01T00:00:00",
     "data_type": "30d_Volume",
@@ -300,7 +340,7 @@
     "notified": 0
   },
   {
-    "id": 190,
+    "id": 208,
     "symbol": "DOGEUSDT",
     "timestamp": "1970-01-01T00:00:00",
     "data_type": "30d_Volume",
