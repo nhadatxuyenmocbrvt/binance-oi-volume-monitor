@@ -1,488 +1,212 @@
-/* Enhanced styles for Binance OI & Volume Monitor with 24H Tracking */
+/* 
+ * Hệ Thống Theo Dõi OI & Volume Binance - Custom Styles với Tracking 24h
+ * Tác giả: AI Assistant
+ * Phiên bản: 2.0 - Tracking 24h
+ */
 
+/* ===== BIẾN CSS ===== */
 :root {
-    --primary-color: #f7931e;
-    --primary-light: #ffb74d;
-    --success-color: #16c784;
-    --danger-color: #ea3943;
-    --warning-color: #f0b90b;
-    --info-color: #17a2b8;
-    --dark-color: #1e1e1e;
-    --light-bg: #f8f9fa;
-    --card-bg: #ffffff;
-    --border-color: #e9ecef;
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --info-color: #0dcaf0;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
     --text-muted: #6c757d;
-    --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    --border-radius: 10px;
-    --transition: all 0.3s ease;
+    
+    /* Màu cho Tracking 24h */
+    --tracking-primary: #0dcaf0;
+    --tracking-secondary: #6610f2;
+    --tracking-success: #20c997;
+    --tracking-warning: #fd7e14;
+    
+    /* Hiệu ứng */
+    --hover-transition: all 0.3s ease;
+    --card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --card-shadow-hover: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-/* Global Styles */
-* {
-    box-sizing: border-box;
-}
-
+/* ===== GLOBAL STYLES ===== */
 body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-    line-height: 1.6;
-    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
 }
 
-/* Navigation */
-.navbar {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light)) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 1rem 0;
-}
-
+/* ===== NAVIGATION ===== */
 .navbar-brand {
-    font-weight: 700;
-    font-size: 1.5rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.navbar-brand i {
-    margin-right: 0.5rem;
-    font-size: 1.8rem;
-}
-
-/* Main Content */
-.container {
-    max-width: 1400px;
-}
-
-/* Last Update Banner */
-.last-update {
-    background: linear-gradient(135deg, var(--card-bg), #f8f9fa);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
-    padding: 12px 20px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.last-update .badge {
-    font-size: 0.7rem;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.7; }
-    100% { opacity: 1; }
-}
-
-/* ===== 24H OVERVIEW SECTION - THÊM MỚI ===== */
-.hourly-overview {
-    background: linear-gradient(135deg, #e8f5e8, #f0f9ff);
-    border: 2px solid #4ade80;
-    border-radius: var(--border-radius);
-    padding: 25px;
-    margin: 20px 0;
-    box-shadow: var(--box-shadow);
-    position: relative;
-    overflow: hidden;
-}
-
-.hourly-overview::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #4ade80, #22c55e, #16a34a);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.hourly-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #065f46;
-    margin-bottom: 20px;
-}
-
-.hourly-title i {
-    font-size: 1.5rem;
-    color: #059669;
-}
-
-.hourly-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-.hourly-stat-item {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(74, 222, 128, 0.2);
-    transition: var(--transition);
-    position: relative;
-}
-
-.hourly-stat-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.hourly-stat-value {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 8px;
-    background: linear-gradient(135deg, var(--primary-color), #f59e0b);
+    background: linear-gradient(45deg, #0d6efd, #0dcaf0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: none;
 }
 
-.hourly-stat-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-}
-
-/* ===== MINI CHARTS - THÊM MỚI ===== */
-.mini-chart-container {
-    width: 120px;
-    height: 50px;
-    position: relative;
-    margin: 0 auto;
-    background: rgba(247, 147, 30, 0.05);
-    border-radius: 8px;
-    padding: 5px;
-    border: 1px solid rgba(247, 147, 30, 0.1);
-}
-
-.mini-chart-container canvas {
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 4px;
-}
-
-.chart-label {
-    display: block;
-    text-align: center;
-    margin-top: 4px;
-    font-size: 0.65rem;
-    color: var(--text-muted);
+/* ===== MAIN TABS ===== */
+.nav-pills .nav-link {
+    border-radius: 0.5rem;
+    margin: 0 0.25rem;
+    transition: var(--hover-transition);
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
-.chart-cell {
-    width: 140px;
-    text-align: center;
-    padding: 8px 5px !important;
+.nav-pills .nav-link:hover:not(.active) {
+    background-color: rgba(13, 110, 253, 0.1);
+    transform: translateY(-2px);
 }
 
-/* ===== TREND INDICATORS - THÊM MỚI ===== */
-.trend-indicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.7rem;
-    padding: 3px 8px;
-    border-radius: 12px;
-    margin-top: 4px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+.nav-pills .nav-link.active {
+    box-shadow: var(--card-shadow-hover);
 }
 
-.trend-strong {
-    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-    color: #166534;
-    border: 1px solid #22c55e;
-}
-
-.trend-moderate {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    color: #92400e;
-    border: 1px solid #f59e0b;
-}
-
-.trend-weak {
-    background: linear-gradient(135deg, #fecaca, #fca5a5);
-    color: #991b1b;
-    border: 1px solid #ef4444;
-}
-
-.trend-neutral {
-    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-    color: #475569;
-    border: 1px solid #94a3b8;
-}
-
-/* ===== PERFORMANCE BADGES - THÊM MỚI ===== */
-.performance-badge {
-    font-size: 0.7rem;
-    padding: 3px 8px;
-    border-radius: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.performance-excellent {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-}
-
-.performance-good {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    color: white;
-    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
-}
-
-.performance-average {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: white;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
-}
-
-.performance-poor {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    color: white;
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-}
-
-/* Tabs */
-.main-tabs {
-    background: var(--card-bg);
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    box-shadow: var(--box-shadow);
-    overflow: hidden;
-}
-
-.nav-tabs {
-    border-bottom: none;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    padding: 0;
-}
-
-.nav-tabs .nav-link {
+/* Tab riêng cho Tracking 24h */
+#tracking24h-tab {
+    background: linear-gradient(135deg, var(--tracking-primary), var(--tracking-secondary));
+    color: white !important;
     border: none;
-    color: var(--text-muted);
+}
+
+#tracking24h-tab:hover:not(.active) {
+    background: linear-gradient(135deg, #31b9d8, #7c3aed);
+    transform: translateY(-2px);
+}
+
+#tracking24h-tab.active {
+    background: linear-gradient(135deg, var(--tracking-primary), var(--tracking-secondary));
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+/* ===== CARDS ===== */
+.card {
+    border: none;
+    box-shadow: var(--card-shadow);
+    transition: var(--hover-transition);
+    border-radius: 0.75rem;
+}
+
+.card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-bottom: 2px solid #dee2e6;
     font-weight: 600;
-    padding: 18px 30px;
-    margin: 0;
-    border-radius: 0;
-    transition: var(--transition);
-    position: relative;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+/* ===== STATISTICS CARDS ===== */
+.stats-card {
+    border: none;
+    border-radius: 1rem;
     overflow: hidden;
-}
-
-.nav-tabs .nav-link:hover {
-    color: var(--primary-color);
-    background-color: rgba(247, 147, 30, 0.05);
-}
-
-.nav-tabs .nav-link.active {
-    background: var(--card-bg);
-    color: var(--primary-color);
-    border-bottom: 3px solid var(--primary-color);
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-}
-
-.nav-tabs .nav-link.active::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-}
-
-.nav-tabs .nav-link i {
-    margin-right: 8px;
-    font-size: 1.1rem;
-}
-
-/* Time Filter */
-.time-filter {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    border-bottom: 1px solid var(--border-color);
-    padding: 20px;
-}
-
-.btn-time-filter {
-    margin-right: 12px;
-    margin-bottom: 8px;
-    padding: 8px 20px;
-    border-radius: 25px;
-    border: 2px solid var(--border-color);
-    background: var(--card-bg);
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: var(--transition);
-    cursor: pointer;
-}
-
-.btn-time-filter:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(247, 147, 30, 0.2);
-}
-
-.btn-time-filter.active {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-    color: white;
-    border-color: var(--primary-color);
-    box-shadow: 0 4px 12px rgba(247, 147, 30, 0.3);
-}
-
-/* Stats Cards */
-.stats-cards {
-    padding: 25px;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-}
-
-.stat-card {
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    padding: 25px;
-    text-align: center;
-    box-shadow: var(--box-shadow);
-    border: 1px solid var(--border-color);
-    transition: var(--transition);
     position: relative;
-    overflow: hidden;
 }
 
-.stat-card::before {
+.stats-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(90deg, var(--primary-color), var(--info-color));
 }
 
-.stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+.stats-bullish::before {
+    background: linear-gradient(90deg, var(--success-color), #20c997);
 }
 
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.stats-bearish::before {
+    background: linear-gradient(90deg, var(--danger-color), #fd7e14);
 }
 
-.stat-label {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 500;
+.stats-neutral::before {
+    background: linear-gradient(90deg, var(--warning-color), #fd7e14);
+}
+
+/* Stats đặc biệt cho Tracking 24h */
+.stats-tracking-24h {
+    background: linear-gradient(135deg, rgba(13, 202, 240, 0.1), rgba(102, 16, 242, 0.05));
+    border: 2px solid var(--tracking-primary);
+}
+
+.stats-tracking-24h::before {
+    background: linear-gradient(90deg, var(--tracking-primary), var(--tracking-secondary));
+}
+
+/* ===== TABLES ===== */
+.table {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.table thead th {
+    border: none;
+    font-weight: 600;
     text-transform: uppercase;
+    font-size: 0.875rem;
     letter-spacing: 0.5px;
 }
 
-/* Tables */
-.coin-list-table {
-    margin: 0;
-    background: var(--card-bg);
+.table tbody tr {
+    transition: var(--hover-transition);
 }
 
-.coin-list-table th {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    font-weight: 700;
-    border-top: none;
-    border-bottom: 2px solid var(--border-color);
-    padding: 20px 15px;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #495057;
+.table tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+    transform: scale(1.01);
 }
 
-.coin-list-table td {
-    padding: 18px 15px;
-    vertical-align: middle;
-    border-top: 1px solid var(--border-color);
-    transition: var(--transition);
-}
-
-.symbol-row:hover {
-    background-color: rgba(247, 147, 30, 0.03) !important;
+/* ===== SYMBOL STYLES ===== */
+.symbol-row {
     cursor: pointer;
+}
+
+.symbol-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
 }
 
 .coin-symbol {
     font-weight: 700;
-    font-size: 1.1rem;
-    color: #212529;
+    font-size: 1rem;
+    color: var(--dark-color);
 }
 
-.symbol-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.2rem;
-}
-
-/* Change Values */
+/* ===== CHANGE INDICATORS ===== */
 .change-positive {
-    color: var(--success-color);
+    color: var(--success-color) !important;
     font-weight: 600;
 }
 
 .change-negative {
-    color: var(--danger-color);
+    color: var(--danger-color) !important;
     font-weight: 600;
 }
 
 .change-neutral {
-    color: var(--text-muted);
-    font-weight: 600;
+    color: var(--text-muted) !important;
+    font-weight: 500;
 }
 
-.change-positive i,
-.change-negative i,
-.change-neutral i {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-/* Sentiment Badges */
+/* ===== SENTIMENT BADGES ===== */
 .sentiment-badge {
-    font-size: 0.8rem;
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
     font-weight: 600;
-    letter-spacing: 0.3px;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
 }
 
 .sentiment-bullish {
@@ -491,272 +215,235 @@ body {
 }
 
 .sentiment-bearish {
-    background: linear-gradient(135deg, var(--danger-color), #dc3545);
+    background: linear-gradient(135deg, var(--danger-color), #fd7e14);
     color: white;
 }
 
 .sentiment-neutral {
-    background: linear-gradient(135deg, var(--text-muted), #6c757d);
+    background: linear-gradient(135deg, var(--warning-color), #fd7e14);
+    color: var(--dark-color);
+}
+
+/* ===== TRACKING 24H SPECIAL STYLES ===== */
+#tracking24h {
+    background: linear-gradient(135deg, 
+        rgba(13, 202, 240, 0.02), 
+        rgba(102, 16, 242, 0.02), 
+        rgba(32, 201, 151, 0.02)
+    );
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: -1rem;
+}
+
+/* Tracking 24h Chart Container */
+#tracking24hChart {
+    background: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+#tracking24hChart::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        var(--tracking-primary), 
+        var(--tracking-secondary), 
+        var(--tracking-success)
+    );
+}
+
+/* Tracking 24h Stats Grid */
+#tracking24hStats .card {
+    background: white;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    overflow: hidden;
+}
+
+#tracking24hStats .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--tracking-primary), var(--tracking-success));
+}
+
+#tracking24hStats .card:hover {
+    border-color: var(--tracking-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(13, 202, 240, 0.2);
+}
+
+/* Tracking 24h Control Switches */
+.form-check-input:checked {
+    background-color: var(--tracking-primary);
+    border-color: var(--tracking-primary);
+}
+
+.form-check-input:focus {
+    border-color: var(--tracking-primary);
+    box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: var(--hover-transition);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-time-filter {
+    border-radius: 2rem;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+}
+
+.btn-time-filter.active {
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+/* Nút đặc biệt cho Tracking 24h */
+.btn-outline-info:hover {
+    background: linear-gradient(135deg, var(--tracking-primary), var(--tracking-secondary));
+    border-color: transparent;
     color: white;
 }
 
-/* Buttons */
-.btn-group-sm .btn {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    border-radius: 6px;
-    margin-right: 4px;
-    transition: var(--transition);
+/* ===== CHARTS ===== */
+canvas {
+    border-radius: 0.5rem;
 }
 
-.btn-outline-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(247, 147, 30, 0.3);
+/* ===== LOADING STATES ===== */
+.spinner-border {
+    animation: spinner-border 0.75s linear infinite;
 }
 
-.btn-outline-info:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-/* Charts */
-.chart-container {
-    position: relative;
-    height: 450px;
-    margin: 30px 20px;
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    padding: 20px;
-    box-shadow: var(--box-shadow);
-    border: 1px solid var(--border-color);
+/* Loading overlay cho Tracking 24h */
+.tracking-24h-loading {
+    background: linear-gradient(45deg, 
+        rgba(13, 202, 240, 0.1), 
+        rgba(102, 16, 242, 0.1)
+    );
+    backdrop-filter: blur(5px);
+    border-radius: 1rem;
 }
 
-/* Anomalies */
+/* ===== ANOMALY STYLES ===== */
 .anomaly-message {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    max-width: 300px;
-    word-wrap: break-word;
+    font-family: 'Courier New', monospace;
+    background-color: #f8f9fa;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border-left: 3px solid var(--warning-color);
+    font-size: 0.875rem;
 }
 
-/* Loading States */
-.loading-spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    flex-direction: column;
-}
-
-.loading-spinner .spinner-border {
-    width: 3rem;
-    height: 3rem;
-    border-width: 0.3em;
-}
-
-.loading-spinner p {
-    margin-top: 1rem;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .container {
-        max-width: 100%;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-}
-
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
-    .coin-list-table th,
-    .coin-list-table td {
-        padding: 12px 8px;
-        font-size: 0.85rem;
+    .card {
+        margin-bottom: 1rem;
     }
     
-    .nav-tabs .nav-link {
-        padding: 12px 20px;
-        font-size: 0.9rem;
-    }
-    
-    .stat-card {
-        padding: 20px 15px;
-        margin-bottom: 15px;
-    }
-    
-    .stat-number {
+    .display-4 {
         font-size: 2rem;
     }
     
-    .chart-container {
-        height: 300px;
-        margin: 20px 10px;
-        padding: 15px;
+    .btn-group {
+        width: 100%;
     }
     
-    .symbol-icon {
-        width: 28px;
-        height: 28px;
-        font-size: 1rem;
+    .btn-group .btn {
+        flex: 1;
     }
     
-    .coin-symbol {
-        font-size: 1rem;
+    /* Tracking 24h responsive */
+    #tracking24hStats .col-md-4 {
+        margin-bottom: 1rem;
     }
     
-    .time-filter {
-        padding: 15px;
-    }
-    
-    .btn-time-filter {
-        padding: 6px 15px;
-        margin-right: 8px;
-        margin-bottom: 8px;
-        font-size: 0.85rem;
-    }
-
-    /* ===== RESPONSIVE 24H COMPONENTS ===== */
-    .hourly-overview {
-        margin: 15px 10px;
-        padding: 20px 15px;
-    }
-
-    .hourly-stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-
-    .hourly-stat-item {
-        padding: 15px 10px;
-    }
-
-    .hourly-stat-value {
-        font-size: 1.5rem;
-    }
-
-    .mini-chart-container {
-        width: 80px;
-        height: 35px;
-    }
-
-    .chart-cell {
-        width: 90px;
-    }
-
-    .chart-label {
-        font-size: 0.6rem;
+    #tracking24hChart {
+        height: 300px !important;
     }
 }
 
 @media (max-width: 576px) {
-    .navbar-brand {
-        font-size: 1.3rem;
+    .container-fluid {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
     }
     
-    .last-update {
-        padding: 10px 15px;
-        font-size: 0.8rem;
+    .card-body {
+        padding: 1rem;
     }
     
-    .stats-cards {
-        padding: 15px;
+    .table-responsive {
+        font-size: 0.875rem;
     }
     
-    .stat-card {
-        padding: 15px;
+    /* Ẩn một số cột trên mobile */
+    .table th:nth-child(n+4),
+    .table td:nth-child(n+4) {
+        display: none;
     }
     
-    .stat-number {
-        font-size: 1.8rem;
+    /* Tracking 24h mobile adjustments */
+    #tracking24h {
+        margin: -0.5rem;
+        padding: 0.5rem;
     }
     
-    .coin-list-table th,
-    .coin-list-table td {
-        padding: 10px 6px;
-        font-size: 0.8rem;
-    }
-    
-    .sentiment-badge {
-        font-size: 0.7rem;
-        padding: 4px 8px;
-    }
-    
-    .btn-group-sm .btn {
-        padding: 4px 8px;
-        font-size: 0.75rem;
-    }
-
-    /* ===== MOBILE 24H COMPONENTS ===== */
-    .hourly-stats {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
-    .hourly-stat-value {
-        font-size: 1.3rem;
-    }
-
-    .mini-chart-container {
-        width: 70px;
-        height: 30px;
-    }
-
-    .chart-cell {
-        width: 80px;
-    }
-
-    .trend-indicator {
-        font-size: 0.6rem;
-        padding: 2px 6px;
-    }
-
-    .performance-badge {
-        font-size: 0.6rem;
-        padding: 2px 6px;
+    .tracking-24h-mobile-hide {
+        display: none;
     }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --card-bg: #2d2d2d;
-        --light-bg: #1e1e1e;
-        --border-color: #404040;
-        --text-muted: #adb5bd;
-    }
-    
-    body {
-        background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
-        color: #f8f9fa;
-    }
-    
-    .coin-list-table th {
-        background: linear-gradient(135deg, #2d2d2d, #404040);
-        color: #f8f9fa;
-    }
-    
-    .coin-symbol {
-        color: #f8f9fa;
-    }
-
-    .hourly-overview {
-        background: linear-gradient(135deg, #1f2937, #374151);
-        border-color: #4ade80;
-    }
-
-    .hourly-stat-item {
-        background: rgba(55, 65, 81, 0.9);
-        border-color: rgba(74, 222, 128, 0.3);
-    }
+/* ===== CUSTOM SCROLLBAR ===== */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
 }
 
-/* Animations */
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, var(--primary-color), var(--info-color));
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, var(--tracking-primary), var(--tracking-secondary));
+}
+
+/* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -764,63 +451,160 @@ body {
     }
 }
 
-.symbol-row {
-    animation: fadeInUp 0.3s ease-out;
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
-.stat-card {
-    animation: fadeInUp 0.3s ease-out;
+@keyframes tracking-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(13, 202, 240, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(13, 202, 240, 0.6);
+    }
 }
 
-.hourly-stat-item {
-    animation: fadeInUp 0.4s ease-out;
+/* Áp dụng animation */
+.card {
+    animation: fadeInUp 0.6s ease-out;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
+.stats-card:hover {
+    animation: pulse 0.6s ease-in-out;
 }
 
-::-webkit-scrollbar-track {
-    background: var(--light-bg);
+.tracking-24h-active {
+    animation: tracking-glow 2s ease-in-out infinite;
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 4px;
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --light-color: #2d2d2d;
+        --dark-color: #ffffff;
+        --text-muted: #a6a6a6;
+    }
+    
+    body {
+        background-color: #1a1a1a;
+        color: #ffffff;
+    }
+    
+    .card {
+        background-color: #2d2d2d;
+        color: #ffffff;
+    }
+    
+    .table {
+        color: #ffffff;
+    }
+    
+    .table tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-light);
+/* ===== PRINT STYLES ===== */
+@media print {
+    .btn,
+    .nav,
+    footer {
+        display: none !important;
+    }
+    
+    .card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #dee2e6;
+    }
+    
+    #tracking24hChart {
+        height: 300px !important;
+    }
 }
 
-/* Focus States */
-.btn-time-filter:focus,
-.btn:focus {
+/* ===== ACCESSIBILITY ===== */
+.btn:focus,
+.nav-link:focus,
+.form-check-input:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
 
-/* Print Styles */
-@media print {
-    .navbar,
-    .time-filter,
-    .btn-group,
-    .hourly-overview .trend-indicator,
-    .mini-chart-container {
-        display: none;
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .card {
+        border: 2px solid var(--dark-color);
     }
     
-    .main-tabs {
-        box-shadow: none;
+    .btn {
+        border-width: 2px;
     }
     
-    body {
-        background: white;
+    .change-positive {
+        color: #008000 !important;
     }
     
-    .hourly-overview {
-        background: white;
-        border: 1px solid #ccc;
+    .change-negative {
+        color: #cc0000 !important;
+    }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-tracking-gradient {
+    background: linear-gradient(135deg, var(--tracking-primary), var(--tracking-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.border-gradient {
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, var(--primary-color), var(--info-color)) border-box;
+}
+
+.shadow-tracking {
+    box-shadow: 0 4px 15px rgba(13, 202, 240, 0.2);
+}
+
+/* ===== SPECIAL EFFECTS CHO TRACKING 24H ===== */
+.tracking-24h-highlight {
+    position: relative;
+    overflow: hidden;
+}
+
+.tracking-24h-highlight::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(13, 202, 240, 0.1), transparent);
+    animation: tracking-sweep 3s linear infinite;
+}
+
+@keyframes tracking-sweep {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
     }
 }

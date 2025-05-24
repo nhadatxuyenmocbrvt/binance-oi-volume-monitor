@@ -3,375 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theo Dõi OI & Volume Binance - Bảng Điều Khiển 24H Nâng Cao</title>
+    <title>📈 Theo Dõi OI & Volume Binance - Tracking 24h</title>
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css">
-    <style>
-        :root {
-            --primary-color: #f7931e;
-            --success-color: #16c784;
-            --danger-color: #ea3943;
-            --warning-color: #f0b90b;
-            --dark-bg: #1e1e1e;
-            --card-bg: #2d2d2d;
-        }
-
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .navbar {
-            background: linear-gradient(135deg, var(--primary-color), #ffb74d) !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-
-        .main-tabs {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .nav-tabs {
-            border-bottom: none;
-            background-color: #f8f9fa;
-        }
-
-        .nav-tabs .nav-link {
-            border: none;
-            color: #6c757d;
-            font-weight: 500;
-            padding: 15px 25px;
-            margin: 0;
-            border-radius: 0;
-        }
-
-        .nav-tabs .nav-link.active {
-            background-color: white;
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
-        }
-
-        .tab-content {
-            padding: 0;
-        }
-
-        .coin-list-table {
-            margin: 0;
-        }
-
-        .coin-list-table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            border-top: none;
-            padding: 15px 10px;
-            font-size: 0.9rem;
-        }
-
-        .coin-list-table td {
-            padding: 12px 10px;
-            vertical-align: middle;
-            border-top: 1px solid #e9ecef;
-        }
-
-        .coin-symbol {
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .price-value {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .change-positive {
-            color: var(--success-color);
-        }
-
-        .change-negative {
-            color: var(--danger-color);
-        }
-
-        .change-neutral {
-            color: #6c757d;
-        }
-
-        .sentiment-badge {
-            font-size: 0.75rem;
-            padding: 4px 8px;
-        }
-
-        .sentiment-bullish {
-            background-color: var(--success-color);
-        }
-
-        .sentiment-bearish {
-            background-color: var(--danger-color);
-        }
-
-        .sentiment-neutral {
-            background-color: #6c757d;
-        }
-
-        .last-update {
-            background-color: #e9ecef;
-            padding: 10px 20px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-
-        .chart-container {
-            position: relative;
-            height: 400px;
-            margin: 20px 0;
-        }
-
-        .time-filter {
-            background-color: #f8f9fa;
-            padding: 15px 20px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .btn-time-filter {
-            margin-right: 10px;
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid #dee2e6;
-            background: white;
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        .btn-time-filter.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .stats-cards {
-            padding: 20px;
-            background-color: #f8f9fa;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .stat-label {
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        .anomalies-section {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-top: 20px;
-        }
-
-        .anomalies-header {
-            background-color: #f8f9fa;
-            padding: 15px 20px;
-            border-bottom: 1px solid #e9ecef;
-            font-weight: 600;
-        }
-
-        .loading-spinner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px;
-        }
-
-        /* ===== STYLES MỚI CHO 24H TRACKING ===== */
-        .mini-chart-container {
-            width: 120px;
-            height: 40px;
-            position: relative;
-        }
-
-        .mini-chart-container canvas {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        .chart-label {
-            display: block;
-            text-align: center;
-            margin-top: 2px;
-            font-size: 0.7rem;
-            color: #6c757d;
-        }
-
-        .chart-cell {
-            width: 140px;
-            text-align: center;
-        }
-
-        .trend-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            margin-top: 2px;
-        }
-
-        .trend-strong {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .trend-moderate {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .trend-weak {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .hourly-overview {
-            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px;
-            border: 1px solid #e1bee7;
-        }
-
-        .hourly-title {
-            font-weight: 600;
-            color: #4a148c;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .performance-badge {
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-
-        .performance-excellent {
-            background-color: #c8e6c9;
-            color: #1b5e20;
-        }
-
-        .performance-good {
-            background-color: #dcedc8;
-            color: #33691e;
-        }
-
-        .performance-average {
-            background-color: #fff9c4;
-            color: #f57f17;
-        }
-
-        .performance-poor {
-            background-color: #ffcdd2;
-            color: #c62828;
-        }
-
-        .hourly-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .hourly-stat-item {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .hourly-stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .hourly-stat-label {
-            font-size: 0.8rem;
-            color: #6c757d;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @media (max-width: 768px) {
-            .coin-list-table th,
-            .coin-list-table td {
-                padding: 8px 5px;
-                font-size: 0.85rem;
-            }
-            
-            .nav-tabs .nav-link {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-
-            .mini-chart-container {
-                width: 80px;
-                height: 30px;
-            }
-
-            .chart-cell {
-                width: 100px;
-            }
-
-            .hourly-overview {
-                margin: 10px;
-                padding: 15px;
-            }
-
-            .hourly-stats {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-        }
-    </style>
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <!-- Meta tags -->
+    <meta name="description" content="Hệ thống theo dõi Open Interest và Volume từ Binance với tracking 24h">
+    <meta name="keywords" content="Binance, Open Interest, Volume, Crypto, Bitcoin, Ethereum, Trading, Tracking 24h">
+    <meta name="author" content="Binance OI Monitor">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-graph-up-arrow"></i>
-                Theo Dõi OI & Volume Binance 24H
+            <a class="navbar-brand" href="#" style="font-size: 1.5rem; font-weight: bold;">
+                <i class="bi bi-graph-up-arrow me-2"></i>
+                📈 Theo Dõi OI & Volume Binance
             </a>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <button id="refreshBtn" class="btn btn-outline-light btn-sm">
-                            <i class="bi bi-arrow-clockwise"></i> Làm Mới
+                        <button class="btn btn-outline-light" id="refreshBtn" title="Làm mới dữ liệu">
+                            <i class="bi bi-arrow-clockwise me-1"></i>
+                            Làm Mới
                         </button>
                     </li>
                 </ul>
@@ -379,213 +51,437 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <!-- Thông tin cập nhật cuối -->
-        <div class="last-update">
-            <i class="bi bi-clock"></i>
-            <span id="lastUpdateTime">Đang tải dữ liệu 24h...</span>
-        </div>
-
-        <!-- ===== THÊM MỚI: Tổng quan 24h ===== -->
-        <div class="hourly-overview" id="hourlyOverview" style="display: none;">
-            <div class="hourly-title">
-                <i class="bi bi-stopwatch"></i>
-                <span>Tổng Quan 24 Giờ Qua</span>
-                <span class="badge bg-primary">Cập nhật theo giờ</span>
-            </div>
-            <div class="hourly-stats" id="hourlyStats">
-                <!-- Dữ liệu sẽ được cập nhật bằng JavaScript -->
-            </div>
-        </div>
-
-        <!-- Tabs chính -->
-        <div class="main-tabs">
-            <ul class="nav nav-tabs" id="mainTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="realtime-tab" data-bs-toggle="tab" data-bs-target="#realtime" type="button" role="tab">
-                        <i class="bi bi-activity"></i> Theo Dõi Thời Gian Thực (24H)
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="historical-tab" data-bs-toggle="tab" data-bs-target="#historical" type="button" role="tab">
-                        <i class="bi bi-calendar3"></i> Dữ Liệu Lịch Sử (Theo Ngày)
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="anomalies-tab" data-bs-toggle="tab" data-bs-target="#anomalies" type="button" role="tab">
-                        <i class="bi bi-exclamation-triangle"></i> Bất Thường
-                    </button>
-                </li>
-            </ul>
-
-            <div class="tab-content" id="mainTabContent">
-                <!-- Tab Thời Gian Thực -->
-                <div class="tab-pane fade show active" id="realtime" role="tabpanel">
-                    <!-- Bộ lọc thời gian -->
-                    <div class="time-filter">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <div>
-                                <span class="me-3"><strong>Khung Thời Gian:</strong></span>
-                                <button class="btn-time-filter active" data-timeframe="1h">1 Giờ</button>
-                                <button class="btn-time-filter" data-timeframe="4h">4 Giờ</button>
-                                <button class="btn-time-filter" data-timeframe="1d">1 Ngày</button>
-                            </div>
-                            <small class="text-muted">
-                                <i class="bi bi-clock-history"></i>
-                                Cập nhật mỗi giờ với tracking 24h
-                            </small>
-                        </div>
+    <!-- Status Bar -->
+    <div class="bg-light border-bottom py-2">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div id="lastUpdateTime" class="text-muted">
+                        <i class="bi bi-clock"></i>
+                        Đang tải dữ liệu...
                     </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <span class="badge bg-success">
+                        <i class="bi bi-wifi"></i>
+                        Kết nối ổn định
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Thống kê tổng quan -->
-                    <div class="stats-cards">
-                        <div class="row">
-                            <div class="col-md-3 col-6">
-                                <div class="stat-card">
-                                    <div class="stat-number" id="totalSymbols">-</div>
-                                    <div class="stat-label">Tổng Số Coin</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="stat-card">
-                                    <div class="stat-number text-success" id="bullishCount">-</div>
-                                    <div class="stat-label">Tăng Giá</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="stat-card">
-                                    <div class="stat-number text-danger" id="bearishCount">-</div>
-                                    <div class="stat-label">Giảm Giá</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="stat-card">
-                                    <div class="stat-number text-warning" id="neutralCount">-</div>
-                                    <div class="stat-label">Trung Tính</div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="container-fluid py-4">
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-pills nav-fill mb-4" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="realtime-tab" data-bs-toggle="tab" data-bs-target="#realtime" type="button" role="tab">
+                    <i class="bi bi-speedometer2 me-2"></i>
+                    <span class="d-none d-sm-inline">Theo Dõi Thời Gian Thực</span>
+                    <span class="d-sm-none">Thời Gian Thực</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tracking24h-tab" data-bs-toggle="tab" data-bs-target="#tracking24h" type="button" role="tab">
+                    <i class="bi bi-clock-history me-2"></i>
+                    <span class="d-none d-sm-inline">Tracking 24h (Theo Giờ)</span>
+                    <span class="d-sm-none">24h Tracking</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="historical-tab" data-bs-toggle="tab" data-bs-target="#historical" type="button" role="tab">
+                    <i class="bi bi-graph-up me-2"></i>
+                    <span class="d-none d-sm-inline">Dữ Liệu Lịch Sử</span>
+                    <span class="d-sm-none">Lịch Sử</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="anomalies-tab" data-bs-toggle="tab" data-bs-target="#anomalies" type="button" role="tab">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <span class="d-none d-sm-inline">Bất Thường</span>
+                    <span class="d-sm-none">Bất Thường</span>
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="mainTabContent">
+            
+            <!-- Realtime Tab -->
+            <div class="tab-pane fade show active" id="realtime" role="tabpanel" aria-labelledby="realtime-tab">
+                <!-- Time Filter Buttons -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="mb-0">
+                            <i class="bi bi-speedometer2 text-primary me-2"></i>
+                            Theo Dõi Thời Gian Thực (Theo Giờ)
+                        </h4>
+                        <p class="text-muted mb-0">Cập nhật mỗi 30 phút • Hiển thị xu hướng theo giờ</p>
                     </div>
-
-                    <!-- Danh sách coin thời gian thực với biểu đồ mini 24h -->
-                    <div class="table-responsive">
-                        <table class="table table-hover coin-list-table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Coin</th>
-                                    <th>Thay Đổi Giá</th>
-                                    <th>Thay Đổi Volume</th>
-                                    <th>Thay Đổi OI</th>
-                                    <th>Xu Hướng</th>
-                                    <th>Biểu Đồ 24H</th>
-                                    <th>Thao Tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="realtimeTableBody">
-                                <tr>
-                                    <td colspan="7" class="text-center">
-                                        <div class="loading-spinner">
-                                            <div class="spinner-border text-primary" role="status">
-                                                <span class="visually-hidden">Đang tải dữ liệu 24h...</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary btn-time-filter active" data-timeframe="1h">
+                            1 Giờ
+                        </button>
+                        <button type="button" class="btn btn-outline-primary btn-time-filter" data-timeframe="4h">
+                            4 Giờ
+                        </button>
+                        <button type="button" class="btn btn-outline-primary btn-time-filter" data-timeframe="1d">
+                            1 Ngày
+                        </button>
                     </div>
                 </div>
 
-                <!-- Tab Lịch Sử -->
-                <div class="tab-pane fade" id="historical" role="tabpanel">
-                    <!-- Bộ lọc thời gian -->
-                    <div class="time-filter">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <div>
-                                <span class="me-3"><strong>Giai Đoạn:</strong></span>
-                                <button class="btn-time-filter active" data-period="7d">7 Ngày</button>
-                                <button class="btn-time-filter" data-period="30d">30 Ngày</button>
-                                <button class="btn-time-filter" data-period="90d">90 Ngày</button>
+                <!-- Statistics Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <div class="card h-100 stats-card">
+                            <div class="card-body text-center">
+                                <div class="display-4 text-primary mb-2" id="totalSymbols">5</div>
+                                <h6 class="card-title text-muted">Tổng Số Coin</h6>
                             </div>
-                            <small class="text-muted">Dữ liệu lịch sử theo ngày</small>
                         </div>
                     </div>
-
-                    <!-- Danh sách coin lịch sử -->
-                    <div class="table-responsive">
-                        <table class="table table-hover coin-list-table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Coin</th>
-                                    <th>Giá 7 Ngày</th>
-                                    <th>Volume 7 Ngày</th>
-                                    <th>OI 7 Ngày</th>
-                                    <th>Giá 30 Ngày</th>
-                                    <th>OI 30 Ngày</th>
-                                    <th>Xu Hướng</th>
-                                </tr>
-                            </thead>
-                            <tbody id="historicalTableBody">
-                                <tr>
-                                    <td colspan="7" class="text-center">
-                                        <div class="loading-spinner">
-                                            <div class="spinner-border text-primary" role="status">
-                                                <span class="visually-hidden">Đang tải...</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <div class="card h-100 stats-card stats-bullish">
+                            <div class="card-body text-center">
+                                <div class="display-4 text-success mb-2" id="bullishCount">0</div>
+                                <h6 class="card-title">Tăng Giá</h6>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Biểu đồ lịch sử -->
-                    <div class="chart-container">
-                        <canvas id="historicalChart"></canvas>
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <div class="card h-100 stats-card stats-bearish">
+                            <div class="card-body text-center">
+                                <div class="display-4 text-danger mb-2" id="bearishCount">0</div>
+                                <h6 class="card-title">Giảm Giá</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <div class="card h-100 stats-card stats-neutral">
+                            <div class="card-body text-center">
+                                <div class="display-4 text-warning mb-2" id="neutralCount">5</div>
+                                <h6 class="card-title">Trung Tính</h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Tab Bất Thường -->
-                <div class="tab-pane fade" id="anomalies" role="tabpanel">
-                    <div class="time-filter">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <h6 class="mb-0">Bất Thường Gần Đây</h6>
-                            <small class="text-muted">Cập nhật mỗi 15 phút</small>
+                <!-- Realtime Data Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-table me-2"></i>
+                            Dữ Liệu Thời Gian Thực
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="realtimeTable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Coin</th>
+                                        <th>Thay Đổi Giá</th>
+                                        <th>Thay Đổi Volume</th>
+                                        <th>Thay Đổi OI</th>
+                                        <th>Xu Hướng</th>
+                                        <th>Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="realtimeTableBody">
+                                    <!-- Dữ liệu sẽ được tải bằng JavaScript -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-hover coin-list-table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Thời Gian</th>
-                                    <th>Coin</th>
-                                    <th>Loại</th>
-                                    <th>Thông Điệp</th>
-                                    <th>Mức Độ</th>
-                                </tr>
-                            </thead>
-                            <tbody id="anomaliesTableBody">
-                                <tr>
-                                    <td colspan="5" class="text-center">
-                                        <div class="loading-spinner">
-                                            <div class="spinner-border text-primary" role="status">
-                                                <span class="visually-hidden">Đang tải...</span>
-                                            </div>
+            <!-- Tracking 24h Tab - THÊM MỚI -->
+            <div class="tab-pane fade" id="tracking24h" role="tabpanel" aria-labelledby="tracking24h-tab">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="mb-0">
+                            <i class="bi bi-clock-history text-info me-2"></i>
+                            Tracking 24h - Theo Dõi Từng Giờ
+                        </h4>
+                        <p class="text-muted mb-0">Theo dõi biến động từ 0h-24h • Cập nhật mỗi giờ đúng</p>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-info btn-sm" onclick="monitor.lamMoiTracking24h()">
+                            <i class="bi bi-arrow-clockwise me-1"></i>
+                            Làm Mới
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="monitor.xuatBaoCao24h()">
+                            <i class="bi bi-download me-1"></i>
+                            Xuất Báo Cáo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 24h Statistics Overview -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-bar-chart me-2"></i>
+                                    Thống Kê Tổng Quan 24h
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="tracking24hStats">
+                                    <!-- Thống kê sẽ được tải bằng JavaScript -->
+                                    <div class="text-center py-3">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Đang tải...</span>
                                         </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <p class="text-muted mt-2">Đang tải thống kê 24h...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 24h Chart -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-graph-up me-2"></i>
+                                    Biểu Đồ Tracking 24h - Thay Đổi Giá Theo Giờ
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="tracking24hChart" style="height: 400px;">
+                                    <!-- Biểu đồ sẽ được tạo bằng JavaScript -->
+                                    <div class="text-center py-5">
+                                        <div class="spinner-border text-info" role="status">
+                                            <span class="visually-hidden">Đang tải biểu đồ...</span>
+                                        </div>
+                                        <p class="text-muted mt-3">Đang tải biểu đồ tracking 24h...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 24h Detailed View Options -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-list-check me-2"></i>
+                                    Tùy Chọn Hiển Thị
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="showPrice24h" checked>
+                                    <label class="form-check-label" for="showPrice24h">
+                                        Hiển thị thay đổi giá
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="showVolume24h">
+                                    <label class="form-check-label" for="showVolume24h">
+                                        Hiển thị thay đổi volume
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="showOI24h">
+                                    <label class="form-check-label" for="showOI24h">
+                                        Hiển thị thay đổi OI
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="showVolatility24h">
+                                    <label class="form-check-label" for="showVolatility24h">
+                                        Hiển thị độ biến động
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Thông Tin Tracking 24h
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        <strong>Cập nhật:</strong> Mỗi giờ đúng (0 phút)
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        <strong>Dữ liệu:</strong> 24 giờ gần nhất từ 0h-24h
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        <strong>Metrics:</strong> Giá, Volume, OI, Volatility
+                                    </li>
+                                    <li>
+                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                        <strong>Mục đích:</strong> Phân tích xu hướng trong ngày
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historical Data Tab -->
+            <div class="tab-pane fade" id="historical" role="tabpanel" aria-labelledby="historical-tab">
+                <!-- Period Filter Buttons -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="mb-0">
+                            <i class="bi bi-graph-up text-success me-2"></i>
+                            Dữ Liệu Lịch Sử (Theo Ngày)
+                        </h4>
+                        <p class="text-muted mb-0">Phân tích xu hướng dài hạn • Cập nhật hàng ngày</p>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-success btn-time-filter active" data-period="7d">
+                            7 Ngày
+                        </button>
+                        <button type="button" class="btn btn-outline-success btn-time-filter" data-period="30d">
+                            30 Ngày
+                        </button>
+                        <button type="button" class="btn btn-outline-success btn-time-filter" data-period="90d">
+                            90 Ngày
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Historical Chart -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-graph-up me-2"></i>
+                                    Biểu Đồ Lịch Sử Hiệu Suất
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 400px;">
+                                    <canvas id="historicalChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Historical Data Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="bi bi-table me-2"></i>
+                            Bảng Dữ Liệu Lịch Sử
+                        </h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="historicalTable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Coin</th>
+                                        <th>7d Giá</th>
+                                        <th>7d Volume</th>
+                                        <th>7d OI</th>
+                                        <th>30d Giá</th>
+                                        <th>30d OI</th>
+                                        <th>Xu Hướng</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historicalTableBody">
+                                    <!-- Dữ liệu sẽ được tải bằng JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Anomalies Tab -->
+            <div class="tab-pane fade" id="anomalies" role="tabpanel" aria-labelledby="anomalies-tab">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="mb-0">
+                            <i class="bi bi-exclamation-triangle text-warning me-2"></i>
+                            Phát Hiện Bất Thường
+                        </h4>
+                        <p class="text-muted mb-0">Cảnh báo tự động • Cập nhật mỗi 15 phút</p>
+                    </div>
+                </div>
+
+                <!-- Anomalies Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="bi bi-list-ul me-2"></i>
+                            Danh Sách Bất Thường Gần Đây
+                        </h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="anomaliesTable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Thời Gian</th>
+                                        <th>Coin</th>
+                                        <th>Loại</th>
+                                        <th>Thông Điệp</th>
+                                        <th>Mức Độ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="anomaliesTableBody">
+                                    <!-- Dữ liệu sẽ được tải bằng JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>📈 Theo Dõi OI & Volume Binance</h6>
+                    <p class="mb-0">Hệ thống theo dõi Open Interest và Volume với tracking 24h</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        <i class="bi bi-code-slash me-1"></i>
+                        Được phát triển với ❤️ bằng Python & JavaScript
+                    </p>
+                    <small class="text-muted">
+                        Dữ liệu từ Binance API • Cập nhật tự động
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    
+    <!-- Custom JavaScript -->
     <script src="js/main.js"></script>
 </body>
 </html>

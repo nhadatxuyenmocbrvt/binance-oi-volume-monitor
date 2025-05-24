@@ -1,845 +1,208 @@
 /**
- * Hệ Thống Theo Dõi OI & Volume Binance - Phiên Bản Cải Tiến V2
+ * Hệ Thống Theo Dõi OI & Volume Binance - Tracking 24h
  * Tác giả: AI Assistant
- * Mô tả: Hệ thống theo dõi với error handling, performance optimization và UX tốt hơn
+ * Mô tả: Theo dõi Open Interest và Volume của các coin trên Binance với tracking 24h
  */
 
-class HeThongTheoDoi_Binance_VietNam_V2 {
+class HeThongTheoDoi_Binance_VietNam {
     constructor() {
-        // Cấu hình cơ bản
         this.khungThoiGianHienTai = '1h';
         this.giaiDoanHienTai = '7d';
-        this.cacBieuDo = new Map(); // Sử dụng Map thay vì object
+        this.cacBieuDo = {};
         this.danhSachCoin = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
-        
-        // Kho lưu trữ dữ liệu
         this.khoLuuTru = {
             thoiGianThuc: null,
-            lichSu: new Map(),
+            lichSu: {},
             batThuong: null,
-            capNhatLanCuoi: null,
-            hourly24h: null,
-            trangThaiKetNoi: 'disconnected'
+            tracking24h: null,
+            capNhatLanCuoi: null
         };
-        
-        // Cấu hình error handling
-        this.soLanThayLoi = 0;
-        this.maxRetries = 3;
-        this.retryDelay = 1000; // 1 giây
-        
-        // Cấu hình performance
-        this.debounceTimers = new Map();
-        this.requestQueue = [];
-        this.isProcessingQueue = false;
-        
-        // Cấu hình UI
-        this.toastContainer = null;
-        this.loadingOverlay = null;
-        
-        // Khởi tạo hệ thống
         this.khoiTao();
     }
 
-    // ================================
-    // KHỞI TẠO VÀ SETUP
-    // ================================
-
     async khoiTao() {
-        try {
-            console.log('🚀 Khởi tạo hệ thống theo dõi Binance V2...');
-            
-            // Thiết lập UI components
-            this.thietLapUIComponents();
-            
-            // Hiển thị trạng thái kết nối
-            this.hienThiTrangThaiKetNoi('connecting');
-            
-            // Gắn sự kiện
-            this.ganCacSuKien();
-            
-            // Tải dữ liệu ban đầu
-            await this.taiDuLieuBanDau();
-            
-            // Thiết lập auto-refresh
-            this.thietLapTuDongLamMoi();
-            
-            // Thiết lập WebSocket (future feature)
-            this.thietLapWebSocket();
-            
-            // Hiển thị trạng thái kết nối thành công
-            this.hienThiTrangThaiKetNoi('connected');
-            
-            console.log('✅ Hệ thống đã khởi tạo thành công');
-            
-        } catch (error) {
-            console.error('❌ Lỗi khởi tạo hệ thống:', error);
-            this.hienThiTrangThaiKetNoi('error');
-            this.hienThiThongBaoLoi('Không thể khởi tạo hệ thống. Đang thử lại...');
-            
-            // Retry sau 5 giây
-            setTimeout(() => this.khoiTao(), 5000);
-        }
+        this.ganCacSuKien();
+        this.thietLapWebSocket(); // Tính năng tương lai
+        await this.taiDuLieuBanDau();
+        this.thietLapTuDongLamMoi();
     }
 
-    thietLapUIComponents() {
-        // Tạo toast container
-        this.taoToastContainer();
-        
-        // Tạo loading overlay
-        this.taoLoadingOverlay();
-        
-        // Tạo connection status
-        this.taoConnectionStatus();
-        
-        // Thêm CSS cần thiết
-        this.themCSSBoSung();
-    }
-
-    // ================================
-    // UI COMPONENTS
-    // ================================
-
-    taoToastContainer() {
-        if (document.getElementById('toastContainer')) return;
-        
-        const container = document.createElement('div');
-        container.id = 'toastContainer';
-        container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
-        container.style.zIndex = '9999';
-        document.body.appendChild(container);
-        this.toastContainer = container;
-    }
-
-    taoLoadingOverlay() {
-        if (document.getElementById('globalLoadingOverlay')) return;
-        
-        const overlay = document.createElement('div');
-        overlay.id = 'globalLoadingOverlay';
-        overlay.className = 'global-loading-overlay';
-        overlay.innerHTML = `
-            <div class="loading-content">
-                <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
-                <h5 class="text-white">Đang tải dữ liệu 24H...</h5>
-                <p class="text-muted">Vui lòng chờ trong giây lát</p>
-                <div class="progress" style="width: 300px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
-                         role="progressbar" style="width: 0%" id="loadingProgress"></div>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-        this.loadingOverlay = overlay;
-    }
-
-    taoConnectionStatus() {
-        if (document.getElementById('connectionStatus')) return;
-        
-        const status = document.createElement('div');
-        status.id = 'connectionStatus';
-        status.className = 'connection-status';
-        document.body.appendChild(status);
-    }
-
-    themCSSBoSung() {
-        if (document.getElementById('enhanced-styles')) return;
-        
-        const style = document.createElement('style');
-        style.id = 'enhanced-styles';
-        style.textContent = `
-            .connection-status {
-                position: fixed;
-                top: 10px;
-                right: 10px;
-                padding: 8px 12px;
-                border-radius: 20px;
-                font-size: 0.8rem;
-                font-weight: 500;
-                z-index: 1000;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            }
-            
-            .status-connecting {
-                background: linear-gradient(135deg, #ffc107, #fd7e14);
-                color: white;
-                animation: pulse 2s infinite;
-            }
-            
-            .status-connected {
-                background: linear-gradient(135deg, #28a745, #20c997);
-                color: white;
-            }
-            
-            .status-error {
-                background: linear-gradient(135deg, #dc3545, #fd7e14);
-                color: white;
-                animation: shake 0.5s ease-in-out;
-            }
-            
-            .global-loading-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                display: none;
-                justify-content: center;
-                align-items: center;
-                z-index: 9999;
-                backdrop-filter: blur(5px);
-            }
-            
-            .loading-content {
-                text-align: center;
-                color: white;
-                padding: 2rem;
-                border-radius: 10px;
-                background: rgba(255, 255, 255, 0.1);
-            }
-            
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.7; }
-            }
-            
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                25% { transform: translateX(-5px); }
-                75% { transform: translateX(5px); }
-            }
-            
-            .mini-chart-container {
-                width: 120px;
-                height: 50px;
-                position: relative;
-                margin: 0 auto;
-                background: rgba(247, 147, 30, 0.05);
-                border-radius: 8px;
-                padding: 5px;
-                border: 1px solid rgba(247, 147, 30, 0.1);
-                transition: all 0.3s ease;
-            }
-            
-            .mini-chart-container:hover {
-                transform: scale(1.05);
-                box-shadow: 0 4px 12px rgba(247, 147, 30, 0.2);
-            }
-            
-            .chart-cell {
-                width: 140px;
-                text-align: center;
-                padding: 8px 5px !important;
-            }
-            
-            .symbol-row {
-                transition: all 0.3s ease;
-            }
-            
-            .symbol-row:hover {
-                background-color: rgba(247, 147, 30, 0.03) !important;
-                transform: translateY(-1px);
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            }
-            
-            .error-message {
-                background: linear-gradient(135deg, #f8d7da, #f5c6cb);
-                border: 1px solid #f1aeb5;
-                color: #721c24;
-                padding: 1rem;
-                border-radius: 8px;
-                margin: 1rem 0;
-                text-align: center;
-            }
-            
-            .retry-button {
-                background: linear-gradient(135deg, #17a2b8, #138496);
-                color: white;
-                border: none;
-                padding: 8px 16px;
-                border-radius: 20px;
-                font-size: 0.9rem;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-            
-            .retry-button:hover {
-                transform: translateY(-1px);
-                box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    // ================================
-    // TRẠNG THÁI VÀ THÔNG BÁO
-    // ================================
-
-    hienThiTrangThaiKetNoi(trangThai) {
-        const statusElement = document.getElementById('connectionStatus');
-        if (!statusElement) return;
-
-        const trangThaiMap = {
-            'connecting': { 
-                text: 'Đang kết nối...', 
-                class: 'status-connecting', 
-                icon: 'arrow-clockwise',
-                spin: true
-            },
-            'connected': { 
-                text: 'Đã kết nối', 
-                class: 'status-connected', 
-                icon: 'wifi',
-                spin: false
-            },
-            'error': { 
-                text: 'Lỗi kết nối', 
-                class: 'status-error', 
-                icon: 'wifi-off',
-                spin: false
-            },
-            'disconnected': { 
-                text: 'Mất kết nối', 
-                class: 'status-disconnected', 
-                icon: 'exclamation-triangle',
-                spin: false
-            }
-        };
-
-        const status = trangThaiMap[trangThai] || trangThaiMap['disconnected'];
-        const iconClass = status.spin ? `bi-${status.icon} spin` : `bi-${status.icon}`;
-        
-        statusElement.innerHTML = `
-            <i class="bi ${iconClass}"></i>
-            <span>${status.text}</span>
-        `;
-        statusElement.className = `connection-status ${status.class}`;
-        
-        this.khoLuuTru.trangThaiKetNoi = trangThai;
-    }
-
-    hienThiThongBaoLoi(thongDiep, loai = 'error', tuDongDong = true) {
-        const toastElement = document.createElement('div');
-        toastElement.className = `toast align-items-center text-white bg-${loai === 'error' ? 'danger' : 'warning'} border-0`;
-        toastElement.setAttribute('role', 'alert');
-        toastElement.innerHTML = `
-            <div class="d-flex">
-                <div class="toast-body">
-                    <i class="bi bi-${loai === 'error' ? 'exclamation-triangle' : 'info-circle'} me-2"></i>
-                    ${thongDiep}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        `;
-
-        this.toastContainer.appendChild(toastElement);
-        
-        // Sử dụng Bootstrap Toast
-        const toast = new bootstrap.Toast(toastElement, { 
-            delay: tuDongDong ? 5000 : 0,
-            autohide: tuDongDong
-        });
-        toast.show();
-
-        // Xóa element sau khi ẩn
-        toastElement.addEventListener('hidden.bs.toast', () => {
-            toastElement.remove();
+    ganCacSuKien() {
+        // Nút làm mới
+        document.getElementById('refreshBtn').addEventListener('click', async () => {
+            await this.lamMoiDuLieuManh();
         });
 
-        return toast;
-    }
-
-    hienThiThongBaoThanhCong(thongDiep) {
-        this.hienThiThongBaoLoi(thongDiep, 'success', true);
-    }
-
-    // ================================
-    // FETCH VỚI ERROR HANDLING
-    // ================================
-
-    async fetchVoiRetry(url, options = {}) {
-        let lastError;
-        
-        for (let attempt = 1; attempt <= this.maxRetries; attempt++) {
-            try {
-                // Thêm timeout controller
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
-
-                const response = await fetch(url + '?' + Date.now(), {
-                    ...options,
-                    signal: controller.signal,
-                    headers: {
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache',
-                        ...options.headers
-                    }
-                });
-
-                clearTimeout(timeoutId);
-
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-
-                // Kiểm tra content type
-                const contentType = response.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    throw new Error('Response không phải JSON');
-                }
-
-                const data = await response.json();
+        // Các nút bộ lọc thời gian
+        document.querySelectorAll('.btn-time-filter').forEach(nut => {
+            nut.addEventListener('click', async (e) => {
+                const khungThoiGian = e.target.dataset.timeframe;
+                const giaiDoan = e.target.dataset.period;
                 
-                // Validate dữ liệu cơ bản
-                if (!this.validateData(data, url)) {
-                    throw new Error('Dữ liệu không hợp lệ');
+                if (khungThoiGian) {
+                    this.khungThoiGianHienTai = khungThoiGian;
+                    this.capNhatBoLocHoatDong(e.target);
+                    await this.capNhatGiaoDienThoiGianThuc();
                 }
-
-                return { data, response };
-
-            } catch (error) {
-                lastError = error;
-                console.warn(`Lần thử ${attempt}/${this.maxRetries} thất bại cho ${url}:`, error.message);
                 
-                if (attempt < this.maxRetries) {
-                    // Exponential backoff
-                    const delay = this.retryDelay * Math.pow(2, attempt - 1);
-                    await new Promise(resolve => setTimeout(resolve, delay));
+                if (giaiDoan) {
+                    this.giaiDoanHienTai = giaiDoan;
+                    this.capNhatBoLocHoatDong(e.target);
+                    await this.capNhatGiaoDienLichSu();
                 }
-            }
-        }
-        
-        throw lastError;
+            });
+        });
+
+        // Sự kiện chuyển đổi tab
+        document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', async (e) => {
+                const dich = e.target.getAttribute('data-bs-target');
+                if (dich === '#historical') {
+                    await this.taiGiaoDienLichSu();
+                } else if (dich === '#anomalies') {
+                    await this.taiGiaoDienBatThuong();
+                } else if (dich === '#realtime') {
+                    await this.taiGiaoDienThoiGianThuc();
+                } else if (dich === '#tracking24h') {
+                    await this.taiGiaoDienTracking24h();
+                }
+            });
+        });
+
+        // THÊM MỚI: Sự kiện cho tracking 24h
+        this.capNhatSuKienTuyChon24h();
     }
 
-    validateData(data, url) {
-        // Validate cơ bản dựa trên URL
-        if (url.includes('daily_summary.json')) {
-            return data && data.symbols && typeof data.symbols === 'object';
-        }
-        
-        if (url.includes('hourly_24h_summary.json')) {
-            return data && data.summary_type === '24h_hourly';
-        }
-        
-        if (url.includes('.json') && !url.includes('summary')) {
-            return data && (data.klines || data.open_interest);
-        }
-        
-        return true; // Default validation
+    capNhatBoLocHoatDong(nutHoatDong) {
+        nutHoatDong.parentNode.querySelectorAll('.btn-time-filter').forEach(nut => {
+            nut.classList.remove('active');
+        });
+        nutHoatDong.classList.add('active');
     }
-
-    // ================================
-    // TỐI ƯU LOADING VÀ PROGRESS
-    // ================================
-
-    hienThiDangTaiToanCuc(showProgress = true) {
-        if (this.loadingOverlay) {
-            this.loadingOverlay.style.display = 'flex';
-            
-            if (showProgress) {
-                this.capNhatProgress(0);
-            }
-        }
-    }
-
-    anDangTaiToanCuc() {
-        if (this.loadingOverlay) {
-            this.loadingOverlay.style.display = 'none';
-        }
-    }
-
-    capNhatProgress(percentage) {
-        const progressBar = document.getElementById('loadingProgress');
-        if (progressBar) {
-            progressBar.style.width = `${Math.min(100, Math.max(0, percentage))}%`;
-        }
-    }
-
-    // ================================
-    // TẢI DỮ LIỆU VỚI PROGRESS TRACKING
-    // ================================
 
     async taiDuLieuBanDau() {
         try {
-            this.hienThiDangTaiToanCuc(true);
+            this.hienThiDangTaiToanCuc();
             
-            const tasks = [
-                { name: 'Dữ liệu thời gian thực', fn: () => this.taiDuLieuThoiGianThuc() },
-                { name: 'Dữ liệu 24h theo giờ', fn: () => this.taiDuLieu24hTheoGio() },
-                { name: 'Dữ liệu các coin', fn: () => this.taiDuLieuCacCoin() },
-                { name: 'Dữ liệu bất thường', fn: () => this.taiDuLieuBatThuong() }
-            ];
-
-            const results = [];
-            
-            for (let i = 0; i < tasks.length; i++) {
-                const task = tasks[i];
-                try {
-                    console.log(`📡 Đang tải: ${task.name}...`);
-                    const result = await task.fn();
-                    results.push({ success: true, data: result, name: task.name });
-                    
-                    // Cập nhật progress
-                    this.capNhatProgress(((i + 1) / tasks.length) * 100);
-                    
-                } catch (error) {
-                    console.error(`❌ Lỗi tải ${task.name}:`, error);
-                    results.push({ success: false, error, name: task.name });
-                }
-            }
-
-            // Đánh giá kết quả
-            const successCount = results.filter(r => r.success).length;
-            const failCount = results.length - successCount;
-
-            if (successCount === 0) {
-                throw new Error('Không thể tải bất kỳ dữ liệu nào');
-            }
-
-            if (failCount > 0) {
-                this.hienThiThongBaoLoi(
-                    `Đã tải ${successCount}/${results.length} nguồn dữ liệu. ${failCount} nguồn thất bại.`,
-                    'warning'
-                );
-            } else {
-                this.hienThiThongBaoThanhCong('Đã tải tất cả dữ liệu thành công!');
-            }
+            // Tải tất cả dữ liệu song song
+            await Promise.all([
+                this.taiDuLieuThoiGianThuc(),
+                this.taiDuLieuCacCoin(),
+                this.taiDuLieuBatThuong(),
+                this.taiDuLieuTracking24h()
+            ]);
             
             this.anDangTaiToanCuc();
             await this.capNhatTatCaGiaoDien();
-            
-        } catch (error) {
-            console.error('❌ Lỗi nghiêm trọng khi tải dữ liệu:', error);
+        } catch (loi) {
+            console.error('Lỗi khi tải dữ liệu ban đầu:', loi);
+            this.hienThiLoi('Không thể tải dữ liệu ban đầu');
             this.anDangTaiToanCuc();
-            this.hienThiLoi(error.message);
         }
+    }
+
+    async lamMoiDuLieuManh() {
+        this.khoLuuTru = {
+            thoiGianThuc: null,
+            lichSu: {},
+            batThuong: null,
+            tracking24h: null,
+            capNhatLanCuoi: null
+        };
+        await this.taiDuLieuBanDau();
     }
 
     async taiDuLieuThoiGianThuc() {
         try {
-            const { data } = await this.fetchVoiRetry('assets/data/daily_summary.json');
+            const phanHoi = await fetch('assets/data/daily_summary.json?' + Date.now());
+            if (!phanHoi.ok) throw new Error('Không thể tải dữ liệu thời gian thực');
             
-            this.khoLuuTru.thoiGianThuc = data;
+            const duLieu = await phanHoi.json();
+            this.khoLuuTru.thoiGianThuc = duLieu;
             this.khoLuuTru.capNhatLanCuoi = new Date();
-            this.hienThiTrangThaiKetNoi('connected');
             
-            return data;
-        } catch (error) {
-            this.hienThiTrangThaiKetNoi('error');
-            
-            // Fallback to cache nếu có
-            if (this.khoLuuTru.thoiGianThuc) {
-                console.warn('Sử dụng dữ liệu cache cho thời gian thực');
-                return this.khoLuuTru.thoiGianThuc;
-            }
-            
-            throw new Error(`Không thể tải dữ liệu thời gian thực: ${error.message}`);
-        }
-    }
-
-    async taiDuLieu24hTheoGio() {
-        try {
-            const { data } = await this.fetchVoiRetry('assets/data/hourly_24h_summary.json');
-            
-            this.khoLuuTru.hourly24h = data;
-            
-            // Hiển thị section 24h nếu có dữ liệu
-            const hourlyOverview = document.getElementById('hourlyOverview');
-            if (hourlyOverview && data) {
-                hourlyOverview.style.display = 'block';
-                this.capNhatTongQuan24h(data);
-            }
-            
-            console.log('✅ Đã tải dữ liệu 24h theo giờ');
-            return data;
-        } catch (error) {
-            console.warn('⚠️ Không thể tải dữ liệu 24h theo giờ:', error.message);
+            return duLieu;
+        } catch (loi) {
+            console.error('Lỗi khi tải dữ liệu thời gian thực:', loi);
             return null;
         }
     }
 
     async taiDuLieuCacCoin() {
-        const results = await Promise.allSettled(
-            this.danhSachCoin.map(async coin => {
+        try {
+            const cacLoiHua = this.danhSachCoin.map(async coin => {
                 try {
-                    const { data } = await this.fetchVoiRetry(`assets/data/${coin}.json`);
-                    this.khoLuuTru.lichSu.set(coin, data);
-                    return { coin, data };
-                } catch (error) {
-                    console.warn(`⚠️ Không thể tải dữ liệu ${coin}:`, error.message);
+                    const phanHoi = await fetch(`assets/data/${coin}.json?` + Date.now());
+                    if (!phanHoi.ok) return null;
+                    
+                    const duLieu = await phanHoi.json();
+                    this.khoLuuTru.lichSu[coin] = duLieu;
+                    return { coin, duLieu };
+                } catch (loi) {
+                    console.error(`Lỗi khi tải dữ liệu ${coin}:`, loi);
                     return null;
                 }
-            })
-        );
+            });
 
-        const successCount = results.filter(r => r.status === 'fulfilled' && r.value).length;
-        console.log(`✅ Đã tải dữ liệu cho ${successCount}/${this.danhSachCoin.length} coins`);
-        
-        return results;
-    }
-
-    async taiDuLieuBatThuong() {
-        try {
-            // Ưu tiên lấy từ daily_summary
-            if (this.khoLuuTru.thoiGianThuc?.anomalies) {
-                this.khoLuuTru.batThuong = this.khoLuuTru.thoiGianThuc.anomalies;
-                return this.khoLuuTru.batThuong;
-            }
-
-            // Fallback sang file riêng
-            const { data } = await this.fetchVoiRetry('assets/data/anomalies.json');
-            this.khoLuuTru.batThuong = data;
-            return data;
-            
-        } catch (error) {
-            console.warn('⚠️ Không thể tải dữ liệu bất thường:', error.message);
-            this.khoLuuTru.batThuong = [];
+            const ketQua = await Promise.allSettled(cacLoiHua);
+            return ketQua;
+        } catch (loi) {
+            console.error('Lỗi khi tải dữ liệu các coin:', loi);
             return [];
         }
     }
 
-    // ================================
-    // XỬ LÝ LỖI VÀ FALLBACK
-    // ================================
-
-    hienThiLoi(message) {
-        const errorContainer = document.getElementById('errorContainer') || this.taoErrorContainer();
-        
-        errorContainer.innerHTML = `
-            <div class="error-message">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                <strong>Có lỗi xảy ra:</strong> ${message}
-                <br>
-                <button class="retry-button mt-2" onclick="monitor.lamMoiDuLieuManh()">
-                    <i class="bi bi-arrow-clockwise me-1"></i>
-                    Thử lại
-                </button>
-            </div>
-        `;
-        errorContainer.style.display = 'block';
-    }
-
-    taoErrorContainer() {
-        const container = document.createElement('div');
-        container.id = 'errorContainer';
-        container.style.display = 'none';
-        
-        // Thêm vào container chính
-        const mainContainer = document.querySelector('.container');
-        if (mainContainer) {
-            mainContainer.insertBefore(container, mainContainer.firstChild);
-        }
-        
-        return container;
-    }
-
-    anThongBaoLoi() {
-        const errorContainer = document.getElementById('errorContainer');
-        if (errorContainer) {
-            errorContainer.style.display = 'none';
-        }
-    }
-
-    // ================================
-    // PERFORMANCE VÀ MEMORY MANAGEMENT
-    // ================================
-
-    // Debounce function calls
-    debounce(func, delay, key) {
-        if (this.debounceTimers.has(key)) {
-            clearTimeout(this.debounceTimers.get(key));
-        }
-        
-        const timer = setTimeout(() => {
-            func();
-            this.debounceTimers.delete(key);
-        }, delay);
-        
-        this.debounceTimers.set(key, timer);
-    }
-
-    // Cleanup biểu đồ để tránh memory leak
-    cleanupBieuDo(key) {
-        if (this.cacBieuDo.has(key)) {
-            const chart = this.cacBieuDo.get(key);
-            if (chart && typeof chart.destroy === 'function') {
-                chart.destroy();
-            }
-            this.cacBieuDo.delete(key);
-        }
-    }
-
-    // Cleanup toàn bộ biểu đồ
-    cleanupTatCaBieuDo() {
-        this.cacBieuDo.forEach((chart, key) => {
-            if (chart && typeof chart.destroy === 'function') {
-                chart.destroy();
-            }
-        });
-        this.cacBieuDo.clear();
-    }
-
-    // ================================
-    // CÁC METHODS GỐC (ĐƯỢC CẢI THIỆN)
-    // ================================
-
-    ganCacSuKien() {
-        // Nút làm mới với debounce
-        const refreshBtn = document.getElementById('refreshBtn');
-        if (refreshBtn) {
-            refreshBtn.addEventListener('click', () => {
-                this.debounce(async () => {
-                    await this.lamMoiDuLieuManh();
-                }, 1000, 'refresh');
-            });
-        }
-
-        // Các nút bộ lọc thời gian với debounce
-        document.querySelectorAll('.btn-time-filter').forEach(nut => {
-            nut.addEventListener('click', (e) => {
-                const khungThoiGian = e.target.dataset.timeframe;
-                const giaiDoan = e.target.dataset.period;
-                
-                this.debounce(async () => {
-                    if (khungThoiGian) {
-                        this.khungThoiGianHienTai = khungThoiGian;
-                        this.capNhatBoLocHoatDong(e.target);
-                        await this.capNhatGiaoDienThoiGianThuc();
-                    }
-                    
-                    if (giaiDoan) {
-                        this.giaiDoanHienTai = giaiDoan;
-                        this.capNhatBoLocHoatDong(e.target);
-                        await this.capNhatGiaoDienLichSu();
-                    }
-                }, 300, `filter-${khungThoiGian || giaiDoan}`);
-            });
-        });
-
-        // Sự kiện chuyển tab
-        document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
-            tab.addEventListener('shown.bs.tab', async (e) => {
-                const target = e.target.getAttribute('data-bs-target');
-                
-                this.debounce(async () => {
-                    if (target === '#historical') {
-                        await this.taiGiaoDienLichSu();
-                    } else if (target === '#anomalies') {
-                        await this.taiGiaoDienBatThuong();
-                    } else if (target === '#realtime') {
-                        await this.taiGiaoDienThoiGianThuc();
-                        await this.taiDuLieu24hTheoGio();
-                    }
-                }, 200, `tab-${target}`);
-            });
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey || e.metaKey) {
-                switch(e.key) {
-                    case 'r':
-                        e.preventDefault();
-                        this.lamMoiDuLieuManh();
-                        break;
-                }
-            }
-        });
-    }
-
-    async lamMoiDuLieuManh() {
+    async taiDuLieuBatThuong() {
         try {
-            this.anThongBaoLoi();
-            console.log('🔄 Làm mới dữ liệu mạnh...');
-            
-            // Reset trạng thái
-            this.soLanThayLoi = 0;
-            this.khoLuuTru.trangThaiKetNoi = 'connecting';
-            
-            // Cleanup memory
-            this.cleanupTatCaBieuDo();
-            
-            // Reset dữ liệu
-            this.khoLuuTru = {
-                thoiGianThuc: null,
-                lichSu: new Map(),
-                batThuong: null,
-                capNhatLanCuoi: null,
-                hourly24h: null,
-                trangThaiKetNoi: 'connecting'
-            };
-            
-            await this.taiDuLieuBanDau();
-            
-        } catch (error) {
-            console.error('❌ Lỗi khi làm mới dữ liệu:', error);
-            this.hienThiLoi(error.message);
-        }
-    }
-
-    // ================================
-    // TỐI ƯU AUTO REFRESH
-    // ================================
-
-    thietLapTuDongLamMoi() {
-        // Clear existing intervals
-        if (this.refreshIntervals) {
-            this.refreshIntervals.forEach(interval => clearInterval(interval));
-        }
-        this.refreshIntervals = [];
-
-        // Làm mới dữ liệu nhẹ mỗi 5 phút
-        const lightRefresh = setInterval(async () => {
-            if (this.khoLuuTru.trangThaiKetNoi === 'connected') {
-                try {
-                    console.log('🔄 Làm mới dữ liệu nhẹ...');
-                    await this.taiDuLieuThoiGianThuc();
-                    await this.taiDuLieu24hTheoGio();
-                    await this.capNhatGiaoDienThoiGianThuc();
-                    this.soLanThayLoi = 0;
-                } catch (error) {
-                    this.soLanThayLoi++;
-                    console.error(`❌ Lỗi làm mới lần ${this.soLanThayLoi}:`, error);
-                    
-                    if (this.soLanThayLoi >= 3) {
-                        this.hienThiThongBaoLoi('Mất kết nối liên tục. Sẽ thử lại sau.', 'warning');
-                    }
-                }
+            // Lấy từ dữ liệu thời gian thực
+            if (this.khoLuuTru.thoiGianThuc && this.khoLuuTru.thoiGianThuc.anomalies) {
+                this.khoLuuTru.batThuong = this.khoLuuTru.thoiGianThuc.anomalies;
+                return this.khoLuuTru.batThuong;
             }
-        }, 5 * 60 * 1000);
 
-        // Làm mới toàn bộ mỗi 30 phút
-        const fullRefresh = setInterval(async () => {
-            console.log('🔄 Làm mới toàn bộ dữ liệu...');
-            await this.lamMoiDuLieuManh();
-        }, 30 * 60 * 1000);
+            // Dự phòng từ file riêng
+            try {
+                const phanHoi = await fetch('assets/data/anomalies.json?' + Date.now());
+                if (phanHoi.ok) {
+                    const duLieu = await phanHoi.json();
+                    this.khoLuuTru.batThuong = duLieu;
+                    return duLieu;
+                }
+            } catch (loi) {
+                console.warn('Không tìm thấy file bất thường riêng');
+            }
 
-        this.refreshIntervals = [lightRefresh, fullRefresh];
+            return [];
+        } catch (loi) {
+            console.error('Lỗi khi tải dữ liệu bất thường:', loi);
+            return [];
+        }
     }
 
-    // ================================
-    // PLACEHOLDER METHODS (CẦN IMPLEMENT)
-    // ================================
+    async taiDuLieuTracking24h() {
+        try {
+            const phanHoi = await fetch('assets/data/tracking_24h.json?' + Date.now());
+            if (!phanHoi.ok) {
+                console.warn('Không thể tải dữ liệu tracking 24h');
+                return null;
+            }
+            
+            const duLieu = await phanHoi.json();
+            this.khoLuuTru.tracking24h = duLieu;
+            
+            return duLieu;
+        } catch (loi) {
+            console.error('Lỗi khi tải dữ liệu tracking 24h:', loi);
+            return null;
+        }
+    }
 
     async capNhatTatCaGiaoDien() {
-        // Implementation needed
-        console.log('Cập nhật tất cả giao diện...');
-    }
-
-    async capNhatGiaoDienThoiGianThuc() {
-        // Implementation needed
-        console.log('Cập nhật giao diện thời gian thực...');
-    }
-
-    async capNhatGiaoDienLichSu() {
-        // Implementation needed
-        console.log('Cập nhật giao diện lịch sử...');
-    }
-
-    async capNhatGiaoDienBatThuong() {
-        // Implementation needed
-        console.log('Cập nhật giao diện bất thường...');
+        await Promise.all([
+            this.capNhatGiaoDienThoiGianThuc(),
+            this.capNhatGiaoDienBatThuong(),
+            this.capNhatGiaoDienTracking24h()
+        ]);
     }
 
     async taiGiaoDienThoiGianThuc() {
@@ -854,77 +217,787 @@ class HeThongTheoDoi_Binance_VietNam_V2 {
         await this.capNhatGiaoDienBatThuong();
     }
 
-    capNhatBoLocHoatDong(nutHoatDong) {
-        nutHoatDong.parentNode.querySelectorAll('.btn-time-filter').forEach(nut => {
-            nut.classList.remove('active');
-        });
-        nutHoatDong.classList.add('active');
+    async taiGiaoDienTracking24h() {
+        await this.capNhatGiaoDienTracking24h();
     }
 
-    capNhatTongQuan24h(data) {
-        // Implementation needed
-        console.log('Cập nhật tổng quan 24h:', data);
+    async capNhatGiaoDienThoiGianThuc() {
+        if (!this.khoLuuTru.thoiGianThuc) return;
+
+        try {
+            const duLieu = this.khoLuuTru.thoiGianThuc;
+            
+            this.capNhatThoiGianCapNhatCuoi(duLieu.timestamp);
+            this.capNhatBangThoiGianThuc(duLieu.symbols);
+            this.capNhatThongKe(duLieu.symbols);
+        } catch (loi) {
+            console.error('Lỗi khi cập nhật giao diện thời gian thực:', loi);
+        }
+    }
+
+    async capNhatGiaoDienLichSu() {
+        try {
+            const duLieuLichSu = this.khoLuuTru.lichSu;
+            
+            this.capNhatBangLichSu(duLieuLichSu);
+            this.capNhatBieuDoLichSu(duLieuLichSu);
+        } catch (loi) {
+            console.error('Lỗi khi cập nhật giao diện lịch sử:', loi);
+        }
+    }
+
+    async capNhatGiaoDienBatThuong() {
+        try {
+            const batThuong = this.khoLuuTru.batThuong || [];
+            this.capNhatBangBatThuong(batThuong);
+        } catch (loi) {
+            console.error('Lỗi khi cập nhật giao diện bất thường:', loi);
+        }
+    }
+
+    async capNhatGiaoDienTracking24h() {
+        try {
+            const tracking24h = this.khoLuuTru.tracking24h;
+            if (!tracking24h) {
+                this.hienThiThongBaoTracking24h('Chưa có dữ liệu tracking 24h');
+                return;
+            }
+            
+            this.capNhatBieuDoTracking24h(tracking24h);
+            this.capNhatThongKeTracking24h(tracking24h);
+        } catch (loi) {
+            console.error('Lỗi khi cập nhật giao diện tracking 24h:', loi);
+        }
+    }
+
+    capNhatThoiGianCapNhatCuoi(thoiGian) {
+        const phanTuCapNhat = document.getElementById('lastUpdateTime');
+        if (phanTuCapNhat) {
+            const ngay = new Date(thoiGian);
+            phanTuCapNhat.innerHTML = `
+                <i class="bi bi-clock"></i>
+                Cập nhật lần cuối: ${ngay.toLocaleString('vi-VN')}
+                <span class="badge bg-success ms-2">Trực Tuyến</span>
+            `;
+        }
+    }
+
+    capNhatBangThoiGianThuc(symbols) {
+        const tbody = document.getElementById('realtimeTableBody');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+        // Sắp xếp symbols theo thay đổi giá tuyệt đối giảm dần
+        const symbolsSapXep = Object.entries(symbols).sort((a, b) => {
+            return Math.abs(b[1].price_change) - Math.abs(a[1].price_change);
+        });
+
+        symbolsSapXep.forEach(([symbol, duLieu]) => {
+            const hang = this.taoHangThoiGianThuc(symbol, duLieu);
+            tbody.appendChild(hang);
+        });
+    }
+
+    taoHangThoiGianThuc(symbol, duLieu) {
+        const hang = document.createElement('tr');
+        hang.className = 'symbol-row';
+        hang.setAttribute('data-symbol', symbol);
+        
+        const lopGia = this.layLopThayDoi(duLieu.price_change);
+        const lopVolume = this.layLopThayDoi(duLieu.volume_change);
+        const lopOI = this.layLopThayDoi(duLieu.oi_change);
+        const thongTinXuHuong = this.layThongTinXuHuong(duLieu.sentiment);
+
+        hang.innerHTML = `
+            <td>
+                <div class="d-flex align-items-center">
+                    <div class="symbol-icon me-2">
+                        <i class="bi bi-currency-bitcoin text-warning"></i>
+                    </div>
+                    <div>
+                        <div class="coin-symbol">${symbol}</div>
+                        <small class="text-muted">${this.layTenCoin(symbol)}</small>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="${lopGia}">
+                    <strong>${this.dinhDangPhanTram(duLieu.price_change)}</strong>
+                    <i class="bi bi-${duLieu.price_change >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                </div>
+                <small class="text-muted d-block">Thay đổi ${this.khungThoiGianHienTai}</small>
+            </td>
+            <td>
+                <div class="${lopVolume}">
+                    <strong>${this.dinhDangPhanTram(duLieu.volume_change)}</strong>
+                    <i class="bi bi-${duLieu.volume_change >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                </div>
+                <small class="text-muted d-block">So với TB 24h</small>
+            </td>
+            <td>
+                <div class="${lopOI}">
+                    <strong>${this.dinhDangPhanTram(duLieu.oi_change)}</strong>
+                    <i class="bi bi-${duLieu.oi_change >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
+                </div>
+                <small class="text-muted d-block">Open Interest</small>
+            </td>
+            <td>
+                <span class="badge sentiment-badge ${thongTinXuHuong.lop}" title="${thongTinXuHuong.moTa}">
+                    <i class="bi bi-${thongTinXuHuong.bieuTuong} me-1"></i>
+                    ${thongTinXuHuong.chuoi}
+                </span>
+            </td>
+            <td>
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-primary" onclick="monitor.hienThiChiTiet('${symbol}')" title="Xem Chi Tiết">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="btn btn-outline-info" onclick="monitor.hienThiBieuDo('${symbol}')" title="Xem Biểu Đồ">
+                        <i class="bi bi-graph-up"></i>
+                    </button>
+                    <button class="btn btn-outline-success" onclick="monitor.hienThiTracking24h('${symbol}')" title="Tracking 24h">
+                        <i class="bi bi-clock-history"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+
+        // Thêm hiệu ứng hover
+        hang.addEventListener('mouseenter', () => {
+            hang.style.backgroundColor = '#f8f9fa';
+        });
+        
+        hang.addEventListener('mouseleave', () => {
+            hang.style.backgroundColor = '';
+        });
+
+        return hang;
+    }
+
+    capNhatBangLichSu(duLieuLichSu) {
+        const tbody = document.getElementById('historicalTableBody');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+        Object.entries(duLieuLichSu).forEach(([symbol, duLieu]) => {
+            const hang = this.taoHangLichSu(symbol, duLieu);
+            tbody.appendChild(hang);
+        });
+    }
+
+    taoHangLichSu(symbol, duLieu) {
+        const hang = document.createElement('tr');
+        
+        // Tính toán thay đổi lịch sử dựa trên dữ liệu thực
+        const lichSu = this.tinhToanThayDoiLichSu(duLieu);
+
+        hang.innerHTML = `
+            <td>
+                <div class="d-flex align-items-center">
+                    <div class="symbol-icon me-2">
+                        <i class="bi bi-currency-bitcoin text-warning"></i>
+                    </div>
+                    <div>
+                        <div class="coin-symbol">${symbol}</div>
+                        <small class="text-muted">${this.layTenCoin(symbol)}</small>
+                    </div>
+                </div>
+            </td>
+            <td class="${this.layLopThayDoi(lichSu.gia7d)}">
+                <strong>${this.dinhDangPhanTram(lichSu.gia7d)}</strong>
+            </td>
+            <td class="${this.layLopThayDoi(lichSu.volume7d)}">
+                <strong>${this.dinhDangPhanTram(lichSu.volume7d)}</strong>
+            </td>
+            <td class="${this.layLopThayDoi(lichSu.oi7d)}">
+                <strong>${this.dinhDangPhanTram(lichSu.oi7d)}</strong>
+            </td>
+            <td class="${this.layLopThayDoi(lichSu.gia30d)}">
+                <strong>${this.dinhDangPhanTram(lichSu.gia30d)}</strong>
+            </td>
+            <td class="${this.layLopThayDoi(lichSu.oi30d)}">
+                <strong>${this.dinhDangPhanTram(lichSu.oi30d)}</strong>
+            </td>
+            <td>
+                <span class="badge bg-${lichSu.xuHuong.mau}">
+                    <i class="bi bi-${lichSu.xuHuong.bieuTuong} me-1"></i>
+                    ${lichSu.xuHuong.chuoi}
+                </span>
+            </td>
+        `;
+
+        return hang;
+    }
+
+    tinhToanThayDoiLichSu(duLieuSymbol) {
+        // Tính toán dựa trên dữ liệu lịch sử thực
+        // Hiện tại sử dụng dữ liệu mô phỏng
+        // Trong thực tế, bạn sẽ tính từ duLieuSymbol.klines
+        
+        return {
+            gia7d: (Math.random() - 0.5) * 20,
+            volume7d: (Math.random() - 0.5) * 40,
+            oi7d: (Math.random() - 0.5) * 15,
+            gia30d: (Math.random() - 0.5) * 30,
+            oi30d: (Math.random() - 0.5) * 25,
+            xuHuong: this.tinhToanXuHuong()
+        };
+    }
+
+    tinhToanXuHuong() {
+        const cacXuHuong = [
+            { chuoi: 'Tăng Mạnh', mau: 'success', bieuTuong: 'arrow-up-circle' },
+            { chuoi: 'Tăng', mau: 'success', bieuTuong: 'arrow-up' },
+            { chuoi: 'Ngang', mau: 'warning', bieuTuong: 'arrow-left-right' },
+            { chuoi: 'Giảm', mau: 'danger', bieuTuong: 'arrow-down' },
+            { chuoi: 'Giảm Mạnh', mau: 'danger', bieuTuong: 'arrow-down-circle' }
+        ];
+        return cacXuHuong[Math.floor(Math.random() * cacXuHuong.length)];
+    }
+
+    capNhatBangBatThuong(batThuong) {
+        const tbody = document.getElementById('anomaliesTableBody');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+        if (!batThuong || batThuong.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">
+                        <i class="bi bi-check-circle text-success me-2"></i>
+                        Không phát hiện bất thường nào
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        // Sắp xếp bất thường theo thời gian giảm dần
+        const batThuongSapXep = batThuong.sort((a, b) => 
+            new Date(b.timestamp) - new Date(a.timestamp)
+        );
+
+        batThuongSapXep.forEach(batThuong => {
+            const hang = this.taoHangBatThuong(batThuong);
+            tbody.appendChild(hang);
+        });
+    }
+
+    taoHangBatThuong(batThuong) {
+        const hang = document.createElement('tr');
+        const mucDo = this.layMucDoBatThuong(batThuong.message);
+        const thoiGianTruoc = this.layThoiGianTruoc(batThuong.timestamp);
+        
+        hang.innerHTML = `
+            <td>
+                <div>${this.dinhDangThoiGian(batThuong.timestamp)}</div>
+                <small class="text-muted">${thoiGianTruoc}</small>
+            </td>
+            <td>
+                <span class="coin-symbol">${batThuong.symbol}</span>
+            </td>
+            <td>
+                <span class="badge bg-info">
+                    <i class="bi bi-${this.layBieuTuongLoaiDuLieu(batThuong.data_type)} me-1"></i>
+                    ${this.dichLoaiDuLieu(batThuong.data_type)}
+                </span>
+            </td>
+            <td>
+                <div class="anomaly-message">${batThuong.message}</div>
+            </td>
+            <td>
+                <span class="badge bg-${mucDo.mau}">
+                    <i class="bi bi-${mucDo.bieuTuong} me-1"></i>
+                    ${mucDo.chuoi}
+                </span>
+            </td>
+        `;
+
+        return hang;
+    }
+
+    capNhatBieuDoTracking24h(tracking24h) {
+        const container = document.getElementById('tracking24hChart');
+        if (!container) return;
+
+        // Xóa biểu đồ cũ nếu có
+        if (this.cacBieuDo.tracking24h) {
+            this.cacBieuDo.tracking24h.destroy();
+        }
+
+        // Tạo canvas cho biểu đồ
+        container.innerHTML = '<canvas id="tracking24hCanvas"></canvas>';
+        const ctx = document.getElementById('tracking24hCanvas');
+
+        // Chuẩn bị dữ liệu biểu đồ
+        const duLieuBieuDo = this.chuanBiDuLieuBieuDo24h(tracking24h);
+
+        this.cacBieuDo.tracking24h = new Chart(ctx, {
+            type: 'line',
+            data: duLieuBieuDo,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Tracking 24h - Thay Đổi Giá Theo Giờ'
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Giờ'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Thay Đổi (%)'
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        });
+    }
+
+    chuanBiDuLieuBieuDo24h(tracking24h) {
+        const labels = [];
+        const datasets = [];
+
+        // Tạo labels cho 24 giờ
+        for (let i = 0; i < 24; i++) {
+            labels.push(`${i.toString().padStart(2, '0')}:00`);
+        }
+
+        // Tạo dataset cho từng symbol
+        this.danhSachCoin.forEach((symbol, index) => {
+            const symbolData = tracking24h.symbols[symbol];
+            if (symbolData && symbolData.hours_data) {
+                const data = new Array(24).fill(0);
+                
+                symbolData.hours_data.forEach(hourData => {
+                    const hour = new Date(hourData.hour_timestamp).getHours();
+                    data[hour] = hourData.price_change_1h || 0;
+                });
+
+                datasets.push({
+                    label: symbol,
+                    data: data,
+                    borderColor: this.layMauChoViTri(index),
+                    backgroundColor: this.layMauChoViTri(index) + '20',
+                    tension: 0.3,
+                    fill: false
+                });
+            }
+        });
+
+        return { labels, datasets };
+    }
+
+    capNhatThongKeTracking24h(tracking24h) {
+        const statsContainer = document.getElementById('tracking24hStats');
+        if (!statsContainer) return;
+
+        let html = '<div class="row">';
+
+        // Thống kê cho từng symbol
+        this.danhSachCoin.forEach(symbol => {
+            const symbolData = tracking24h.symbols[symbol];
+            if (symbolData) {
+                const volatility = symbolData.price_volatility || 0;
+                const price24h = symbolData.price_24h_change || 0;
+                const maxChange = symbolData.max_price_change_hour;
+
+                html += `
+                    <div class="col-md-4 col-lg-2 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <h6 class="card-title">${symbol}</h6>
+                                <div class="mb-2">
+                                    <div class="text-${price24h >= 0 ? 'success' : 'danger'}">
+                                        <strong>${this.dinhDangPhanTram(price24h)}</strong>
+                                    </div>
+                                    <small class="text-muted">24h Change</small>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="text-info">
+                                        <strong>${volatility.toFixed(2)}%</strong>
+                                    </div>
+                                    <small class="text-muted">Volatility</small>
+                                </div>
+                                ${maxChange ? `
+                                    <div>
+                                        <div class="text-warning">
+                                            <strong>${maxChange.hour}</strong>
+                                        </div>
+                                        <small class="text-muted">Max Change</small>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        html += '</div>';
+        statsContainer.innerHTML = html;
+    }
+
+    hienThiThongBaoTracking24h(thongBao) {
+        const container = document.getElementById('tracking24hChart');
+        if (container) {
+            container.innerHTML = `
+                <div class="text-center py-5">
+                    <i class="bi bi-clock-history display-1 text-muted"></i>
+                    <p class="text-muted mt-3">${thongBao}</p>
+                </div>
+            `;
+        }
+    }
+
+    capNhatThongKe(symbols) {
+        const thongKe = this.tinhThongKeChiTiet(symbols);
+        
+        document.getElementById('totalSymbols').textContent = thongKe.tong;
+        document.getElementById('bullishCount').textContent = thongKe.tang;
+        document.getElementById('bearishCount').textContent = thongKe.giam;
+        document.getElementById('neutralCount').textContent = thongKe.trungTinh;
+    }
+
+    tinhThongKeChiTiet(symbols) {
+        const thongKe = { 
+            tong: 0, 
+            tang: 0, 
+            giam: 0, 
+            trungTinh: 0,
+            trungBinhThayDoiGia: 0,
+            trungBinhThayDoiVolume: 0,
+            trungBinhThayDoiOI: 0
+        };
+        
+        const cacGiaTri = Object.values(symbols);
+        thongKe.tong = cacGiaTri.length;
+
+        let tongThayDoiGia = 0;
+        let tongThayDoiVolume = 0;
+        let tongThayDoiOI = 0;
+
+        cacGiaTri.forEach(duLieu => {
+            const xuHuong = duLieu.sentiment.toLowerCase();
+            
+            if (xuHuong.includes('bullish')) {
+                thongKe.tang++;
+            } else if (xuHuong.includes('bearish')) {
+                thongKe.giam++;
+            } else {
+                thongKe.trungTinh++;
+            }
+
+            tongThayDoiGia += duLieu.price_change || 0;
+            tongThayDoiVolume += duLieu.volume_change || 0;
+            tongThayDoiOI += duLieu.oi_change || 0;
+        });
+
+        thongKe.trungBinhThayDoiGia = tongThayDoiGia / thongKe.tong;
+        thongKe.trungBinhThayDoiVolume = tongThayDoiVolume / thongKe.tong;
+        thongKe.trungBinhThayDoiOI = tongThayDoiOI / thongKe.tong;
+
+        return thongKe;
+    }
+
+    capNhatBieuDoLichSu(duLieuLichSu) {
+        const ctx = document.getElementById('historicalChart');
+        if (!ctx) return;
+
+        if (this.cacBieuDo.lichSu) {
+            this.cacBieuDo.lichSu.destroy();
+        }
+
+        // Tạo nhãn cho giai đoạn
+        const nhan = this.taoNhanNgay(this.giaiDoanHienTai);
+        
+        // Tạo bộ dữ liệu cho từng symbol
+        const boDuLieu = Object.keys(duLieuLichSu).map((symbol, viTri) => {
+            const mau = this.layMauChoViTri(viTri);
+            return {
+                label: symbol,
+                data: this.taoDuLieuLichSuGia(nhan.length),
+                borderColor: mau,
+                backgroundColor: mau + '20',
+                tension: 0.1,
+                fill: false
+            };
+        });
+
+        this.cacBieuDo.lichSu = new Chart(ctx, {
+            type: 'line',
+            data: { labels: nhan, datasets: boDuLieu },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: `Biểu Đồ Lịch Sử Hiệu Suất Giá (${this.giaiDoanHienTai})`
+                    }
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Ngày'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Thay Đổi (%)'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    taoNhanNgay(giaiDoan) {
+        const soNgay = giaiDoan === '7d' ? 7 : giaiDoan === '30d' ? 30 : 90;
+        return Array.from({length: soNgay}, (_, i) => {
+            const ngay = new Date();
+            ngay.setDate(ngay.getDate() - (soNgay - 1 - i));
+            return ngay.toLocaleDateString('vi-VN');
+        });
+    }
+
+    taoDuLieuLichSuGia(doDai) {
+        let giaTri = 0;
+        return Array.from({length: doDai}, () => {
+            giaTri += (Math.random() - 0.5) * 5;
+            return giaTri;
+        });
+    }
+
+    // Các phương thức tiện ích
+    layLopThayDoi(thayDoi) {
+        if (thayDoi > 0) return 'change-positive';
+        if (thayDoi < 0) return 'change-negative';
+        return 'change-neutral';
+    }
+
+    layThongTinXuHuong(xuHuong) {
+        const s = xuHuong.toLowerCase();
+        
+        if (s.includes('strong') && s.includes('bullish')) {
+            return { 
+                lop: 'sentiment-bullish', 
+                chuoi: 'Tăng Mạnh', 
+                bieuTuong: 'arrow-up-circle-fill',
+                moTa: 'Xu hướng tăng mạnh'
+            };
+        } else if (s.includes('bullish')) {
+            return { 
+                lop: 'sentiment-bullish', 
+                chuoi: 'Tăng Giá', 
+                bieuTuong: 'arrow-up',
+                moTa: 'Xu hướng tăng giá'
+            };
+        } else if (s.includes('strong') && s.includes('bearish')) {
+            return { 
+                lop: 'sentiment-bearish', 
+                chuoi: 'Giảm Mạnh', 
+                bieuTuong: 'arrow-down-circle-fill',
+                moTa: 'Xu hướng giảm mạnh'
+            };
+        } else if (s.includes('bearish')) {
+            return { 
+                lop: 'sentiment-bearish', 
+                chuoi: 'Giảm Giá', 
+                bieuTuong: 'arrow-down',
+                moTa: 'Xu hướng giảm giá'
+            };
+        }
+        
+        return { 
+            lop: 'sentiment-neutral', 
+            chuoi: 'Trung Tính', 
+            bieuTuong: 'dash-circle',
+            moTa: 'Xu hướng trung tính'
+        };
+    }
+
+    layMucDoBatThuong(thongDiep) {
+        const zscore = parseFloat(thongDiep.match(/Z-score: ([\d.]+)/)?.[1] || 0);
+        
+        if (zscore > 4) {
+            return { mau: 'danger', chuoi: 'Nghiêm Trọng', bieuTuong: 'exclamation-triangle-fill' };
+        } else if (zscore > 3) {
+            return { mau: 'warning', chuoi: 'Cao', bieuTuong: 'exclamation-triangle' };
+        } else if (zscore > 2.5) {
+            return { mau: 'info', chuoi: 'Trung Bình', bieuTuong: 'info-circle' };
+        }
+        
+        return { mau: 'secondary', chuoi: 'Thấp', bieuTuong: 'info-circle' };
+    }
+
+    layBieuTuongLoaiDuLieu(loaiDuLieu) {
+        const bieuTuong = {
+            volume: 'bar-chart',
+            open_interest: 'pie-chart',
+            price: 'graph-up',
+            correlation: 'shuffle'
+        };
+        return bieuTuong[loaiDuLieu] || 'info-circle';
+    }
+
+    layTenCoin(symbol) {
+        const ten = {
+            'BTCUSDT': 'Bitcoin',
+            'ETHUSDT': 'Ethereum', 
+            'BNBUSDT': 'BNB',
+            'SOLUSDT': 'Solana',
+            'DOGEUSDT': 'Dogecoin'
+        };
+        return ten[symbol] || symbol;
+    }
+
+    layMauChoViTri(viTri) {
+        const mau = [
+            '#f7931e', // Bitcoin cam
+            '#627eea', // Ethereum xanh
+            '#f0b90b', // BNB vàng
+            '#9945ff', // Solana tím
+            '#c2a633'  // Dogecoin vàng
+        ];
+        return mau[viTri % mau.length];
+    }
+
+    dinhDangPhanTram(giaTri) {
+        if (giaTri === null || giaTri === undefined || isNaN(giaTri)) {
+            return 'N/A';
+        }
+        return `${giaTri >= 0 ? '+' : ''}${giaTri.toFixed(2)}%`;
+    }
+
+    dinhDangThoiGian(thoiGian) {
+        return new Date(thoiGian).toLocaleString('vi-VN');
+    }
+
+    layThoiGianTruoc(thoiGian) {
+        const bay_gio = new Date();
+        const thoi_gian = new Date(thoiGian);
+        const chenhLechMs = bay_gio - thoi_gian;
+        const chenhLechGio = Math.floor(chenhLechMs / (1000 * 60 * 60));
+        const chenhLechPhut = Math.floor(chenhLechMs / (1000 * 60));
+
+        if (chenhLechGio > 24) {
+            return `${Math.floor(chenhLechGio / 24)} ngày trước`;
+        } else if (chenhLechGio > 0) {
+            return `${chenhLechGio} giờ trước`;
+        } else {
+            return `${chenhLechPhut} phút trước`;
+        }
+    }
+
+    dichLoaiDuLieu(loai) {
+        const tuDien = {
+            volume: 'Khối Lượng',
+            open_interest: 'OI',
+            price: 'Giá',
+            correlation: 'Tương Quan'
+        };
+        return tuDien[loai] || loai;
+    }
+
+    vietHoaDauChu(chuoi) {
+        return chuoi.charAt(0).toUpperCase() + chuoi.slice(1);
+    }
+
+    // Các phương thức hành động
+    hienThiChiTiet(symbol) {
+        // Tạo modal hoặc điều hướng đến trang chi tiết
+        alert(`Hiển thị phân tích chi tiết cho ${symbol}`);
+        // TODO: Triển khai view chi tiết với biểu đồ, chỉ báo, v.v.
+    }
+
+    hienThiBieuDo(symbol) {
+        // Mở biểu đồ trong modal hoặc tab mới
+        alert(`Mở biểu đồ nâng cao cho ${symbol}`);
+        // TODO: Triển khai biểu đồ nâng cao với TradingView hoặc tương tự
+    }
+
+    hienThiTracking24h(symbol) {
+        // Chuyển đến tab tracking 24h và focus vào symbol
+        const tracking24hTab = document.querySelector('[data-bs-target="#tracking24h"]');
+        if (tracking24hTab) {
+            tracking24hTab.click();
+        }
+        // TODO: Highlight symbol trong biểu đồ tracking 24h
+    }
+
+    hienThiDangTaiToanCuc() {
+        // TODO: Hiển thị overlay đang tải toàn cục
+    }
+
+    anDangTaiToanCuc() {
+        // TODO: Ẩn overlay đang tải toàn cục
+    }
+
+    hienThiLoi(thongDiep) {
+        console.error(thongDiep);
+        // TODO: Hiển thị thông báo lỗi thân thiện với người dùng
     }
 
     thietLapWebSocket() {
-        // Future implementation
-        console.log('WebSocket sẽ được triển khai trong tương lai...');
+        // TODO: Triển khai WebSocket để cập nhật thời gian thực
+        // Kết nối đến Binance WebSocket hoặc WebSocket server của riêng bạn
     }
 
-    // ================================
-    // CLEANUP VÀ DESTROY
-    // ================================
+    thietLapTuDongLamMoi() {
+        // Làm mới dữ liệu mỗi 5 phút
+        setInterval(async () => {
+            console.log('Tự động làm mới dữ liệu...');
+            await this.taiDuLieuThoiGianThuc();
+            await this.taiDuLieuTracking24h();
+            await this.capNhatGiaoDienThoiGianThuc();
+            await this.capNhatGiaoDienTracking24h();
+        }, 5 * 60 * 1000);
 
-    destroy() {
-        // Cleanup intervals
-        if (this.refreshIntervals) {
-            this.refreshIntervals.forEach(interval => clearInterval(interval));
-        }
-
-        // Cleanup timers
-        this.debounceTimers.forEach(timer => clearTimeout(timer));
-        this.debounceTimers.clear();
-
-        // Cleanup charts
-        this.cleanupTatCaBieuDo();
-
-        // Remove event listeners
-        document.removeEventListener('keydown', this.handleKeydown);
-
-        console.log('🧹 Đã cleanup hệ thống');
+        // Làm mới toàn bộ dữ liệu mỗi 30 phút
+        setInterval(async () => {
+            console.log('Làm mới toàn bộ dữ liệu...');
+            await this.lamMoiDuLieuManh();
+        }, 30 * 60 * 1000);
     }
 }
 
-// ================================
-// KHỞI TẠO HỆ THỐNG
-// ================================
-
+// Khởi tạo hệ thống theo dõi nâng cao
 document.addEventListener('DOMContentLoaded', () => {
-    // Cleanup hệ thống cũ nếu có
-    if (window.monitor && typeof window.monitor.destroy === 'function') {
-        window.monitor.destroy();
-    }
-    
-    // Khởi tạo hệ thống mới
-    window.monitor = new HeThongTheoDoi_Binance_VietNam_V2();
-    
-    // Expose để debug
-    window.debugMonitor = {
-        getState: () => window.monitor.khoLuuTru,
-        getCharts: () => window.monitor.cacBieuDo,
-        forceRefresh: () => window.monitor.lamMoiDuLieuManh(),
-        cleanup: () => window.monitor.destroy()
-    };
+    window.monitor = new HeThongTheoDoi_Binance_VietNam();
 });
 
-// Cleanup khi unload
-window.addEventListener('beforeunload', () => {
-    if (window.monitor && typeof window.monitor.destroy === 'function') {
-        window.monitor.destroy();
-    }
-});
-
-// Export cho module environments
+// Xuất để debug
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = HeThongTheoDoi_Binance_VietNam_V2;
+    module.exports = HeThongTheoDoi_Binance_VietNam;
 }
