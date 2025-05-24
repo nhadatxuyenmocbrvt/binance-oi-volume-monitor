@@ -1,6 +1,6 @@
 {
   "symbol": "SOLUSDT",
-  "last_update": "2025-05-25T00:44:35.508225",
+  "last_update": "2025-05-25T01:14:57.586952",
   "klines": {
     "1h": [
       {
@@ -3296,16 +3296,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-23T14:00:00",
-      "open_interest": 7803347.19,
-      "open_interest_value": 1404680527.6719
-    },
-    {
-      "timestamp": "2025-05-23T15:00:00",
-      "open_interest": 7793005.62,
-      "open_interest_value": 1419807693.9078
-    },
-    {
       "timestamp": "2025-05-23T16:00:00",
       "open_interest": 7730645.72,
       "open_interest_value": 1396085404.0197237
@@ -3444,18 +3434,19 @@
       "timestamp": "2025-05-25T00:44:31",
       "open_interest": 7456710.52,
       "open_interest_value": 1319837762.04
+    },
+    {
+      "timestamp": "2025-05-25T01:00:00",
+      "open_interest": 7462708.33,
+      "open_interest_value": 1318809816.0776
+    },
+    {
+      "timestamp": "2025-05-25T01:14:53",
+      "open_interest": 7479816.0,
+      "open_interest_value": 1327143752.88
     }
   ],
   "tracking_24h": [
-    {
-      "hour_timestamp": "2025-05-24T01:00:00",
-      "price": 173.72,
-      "volume": 139874222.65189,
-      "open_interest": 1323098816.7012043,
-      "price_change_1h": 0.0,
-      "volume_change_1h": 0.0,
-      "oi_change_1h": 0.0
-    },
     {
       "hour_timestamp": "2025-05-24T02:00:00",
       "price": 174.81,
@@ -3662,6 +3653,15 @@
       "price_change_1h": 0.0,
       "volume_change_1h": 0.0,
       "oi_change_1h": 0.0
+    },
+    {
+      "hour_timestamp": "2025-05-25T01:00:00",
+      "price": 176.73,
+      "volume": 3092166104.829,
+      "open_interest": 1318809816.0776,
+      "price_change_1h": -0.20892151326934194,
+      "volume_change_1h": 11387.122541959885,
+      "oi_change_1h": 0.42821092610112377
     }
   ]
 }
