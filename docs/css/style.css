@@ -1,449 +1,362 @@
-/* 
- * Hệ Thống Theo Dõi OI & Volume Binance - Custom Styles với Tracking 24h
- * Tác giả: AI Assistant
- * Phiên bản: 2.0 - Tracking 24h
+/**
+ * Simple OI & Volume Monitor CSS
+ * Tối ưu cho giao diện theo dõi OI và Volume
  */
 
-/* ===== BIẾN CSS ===== */
+/* ===== VARIABLES ===== */
 :root {
     --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
     --success-color: #198754;
-    --warning-color: #ffc107;
     --danger-color: #dc3545;
+    --warning-color: #ffc107;
     --info-color: #0dcaf0;
-    --dark-color: #212529;
-    --light-color: #f8f9fa;
-    --text-muted: #6c757d;
     
-    /* Màu cho Tracking 24h */
-    --tracking-primary: #0dcaf0;
-    --tracking-secondary: #6610f2;
-    --tracking-success: #20c997;
-    --tracking-warning: #fd7e14;
+    --oi-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --volume-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --price-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     
-    /* Hiệu ứng */
-    --hover-transition: all 0.3s ease;
-    --card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    --card-shadow-hover: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 15px rgba(0, 0, 0, 0.15);
+    
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+    
+    --transition: all 0.2s ease;
 }
 
 /* ===== GLOBAL STYLES ===== */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
-    color: #212529;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
 }
 
-/* ===== NAVIGATION ===== */
+.container,
+.container-fluid {
+    max-width: 1400px;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
+}
+
 .navbar-brand {
-    background: linear-gradient(45deg, #0d6efd, #0dcaf0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: none;
-}
-
-/* ===== MAIN TABS ===== */
-.nav-pills .nav-link {
-    border-radius: 0.5rem;
-    margin: 0 0.25rem;
-    transition: var(--hover-transition);
-    font-weight: 500;
-}
-
-.nav-pills .nav-link:hover:not(.active) {
-    background-color: rgba(13, 110, 253, 0.1);
-    transform: translateY(-2px);
-}
-
-.nav-pills .nav-link.active {
-    box-shadow: var(--card-shadow-hover);
-}
-
-/* Tab riêng cho Tracking 24h */
-#tracking24h-tab {
-    background: linear-gradient(135deg, var(--tracking-primary), var(--tracking-secondary));
-    color: white !important;
-    border: none;
-}
-
-#tracking24h-tab:hover:not(.active) {
-    background: linear-gradient(135deg, #31b9d8, #7c3aed);
-    transform: translateY(-2px);
-}
-
-#tracking24h-tab.active {
-    background: linear-gradient(135deg, var(--tracking-primary), var(--tracking-secondary));
-    transform: translateY(-2px);
-    box-shadow: var(--card-shadow-hover);
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 /* ===== CARDS ===== */
-.card {
+.coin-card {
     border: none;
-    box-shadow: var(--card-shadow);
-    transition: var(--hover-transition);
-    border-radius: 0.75rem;
-}
-
-.card:hover {
-    box-shadow: var(--card-shadow-hover);
-    transform: translateY(-2px);
-}
-
-.card-header {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    border-bottom: 2px solid #dee2e6;
-    font-weight: 600;
-    border-radius: 0.75rem 0.75rem 0 0 !important;
-}
-
-/* ===== STATISTICS CARDS ===== */
-.stats-card {
-    border: none;
-    border-radius: 1rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
     overflow: hidden;
-    position: relative;
+    background: white;
 }
 
-.stats-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--info-color));
+.coin-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
 }
 
-.stats-bullish::before {
-    background: linear-gradient(90deg, var(--success-color), #20c997);
-}
-
-.stats-bearish::before {
-    background: linear-gradient(90deg, var(--danger-color), #fd7e14);
-}
-
-.stats-neutral::before {
-    background: linear-gradient(90deg, var(--warning-color), #fd7e14);
-}
-
-/* Stats đặc biệt cho Tracking 24h */
-.stats-tracking-24h {
-    background: linear-gradient(135deg, rgba(13, 202, 240, 0.1), rgba(102, 16, 242, 0.05));
-    border: 2px solid var(--tracking-primary);
-}
-
-.stats-tracking-24h::before {
-    background: linear-gradient(90deg, var(--tracking-primary), var(--tracking-secondary));
-}
-
-/* ===== TABLES ===== */
-.table {
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
-
-.table thead th {
+.coin-card .card-header {
+    background: var(--primary-color) !important;
     border: none;
+    padding: 1rem 1.25rem;
+}
+
+.coin-card .card-header h5 {
+    margin: 0;
     font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.coin-card .card-header small {
+    opacity: 0.8;
+    font-size: 0.85rem;
+}
+
+.coin-card .card-body {
+    padding: 1.25rem;
+}
+
+/* ===== METRICS BOXES ===== */
+.metric-box {
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    color: white;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.metric-box:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.metric-box.oi {
+    background: var(--oi-gradient);
+}
+
+.metric-box.volume {
+    background: var(--volume-gradient);
+}
+
+.metric-box.price {
+    background: var(--price-gradient);
+}
+
+.metric-box small {
+    font-size: 0.8rem;
+    opacity: 0.9;
     text-transform: uppercase;
-    font-size: 0.875rem;
     letter-spacing: 0.5px;
+    font-weight: 500;
 }
 
-.table tbody tr {
-    transition: var(--hover-transition);
-}
-
-.table tbody tr:hover {
-    background-color: rgba(13, 110, 253, 0.05);
-    transform: scale(1.01);
-}
-
-/* ===== SYMBOL STYLES ===== */
-.symbol-row {
-    cursor: pointer;
-}
-
-.symbol-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-}
-
-.coin-symbol {
+.metric-box .fw-bold {
+    font-size: 1.1rem;
     font-weight: 700;
-    font-size: 1rem;
-    color: var(--dark-color);
+    margin-top: 0.25rem;
 }
 
-/* ===== CHANGE INDICATORS ===== */
-.change-positive {
+.metric-box .badge {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* ===== TIME NAVIGATION ===== */
+.time-nav {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e9ecef;
+}
+
+.time-nav .btn-group .btn {
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    margin: 0 0.125rem;
+    transition: var(--transition);
+}
+
+.time-nav .btn-group .btn:first-child {
+    margin-left: 0;
+}
+
+.time-nav .btn-group .btn:last-child {
+    margin-right: 0;
+}
+
+.time-nav .btn-group .btn.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ===== CHARTS ===== */
+.chart-container {
+    height: 300px;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background: #fafafa;
+    border-radius: var(--border-radius);
+    border: 1px solid #e9ecef;
+}
+
+.chart-container canvas {
+    border-radius: calc(var(--border-radius) - 2px);
+}
+
+/* ===== STATUS & LOADING ===== */
+.last-update {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(5px);
+}
+
+.loading {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    margin: 2rem auto;
+}
+
+.loading .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+.error-message {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+    border: 1px solid #f5c6cb;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ===== BADGES & INDICATORS ===== */
+.badge {
+    font-weight: 600;
+    letter-spacing: 0.25px;
+}
+
+.positive {
     color: var(--success-color) !important;
     font-weight: 600;
 }
 
-.change-negative {
+.negative {
     color: var(--danger-color) !important;
     font-weight: 600;
 }
 
-.change-neutral {
-    color: var(--text-muted) !important;
+.neutral {
+    color: var(--secondary-color) !important;
     font-weight: 500;
-}
-
-/* ===== SENTIMENT BADGES ===== */
-.sentiment-badge {
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
-}
-
-.sentiment-bullish {
-    background: linear-gradient(135deg, var(--success-color), #20c997);
-    color: white;
-}
-
-.sentiment-bearish {
-    background: linear-gradient(135deg, var(--danger-color), #fd7e14);
-    color: white;
-}
-
-.sentiment-neutral {
-    background: linear-gradient(135deg, var(--warning-color), #fd7e14);
-    color: var(--dark-color);
-}
-
-/* ===== TRACKING 24H SPECIAL STYLES ===== */
-#tracking24h {
-    background: linear-gradient(135deg, 
-        rgba(13, 202, 240, 0.02), 
-        rgba(102, 16, 242, 0.02), 
-        rgba(32, 201, 151, 0.02)
-    );
-    border-radius: 1rem;
-    padding: 1rem;
-    margin: -1rem;
-}
-
-/* Tracking 24h Chart Container */
-#tracking24hChart {
-    background: white;
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: var(--card-shadow);
-    position: relative;
-    overflow: hidden;
-}
-
-#tracking24hChart::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, 
-        var(--tracking-primary), 
-        var(--tracking-secondary), 
-        var(--tracking-success)
-    );
-}
-
-/* Tracking 24h Stats Grid */
-#tracking24hStats .card {
-    background: white;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    position: relative;
-    overflow: hidden;
-}
-
-#tracking24hStats .card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--tracking-primary), var(--tracking-success));
-}
-
-#tracking24hStats .card:hover {
-    border-color: var(--tracking-primary);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(13, 202, 240, 0.2);
-}
-
-/* Tracking 24h Control Switches */
-.form-check-input:checked {
-    background-color: var(--tracking-primary);
-    border-color: var(--tracking-primary);
-}
-
-.form-check-input:focus {
-    border-color: var(--tracking-primary);
-    box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
 }
 
 /* ===== BUTTONS ===== */
 .btn {
-    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
     font-weight: 500;
-    transition: var(--hover-transition);
+    transition: var(--transition);
+    letter-spacing: 0.25px;
 }
 
 .btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
-.btn-time-filter {
-    border-radius: 2rem;
-    padding: 0.5rem 1.5rem;
-    font-weight: 600;
-}
-
-.btn-time-filter.active {
-    transform: translateY(-2px);
-    box-shadow: var(--card-shadow-hover);
-}
-
-/* Nút đặc biệt cho Tracking 24h */
-.btn-outline-info:hover {
-    background: linear-gradient(135deg, var(--tracking-primary), var(--tracking-secondary));
-    border-color: transparent;
+.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
     color: white;
 }
 
-/* ===== CHARTS ===== */
-canvas {
-    border-radius: 0.5rem;
+/* ===== FOOTER ===== */
+footer {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* ===== LOADING STATES ===== */
-.spinner-border {
-    animation: spinner-border 0.75s linear infinite;
+footer p {
+    margin: 0;
+    font-weight: 500;
 }
 
-@keyframes spinner-border {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Loading overlay cho Tracking 24h */
-.tracking-24h-loading {
-    background: linear-gradient(45deg, 
-        rgba(13, 202, 240, 0.1), 
-        rgba(102, 16, 242, 0.1)
-    );
-    backdrop-filter: blur(5px);
-    border-radius: 1rem;
-}
-
-/* ===== ANOMALY STYLES ===== */
-.anomaly-message {
-    font-family: 'Courier New', monospace;
-    background-color: #f8f9fa;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    border-left: 3px solid var(--warning-color);
-    font-size: 0.875rem;
+footer small {
+    opacity: 0.8;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
-    .card {
+    .container-fluid {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    
+    .coin-card .card-body {
+        padding: 1rem;
+    }
+    
+    .metric-box {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-box .fw-bold {
+        font-size: 1rem;
+    }
+    
+    .chart-container {
+        height: 250px;
+        margin: 0.75rem 0;
+    }
+    
+    .time-nav {
+        padding: 0.75rem;
         margin-bottom: 1rem;
     }
     
-    .display-4 {
-        font-size: 2rem;
+    .time-nav .btn-group .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
     }
     
-    .btn-group {
-        width: 100%;
+    .navbar-brand {
+        font-size: 1.1rem;
     }
     
-    .btn-group .btn {
-        flex: 1;
-    }
-    
-    /* Tracking 24h responsive */
-    #tracking24hStats .col-md-4 {
-        margin-bottom: 1rem;
-    }
-    
-    #tracking24hChart {
-        height: 300px !important;
+    .loading {
+        padding: 2rem 1rem;
     }
 }
 
 @media (max-width: 576px) {
-    .container-fluid {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+    .col-lg-6,
+    .col-xl-4 {
+        margin-bottom: 1rem;
     }
     
-    .card-body {
-        padding: 1rem;
-    }
-    
-    .table-responsive {
-        font-size: 0.875rem;
-    }
-    
-    /* Ẩn một số cột trên mobile */
-    .table th:nth-child(n+4),
-    .table td:nth-child(n+4) {
-        display: none;
-    }
-    
-    /* Tracking 24h mobile adjustments */
-    #tracking24h {
-        margin: -0.5rem;
+    .metric-box {
         padding: 0.5rem;
     }
     
-    .tracking-24h-mobile-hide {
-        display: none;
+    .metric-box .d-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
     }
-}
-
-/* ===== CUSTOM SCROLLBAR ===== */
-.table-responsive::-webkit-scrollbar {
-    height: 8px;
-}
-
-.table-responsive::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-
-.table-responsive::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, var(--primary-color), var(--info-color));
-    border-radius: 4px;
-}
-
-.table-responsive::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(90deg, var(--tracking-primary), var(--tracking-secondary));
+    
+    .metric-box .text-end {
+        text-align: left !important;
+        margin-top: 0.5rem;
+    }
+    
+    .chart-container {
+        height: 200px;
+    }
+    
+    .time-nav .btn-group {
+        display: flex;
+        width: 100%;
+    }
+    
+    .time-nav .btn-group .btn {
+        flex: 1;
+        margin: 0 0.25rem;
+    }
 }
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -453,108 +366,54 @@ canvas {
 
 @keyframes pulse {
     0% {
-        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4);
     }
-    50% {
-        transform: scale(1.05);
+    70% {
+        box-shadow: 0 0 0 10px rgba(13, 110, 253, 0);
     }
     100% {
-        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
     }
 }
 
-@keyframes tracking-glow {
-    0%, 100% {
-        box-shadow: 0 0 5px rgba(13, 202, 240, 0.3);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(13, 202, 240, 0.6);
-    }
+.coin-card {
+    animation: fadeInUp 0.5s ease-out;
 }
 
-/* Áp dụng animation */
-.card {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-.stats-card:hover {
-    animation: pulse 0.6s ease-in-out;
-}
-
-.tracking-24h-active {
-    animation: tracking-glow 2s ease-in-out infinite;
+.loading .spinner-border {
+    animation: spin 1s linear infinite, pulse 2s infinite;
 }
 
 /* ===== DARK MODE SUPPORT ===== */
 @media (prefers-color-scheme: dark) {
-    :root {
-        --light-color: #2d2d2d;
-        --dark-color: #ffffff;
-        --text-muted: #a6a6a6;
-    }
-    
     body {
         background-color: #1a1a1a;
-        color: #ffffff;
+        color: #e9ecef;
     }
     
-    .card {
-        background-color: #2d2d2d;
-        color: #ffffff;
+    .coin-card {
+        background: #2d3748;
+        border-color: #4a5568;
     }
     
-    .table {
-        color: #ffffff;
+    .time-nav {
+        background: #2d3748;
+        border-color: #4a5568;
     }
     
-    .table tbody tr:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-}
-
-/* ===== PRINT STYLES ===== */
-@media print {
-    .btn,
-    .nav,
-    footer {
-        display: none !important;
+    .chart-container {
+        background: #1a202c;
+        border-color: #4a5568;
     }
     
-    .card {
-        break-inside: avoid;
-        box-shadow: none;
-        border: 1px solid #dee2e6;
+    .last-update {
+        background: rgba(45, 55, 72, 0.7);
+        color: #a0aec0;
     }
     
-    #tracking24hChart {
-        height: 300px !important;
-    }
-}
-
-/* ===== ACCESSIBILITY ===== */
-.btn:focus,
-.nav-link:focus,
-.form-check-input:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-    .card {
-        border: 2px solid var(--dark-color);
-    }
-    
-    .btn {
-        border-width: 2px;
-    }
-    
-    .change-positive {
-        color: #008000 !important;
-    }
-    
-    .change-negative {
-        color: #cc0000 !important;
+    .loading {
+        background: #2d3748;
+        color: #e9ecef;
     }
 }
 
@@ -566,45 +425,35 @@ canvas {
     background-clip: text;
 }
 
-.text-tracking-gradient {
-    background: linear-gradient(135deg, var(--tracking-primary), var(--tracking-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.border-gradient {
-    border: 2px solid transparent;
-    background: linear-gradient(white, white) padding-box,
-                linear-gradient(135deg, var(--primary-color), var(--info-color)) border-box;
+.hover-scale:hover {
+    transform: scale(1.02);
 }
 
-.shadow-tracking {
-    box-shadow: 0 4px 15px rgba(13, 202, 240, 0.2);
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(13, 110, 253, 0.3);
 }
 
-/* ===== SPECIAL EFFECTS CHO TRACKING 24H ===== */
-.tracking-24h-highlight {
-    position: relative;
-    overflow: hidden;
+/* ===== CUSTOM SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 6px;
 }
 
-.tracking-24h-highlight::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(13, 202, 240, 0.1), transparent);
-    animation: tracking-sweep 3s linear infinite;
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
 }
 
-@keyframes tracking-sweep {
-    0% {
-        transform: translateX(-100%) translateY(-100%) rotate(45deg);
-    }
-    100% {
-        transform: translateX(100%) translateY(100%) rotate(45deg);
-    }
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
 }

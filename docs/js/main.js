@@ -1,1309 +1,635 @@
 /**
- * Hệ Thống Theo Dõi OI & Volume Binance - Tracking 24h
- * Tác giả: AI Assistant
- * Mô tả: Theo dõi Open Interest và Volume của các coin trên Binance với tracking 24h
+ * Simple OI & Volume Monitor JavaScript
+ * Tối ưu cho theo dõi OI và Volume theo giờ và ngày
  */
 
-class HeThongTheoDoi_Binance_VietNam {
+class SimpleOIVolumeMonitor {
     constructor() {
-        this.khungThoiGianHienTai = '1h';
-        this.giaiDoanHienTai = '7d';
-        this.cacBieuDo = {};
-        this.danhSachCoin = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
-        this.khoLuuTru = {
-            thoiGianThuc: null,
-            lichSu: {},
-            batThuong: null,
-            tracking24h: null,
-            capNhatLanCuoi: null
-        };
-        this.khoiTao();
-    }
-
-    async khoiTao() {
-        this.ganCacSuKien();
-        this.thietLapWebSocket(); // Tính năng tương lai
-        await this.taiDuLieuBanDau();
-        this.thietLapTuDongLamMoi();
-    }
-
-    ganCacSuKien() {
-        // Nút làm mới
-        document.getElementById('refreshBtn').addEventListener('click', async () => {
-            await this.lamMoiDuLieuManh();
-        });
-
-        // Các nút bộ lọc thời gian
-        document.querySelectorAll('.btn-time-filter').forEach(nut => {
-            nut.addEventListener('click', async (e) => {
-                const khungThoiGian = e.target.dataset.timeframe;
-                const giaiDoan = e.target.dataset.period;
-                
-                if (khungThoiGian) {
-                    this.khungThoiGianHienTai = khungThoiGian;
-                    this.capNhatBoLocHoatDong(e.target);
-                    await this.capNhatGiaoDienThoiGianThuc();
-                }
-                
-                if (giaiDoan) {
-                    this.giaiDoanHienTai = giaiDoan;
-                    this.capNhatBoLocHoatDong(e.target);
-                    await this.capNhatGiaoDienLichSu();
-                }
-            });
-        });
-
-        // Sự kiện chuyển đổi tab
-        document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
-            tab.addEventListener('shown.bs.tab', async (e) => {
-                const dich = e.target.getAttribute('data-bs-target');
-                if (dich === '#historical') {
-                    await this.taiGiaoDienLichSu();
-                } else if (dich === '#anomalies') {
-                    await this.taiGiaoDienBatThuong();
-                } else if (dich === '#realtime') {
-                    await this.taiGiaoDienThoiGianThuc();
-                } else if (dich === '#tracking24h') {
-                    await this.taiGiaoDienTracking24h();
-                }
-            });
-        });
-
-        // Sự kiện cho tracking 24h
-        this.capNhatSuKienTuyChon24h();
-    }
-
-    capNhatSuKienTuyChon24h() {
-        // Thêm sự kiện cho các nút lọc trong tab tracking 24h
-        document.addEventListener('click', async (e) => {
-            // Nút lọc theo symbol
-            if (e.target.classList.contains('btn-symbol-filter')) {
-                const symbol = e.target.dataset.symbol;
-                await this.locTheoSymbol24h(symbol);
-            }
-            
-            // Nút lọc theo thời gian
-            if (e.target.classList.contains('btn-time-range-filter')) {
-                const timeRange = e.target.dataset.timeRange;
-                await this.locTheoThoiGian24h(timeRange);
-            }
-            
-            // Nút xuất dữ liệu
-            if (e.target.id === 'exportTracking24h') {
-                this.xuatDuLieu24h();
-            }
-        });
-
-        // Thêm tooltip cho các điểm dữ liệu
-        this.thietLapTooltip24h();
-    }
-
-    async locTheoSymbol24h(symbol) {
-        if (this.khoLuuTru.tracking24h) {
-            // Cập nhật biểu đồ chỉ hiển thị symbol được chọn
-            this.capNhatBieuDoTracking24h(this.khoLuuTru.tracking24h, [symbol]);
-        }
-    }
-
-    async locTheoThoiGian24h(timeRange) {
-        if (this.khoLuuTru.tracking24h) {
-            // Cập nhật biểu đồ với khoảng thời gian được chọn
-            this.capNhatBieuDoTracking24h(this.khoLuuTru.tracking24h, null, timeRange);
-        }
-    }
-
-    xuatDuLieu24h() {
-        if (!this.khoLuuTru.tracking24h) {
-            alert('Không có dữ liệu để xuất');
-            return;
-        }
-
-        // Chuyển đổi dữ liệu sang CSV
-        const csvData = this.chuyenDoiDuLieu24hSangCSV();
+        this.currentView = 'hourly';
+        this.coinsData = {};
+        this.charts = {};
+        this.symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
+        this.updateInterval = null;
         
-        // Tạo và tải file CSV
-        const blob = new Blob([csvData], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `tracking_24h_${new Date().toISOString().split('T')[0]}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+        this.init();
     }
-
-    chuyenDoiDuLieu24hSangCSV() {
-        let csv = 'Symbol,Hour,Timestamp,Price,Price_Change_1h,Volume,Volume_Change_1h,OI,OI_Change_1h\n';
+    
+    init() {
+        // Khởi tạo event listeners
+        this.setupEventListeners();
         
-        Object.entries(this.khoLuuTru.tracking24h.symbols).forEach(([symbol, data]) => {
-            data.hours_data.forEach(hourData => {
-                csv += `${symbol},${hourData.hour},${hourData.hour_timestamp},${hourData.price || 0},${hourData.price_change_1h || 0},${hourData.volume || 0},${hourData.volume_change_1h || 0},${hourData.oi || 0},${hourData.oi_change_1h || 0}\n`;
-            });
+        // Load dữ liệu ban đầu
+        this.loadAllData();
+        
+        // Setup auto refresh (30 phút)
+        this.startAutoRefresh();
+    }
+    
+    setupEventListeners() {
+        // Refresh button
+        document.getElementById('refreshBtn')?.addEventListener('click', () => {
+            this.loadAllData();
         });
         
-        return csv;
-    }
-
-    thietLapTooltip24h() {
-        // Thiết lập tooltip cho các phần tử trong tracking 24h
-        const tooltipElements = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipElements.forEach(element => {
-            new bootstrap.Tooltip(element);
-        });
-    }
-
-    capNhatBoLocHoatDong(nutHoatDong) {
-        nutHoatDong.parentNode.querySelectorAll('.btn-time-filter').forEach(nut => {
-            nut.classList.remove('active');
-        });
-        nutHoatDong.classList.add('active');
-    }
-
-    async taiDuLieuBanDau() {
-        try {
-            this.hienThiDangTaiToanCuc();
-            
-            // Tải tất cả dữ liệu song song
-            await Promise.all([
-                this.taiDuLieuThoiGianThuc(),
-                this.taiDuLieuCacCoin(),
-                this.taiDuLieuBatThuong(),
-                this.taiDuLieuTracking24h()
-            ]);
-            
-            this.anDangTaiToanCuc();
-            await this.capNhatTatCaGiaoDien();
-        } catch (loi) {
-            console.error('Lỗi khi tải dữ liệu ban đầu:', loi);
-            this.hienThiLoi('Không thể tải dữ liệu ban đầu');
-            this.anDangTaiToanCuc();
-        }
-    }
-
-    async lamMoiDuLieuManh() {
-        this.khoLuuTru = {
-            thoiGianThuc: null,
-            lichSu: {},
-            batThuong: null,
-            tracking24h: null,
-            capNhatLanCuoi: null
-        };
-        await this.taiDuLieuBanDau();
-    }
-
-    async taiDuLieuThoiGianThuc() {
-        try {
-            const phanHoi = await fetch('assets/data/daily_summary.json?' + Date.now());
-            if (!phanHoi.ok) throw new Error('Không thể tải dữ liệu thời gian thực');
-            
-            const duLieu = await phanHoi.json();
-            this.khoLuuTru.thoiGianThuc = duLieu;
-            this.khoLuuTru.capNhatLanCuoi = new Date();
-            
-            return duLieu;
-        } catch (loi) {
-            console.error('Lỗi khi tải dữ liệu thời gian thực:', loi);
-            return null;
-        }
-    }
-
-    async taiDuLieuCacCoin() {
-        try {
-            const cacLoiHua = this.danhSachCoin.map(async coin => {
-                try {
-                    const phanHoi = await fetch(`assets/data/${coin}.json?` + Date.now());
-                    if (!phanHoi.ok) return null;
-                    
-                    const duLieu = await phanHoi.json();
-                    this.khoLuuTru.lichSu[coin] = duLieu;
-                    return { coin, duLieu };
-                } catch (loi) {
-                    console.error(`Lỗi khi tải dữ liệu ${coin}:`, loi);
-                    return null;
-                }
-            });
-
-            const ketQua = await Promise.allSettled(cacLoiHua);
-            return ketQua;
-        } catch (loi) {
-            console.error('Lỗi khi tải dữ liệu các coin:', loi);
-            return [];
-        }
-    }
-
-    async taiDuLieuBatThuong() {
-        try {
-            // Lấy từ dữ liệu thời gian thực
-            if (this.khoLuuTru.thoiGianThuc && this.khoLuuTru.thoiGianThuc.anomalies) {
-                this.khoLuuTru.batThuong = this.khoLuuTru.thoiGianThuc.anomalies;
-                return this.khoLuuTru.batThuong;
-            }
-
-            // Dự phòng từ file riêng
-            try {
-                const phanHoi = await fetch('assets/data/anomalies.json?' + Date.now());
-                if (phanHoi.ok) {
-                    const duLieu = await phanHoi.json();
-                    this.khoLuuTru.batThuong = duLieu;
-                    return duLieu;
-                }
-            } catch (loi) {
-                console.warn('Không tìm thấy file bất thường riêng');
-            }
-
-            return [];
-        } catch (loi) {
-            console.error('Lỗi khi tải dữ liệu bất thường:', loi);
-            return [];
-        }
-    }
-
-    async taiDuLieuTracking24h() {
-        try {
-            const phanHoi = await fetch('assets/data/tracking_24h.json?' + Date.now());
-            if (!phanHoi.ok) {
-                console.warn('Không thể tải dữ liệu tracking 24h - File có thể chưa được tạo');
-                return null;
-            }
-            
-            const duLieu = await phanHoi.json();
-            this.khoLuuTru.tracking24h = duLieu;
-            
-            console.log('✅ Đã tải thành công dữ liệu tracking 24h:', duLieu);
-            return duLieu;
-        } catch (loi) {
-            console.error('Lỗi khi tải dữ liệu tracking 24h:', loi);
-            return null;
-        }
-    }
-
-    async capNhatTatCaGiaoDien() {
-        await Promise.all([
-            this.capNhatGiaoDienThoiGianThuc(),
-            this.capNhatGiaoDienBatThuong(),
-            this.capNhatGiaoDienTracking24h()
-        ]);
-    }
-
-    async taiGiaoDienThoiGianThuc() {
-        await this.capNhatGiaoDienThoiGianThuc();
-    }
-
-    async taiGiaoDienLichSu() {
-        await this.capNhatGiaoDienLichSu();
-    }
-
-    async taiGiaoDienBatThuong() {
-        await this.capNhatGiaoDienBatThuong();
-    }
-
-    async taiGiaoDienTracking24h() {
-        await this.capNhatGiaoDienTracking24h();
-    }
-
-    async capNhatGiaoDienThoiGianThuc() {
-        if (!this.khoLuuTru.thoiGianThuc) return;
-
-        try {
-            const duLieu = this.khoLuuTru.thoiGianThuc;
-            
-            this.capNhatThoiGianCapNhatCuoi(duLieu.timestamp);
-            this.capNhatBangThoiGianThuc(duLieu.symbols);
-            this.capNhatThongKe(duLieu.symbols);
-        } catch (loi) {
-            console.error('Lỗi khi cập nhật giao diện thời gian thực:', loi);
-        }
-    }
-
-    async capNhatGiaoDienLichSu() {
-        try {
-            const duLieuLichSu = this.khoLuuTru.lichSu;
-            
-            this.capNhatBangLichSu(duLieuLichSu);
-            this.capNhatBieuDoLichSu(duLieuLichSu);
-        } catch (loi) {
-            console.error('Lỗi khi cập nhật giao diện lịch sử:', loi);
-        }
-    }
-
-    async capNhatGiaoDienBatThuong() {
-        try {
-            const batThuong = this.khoLuuTru.batThuong || [];
-            this.capNhatBangBatThuong(batThuong);
-        } catch (loi) {
-            console.error('Lỗi khi cập nhật giao diện bất thường:', loi);
-        }
-    }
-
-    async capNhatGiaoDienTracking24h() {
-        try {
-            const tracking24h = this.khoLuuTru.tracking24h;
-            if (!tracking24h) {
-                this.hienThiThongBaoTracking24h('Chưa có dữ liệu tracking 24h. Vui lòng chạy lại hệ thống để tạo dữ liệu.');
-                return;
-            }
-            
-            this.capNhatBieuDoTracking24h(tracking24h);
-            this.capNhatThongKeTracking24h(tracking24h);
-            this.capNhatBangTracking24h(tracking24h);
-        } catch (loi) {
-            console.error('Lỗi khi cập nhật giao diện tracking 24h:', loi);
-            this.hienThiThongBaoTracking24h('Có lỗi khi hiển thị dữ liệu tracking 24h');
-        }
-    }
-
-    capNhatThoiGianCapNhatCuoi(thoiGian) {
-        const phanTuCapNhat = document.getElementById('lastUpdateTime');
-        if (phanTuCapNhat) {
-            const ngay = new Date(thoiGian);
-            phanTuCapNhat.innerHTML = `
-                <i class="bi bi-clock"></i>
-                Cập nhật lần cuối: ${ngay.toLocaleString('vi-VN')}
-                <span class="badge bg-success ms-2">Trực Tuyến</span>
-            `;
-        }
-    }
-
-    capNhatBangThoiGianThuc(symbols) {
-        const tbody = document.getElementById('realtimeTableBody');
-        if (!tbody) return;
-
-        tbody.innerHTML = '';
-
-        // Sắp xếp symbols theo thay đổi giá tuyệt đối giảm dần
-        const symbolsSapXep = Object.entries(symbols).sort((a, b) => {
-            return Math.abs(b[1].price_change) - Math.abs(a[1].price_change);
-        });
-
-        symbolsSapXep.forEach(([symbol, duLieu]) => {
-            const hang = this.taoHangThoiGianThuc(symbol, duLieu);
-            tbody.appendChild(hang);
-        });
-    }
-
-    taoHangThoiGianThuc(symbol, duLieu) {
-        const hang = document.createElement('tr');
-        hang.className = 'symbol-row';
-        hang.setAttribute('data-symbol', symbol);
-        
-        const lopGia = this.layLopThayDoi(duLieu.price_change);
-        const lopVolume = this.layLopThayDoi(duLieu.volume_change);
-        const lopOI = this.layLopThayDoi(duLieu.oi_change);
-        const thongTinXuHuong = this.layThongTinXuHuong(duLieu.sentiment);
-
-        hang.innerHTML = `
-            <td>
-                <div class="d-flex align-items-center">
-                    <div class="symbol-icon me-2">
-                        <i class="bi bi-currency-bitcoin text-warning"></i>
-                    </div>
-                    <div>
-                        <div class="coin-symbol">${symbol}</div>
-                        <small class="text-muted">${this.layTenCoin(symbol)}</small>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="${lopGia}">
-                    <strong>${this.dinhDangPhanTram(duLieu.price_change)}</strong>
-                    <i class="bi bi-${duLieu.price_change >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
-                </div>
-                <small class="text-muted d-block">Thay đổi ${this.khungThoiGianHienTai}</small>
-            </td>
-            <td>
-                <div class="${lopVolume}">
-                    <strong>${this.dinhDangPhanTram(duLieu.volume_change)}</strong>
-                    <i class="bi bi-${duLieu.volume_change >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
-                </div>
-                <small class="text-muted d-block">So với TB 24h</small>
-            </td>
-            <td>
-                <div class="${lopOI}">
-                    <strong>${this.dinhDangPhanTram(duLieu.oi_change)}</strong>
-                    <i class="bi bi-${duLieu.oi_change >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
-                </div>
-                <small class="text-muted d-block">Open Interest</small>
-            </td>
-            <td>
-                <span class="badge sentiment-badge ${thongTinXuHuong.lop}" title="${thongTinXuHuong.moTa}">
-                    <i class="bi bi-${thongTinXuHuong.bieuTuong} me-1"></i>
-                    ${thongTinXuHuong.chuoi}
-                </span>
-            </td>
-            <td>
-                <div class="btn-group btn-group-sm">
-                    <button class="btn btn-outline-primary" onclick="monitor.hienThiChiTiet('${symbol}')" title="Xem Chi Tiết">
-                        <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn btn-outline-info" onclick="monitor.hienThiBieuDo('${symbol}')" title="Xem Biểu Đồ">
-                        <i class="bi bi-graph-up"></i>
-                    </button>
-                    <button class="btn btn-outline-success" onclick="monitor.hienThiTracking24h('${symbol}')" title="Tracking 24h">
-                        <i class="bi bi-clock-history"></i>
-                    </button>
-                </div>
-            </td>
-        `;
-
-        // Thêm hiệu ứng hover
-        hang.addEventListener('mouseenter', () => {
-            hang.style.backgroundColor = '#f8f9fa';
+        // View switcher buttons
+        document.getElementById('hourlyBtn')?.addEventListener('click', () => {
+            this.switchView('hourly');
         });
         
-        hang.addEventListener('mouseleave', () => {
-            hang.style.backgroundColor = '';
-        });
-
-        return hang;
-    }
-
-    capNhatBangLichSu(duLieuLichSu) {
-        const tbody = document.getElementById('historicalTableBody');
-        if (!tbody) return;
-
-        tbody.innerHTML = '';
-
-        Object.entries(duLieuLichSu).forEach(([symbol, duLieu]) => {
-            const hang = this.taoHangLichSu(symbol, duLieu);
-            tbody.appendChild(hang);
+        document.getElementById('dailyBtn')?.addEventListener('click', () => {
+            this.switchView('daily');
         });
     }
-
-    taoHangLichSu(symbol, duLieu) {
-        const hang = document.createElement('tr');
-        
-        // Tính toán thay đổi lịch sử dựa trên dữ liệu thực
-        const lichSu = this.tinhToanThayDoiLichSu(duLieu);
-
-        hang.innerHTML = `
-            <td>
-                <div class="d-flex align-items-center">
-                    <div class="symbol-icon me-2">
-                        <i class="bi bi-currency-bitcoin text-warning"></i>
-                    </div>
-                    <div>
-                        <div class="coin-symbol">${symbol}</div>
-                        <small class="text-muted">${this.layTenCoin(symbol)}</small>
-                    </div>
-                </div>
-            </td>
-            <td class="${this.layLopThayDoi(lichSu.gia7d)}">
-                <strong>${this.dinhDangPhanTram(lichSu.gia7d)}</strong>
-            </td>
-            <td class="${this.layLopThayDoi(lichSu.volume7d)}">
-                <strong>${this.dinhDangPhanTram(lichSu.volume7d)}</strong>
-            </td>
-            <td class="${this.layLopThayDoi(lichSu.oi7d)}">
-                <strong>${this.dinhDangPhanTram(lichSu.oi7d)}</strong>
-            </td>
-            <td class="${this.layLopThayDoi(lichSu.gia30d)}">
-                <strong>${this.dinhDangPhanTram(lichSu.gia30d)}</strong>
-            </td>
-            <td class="${this.layLopThayDoi(lichSu.oi30d)}">
-                <strong>${this.dinhDangPhanTram(lichSu.oi30d)}</strong>
-            </td>
-            <td>
-                <span class="badge bg-${lichSu.xuHuong.mau}">
-                    <i class="bi bi-${lichSu.xuHuong.bieuTuong} me-1"></i>
-                    ${lichSu.xuHuong.chuoi}
-                </span>
-            </td>
-        `;
-
-        return hang;
-    }
-
-    tinhToanThayDoiLichSu(duLieuSymbol) {
-        // Tính toán dựa trên dữ liệu lịch sử thực
-        // Hiện tại sử dụng dữ liệu mô phỏng
-        // Trong thực tế, bạn sẽ tính từ duLieuSymbol.klines
-        
-        return {
-            gia7d: (Math.random() - 0.5) * 20,
-            volume7d: (Math.random() - 0.5) * 40,
-            oi7d: (Math.random() - 0.5) * 15,
-            gia30d: (Math.random() - 0.5) * 30,
-            oi30d: (Math.random() - 0.5) * 25,
-            xuHuong: this.tinhToanXuHuong()
-        };
-    }
-
-    tinhToanXuHuong() {
-        const cacXuHuong = [
-            { chuoi: 'Tăng Mạnh', mau: 'success', bieuTuong: 'arrow-up-circle' },
-            { chuoi: 'Tăng', mau: 'success', bieuTuong: 'arrow-up' },
-            { chuoi: 'Ngang', mau: 'warning', bieuTuong: 'arrow-left-right' },
-            { chuoi: 'Giảm', mau: 'danger', bieuTuong: 'arrow-down' },
-            { chuoi: 'Giảm Mạnh', mau: 'danger', bieuTuong: 'arrow-down-circle' }
-        ];
-        return cacXuHuong[Math.floor(Math.random() * cacXuHuong.length)];
-    }
-
-    capNhatBangBatThuong(batThuong) {
-        const tbody = document.getElementById('anomaliesTableBody');
-        if (!tbody) return;
-
-        tbody.innerHTML = '';
-
-        if (!batThuong || batThuong.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="5" class="text-center text-muted py-4">
-                        <i class="bi bi-check-circle text-success me-2"></i>
-                        Không phát hiện bất thường nào
-                    </td>
-                </tr>
-            `;
-            return;
-        }
-
-        // Sắp xếp bất thường theo thời gian giảm dần
-        const batThuongSapXep = batThuong.sort((a, b) => 
-            new Date(b.timestamp) - new Date(a.timestamp)
-        );
-
-        batThuongSapXep.forEach(batThuong => {
-            const hang = this.taoHangBatThuong(batThuong);
-            tbody.appendChild(hang);
-        });
-    }
-
-    taoHangBatThuong(batThuong) {
-        const hang = document.createElement('tr');
-        const mucDo = this.layMucDoBatThuong(batThuong.message);
-        const thoiGianTruoc = this.layThoiGianTruoc(batThuong.timestamp);
-        
-        hang.innerHTML = `
-            <td>
-                <div>${this.dinhDangThoiGian(batThuong.timestamp)}</div>
-                <small class="text-muted">${thoiGianTruoc}</small>
-            </td>
-            <td>
-                <span class="coin-symbol">${batThuong.symbol}</span>
-            </td>
-            <td>
-                <span class="badge bg-info">
-                    <i class="bi bi-${this.layBieuTuongLoaiDuLieu(batThuong.data_type)} me-1"></i>
-                    ${this.dichLoaiDuLieu(batThuong.data_type)}
-                </span>
-            </td>
-            <td>
-                <div class="anomaly-message">${batThuong.message}</div>
-            </td>
-            <td>
-                <span class="badge bg-${mucDo.mau}">
-                    <i class="bi bi-${mucDo.bieuTuong} me-1"></i>
-                    ${mucDo.chuoi}
-                </span>
-            </td>
-        `;
-
-        return hang;
-    }
-
-    capNhatBieuDoTracking24h(tracking24h, symbolsToShow = null, timeRange = null) {
-        const container = document.getElementById('tracking24hChart');
-        if (!container) return;
-
-        // Xóa biểu đồ cũ nếu có
-        if (this.cacBieuDo.tracking24h) {
-            this.cacBieuDo.tracking24h.destroy();
-        }
-
-        // Tạo canvas cho biểu đồ
-        container.innerHTML = '<canvas id="tracking24hCanvas"></canvas>';
-        const ctx = document.getElementById('tracking24hCanvas');
-
-        // Chuẩn bị dữ liệu biểu đồ
-        const duLieuBieuDo = this.chuanBiDuLieuBieuDo24h(tracking24h, symbolsToShow, timeRange);
-
-        this.cacBieuDo.tracking24h = new Chart(ctx, {
-            type: 'line',
-            data: duLieuBieuDo,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Tracking 24h - Thay Đổi Giá Theo Giờ'
-                    },
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    },
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false,
-                        callbacks: {
-                            title: function(context) {
-                                return `Giờ: ${context[0].label}`;
-                            },
-                            label: function(context) {
-                                return `${context.dataset.label}: ${context.parsed.y.toFixed(2)}%`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Giờ trong ngày'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Thay Đổi (%)'
-                        }
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index'
-                }
-            }
-        });
-    }
-
-    chuanBiDuLieuBieuDo24h(tracking24h, symbolsToShow = null, timeRange = null) {
-        const labels = [];
-        const datasets = [];
-
-        // Tạo labels cho 24 giờ hoặc khoảng thời gian được chỉ định
-        const maxHours = timeRange === '12h' ? 12 : timeRange === '6h' ? 6 : 24;
-        for (let i = 0; i < maxHours; i++) {
-            labels.push(`${i.toString().padStart(2, '0')}:00`);
-        }
-
-        // Tạo dataset cho từng symbol
-        const symbolsToDisplay = symbolsToShow || this.danhSachCoin;
-        symbolsToDisplay.forEach((symbol, index) => {
-            const symbolData = tracking24h.symbols[symbol];
-            if (symbolData && symbolData.hours_data) {
-                const data = new Array(maxHours).fill(0);
-                
-                symbolData.hours_data.slice(0, maxHours).forEach((hourData, idx) => {
-                    if (idx < maxHours) {
-                        data[idx] = hourData.price_change_1h || 0;
-                    }
-                });
-
-                datasets.push({
-                    label: symbol,
-                    data: data,
-                    borderColor: this.layMauChoViTri(index),
-                    backgroundColor: this.layMauChoViTri(index) + '20',
-                    tension: 0.3,
-                    fill: false,
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                });
-            }
-        });
-
-        return { labels, datasets };
-    }
-
-    capNhatThongKeTracking24h(tracking24h) {
-        const statsContainer = document.getElementById('tracking24hStats');
-        if (!statsContainer) return;
-
-        let html = '<div class="row">';
-
-        // Thống kê tổng quan
-        html += `
-            <div class="col-12 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="card-title">📊 Tổng Quan 24h</h6>
-                        <div class="row text-center">
-                            <div class="col-3">
-                                <div class="text-info">
-                                    <strong>${tracking24h.summary?.total_symbols || 0}</strong>
-                                </div>
-                                <small class="text-muted">Tổng Symbols</small>
-                            </div>
-                            <div class="col-3">
-                                <div class="text-warning">
-                                    <strong>${tracking24h.summary?.most_volatile || 'N/A'}</strong>
-                                </div>
-                                <small class="text-muted">Biến động nhất</small>
-                            </div>
-                            <div class="col-3">
-                                <div class="text-primary">
-                                    <strong>${tracking24h.summary?.highest_volume_change || 'N/A'}</strong>
-                                </div>
-                                <small class="text-muted">Volume cao nhất</small>
-                            </div>
-                            <div class="col-3">
-                                <div class="text-success">
-                                    <strong>${tracking24h.summary?.highest_oi_change || 'N/A'}</strong>
-                                </div>
-                                <small class="text-muted">OI cao nhất</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        // Thống kê cho từng symbol
-        this.danhSachCoin.forEach(symbol => {
-            const symbolData = tracking24h.symbols[symbol];
-            if (symbolData) {
-                const volatility = symbolData.price_volatility || 0;
-                const price24h = symbolData.price_24h_change || 0;
-                const volume24h = symbolData.volume_24h_change || 0;
-                const oi24h = symbolData.oi_24h_change || 0;
-                const maxChange = symbolData.max_price_change_hour;
-
-                html += `
-                    <div class="col-md-6 col-lg-4 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h6 class="card-title d-flex align-items-center">
-                                    <i class="bi bi-currency-bitcoin text-warning me-2"></i>
-                                    ${symbol}
-                                </h6>
-                                
-                                <div class="row">
-                                    <div class="col-6 mb-2">
-                                        <div class="text-${price24h >= 0 ? 'success' : 'danger'}">
-                                            <strong>${this.dinhDangPhanTram(price24h)}</strong>
-                                        </div>
-                                        <small class="text-muted">Giá 24h</small>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div class="text-info">
-                                            <strong>${volatility.toFixed(2)}%</strong>
-                                        </div>
-                                        <small class="text-muted">Volatility</small>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div class="text-${volume24h >= 0 ? 'success' : 'danger'}">
-                                            <strong>${this.dinhDangPhanTram(volume24h)}</strong>
-                                        </div>
-                                        <small class="text-muted">Volume 24h</small>
-                                    </div>
-                                    <div class="col-6 mb-2">
-                                        <div class="text-${oi24h >= 0 ? 'success' : 'danger'}">
-                                            <strong>${this.dinhDangPhanTram(oi24h)}</strong>
-                                        </div>
-                                        <small class="text-muted">OI 24h</small>
-                                    </div>
-                                </div>
-                                
-                                ${maxChange ? `
-                                    <div class="mt-2 p-2 bg-light rounded">
-                                        <div class="text-warning text-center">
-                                            <strong>Giờ ${maxChange.hour}:00</strong>
-                                        </div>
-                                        <div class="text-center">
-                                            <span class="badge bg-${maxChange.change >= 0 ? 'success' : 'danger'}">
-                                                ${this.dinhDangPhanTram(maxChange.change)}
-                                            </span>
-                                        </div>
-                                        <small class="text-muted d-block text-center">Thay đổi lớn nhất</small>
-                                    </div>
-                                ` : ''}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        });
-
-        html += '</div>';
-        statsContainer.innerHTML = html;
-    }
-
-    capNhatBangTracking24h(tracking24h) {
-        const tableContainer = document.getElementById('tracking24hTable');
-        if (!tableContainer) return;
-
-        let html = `
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Giá Hiện Tại</th>
-                            <th>Thay Đổi 24h</th>
-                            <th>Volume 24h</th>
-                            <th>OI 24h</th>
-                            <th>Volatility</th>
-                            <th>Giờ Hot</th>
-                            <th>Hành Động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-        `;
-
-        this.danhSachCoin.forEach(symbol => {
-            const symbolData = tracking24h.symbols[symbol];
-            if (symbolData) {
-                const price24h = symbolData.price_24h_change || 0;
-                const volume24h = symbolData.volume_24h_change || 0;
-                const oi24h = symbolData.oi_24h_change || 0;
-                const volatility = symbolData.price_volatility || 0;
-                const maxChange = symbolData.max_price_change_hour;
-                const currentPrice = symbolData.current_price || 0;
-
-                html += `
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-currency-bitcoin text-warning me-2"></i>
-                                <div>
-                                    <div class="coin-symbol">${symbol}</div>
-                                    <small class="text-muted">${this.layTenCoin(symbol)}</small>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <strong>$${currentPrice.toLocaleString()}</strong>
-                        </td>
-                        <td class="${this.layLopThayDoi(price24h)}">
-                            <strong>${this.dinhDangPhanTram(price24h)}</strong>
-                            <i class="bi bi-${price24h >= 0 ? 'arrow-up' : 'arrow-down'} ms-1"></i>
-                        </td>
-                        <td class="${this.layLopThayDoi(volume24h)}">
-                            <strong>${this.dinhDangPhanTram(volume24h)}</strong>
-                        </td>
-                        <td class="${this.layLopThayDoi(oi24h)}">
-                            <strong>${this.dinhDangPhanTram(oi24h)}</strong>
-                        </td>
-                        <td>
-                            <span class="badge bg-${volatility > 2 ? 'danger' : volatility > 1 ? 'warning' : 'success'}">
-                                ${volatility.toFixed(2)}%
-                            </span>
-                        </td>
-                        <td>
-                            ${maxChange ? `
-                                <div class="text-center">
-                                    <div class="fw-bold">${maxChange.hour}:00</div>
-                                    <small class="text-${maxChange.change >= 0 ? 'success' : 'danger'}">
-                                        ${this.dinhDangPhanTram(maxChange.change)}
-                                    </small>
-                                </div>
-                            ` : 'N/A'}
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-primary btn-symbol-filter" data-symbol="${symbol}">
-                                <i class="bi bi-funnel"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }
-        });
-
-        html += `
-                    </tbody>
-                </table>
-            </div>
-        `;
-
-        tableContainer.innerHTML = html;
-    }
-
-    hienThiThongBaoTracking24h(thongBao) {
-        const container = document.getElementById('tracking24hChart');
-        if (container) {
-            container.innerHTML = `
-                <div class="text-center py-5">
-                    <i class="bi bi-clock-history display-1 text-muted"></i>
-                    <p class="text-muted mt-3">${thongBao}</p>
-                    <button class="btn btn-primary mt-2" onclick="monitor.lamMoiDuLieuManh()">
-                        <i class="bi bi-arrow-clockwise me-2"></i>Làm Mới Dữ Liệu
-                    </button>
-                </div>
-            `;
-        }
-
-        // Cũng hiển thị trong stats và table
-        const statsContainer = document.getElementById('tracking24hStats');
-        if (statsContainer) {
-            statsContainer.innerHTML = `
-                <div class="alert alert-info text-center">
-                    <i class="bi bi-info-circle me-2"></i>
-                    ${thongBao}
-                </div>
-            `;
-        }
-
-        const tableContainer = document.getElementById('tracking24hTable');
-        if (tableContainer) {
-            tableContainer.innerHTML = `
-                <div class="alert alert-warning text-center">
-                    <i class="bi bi-exclamation-triangle me-2"></i>
-                    Không có dữ liệu để hiển thị bảng tracking 24h
-                </div>
-            `;
-        }
-    }
-
-    capNhatThongKe(symbols) {
-        const thongKe = this.tinhThongKeChiTiet(symbols);
-        
-        document.getElementById('totalSymbols').textContent = thongKe.tong;
-        document.getElementById('bullishCount').textContent = thongKe.tang;
-        document.getElementById('bearishCount').textContent = thongKe.giam;
-        document.getElementById('neutralCount').textContent = thongKe.trungTinh;
-    }
-
-    tinhThongKeChiTiet(symbols) {
-        const thongKe = { 
-            tong: 0, 
-            tang: 0, 
-            giam: 0, 
-            trungTinh: 0,
-            trungBinhThayDoiGia: 0,
-            trungBinhThayDoiVolume: 0,
-            trungBinhThayDoiOI: 0
-        };
-        
-        const cacGiaTri = Object.values(symbols);
-        thongKe.tong = cacGiaTri.length;
-
-        let tongThayDoiGia = 0;
-        let tongThayDoiVolume = 0;
-        let tongThayDoiOI = 0;
-
-        cacGiaTri.forEach(duLieu => {
-            const xuHuong = duLieu.sentiment.toLowerCase();
-            
-            if (xuHuong.includes('bullish')) {
-                thongKe.tang++;
-            } else if (xuHuong.includes('bearish')) {
-                thongKe.giam++;
-            } else {
-                thongKe.trungTinh++;
-            }
-
-            tongThayDoiGia += duLieu.price_change || 0;
-            tongThayDoiVolume += duLieu.volume_change || 0;
-            tongThayDoiOI += duLieu.oi_change || 0;
-        });
-
-        thongKe.trungBinhThayDoiGia = tongThayDoiGia / thongKe.tong;
-        thongKe.trungBinhThayDoiVolume = tongThayDoiVolume / thongKe.tong;
-        thongKe.trungBinhThayDoiOI = tongThayDoiOI / thongKe.tong;
-
-        return thongKe;
-    }
-
-    capNhatBieuDoLichSu(duLieuLichSu) {
-        const ctx = document.getElementById('historicalChart');
-        if (!ctx) return;
-
-        if (this.cacBieuDo.lichSu) {
-            this.cacBieuDo.lichSu.destroy();
-        }
-
-        // Tạo nhãn cho giai đoạn
-        const nhan = this.taoNhanNgay(this.giaiDoanHienTai);
-        
-        // Tạo bộ dữ liệu cho từng symbol
-        const boDuLieu = Object.keys(duLieuLichSu).map((symbol, viTri) => {
-            const mau = this.layMauChoViTri(viTri);
-            return {
-                label: symbol,
-                data: this.taoDuLieuLichSuGia(nhan.length),
-                borderColor: mau,
-                backgroundColor: mau + '20',
-                tension: 0.1,
-                fill: false
-            };
-        });
-
-        this.cacBieuDo.lichSu = new Chart(ctx, {
-            type: 'line',
-            data: { labels: nhan, datasets: boDuLieu },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    intersect: false,
-                    mode: 'index'
-                },
-                plugins: {
-                    legend: {
-                        position: 'top'
-                    },
-                    title: {
-                        display: true,
-                        text: `Biểu Đồ Lịch Sử Hiệu Suất Giá (${this.giaiDoanHienTai})`
-                    }
-                },
-                scales: {
-                    x: {
-                        display: true,
-                        title: {
-                            display: true,
-                            text: 'Ngày'
-                        }
-                    },
-                    y: {
-                        display: true,
-                        title: {
-                            display: true,
-                            text: 'Thay Đổi (%)'
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    taoNhanNgay(giaiDoan) {
-        const soNgay = giaiDoan === '7d' ? 7 : giaiDoan === '30d' ? 30 : 90;
-        return Array.from({length: soNgay}, (_, i) => {
-            const ngay = new Date();
-            ngay.setDate(ngay.getDate() - (soNgay - 1 - i));
-            return ngay.toLocaleDateString('vi-VN');
-        });
-    }
-
-    taoDuLieuLichSuGia(doDai) {
-        let giaTri = 0;
-        return Array.from({length: doDai}, () => {
-            giaTri += (Math.random() - 0.5) * 5;
-            return giaTri;
-        });
-    }
-
-    // Các phương thức tiện ích
-    layLopThayDoi(thayDoi) {
-        if (thayDoi > 0) return 'change-positive';
-        if (thayDoi < 0) return 'change-negative';
-        return 'change-neutral';
-    }
-
-    layThongTinXuHuong(xuHuong) {
-        const s = xuHuong.toLowerCase();
-        
-        if (s.includes('strong') && s.includes('bullish')) {
-            return { 
-                lop: 'sentiment-bullish', 
-                chuoi: 'Tăng Mạnh', 
-                bieuTuong: 'arrow-up-circle-fill',
-                moTa: 'Xu hướng tăng mạnh'
-            };
-        } else if (s.includes('bullish')) {
-            return { 
-                lop: 'sentiment-bullish', 
-                chuoi: 'Tăng Giá', 
-                bieuTuong: 'arrow-up',
-                moTa: 'Xu hướng tăng giá'
-            };
-        } else if (s.includes('strong') && s.includes('bearish')) {
-            return { 
-                lop: 'sentiment-bearish', 
-                chuoi: 'Giảm Mạnh', 
-                bieuTuong: 'arrow-down-circle-fill',
-                moTa: 'Xu hướng giảm mạnh'
-            };
-        } else if (s.includes('bearish')) {
-            return { 
-                lop: 'sentiment-bearish', 
-                chuoi: 'Giảm Giá', 
-                bieuTuong: 'arrow-down',
-                moTa: 'Xu hướng giảm giá'
-            };
-        }
-        
-        return { 
-            lop: 'sentiment-neutral', 
-            chuoi: 'Trung Tính', 
-            bieuTuong: 'dash-circle',
-            moTa: 'Xu hướng trung tính'
-        };
-    }
-
-    layMucDoBatThuong(thongDiep) {
-        const zscore = parseFloat(thongDiep.match(/Z-score: ([\d.]+)/)?.[1] || 0);
-        
-        if (zscore > 4) {
-            return { mau: 'danger', chuoi: 'Nghiêm Trọng', bieuTuong: 'exclamation-triangle-fill' };
-        } else if (zscore > 3) {
-            return { mau: 'warning', chuoi: 'Cao', bieuTuong: 'exclamation-triangle' };
-        } else if (zscore > 2.5) {
-            return { mau: 'info', chuoi: 'Trung Bình', bieuTuong: 'info-circle' };
-        }
-        
-        return { mau: 'secondary', chuoi: 'Thấp', bieuTuong: 'info-circle' };
-    }
-
-    layBieuTuongLoaiDuLieu(loaiDuLieu) {
-        const bieuTuong = {
-            volume: 'bar-chart',
-            open_interest: 'pie-chart',
-            price: 'graph-up',
-            correlation: 'shuffle'
-        };
-        return bieuTuong[loaiDuLieu] || 'info-circle';
-    }
-
-    layTenCoin(symbol) {
-        const ten = {
-            'BTCUSDT': 'Bitcoin',
-            'ETHUSDT': 'Ethereum', 
-            'BNBUSDT': 'BNB',
-            'SOLUSDT': 'Solana',
-            'DOGEUSDT': 'Dogecoin'
-        };
-        return ten[symbol] || symbol;
-    }
-
-    layMauChoViTri(viTri) {
-        const mau = [
-            '#f7931e', // Bitcoin cam
-            '#627eea', // Ethereum xanh
-            '#f0b90b', // BNB vàng
-            '#9945ff', // Solana tím
-            '#c2a633'  // Dogecoin vàng
-        ];
-        return mau[viTri % mau.length];
-    }
-
-    dinhDangPhanTram(giaTri) {
-        if (giaTri === null || giaTri === undefined || isNaN(giaTri)) {
-            return 'N/A';
-        }
-        return `${giaTri >= 0 ? '+' : ''}${giaTri.toFixed(2)}%`;
-    }
-
-    dinhDangThoiGian(thoiGian) {
-        return new Date(thoiGian).toLocaleString('vi-VN');
-    }
-
-    layThoiGianTruoc(thoiGian) {
-        const bay_gio = new Date();
-        const thoi_gian = new Date(thoiGian);
-        const chenhLechMs = bay_gio - thoi_gian;
-        const chenhLechGio = Math.floor(chenhLechMs / (1000 * 60 * 60));
-        const chenhLechPhut = Math.floor(chenhLechMs / (1000 * 60));
-
-        if (chenhLechGio > 24) {
-            return `${Math.floor(chenhLechGio / 24)} ngày trước`;
-        } else if (chenhLechGio > 0) {
-            return `${chenhLechGio} giờ trước`;
-        } else {
-            return `${chenhLechPhut} phút trước`;
-        }
-    }
-
-    dichLoaiDuLieu(loai) {
-        const tuDien = {
-            volume: 'Khối Lượng',
-            open_interest: 'OI',
-            price: 'Giá',
-            correlation: 'Tương Quan'
-        };
-        return tuDien[loai] || loai;
-    }
-
-    vietHoaDauChu(chuoi) {
-        return chuoi.charAt(0).toUpperCase() + chuoi.slice(1);
-    }
-
-    // Các phương thức hành động
-    hienThiChiTiet(symbol) {
-        // Tạo modal hoặc điều hướng đến trang chi tiết
-        alert(`Hiển thị phân tích chi tiết cho ${symbol}`);
-        // TODO: Triển khai view chi tiết với biểu đồ, chỉ báo, v.v.
-    }
-
-    hienThiBieuDo(symbol) {
-        // Mở biểu đồ trong modal hoặc tab mới
-        alert(`Mở biểu đồ nâng cao cho ${symbol}`);
-        // TODO: Triển khai biểu đồ nâng cao với TradingView hoặc tương tự
-    }
-
-    hienThiTracking24h(symbol) {
-        // Chuyển đến tab tracking 24h và focus vào symbol
-        const tracking24hTab = document.querySelector('[data-bs-target="#tracking24h"]');
-        if (tracking24hTab) {
-            tracking24hTab.click();
-            // Đợi tab load xong rồi focus vào symbol
-            setTimeout(() => {
-                this.locTheoSymbol24h(symbol);
-            }, 300);
-        }
-    }
-
-    hienThiDangTaiToanCuc() {
-        // Hiển thị loading overlay
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        if (loadingOverlay) {
-            loadingOverlay.style.display = 'flex';
-        }
-    }
-
-    anDangTaiToanCuc() {
-        // Ẩn loading overlay
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        if (loadingOverlay) {
-            loadingOverlay.style.display = 'none';
-        }
-    }
-
-    hienThiLoi(thongDiep) {
-        console.error(thongDiep);
-        // Hiển thị toast error
-        const toastContainer = document.getElementById('toastContainer');
-        if (toastContainer) {
-            const toastHtml = `
-                <div class="toast align-items-center text-white bg-danger border-0" role="alert">
-                    <div class="d-flex">
-                        <div class="toast-body">
-                            <i class="bi bi-exclamation-triangle me-2"></i>
-                            ${thongDiep}
-                        </div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-                    </div>
-                </div>
-            `;
-            toastContainer.insertAdjacentHTML('beforeend', toastHtml);
-            const toast = new bootstrap.Toast(toastContainer.lastElementChild);
-            toast.show();
-        }
-    }
-
-    thietLapWebSocket() {
-        // TODO: Triển khai WebSocket để cập nhật thời gian thực
-        // Kết nối đến Binance WebSocket hoặc WebSocket server của riêng bạn
-        console.log('WebSocket sẽ được triển khai trong tương lai');
-    }
-
-    thietLapTuDongLamMoi() {
-        // Làm mới dữ liệu mỗi 5 phút
-        setInterval(async () => {
-            console.log('🔄 Tự động làm mới dữ liệu...');
-            await this.taiDuLieuThoiGianThuc();
-            await this.taiDuLieuTracking24h();
-            await this.capNhatGiaoDienThoiGianThuc();
-            await this.capNhatGiaoDienTracking24h();
-        }, 5 * 60 * 1000);
-
-        // Làm mới toàn bộ dữ liệu mỗi 30 phút
-        setInterval(async () => {
-            console.log('🔄 Làm mới toàn bộ dữ liệu...');
-            await this.lamMoiDuLieuManh();
+    
+    startAutoRefresh() {
+        // Refresh mỗi 30 phút
+        this.updateInterval = setInterval(() => {
+            this.loadAllData();
         }, 30 * 60 * 1000);
     }
+    
+    switchView(view) {
+        this.currentView = view;
+        
+        // Update button states
+        const hourlyBtn = document.getElementById('hourlyBtn');
+        const dailyBtn = document.getElementById('dailyBtn');
+        
+        if (hourlyBtn && dailyBtn) {
+            hourlyBtn.classList.toggle('active', view === 'hourly');
+            dailyBtn.classList.toggle('active', view === 'daily');
+        }
+        
+        // Re-render content
+        this.renderCoins();
+    }
+    
+    async loadAllData() {
+        this.showLoading();
+        
+        try {
+            // Thử load từ nhiều nguồn dữ liệu
+            const dataSource = await this.detectDataSource();
+            
+            if (!dataSource) {
+                throw new Error('Không tìm thấy nguồn dữ liệu hợp lệ');
+            }
+            
+            // Load data cho từng symbol
+            const promises = this.symbols.map(symbol => this.loadSymbolData(symbol, dataSource));
+            await Promise.all(promises);
+            
+            // Update UI
+            this.updateLastUpdateTime();
+            this.renderCoins();
+            this.hideLoading();
+            
+            console.log('✅ Đã load thành công dữ liệu cho tất cả symbols');
+            
+        } catch (error) {
+            console.error('❌ Lỗi khi load dữ liệu:', error);
+            this.showError('Lỗi khi tải dữ liệu: ' + error.message);
+            this.hideLoading();
+        }
+    }
+    
+    async detectDataSource() {
+        // Thử các nguồn dữ liệu có thể có
+        const possibleSources = [
+            'data/json/',      // Local
+            './data/json/',    // Relative
+            '/data/json/',     // Absolute
+            'assets/data/'     // GitHub Pages alternative
+        ];
+        
+        for (const source of possibleSources) {
+            try {
+                const response = await fetch(`${source}symbols.json`);
+                if (response.ok) {
+                    console.log(`✅ Tìm thấy nguồn dữ liệu: ${source}`);
+                    return source;
+                }
+            } catch (e) {
+                // Continue to next source
+            }
+        }
+        
+        return null;
+    }
+    
+    async loadSymbolData(symbol, dataSource) {
+        try {
+            const response = await fetch(`${dataSource}${symbol}.json`);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
+            const data = await response.json();
+            this.coinsData[symbol] = this.processSymbolData(data);
+            
+            console.log(`✅ Loaded data for ${symbol}`);
+            
+        } catch (error) {
+            console.warn(`⚠️ Không thể load dữ liệu cho ${symbol}:`, error);
+            
+            // Tạo dữ liệu mẫu nếu không load được
+            this.coinsData[symbol] = this.generateSampleData(symbol);
+        }
+    }
+    
+    processSymbolData(rawData) {
+        // Xử lý và làm sạch dữ liệu
+        const processed = {
+            klines: rawData.klines || {},
+            open_interest: rawData.open_interest || [],
+            tracking_24h: rawData.tracking_24h || []
+        };
+        
+        // Sort data by timestamp
+        if (processed.open_interest.length > 0) {
+            processed.open_interest.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        }
+        
+        if (processed.tracking_24h.length > 0) {
+            processed.tracking_24h.sort((a, b) => new Date(a.hour_timestamp) - new Date(b.hour_timestamp));
+        }
+        
+        // Process klines data
+        Object.keys(processed.klines).forEach(timeframe => {
+            if (processed.klines[timeframe] && processed.klines[timeframe].length > 0) {
+                processed.klines[timeframe].sort((a, b) => new Date(a.open_time) - new Date(b.open_time));
+            }
+        });
+        
+        return processed;
+    }
+    
+    generateSampleData(symbol) {
+        // Tạo dữ liệu mẫu khi không load được từ API
+        const now = new Date();
+        const sampleData = {
+            klines: { '1d': [] },
+            open_interest: [],
+            tracking_24h: []
+        };
+        
+        // Generate 30 days of sample data
+        for (let i = 29; i >= 0; i--) {
+            const date = new Date(now);
+            date.setDate(date.getDate() - i);
+            
+            const baseValue = Math.random() * 1000000 + 500000;
+            
+            sampleData.open_interest.push({
+                timestamp: date.toISOString(),
+                open_interest: baseValue * (0.8 + Math.random() * 0.4)
+            });
+            
+            sampleData.klines['1d'].push({
+                open_time: date.toISOString(),
+                volume: baseValue * (0.5 + Math.random() * 1.5),
+                close: 50000 * (0.8 + Math.random() * 0.4)
+            });
+        }
+        
+        // Generate 24 hours of sample data
+        for (let i = 23; i >= 0; i--) {
+            const date = new Date(now);
+            date.setHours(date.getHours() - i, 0, 0, 0);
+            
+            const baseValue = Math.random() * 1000000 + 500000;
+            
+            sampleData.tracking_24h.push({
+                hour_timestamp: date.toISOString(),
+                open_interest: baseValue * (0.8 + Math.random() * 0.4),
+                volume: baseValue * (0.5 + Math.random() * 1.5),
+                price: 50000 * (0.8 + Math.random() * 0.4)
+            });
+        }
+        
+        return sampleData;
+    }
+    
+    renderCoins() {
+        const container = document.getElementById('coinsContainer');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        this.symbols.forEach(symbol => {
+            if (this.coinsData[symbol]) {
+                const coinCard = this.createCoinCard(symbol, this.coinsData[symbol]);
+                container.appendChild(coinCard);
+            }
+        });
+        
+        // Render charts after DOM is updated
+        setTimeout(() => {
+            this.symbols.forEach(symbol => {
+                if (this.coinsData[symbol]) {
+                    this.renderCoinChart(symbol, this.coinsData[symbol]);
+                }
+            });
+        }, 100);
+    }
+    
+    createCoinCard(symbol, data) {
+        const col = document.createElement('div');
+        col.className = 'col-lg-6 col-xl-4 mb-4';
+        
+        const cleanSymbol = symbol.replace('USDT', '');
+        const metrics = this.generateMetricsHTML(symbol, data);
+        
+        col.innerHTML = `
+            <div class="card coin-card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-currency-bitcoin me-2"></i>
+                        ${cleanSymbol}
+                    </h5>
+                    <small class="opacity-75">${this.currentView === 'hourly' ? '24 giờ qua' : '30 ngày qua'}</small>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        ${metrics}
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chart-${symbol}"></canvas>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        return col;
+    }
+    
+    generateMetricsHTML(symbol, data) {
+        if (this.currentView === 'hourly') {
+            return this.generateHourlyMetrics(data);
+        } else {
+            return this.generateDailyMetrics(data);
+        }
+    }
+    
+    generateHourlyMetrics(data) {
+        const hourlyData = data.tracking_24h || [];
+        
+        if (hourlyData.length === 0) {
+            return '<div class="text-muted text-center">Không có dữ liệu</div>';
+        }
+        
+        const latest = hourlyData[hourlyData.length - 1];
+        const previous = hourlyData.length > 1 ? hourlyData[hourlyData.length - 2] : latest;
+        
+        const oiChange = this.calculateChange(latest.open_interest, previous.open_interest);
+        const volumeChange = this.calculateChange(latest.volume, previous.volume);
+        
+        return `
+            <div class="metric-box oi">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small>Open Interest</small>
+                        <div class="fw-bold">${this.formatNumber(latest.open_interest)}</div>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge ${oiChange >= 0 ? 'bg-success' : 'bg-danger'}">
+                            ${oiChange >= 0 ? '+' : ''}${oiChange.toFixed(2)}%
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="metric-box volume">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small>Volume</small>
+                        <div class="fw-bold">${this.formatNumber(latest.volume)}</div>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge ${volumeChange >= 0 ? 'bg-success' : 'bg-danger'}">
+                            ${volumeChange >= 0 ? '+' : ''}${volumeChange.toFixed(2)}%
+                        </span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    generateDailyMetrics(data) {
+        const dailyOI = data.open_interest || [];
+        const dailyKlines = data.klines['1d'] || [];
+        
+        if (dailyOI.length === 0 && dailyKlines.length === 0) {
+            return '<div class="text-muted text-center">Không có dữ liệu</div>';
+        }
+        
+        let oiMetric = '';
+        let volumeMetric = '';
+        
+        if (dailyOI.length > 0) {
+            const latestOI = dailyOI[dailyOI.length - 1];
+            const previousOI = dailyOI.length > 1 ? dailyOI[dailyOI.length - 2] : latestOI;
+            const oiChange = this.calculateChange(latestOI.open_interest, previousOI.open_interest);
+            
+            oiMetric = `
+                <div class="metric-box oi">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small>Open Interest</small>
+                            <div class="fw-bold">${this.formatNumber(latestOI.open_interest)}</div>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge ${oiChange >= 0 ? 'bg-success' : 'bg-danger'}">
+                                ${oiChange >= 0 ? '+' : ''}${oiChange.toFixed(2)}%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        if (dailyKlines.length > 0) {
+            const latestVolume = dailyKlines[dailyKlines.length - 1];
+            const previousVolume = dailyKlines.length > 1 ? dailyKlines[dailyKlines.length - 2] : latestVolume;
+            const volumeChange = this.calculateChange(latestVolume.volume, previousVolume.volume);
+            
+            volumeMetric = `
+                <div class="metric-box volume">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small>Volume</small>
+                            <div class="fw-bold">${this.formatNumber(latestVolume.volume)}</div>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge ${volumeChange >= 0 ? 'bg-success' : 'bg-danger'}">
+                                ${volumeChange >= 0 ? '+' : ''}${volumeChange.toFixed(2)}%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        return oiMetric + volumeMetric;
+    }
+    
+    renderCoinChart(symbol, data) {
+        const canvas = document.getElementById(`chart-${symbol}`);
+        if (!canvas) return;
+        
+        // Destroy existing chart
+        if (this.charts[symbol]) {
+            this.charts[symbol].destroy();
+        }
+        
+        const ctx = canvas.getContext('2d');
+        const chartData = this.prepareChartData(data);
+        
+        if (chartData.length === 0) {
+            // Draw "no data" message
+            ctx.fillStyle = '#6c757d';
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
+            return;
+        }
+        
+        this.charts[symbol] = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        label: 'Open Interest',
+                        data: chartData.map(item => ({ x: item.x, y: item.oi })),
+                        borderColor: '#f5576c',
+                        backgroundColor: 'rgba(245, 87, 108, 0.1)',
+                        yAxisID: 'y',
+                        tension: 0.4,
+                        pointRadius: 2,
+                        pointHoverRadius: 4
+                    },
+                    {
+                        label: 'Volume',
+                        data: chartData.map(item => ({ x: item.x, y: item.volume })),
+                        borderColor: '#00f2fe',
+                        backgroundColor: 'rgba(0, 242, 254, 0.1)',
+                        yAxisID: 'y1',
+                        tension: 0.4,
+                        pointRadius: 2,
+                        pointHoverRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.dataset.label || '';
+                                const value = context.parsed.y;
+                                return `${label}: ${this.formatNumber ? this.formatNumber(value) : value}`;
+                            }.bind(this)
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: this.currentView === 'hourly' ? 'hour' : 'day',
+                            displayFormats: {
+                                hour: 'HH:mm',
+                                day: 'MM/dd'
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Open Interest',
+                            color: '#f5576c'
+                        },
+                        ticks: {
+                            callback: (value) => this.formatNumber(value)
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Volume',
+                            color: '#00f2fe'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                        ticks: {
+                            callback: (value) => this.formatNumber(value)
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    prepareChartData(data) {
+        let chartData = [];
+        
+        if (this.currentView === 'hourly') {
+            // Data cho view theo giờ (24h)
+            const hourlyData = data.tracking_24h || [];
+            chartData = hourlyData.map(item => ({
+                x: item.hour_timestamp,
+                oi: item.open_interest || 0,
+                volume: item.volume || 0
+            }));
+        } else {
+            // Data cho view theo ngày (30 ngày)
+            const dailyOI = data.open_interest || [];
+            const dailyKlines = data.klines['1d'] || [];
+            
+            // Merge OI and volume data by date
+            const mergedData = {};
+            
+            dailyOI.forEach(item => {
+                const date = item.timestamp.split('T')[0];
+                if (!mergedData[date]) mergedData[date] = {};
+                mergedData[date].oi = item.open_interest;
+                mergedData[date].timestamp = item.timestamp;
+            });
+            
+            dailyKlines.forEach(item => {
+                const date = item.open_time.split('T')[0];
+                if (!mergedData[date]) mergedData[date] = {};
+                mergedData[date].volume = item.volume;
+                if (!mergedData[date].timestamp) mergedData[date].timestamp = item.open_time;
+            });
+            
+            chartData = Object.keys(mergedData)
+                .sort()
+                .slice(-30) // Lấy 30 ngày gần nhất
+                .map(date => ({
+                    x: mergedData[date].timestamp,
+                    oi: mergedData[date].oi || 0,
+                    volume: mergedData[date].volume || 0
+                }));
+        }
+        
+        return chartData;
+    }
+    
+    // Utility functions
+    calculateChange(current, previous) {
+        if (!previous || previous === 0) return 0;
+        return ((current - previous) / previous) * 100;
+    }
+    
+    formatNumber(num) {
+        if (!num || isNaN(num)) return '0';
+        
+        const absNum = Math.abs(num);
+        
+        if (absNum >= 1e9) return (num / 1e9).toFixed(2) + 'B';
+        if (absNum >= 1e6) return (num / 1e6).toFixed(2) + 'M';
+        if (absNum >= 1e3) return (num / 1e3).toFixed(2) + 'K';
+        
+        return num.toFixed(2);
+    }
+    
+    updateLastUpdateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleString('vi-VN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        
+        const element = document.getElementById('lastUpdateTime');
+        if (element) {
+            element.innerHTML = `
+                <i class="bi bi-clock"></i>
+                Cập nhật lần cuối: ${timeString}
+            `;
+        }
+    }
+    
+    showLoading() {
+        const loadingDiv = document.getElementById('loadingDiv');
+        const contentDiv = document.getElementById('contentDiv');
+        const errorDiv = document.getElementById('errorDiv');
+        
+        if (loadingDiv) loadingDiv.classList.remove('d-none');
+        if (contentDiv) contentDiv.classList.add('d-none');
+        if (errorDiv) errorDiv.classList.add('d-none');
+    }
+    
+    hideLoading() {
+        const loadingDiv = document.getElementById('loadingDiv');
+        const contentDiv = document.getElementById('contentDiv');
+        
+        if (loadingDiv) loadingDiv.classList.add('d-none');
+        if (contentDiv) contentDiv.classList.remove('d-none');
+    }
+    
+    showError(message) {
+        const errorDiv = document.getElementById('errorDiv');
+        const errorMessage = document.getElementById('errorMessage');
+        const loadingDiv = document.getElementById('loadingDiv');
+        
+        if (errorMessage) errorMessage.textContent = message;
+        if (errorDiv) errorDiv.classList.remove('d-none');
+        if (loadingDiv) loadingDiv.classList.add('d-none');
+    }
+    
+    destroy() {
+        // Cleanup
+        if (this.updateInterval) {
+            clearInterval(this.updateInterval);
+        }
+        
+        // Destroy all charts
+        Object.values(this.charts).forEach(chart => {
+            if (chart && typeof chart.destroy === 'function') {
+                chart.destroy();
+            }
+        });
+        
+        this.charts = {};
+    }
 }
 
-// Khởi tạo hệ thống theo dõi nâng cao
-document.addEventListener('DOMContentLoaded', () => {
-    window.monitor = new HeThongTheoDoi_Binance_VietNam();
+// Khởi tạo monitor khi DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    window.simpleMonitor = new SimpleOIVolumeMonitor();
 });
 
-// Xuất để debug
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = HeThongTheoDoi_Binance_VietNam;
-}
+// Cleanup khi unload
+window.addEventListener('beforeunload', function() {
+    if (window.simpleMonitor) {
+        window.simpleMonitor.destroy();
+    }
+});
