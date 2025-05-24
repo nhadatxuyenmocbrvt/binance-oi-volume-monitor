@@ -1,426 +1,597 @@
 import pandas as pd
 import numpy as np
 from scipy import stats
+from datetime import datetime, timedelta
 from config.settings import setup_logging
 
 logger = setup_logging(__name__, 'metrics.log')
 
-class MarketMetrics:
+class OptimizedOIVolumeMetrics:
+    """
+    Lớp tối ưu cho việc tính toán metrics tập trung vào OI & Volume
+    Focus: 24h tracking (hourly) + 30d tracking (daily)
+    """
+    
     def __init__(self):
-        logger.info("Khởi tạo MarketMetrics")
+        logger.info("🔧 Khởi tạo OptimizedOIVolumeMetrics - Focus OI & Volume")
     
-    def calculate_volume_metrics(self, df):
-        """Tính toán các metrics cho Volume"""
+    def calculate_hourly_oi_metrics(self, df, hours=24):
+        """
+        Tính toán metrics OI theo giờ (24h focus)
+        """
         try:
-            if df.empty:
-                logger.warning("DataFrame rỗng, không thể tính toán metrics cho Volume")
-                return None
+            if df.empty or len(df) < 2:
+                logger.warning("Không đủ dữ liệu để tính OI metrics hàng giờ")
+                return self._get_empty_oi_metrics()
             
-            # Tính giá trị trung bình và độ lệch chuẩn của volume
-            volume_mean = df['volume'].mean()
-            volume_std = df['volume'].std()
+            # Lấy dữ liệu gần nhất
+            recent_df = df.tail(hours) if len(df) > hours else df
+            recent_df = recent_df.copy()
             
-            # Tính Z-score cho mỗi điểm dữ liệu
-            df['volume_z_score'] = (df['volume'] - volume_mean) / volume_std if volume_std > 0 else 0
+            # Tính các metrics cơ bản
+            current_oi = recent_df['open_interest'].iloc[-1]
+            first_oi = recent_df['open_interest'].iloc[0]
             
-            # Tính giá trị phần trăm thay đổi
-            df['volume_pct_change'] = df['volume'].pct_change() * 100
+            # Thay đổi 24h
+            oi_change_24h = ((current_oi - first_oi) / first_oi) * 100 if first_oi > 0 else 0
             
-            # Tính giá trị moving average cho 5 và 20 kỳ
-            df['volume_ma5'] = df['volume'].rolling(window=5).mean()
-            df['volume_ma20'] = df['volume'].rolling(window=20).mean()
+            # Thay đổi từng giờ
+            recent_df['oi_hourly_change'] = recent_df['open_interest'].pct_change() * 100
             
-            # Tính tỷ lệ volume hiện tại so với trung bình 20 kỳ
-            df['volume_ratio_ma20'] = df['volume'] / df['volume_ma20']
+            # Volatility (độ biến động)
+            oi_volatility = recent_df['oi_hourly_change'].std()
             
-            logger.info("Đã tính toán metrics cho Volume")
-            return df
-        except Exception as e:
-            logger.error(f"Lỗi khi tính toán metrics cho Volume: {str(e)}")
-            return None
-    
-    def calculate_oi_metrics(self, df):
-        """Tính toán các metrics cho Open Interest"""
-        try:
-            if df.empty:
-                logger.warning("DataFrame rỗng, không thể tính toán metrics cho Open Interest")
-                return None
+            # Trend analysis
+            positive_hours = (recent_df['oi_hourly_change'] > 0).sum()
+            negative_hours = (recent_df['oi_hourly_change'] < 0).sum()
+            total_hours = len(recent_df) - 1  # Trừ 1 vì pct_change tạo NaN đầu tiên
             
-            # Sắp xếp dữ liệu theo thời gian
-            df = df.sort_values('timestamp')
+            # Trend strength
+            trend_direction = 'bullish' if positive_hours > negative_hours else ('bearish' if negative_hours > positive_hours else 'neutral')
+            trend_strength = abs(positive_hours - negative_hours) / total_hours * 100 if total_hours > 0 else 0
             
-            # Tính giá trị trung bình và độ lệch chuẩn của open interest
-            oi_mean = df['open_interest'].mean()
-            oi_std = df['open_interest'].std()
+            # Moving averages
+            if len(recent_df) >= 6:
+                recent_df['oi_ma6h'] = recent_df['open_interest'].rolling(window=6).mean()
+                oi_above_ma = current_oi > recent_df['oi_ma6h'].iloc[-1]
+            else:
+                oi_above_ma = None
             
-            # Tính Z-score cho mỗi điểm dữ liệu
-            df['oi_z_score'] = (df['open_interest'] - oi_mean) / oi_std if oi_std > 0 else 0
+            # Peak và trough analysis
+            max_oi = recent_df['open_interest'].max()
+            min_oi = recent_df['open_interest'].min()
+            oi_range_pct = ((max_oi - min_oi) / min_oi) * 100 if min_oi > 0 else 0
             
-            # Tính giá trị phần trăm thay đổi
-            df['oi_pct_change'] = df['open_interest'].pct_change() * 100
+            # Support/Resistance levels
+            q25 = recent_df['open_interest'].quantile(0.25)
+            q75 = recent_df['open_interest'].quantile(0.75)
             
-            # Tính giá trị moving average cho 5 và 20 kỳ
-            df['oi_ma5'] = df['open_interest'].rolling(window=5).mean()
-            df['oi_ma20'] = df['open_interest'].rolling(window=20).mean()
-            
-            # Tính tỷ lệ OI hiện tại so với trung bình 20 kỳ
-            df['oi_ratio_ma20'] = df['open_interest'] / df['oi_ma20']
-            
-            logger.info("Đã tính toán metrics cho Open Interest")
-            return df
-        except Exception as e:
-            logger.error(f"Lỗi khi tính toán metrics cho Open Interest: {str(e)}")
-            return None
-    
-    def calculate_correlation(self, price_df, oi_df):
-        """Tính toán tương quan giữa giá và Open Interest"""
-        try:
-            if price_df.empty or oi_df.empty:
-                logger.warning("DataFrame rỗng, không thể tính toán tương quan")
-                return None
-            
-            # Chuẩn bị dữ liệu
-            price_data = price_df[['open_time', 'close']].copy()
-            price_data.rename(columns={'open_time': 'timestamp'}, inplace=True)
-            
-            oi_data = oi_df[['timestamp', 'open_interest']].copy()
-            
-            # Hợp nhất dữ liệu dựa trên timestamp
-            merged_data = pd.merge_asof(
-                price_data.sort_values('timestamp'),
-                oi_data.sort_values('timestamp'),
-                on='timestamp',
-                direction='nearest'
-            )
-            
-            # Tính hệ số tương quan Pearson
-            correlation = merged_data['close'].corr(merged_data['open_interest'])
-            
-            # Tính hệ số tương quan Spearman (thứ bậc)
-            spearman_corr = merged_data['close'].corr(merged_data['open_interest'], method='spearman')
-            
-            result = {
-                'pearson_correlation': correlation,
-                'spearman_correlation': spearman_corr,
-                'sample_size': len(merged_data)
+            metrics = {
+                'current_oi': current_oi,
+                'oi_change_24h': round(oi_change_24h, 4),
+                'oi_volatility': round(oi_volatility, 4),
+                'trend_direction': trend_direction,
+                'trend_strength': round(trend_strength, 2),
+                'positive_hours': int(positive_hours),
+                'negative_hours': int(negative_hours),
+                'oi_above_ma6h': oi_above_ma,
+                'oi_range_24h_pct': round(oi_range_pct, 2),
+                'support_level': round(q25, 2),
+                'resistance_level': round(q75, 2),
+                'max_oi_24h': max_oi,
+                'min_oi_24h': min_oi,
+                'total_data_points': len(recent_df)
             }
             
-            logger.info(f"Đã tính toán tương quan: Pearson={correlation:.4f}, Spearman={spearman_corr:.4f}")
-            return result
+            logger.info(f"✅ Tính toán OI metrics 24h: {trend_direction} {oi_change_24h:.2f}%")
+            return metrics
+            
         except Exception as e:
-            logger.error(f"Lỗi khi tính toán tương quan: {str(e)}")
-            return None
+            logger.error(f"❌ Lỗi khi tính OI metrics hàng giờ: {str(e)}")
+            return self._get_empty_oi_metrics()
     
-    def detect_outliers(self, df, column, threshold=2.5):
-        """Phát hiện các giá trị bất thường (outliers) trong một cột dữ liệu"""
+    def calculate_hourly_volume_metrics(self, df, hours=24):
+        """
+        Tính toán metrics Volume theo giờ (24h focus)
+        """
         try:
-            if df.empty:
-                logger.warning(f"DataFrame rỗng, không thể phát hiện outliers cho cột {column}")
-                return []
+            if df.empty or len(df) < 2:
+                logger.warning("Không đủ dữ liệu để tính Volume metrics hàng giờ")
+                return self._get_empty_volume_metrics()
             
-            # Tính Z-score cho cột dữ liệu
-            z_scores = np.abs(stats.zscore(df[column].fillna(df[column].mean())))
+            # Lấy dữ liệu gần nhất
+            recent_df = df.tail(hours) if len(df) > hours else df
+            recent_df = recent_df.copy()
             
-            # Xác định các outliers dựa trên ngưỡng
-            outliers_idx = np.where(z_scores > threshold)[0]
+            # Tính các metrics cơ bản
+            current_volume = recent_df['volume'].iloc[-1]
+            first_volume = recent_df['volume'].iloc[0]
             
-            # Lấy thông tin về các outliers
-            outliers = df.iloc[outliers_idx].copy()
-            outliers['z_score'] = z_scores[outliers_idx]
+            # Thay đổi 24h
+            volume_change_24h = ((current_volume - first_volume) / first_volume) * 100 if first_volume > 0 else 0
             
-            logger.info(f"Đã phát hiện {len(outliers)} outliers cho cột {column}")
-            return outliers
+            # Thay đổi từng giờ
+            recent_df['volume_hourly_change'] = recent_df['volume'].pct_change() * 100
+            
+            # Volume metrics đặc biệt
+            total_volume_24h = recent_df['volume'].sum()
+            avg_volume_24h = recent_df['volume'].mean()
+            volume_volatility = recent_df['volume_hourly_change'].std()
+            
+            # Spike detection (volume đột biến)
+            volume_mean = recent_df['volume'].mean()
+            volume_std = recent_df['volume'].std()
+            spike_threshold = volume_mean + (2 * volume_std)
+            volume_spikes = (recent_df['volume'] > spike_threshold).sum()
+            
+            # Trend analysis
+            positive_hours = (recent_df['volume_hourly_change'] > 0).sum()
+            negative_hours = (recent_df['volume_hourly_change'] < 0).sum()
+            total_hours = len(recent_df) - 1
+            
+            trend_direction = 'increasing' if positive_hours > negative_hours else ('decreasing' if negative_hours > positive_hours else 'stable')
+            
+            # Volume concentration (phân phối volume trong ngày)
+            volume_concentration = (recent_df['volume'].max() / avg_volume_24h) if avg_volume_24h > 0 else 0
+            
+            # Moving averages
+            if len(recent_df) >= 6:
+                recent_df['volume_ma6h'] = recent_df['volume'].rolling(window=6).mean()
+                volume_above_ma = current_volume > recent_df['volume_ma6h'].iloc[-1]
+            else:
+                volume_above_ma = None
+            
+            metrics = {
+                'current_volume': current_volume,
+                'volume_change_24h': round(volume_change_24h, 4),
+                'total_volume_24h': total_volume_24h,
+                'avg_volume_24h': round(avg_volume_24h, 2),
+                'volume_volatility': round(volume_volatility, 4),
+                'trend_direction': trend_direction,
+                'volume_spikes': int(volume_spikes),
+                'volume_concentration': round(volume_concentration, 2),
+                'volume_above_ma6h': volume_above_ma,
+                'max_volume_24h': recent_df['volume'].max(),
+                'min_volume_24h': recent_df['volume'].min(),
+                'positive_hours': int(positive_hours),
+                'negative_hours': int(negative_hours),
+                'total_data_points': len(recent_df)
+            }
+            
+            logger.info(f"✅ Tính toán Volume metrics 24h: {trend_direction} {volume_change_24h:.2f}%")
+            return metrics
+            
         except Exception as e:
-            logger.error(f"Lỗi khi phát hiện outliers: {str(e)}")
+            logger.error(f"❌ Lỗi khi tính Volume metrics hàng giờ: {str(e)}")
+            return self._get_empty_volume_metrics()
+    
+    def calculate_daily_oi_metrics(self, df, days=30):
+        """
+        Tính toán metrics OI theo ngày (30d focus)
+        """
+        try:
+            if df.empty or len(df) < 2:
+                logger.warning("Không đủ dữ liệu để tính OI metrics hàng ngày")
+                return self._get_empty_oi_metrics_30d()
+            
+            # Lấy dữ liệu gần nhất
+            recent_df = df.tail(days) if len(df) > days else df
+            recent_df = recent_df.copy()
+            
+            # Sử dụng cột phù hợp (avg_open_interest cho daily_tracking)
+            oi_column = 'avg_open_interest' if 'avg_open_interest' in recent_df.columns else 'open_interest'
+            
+            current_oi = recent_df[oi_column].iloc[-1]
+            first_oi = recent_df[oi_column].iloc[0]
+            
+            # Thay đổi 30d
+            oi_change_30d = ((current_oi - first_oi) / first_oi) * 100 if first_oi > 0 else 0
+            
+            # Thay đổi 7d (nếu có đủ dữ liệu)
+            if len(recent_df) >= 7:
+                oi_7d_ago = recent_df[oi_column].iloc[-7]
+                oi_change_7d = ((current_oi - oi_7d_ago) / oi_7d_ago) * 100 if oi_7d_ago > 0 else 0
+            else:
+                oi_change_7d = 0
+            
+            # Daily changes
+            recent_df['oi_daily_change'] = recent_df[oi_column].pct_change() * 100
+            
+            # Volatility và trend
+            oi_daily_volatility = recent_df['oi_daily_change'].std()
+            positive_days = (recent_df['oi_daily_change'] > 0).sum()
+            negative_days = (recent_df['oi_daily_change'] < 0).sum()
+            total_days = len(recent_df) - 1
+            
+            trend_direction = 'bullish' if positive_days > negative_days else ('bearish' if negative_days > positive_days else 'neutral')
+            
+            # Moving averages
+            if len(recent_df) >= 7:
+                recent_df['oi_ma7d'] = recent_df[oi_column].rolling(window=7).mean()
+                oi_above_ma7d = current_oi > recent_df['oi_ma7d'].iloc[-1]
+            else:
+                oi_above_ma7d = None
+            
+            if len(recent_df) >= 14:
+                recent_df['oi_ma14d'] = recent_df[oi_column].rolling(window=14).mean()
+                oi_above_ma14d = current_oi > recent_df['oi_ma14d'].iloc[-1]
+            else:
+                oi_above_ma14d = None
+            
+            # Extremes
+            max_oi = recent_df[oi_column].max()
+            min_oi = recent_df[oi_column].min()
+            avg_oi_30d = recent_df[oi_column].mean()
+            
+            metrics = {
+                'current_oi': current_oi,
+                'avg_oi_30d': round(avg_oi_30d, 2),
+                'oi_change_30d': round(oi_change_30d, 4),
+                'oi_change_7d': round(oi_change_7d, 4),
+                'oi_daily_volatility': round(oi_daily_volatility, 4),
+                'trend_direction': trend_direction,
+                'positive_days': int(positive_days),
+                'negative_days': int(negative_days),
+                'oi_above_ma7d': oi_above_ma7d,
+                'oi_above_ma14d': oi_above_ma14d,
+                'max_oi_30d': max_oi,
+                'min_oi_30d': min_oi,
+                'oi_range_30d_pct': round(((max_oi - min_oi) / min_oi) * 100, 2) if min_oi > 0 else 0,
+                'total_data_points': len(recent_df)
+            }
+            
+            logger.info(f"✅ Tính toán OI metrics 30d: {trend_direction} {oi_change_30d:.2f}%")
+            return metrics
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi tính OI metrics hàng ngày: {str(e)}")
+            return self._get_empty_oi_metrics_30d()
+    
+    def calculate_daily_volume_metrics(self, df, days=30):
+        """
+        Tính toán metrics Volume theo ngày (30d focus)
+        """
+        try:
+            if df.empty or len(df) < 2:
+                logger.warning("Không đủ dữ liệu để tính Volume metrics hàng ngày")
+                return self._get_empty_volume_metrics_30d()
+            
+            # Lấy dữ liệu gần nhất
+            recent_df = df.tail(days) if len(df) > days else df
+            recent_df = recent_df.copy()
+            
+            # Sử dụng cột phù hợp (total_volume cho daily_tracking)
+            volume_column = 'total_volume' if 'total_volume' in recent_df.columns else 'volume'
+            
+            current_volume = recent_df[volume_column].iloc[-1]
+            first_volume = recent_df[volume_column].iloc[0]
+            
+            # Thay đổi 30d
+            volume_change_30d = ((current_volume - first_volume) / first_volume) * 100 if first_volume > 0 else 0
+            
+            # Thay đổi 7d
+            if len(recent_df) >= 7:
+                volume_7d_ago = recent_df[volume_column].iloc[-7]
+                volume_change_7d = ((current_volume - volume_7d_ago) / volume_7d_ago) * 100 if volume_7d_ago > 0 else 0
+            else:
+                volume_change_7d = 0
+            
+            # Daily changes
+            recent_df['volume_daily_change'] = recent_df[volume_column].pct_change() * 100
+            
+            # Volume metrics đặc biệt cho 30d
+            total_volume_30d = recent_df[volume_column].sum()
+            avg_volume_30d = recent_df[volume_column].mean()
+            volume_daily_volatility = recent_df['volume_daily_change'].std()
+            
+            # Trend analysis
+            positive_days = (recent_df['volume_daily_change'] > 0).sum()
+            negative_days = (recent_df['volume_daily_change'] < 0).sum()
+            total_days = len(recent_df) - 1
+            
+            trend_direction = 'increasing' if positive_days > negative_days else ('decreasing' if negative_days > positive_days else 'stable')
+            
+            # Volume distribution
+            volume_std = recent_df[volume_column].std()
+            volume_cv = (volume_std / avg_volume_30d) if avg_volume_30d > 0 else 0  # Coefficient of variation
+            
+            # High volume days
+            high_volume_threshold = avg_volume_30d + volume_std
+            high_volume_days = (recent_df[volume_column] > high_volume_threshold).sum()
+            
+            # Moving averages
+            if len(recent_df) >= 7:
+                recent_df['volume_ma7d'] = recent_df[volume_column].rolling(window=7).mean()
+                volume_above_ma7d = current_volume > recent_df['volume_ma7d'].iloc[-1]
+            else:
+                volume_above_ma7d = None
+            
+            metrics = {
+                'current_volume': current_volume,
+                'avg_volume_30d': round(avg_volume_30d, 2),
+                'total_volume_30d': total_volume_30d,
+                'volume_change_30d': round(volume_change_30d, 4),
+                'volume_change_7d': round(volume_change_7d, 4),
+                'volume_daily_volatility': round(volume_daily_volatility, 4),
+                'trend_direction': trend_direction,
+                'positive_days': int(positive_days),
+                'negative_days': int(negative_days),
+                'volume_above_ma7d': volume_above_ma7d,
+                'high_volume_days': int(high_volume_days),
+                'volume_cv': round(volume_cv, 4),
+                'max_volume_30d': recent_df[volume_column].max(),
+                'min_volume_30d': recent_df[volume_column].min(),
+                'total_data_points': len(recent_df)
+            }
+            
+            logger.info(f"✅ Tính toán Volume metrics 30d: {trend_direction} {volume_change_30d:.2f}%")
+            return metrics
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi tính Volume metrics hàng ngày: {str(e)}")
+            return self._get_empty_volume_metrics_30d()
+    
+    def calculate_oi_volume_correlation(self, df, period='24h'):
+        """
+        Tính toán tương quan giữa OI và Volume
+        """
+        try:
+            if df.empty or len(df) < 3:
+                return {
+                    'correlation': 0,
+                    'correlation_strength': 'no_data',
+                    'sample_size': 0
+                }
+            
+            # Chọn cột phù hợp
+            if period == '24h':
+                oi_col = 'open_interest'
+                vol_col = 'volume'
+            else:
+                oi_col = 'avg_open_interest' if 'avg_open_interest' in df.columns else 'open_interest'
+                vol_col = 'total_volume' if 'total_volume' in df.columns else 'volume'
+            
+            # Tính correlation
+            correlation = df[oi_col].corr(df[vol_col])
+            
+            if pd.isna(correlation):
+                correlation = 0
+            
+            # Phân loại mức độ tương quan
+            if abs(correlation) >= 0.7:
+                strength = 'strong'
+            elif abs(correlation) >= 0.4:
+                strength = 'moderate'
+            elif abs(correlation) >= 0.2:
+                strength = 'weak'
+            else:
+                strength = 'negligible'
+            
+            # Thêm hướng
+            if correlation > 0:
+                direction = 'positive'
+            elif correlation < 0:
+                direction = 'negative'
+            else:
+                direction = 'neutral'
+            
+            result = {
+                'correlation': round(correlation, 4),
+                'correlation_strength': f"{strength}_{direction}",
+                'sample_size': len(df),
+                'interpretation': self._interpret_correlation(correlation)
+            }
+            
+            logger.info(f"📊 OI-Volume correlation ({period}): {correlation:.3f} ({strength})")
+            return result
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi tính correlation OI-Volume: {str(e)}")
+            return {
+                'correlation': 0,
+                'correlation_strength': 'error',
+                'sample_size': 0,
+                'interpretation': 'Không thể tính toán'
+            }
+    
+    def detect_oi_volume_anomalies(self, df, threshold=2.5):
+        """
+        Phát hiện bất thường cho OI và Volume
+        """
+        try:
+            anomalies = []
+            
+            if df.empty or len(df) < 10:
+                return anomalies
+            
+            # Columns để check
+            columns_to_check = []
+            if 'open_interest' in df.columns:
+                columns_to_check.append(('open_interest', 'OI'))
+            if 'volume' in df.columns:
+                columns_to_check.append(('volume', 'Volume'))
+            if 'avg_open_interest' in df.columns:
+                columns_to_check.append(('avg_open_interest', 'OI_Daily'))
+            if 'total_volume' in df.columns:
+                columns_to_check.append(('total_volume', 'Volume_Daily'))
+            
+            for col, name in columns_to_check:
+                # Tính Z-score
+                mean_val = df[col].mean()
+                std_val = df[col].std()
+                
+                if std_val > 0:
+                    z_scores = np.abs((df[col] - mean_val) / std_val)
+                    anomaly_mask = z_scores > threshold
+                    
+                    if anomaly_mask.any():
+                        anomaly_indices = df[anomaly_mask].index
+                        for idx in anomaly_indices:
+                            anomalies.append({
+                                'timestamp': df.loc[idx, 'timestamp'] if 'timestamp' in df.columns else (
+                                    df.loc[idx, 'hour_timestamp'] if 'hour_timestamp' in df.columns else (
+                                        df.loc[idx, 'date'] if 'date' in df.columns else idx
+                                    )
+                                ),
+                                'metric': name,
+                                'value': df.loc[idx, col],
+                                'z_score': z_scores.loc[idx],
+                                'threshold': threshold,
+                                'severity': 'high' if z_scores.loc[idx] > threshold + 1 else 'moderate'
+                            })
+            
+            logger.info(f"🚨 Phát hiện {len(anomalies)} anomalies với threshold {threshold}")
+            return anomalies
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi phát hiện anomalies: {str(e)}")
             return []
     
-    def calculate_safe_percentage_change(self, df, column, periods=1):
-        """Tính toán phần trăm thay đổi an toàn - THÊM MỚI"""
+    def generate_summary_metrics(self, oi_metrics_24h, volume_metrics_24h, oi_metrics_30d, volume_metrics_30d):
+        """
+        Tạo metrics tổng hợp
+        """
         try:
-            if df.empty or len(df) < periods + 1:
-                logger.warning(f"Không đủ dữ liệu để tính phần trăm thay đổi cho {column}")
-                return 0.0
-            
-            # Lấy giá trị hiện tại và trước đó
-            current_value = df[column].iloc[-1]
-            previous_value = df[column].iloc[-(periods + 1)]
-            
-            # Kiểm tra giá trị hợp lệ
-            if pd.isna(current_value) or pd.isna(previous_value) or previous_value == 0:
-                return 0.0
-            
-            # Tính phần trăm thay đổi
-            change = ((current_value - previous_value) / previous_value) * 100
-            return round(change, 4)
-        except Exception as e:
-            logger.error(f"Lỗi khi tính phần trăm thay đổi cho {column}: {str(e)}")
-            return 0.0
-    
-    def calculate_24h_percentage_change(self, df, column, timeframe='1h'):
-        """Tính toán phần trăm thay đổi 24h - ĐÃ CẬP NHẬT CHO TRACKING 24H"""
-        try:
-            if df.empty:
-                return 0.0
-            
-            # Xác định số periods cho 24h
-            periods_24h = 24 if timeframe == '1h' else (6 if timeframe == '4h' else 1)
-            
-            if len(df) < periods_24h + 1:
-                # Nếu không đủ dữ liệu 24h, tính với dữ liệu có sẵn
-                return self.calculate_safe_percentage_change(df, column, periods=1)
-            
-            # Tính với 24h data
-            return self.calculate_safe_percentage_change(df, column, periods=periods_24h)
-        except Exception as e:
-            logger.error(f"Lỗi khi tính phần trăm thay đổi 24h: {str(e)}")
-            return 0.0
-    
-    def calculate_hourly_volatility(self, df, column, hours=24):
-        """Tính toán độ biến động theo giờ - THÊM MỚI CHO TRACKING 24H"""
-        try:
-            if df.empty or len(df) < 2:
-                return 0.0
-            
-            # Lấy dữ liệu theo số giờ chỉ định
-            recent_df = df.tail(hours) if len(df) > hours else df
-            
-            # Tính phần trăm thay đổi giữa các giờ
-            pct_changes = recent_df[column].pct_change().dropna()
-            
-            if len(pct_changes) == 0:
-                return 0.0
-            
-            # Tính độ lệch chuẩn (volatility)
-            volatility = pct_changes.std() * 100  # Convert to percentage
-            
-            return round(volatility, 4)
-        except Exception as e:
-            logger.error(f"Lỗi khi tính volatility: {str(e)}")
-            return 0.0
-    
-    def calculate_hourly_trend(self, df, column, hours=24):
-        """Tính toán xu hướng theo giờ - THÊM MỚI CHO TRACKING 24H"""
-        try:
-            if df.empty or len(df) < hours:
-                return {'trend': 'neutral', 'strength': 0, 'direction': 0}
-            
-            # Lấy dữ liệu gần nhất
-            recent_df = df.tail(hours)
-            
-            # Tính tổng thay đổi
-            total_change = self.calculate_safe_percentage_change(recent_df, column, periods=len(recent_df)-1)
-            
-            # Tính số lần tăng/giảm
-            pct_changes = recent_df[column].pct_change().dropna()
-            positive_changes = (pct_changes > 0).sum()
-            negative_changes = (pct_changes < 0).sum()
-            
-            # Xác định xu hướng
-            if abs(total_change) < 1:  # Thay đổi < 1%
-                trend = 'neutral'
-            elif total_change > 0:
-                trend = 'bullish'
-            else:
-                trend = 'bearish'
-            
-            # Tính strength (0-100)
-            strength = min(abs(total_change) * 10, 100)  # Scale to 0-100
-            
-            # Direction ratio
-            total_moves = positive_changes + negative_changes
-            direction = (positive_changes / total_moves * 100) if total_moves > 0 else 50
-            
-            return {
-                'trend': trend,
-                'strength': round(strength, 2),
-                'direction': round(direction, 2),
-                'total_change': total_change,
-                'positive_moves': int(positive_changes),
-                'negative_moves': int(negative_changes)
+            summary = {
+                'timestamp': datetime.now().isoformat(),
+                '24h_summary': {
+                    'oi_trend': oi_metrics_24h.get('trend_direction', 'neutral'),
+                    'oi_change': oi_metrics_24h.get('oi_change_24h', 0),
+                    'volume_trend': volume_metrics_24h.get('trend_direction', 'stable'),
+                    'volume_change': volume_metrics_24h.get('volume_change_24h', 0),
+                    'overall_sentiment': self._determine_sentiment_24h(oi_metrics_24h, volume_metrics_24h)
+                },
+                '30d_summary': {
+                    'oi_trend': oi_metrics_30d.get('trend_direction', 'neutral'),
+                    'oi_change': oi_metrics_30d.get('oi_change_30d', 0),
+                    'volume_trend': volume_metrics_30d.get('trend_direction', 'stable'),
+                    'volume_change': volume_metrics_30d.get('volume_change_30d', 0),
+                    'overall_sentiment': self._determine_sentiment_30d(oi_metrics_30d, volume_metrics_30d)
+                },
+                'data_quality': {
+                    'oi_24h_points': oi_metrics_24h.get('total_data_points', 0),
+                    'volume_24h_points': volume_metrics_24h.get('total_data_points', 0),
+                    'oi_30d_points': oi_metrics_30d.get('total_data_points', 0),
+                    'volume_30d_points': volume_metrics_30d.get('total_data_points', 0)
+                }
             }
             
+            return summary
+            
         except Exception as e:
-            logger.error(f"Lỗi khi tính hourly trend: {str(e)}")
-            return {'trend': 'neutral', 'strength': 0, 'direction': 0}
+            logger.error(f"❌ Lỗi khi tạo summary metrics: {str(e)}")
+            return {}
     
-    def calculate_peak_hours(self, df, column, hours=24):
-        """Tìm giờ có biến động cao nhất - THÊM MỚI CHO TRACKING 24H"""
-        try:
-            if df.empty or len(df) < 2:
-                return None
-            
-            # Lấy dữ liệu gần nhất
-            recent_df = df.tail(hours) if len(df) > hours else df
-            
-            # Tính phần trăm thay đổi
-            recent_df = recent_df.copy()
-            recent_df['pct_change'] = recent_df[column].pct_change()
-            recent_df['abs_change'] = recent_df['pct_change'].abs()
-            
-            # Tìm giờ có biến động lớn nhất
-            if 'timestamp' in recent_df.columns:
-                time_col = 'timestamp'
-            elif 'open_time' in recent_df.columns:
-                time_col = 'open_time'
-            elif 'hour_timestamp' in recent_df.columns:
-                time_col = 'hour_timestamp'
-            else:
-                return None
-            
-            max_change_idx = recent_df['abs_change'].idxmax()
-            if pd.isna(max_change_idx):
-                return None
-            
-            peak_row = recent_df.loc[max_change_idx]
-            
-            return {
-                'timestamp': peak_row[time_col],
-                'hour': peak_row[time_col].strftime('%H:00') if hasattr(peak_row[time_col], 'strftime') else str(peak_row[time_col]),
-                'change_percent': round(peak_row['pct_change'] * 100, 4),
-                'value': peak_row[column]
-            }
-            
-        except Exception as e:
-            logger.error(f"Lỗi khi tìm peak hours: {str(e)}")
-            return None
+    # Helper methods
+    def _get_empty_oi_metrics(self):
+        return {
+            'current_oi': 0,
+            'oi_change_24h': 0,
+            'oi_volatility': 0,
+            'trend_direction': 'neutral',
+            'trend_strength': 0,
+            'positive_hours': 0,
+            'negative_hours': 0,
+            'oi_above_ma6h': None,
+            'oi_range_24h_pct': 0,
+            'support_level': 0,
+            'resistance_level': 0,
+            'max_oi_24h': 0,
+            'min_oi_24h': 0,
+            'total_data_points': 0
+        }
     
-    def calculate_moving_average_hourly(self, df, column, window=6):
-        """Tính moving average theo giờ - THÊM MỚI CHO TRACKING 24H"""
-        try:
-            if df.empty or len(df) < window:
-                return df
-            
-            df_copy = df.copy()
-            df_copy[f'{column}_ma{window}h'] = df_copy[column].rolling(window=window).mean()
-            
-            return df_copy
-        except Exception as e:
-            logger.error(f"Lỗi khi tính moving average hourly: {str(e)}")
-            return df
+    def _get_empty_volume_metrics(self):
+        return {
+            'current_volume': 0,
+            'volume_change_24h': 0,
+            'total_volume_24h': 0,
+            'avg_volume_24h': 0,
+            'volume_volatility': 0,
+            'trend_direction': 'stable',
+            'volume_spikes': 0,
+            'volume_concentration': 0,
+            'volume_above_ma6h': None,
+            'max_volume_24h': 0,
+            'min_volume_24h': 0,
+            'positive_hours': 0,
+            'negative_hours': 0,
+            'total_data_points': 0
+        }
     
-    def calculate_support_resistance_levels(self, df, column, hours=24):
-        """Tính mức hỗ trợ và kháng cự theo giờ - THÊM MỚI CHO TRACKING 24H"""
-        try:
-            if df.empty or len(df) < hours:
-                return {'support': None, 'resistance': None}
-            
-            # Lấy dữ liệu gần nhất
-            recent_df = df.tail(hours)
-            values = recent_df[column].values
-            
-            # Tính percentiles làm support/resistance
-            support_level = np.percentile(values, 25)  # 25th percentile
-            resistance_level = np.percentile(values, 75)  # 75th percentile
-            
-            return {
-                'support': round(support_level, 4),
-                'resistance': round(resistance_level, 4),
-                'current': round(values[-1], 4),
-                'range_percent': round(((resistance_level - support_level) / support_level) * 100, 2)
-            }
-            
-        except Exception as e:
-            logger.error(f"Lỗi khi tính support/resistance: {str(e)}")
-            return {'support': None, 'resistance': None}
+    def _get_empty_oi_metrics_30d(self):
+        return {
+            'current_oi': 0,
+            'avg_oi_30d': 0,
+            'oi_change_30d': 0,
+            'oi_change_7d': 0,
+            'oi_daily_volatility': 0,
+            'trend_direction': 'neutral',
+            'positive_days': 0,
+            'negative_days': 0,
+            'oi_above_ma7d': None,
+            'oi_above_ma14d': None,
+            'max_oi_30d': 0,
+            'min_oi_30d': 0,
+            'oi_range_30d_pct': 0,
+            'total_data_points': 0
+        }
     
-    def calculate_market_sentiment(self, price_df, oi_df, volume_df):
-        """Tính toán chỉ số sentiment dựa trên giá, OI và volume - ĐÃ SỬA"""
-        try:
-            # Khởi tạo giá trị mặc định
-            default_result = {
-                'sentiment_score': 0,
-                'sentiment_label': "Neutral",
-                'price_change': 0.0,
-                'oi_change': 0.0,
-                'volume_change': 0.0
-            }
-            
-            if price_df.empty or oi_df.empty or volume_df.empty:
-                logger.warning("DataFrame rỗng, không thể tính toán sentiment")
-                return default_result
-            
-            # Tính các chỉ số thay đổi với cách an toàn hơn
-            price_change = 0.0
-            oi_change = 0.0  
-            volume_change = 0.0
-            
-            # Tính thay đổi giá
-            if len(price_df) > 1:
-                price_change = self.calculate_safe_percentage_change(price_df, 'close')
-            
-            # Tính thay đổi Open Interest
-            if len(oi_df) > 1:
-                oi_change = self.calculate_safe_percentage_change(oi_df, 'open_interest')
-            
-            # Tính thay đổi Volume
-            if len(volume_df) > 1:
-                volume_change = self.calculate_safe_percentage_change(volume_df, 'volume')
-            
-            # Logic sentiment cải thiện với ngưỡng
-            sentiment = 0
-            sentiment_label = "Neutral"
-            
-            # Định nghĩa ngưỡng để xác định thay đổi có ý nghĩa
-            price_threshold = 0.5  # 0.5%
-            oi_threshold = 1.0     # 1.0%
-            volume_threshold = 5.0 # 5.0%
-            
-            # Phân loại mức độ thay đổi
-            price_positive = price_change > price_threshold
-            price_negative = price_change < -price_threshold
-            oi_positive = oi_change > oi_threshold
-            oi_negative = oi_change < -oi_threshold
-            volume_positive = volume_change > volume_threshold
-            
-            # Tính điểm sentiment
-            if price_positive and oi_positive:
-                if volume_positive:
-                    sentiment = 2  # Bullish mạnh
-                    sentiment_label = "Strong Bullish"
-                else:
-                    sentiment = 1  # Bullish trung bình
-                    sentiment_label = "Moderate Bullish"
-            elif price_positive and oi_negative:
-                sentiment = -0.5  # Bearish tiềm ẩn (short covering)
-                sentiment_label = "Potential Bearish (Short Covering)"
-            elif price_negative and oi_positive:
-                sentiment = -2  # Bearish mạnh
-                sentiment_label = "Strong Bearish"
-            elif price_negative and oi_negative:
-                if volume_positive:
-                    sentiment = -0.3  # Không rõ ràng (liquidation)
-                    sentiment_label = "Unclear (Liquidation)"
-                else:
-                    sentiment = -0.1  # Weak bearish
-                    sentiment_label = "Weak Bearish"
-            elif abs(price_change) < price_threshold and abs(oi_change) < oi_threshold:
-                sentiment = 0
-                sentiment_label = "Neutral"
-            else:
-                # Các trường hợp khác
-                if price_positive:
-                    sentiment = 0.5
-                    sentiment_label = "Slight Bullish"
-                elif price_negative:
-                    sentiment = -0.5
-                    sentiment_label = "Slight Bearish"
-            
-            result = {
-                'sentiment_score': round(sentiment, 2),
-                'sentiment_label': sentiment_label,
-                'price_change': price_change,
-                'oi_change': oi_change,
-                'volume_change': volume_change
-            }
-            
-            logger.info(f"Sentiment: {sentiment_label} ({sentiment:.2f}) - Price: {price_change:.2f}%, OI: {oi_change:.2f}%, Volume: {volume_change:.2f}%")
-            return result
-        except Exception as e:
-            logger.error(f"Lỗi khi tính toán sentiment: {str(e)}")
-            return {
-                'sentiment_score': 0,
-                'sentiment_label': "Error",
-                'price_change': 0.0,
-                'oi_change': 0.0,
-                'volume_change': 0.0
-            }
+    def _get_empty_volume_metrics_30d(self):
+        return {
+            'current_volume': 0,
+            'avg_volume_30d': 0,
+            'total_volume_30d': 0,
+            'volume_change_30d': 0,
+            'volume_change_7d': 0,
+            'volume_daily_volatility': 0,
+            'trend_direction': 'stable',
+            'positive_days': 0,
+            'negative_days': 0,
+            'volume_above_ma7d': None,
+            'high_volume_days': 0,
+            'volume_cv': 0,
+            'max_volume_30d': 0,
+            'min_volume_30d': 0,
+            'total_data_points': 0
+        }
+    
+    def _interpret_correlation(self, correlation):
+        if abs(correlation) >= 0.7:
+            return "Tương quan mạnh - OI và Volume di chuyển cùng hướng rõ rệt"
+        elif abs(correlation) >= 0.4:
+            return "Tương quan trung bình - Có mối liên hệ đáng chú ý"
+        elif abs(correlation) >= 0.2:
+            return "Tương quan yếu - Mối liên hệ không rõ ràng"
+        else:
+            return "Không có tương quan - OI và Volume di chuyển độc lập"
+    
+    def _determine_sentiment_24h(self, oi_metrics, volume_metrics):
+        oi_change = oi_metrics.get('oi_change_24h', 0)
+        volume_change = volume_metrics.get('volume_change_24h', 0)
+        
+        if oi_change > 5 and volume_change > 20:
+            return 'strong_bullish'
+        elif oi_change > 1 and volume_change > 5:
+            return 'bullish'
+        elif oi_change < -5 and volume_change < -20:
+            return 'strong_bearish'
+        elif oi_change < -1 and volume_change < -5:
+            return 'bearish'
+        else:
+            return 'neutral'
+    
+    def _determine_sentiment_30d(self, oi_metrics, volume_metrics):
+        oi_change = oi_metrics.get('oi_change_30d', 0)
+        volume_change = volume_metrics.get('volume_change_30d', 0)
+        
+        if oi_change > 20 and volume_change > 50:
+            return 'strong_bullish'
+        elif oi_change > 5 and volume_change > 15:
+            return 'bullish'
+        elif oi_change < -20 and volume_change < -50:
+            return 'strong_bearish'
+        elif oi_change < -5 and volume_change < -15:
+            return 'bearish'
+        else:
+            return 'neutral'

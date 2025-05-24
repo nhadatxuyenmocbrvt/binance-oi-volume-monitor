@@ -43,10 +43,14 @@ TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 DB_TYPE = os.getenv('DB_TYPE', 'sqlite')
 DB_PATH = os.getenv('DB_PATH', './data/market_data.db')
 
+# Cấu hình cho web tối ưu
+WEB_OUTPUT_DIR = './docs/assets/data'
+ENABLE_24H_TRACKING = True
+
 # Cấu hình cho phân tích dữ liệu
 SYMBOLS = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT']
 TIMEFRAMES = ['1h', '4h', '1d']
-LOOKBACK_DAYS = 30
+LOOKBACK_DAYS = 29
 ANOMALY_THRESHOLD = 2.5  # Số lần độ lệch chuẩn để xác định bất thường
 
 # Cấu hình cho cập nhật dữ liệu

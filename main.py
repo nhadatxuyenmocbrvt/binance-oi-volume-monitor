@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from config.settings import setup_logging, SYMBOLS, UPDATE_INTERVAL
 from data_collector.historical_data import HistoricalDataCollector
 from data_storage.database import Database
-from data_analyzer.anomaly_detector import AnomalyDetector
+from data_analyzer.anomaly_detector import OptimizedAnomalyDetector
 from alerting.telegram_bot import TelegramBot
 from visualization.chart_generator import ChartGenerator
 from visualization.report_generator import ReportGenerator
@@ -38,7 +38,7 @@ def collect_historical_data():
                 df = data['open_interest'][symbol]
                 db.save_open_interest(symbol, df)
         
-        # Xuất dữ liệu cho GitHub Pages
+        # Xuất dữ liệu JSON tối ưu cho web
         db.export_to_json()
         
         logger.info("✅ Hoàn thành thu thập dữ liệu lịch sử")
@@ -51,36 +51,39 @@ def collect_historical_data():
         db.close()
 
 def update_hourly_data():
-    """Cập nhật dữ liệu mỗi giờ - THÊM MỚI"""
-    logger.info("⏰ Bắt đầu cập nhật dữ liệu hàng giờ")
+    """Cập nhật dữ liệu mỗi giờ - TRACKING 24H"""
+    logger.info("⏰ Bắt đầu cập nhật dữ liệu hàng giờ - Tracking 24h")
     
     try:
         collector = HistoricalDataCollector()
         db = Database()
         
-        logger.info("📡 Thu thập dữ liệu realtime...")
+        logger.info("📡 Thu thập dữ liệu realtime cho tracking 24h...")
         realtime_data = collector.collect_realtime_data()
         
-        # Lưu dữ liệu realtime vào database với timestamp hiện tại
+        # Lưu dữ liệu realtime với timestamp giờ tròn
         current_hour = datetime.now().replace(minute=0, second=0, microsecond=0)
         
         if realtime_data and 'ticker' in realtime_data and 'open_interest' in realtime_data:
             saved_count = 0
-            for symbol in realtime_data['ticker']:
-                # Cập nhật timestamp thành giờ tròn
-                realtime_data['ticker'][symbol]['timestamp'] = current_hour
-                if db.save_ticker(symbol, realtime_data['ticker'][symbol]):
-                    saved_count += 1
+            for symbol in SYMBOLS:
+                if symbol in realtime_data['ticker']:
+                    # Cập nhật timestamp thành giờ tròn
+                    realtime_data['ticker'][symbol]['timestamp'] = current_hour
+                    if db.save_ticker(symbol, realtime_data['ticker'][symbol]):
+                        saved_count += 1
+                
+                if symbol in realtime_data['open_interest']:
+                    # Cập nhật timestamp thành giờ tròn
+                    realtime_data['open_interest'][symbol]['timestamp'] = current_hour
+                    db.save_realtime_open_interest(symbol, realtime_data['open_interest'][symbol])
             
-            for symbol in realtime_data['open_interest']:
-                # Cập nhật timestamp thành giờ tròn
-                realtime_data['open_interest'][symbol]['timestamp'] = current_hour
-                db.save_realtime_open_interest(symbol, realtime_data['open_interest'][symbol])
-            
-            logger.info(f"💾 Đã lưu dữ liệu hàng giờ cho {saved_count} symbols lúc {current_hour.strftime('%H:00')}")
+            logger.info(f"💾 Đã lưu dữ liệu hàng giờ cho {saved_count}/{len(SYMBOLS)} symbols lúc {current_hour.strftime('%H:00')}")
         
-        # Lưu dữ liệu 24h tracking
-        db.save_hourly_tracking(current_hour)
+        # Lưu dữ liệu tracking 24h
+        success = db.save_hourly_tracking(current_hour)
+        if success:
+            logger.info(f"📊 Đã cập nhật tracking 24h cho {current_hour.strftime('%H:00')}")
         
         return True
         
@@ -92,8 +95,8 @@ def update_hourly_data():
             db.close()
 
 def update_realtime_and_generate_reports():
-    """Cập nhật dữ liệu realtime, tạo báo cáo và đẩy lên GitHub - chạy 1h/lần"""
-    logger.info("⚡ Bắt đầu chu kỳ realtime (1h/lần): Update → Reports → Push")
+    """Cập nhật dữ liệu realtime, tạo báo cáo và đẩy lên GitHub - chạy 30 phút/lần"""
+    logger.info("⚡ Bắt đầu chu kỳ realtime (30 phút/lần): Update → Reports → Push")
     
     try:
         # Bước 1: Cập nhật dữ liệu realtime
@@ -106,43 +109,41 @@ def update_realtime_and_generate_reports():
         # Lưu dữ liệu realtime vào database
         if realtime_data and 'ticker' in realtime_data and 'open_interest' in realtime_data:
             saved_count = 0
-            for symbol in realtime_data['ticker']:
-                if db.save_ticker(symbol, realtime_data['ticker'][symbol]):
-                    saved_count += 1
-            
-            for symbol in realtime_data['open_interest']:
-                db.save_realtime_open_interest(symbol, realtime_data['open_interest'][symbol])
-            
-            logger.info(f"💾 Đã lưu dữ liệu realtime cho {saved_count} symbols")
-        
-        # Bước 2: Tạo báo cáo
-        logger.info("📊 Tạo báo cáo và biểu đồ...")
-        report_gen = ReportGenerator(db)
-        
-        # Tạo báo cáo tổng hợp với dữ liệu 24h
-        summary = report_gen.generate_daily_summary()
-        if summary:
-            logger.info("✅ Đã tạo báo cáo tổng hợp")
-        
-        # Tạo dữ liệu 24h cho web
-        hourly_data = report_gen.generate_24h_data()
-        if hourly_data:
-            logger.info("📈 Đã tạo dữ liệu 24h tracking")
-        
-        # Tạo biểu đồ cho từng symbol (tùy chọn - có thể comment nếu không cần)
-        try:
-            chart_gen = ChartGenerator()
             for symbol in SYMBOLS:
-                charts = chart_gen.generate_all_charts(db, symbol, '1d')
-            logger.info("📈 Đã tạo biểu đồ cho tất cả symbols")
+                if symbol in realtime_data['ticker']:
+                    if db.save_ticker(symbol, realtime_data['ticker'][symbol]):
+                        saved_count += 1
+                
+                if symbol in realtime_data['open_interest']:
+                    db.save_realtime_open_interest(symbol, realtime_data['open_interest'][symbol])
+            
+            logger.info(f"💾 Đã lưu dữ liệu realtime cho {saved_count}/{len(SYMBOLS)} symbols")
+        
+        # Bước 2: Tạo báo cáo tối ưu
+        logger.info("📊 Tạo báo cáo tối ưu OI & Volume...")
+        try:
+            report_gen = ReportGenerator(db)
+            
+            # Tạo báo cáo tổng hợp
+            summary = report_gen.generate_daily_summary()
+            if summary:
+                logger.info("✅ Đã tạo báo cáo tổng hợp")
+            
+            # Tạo dữ liệu tracking 24h cho web
+            hourly_data = report_gen.generate_24h_data()
+            if hourly_data:
+                logger.info("📈 Đã tạo dữ liệu tracking 24h")
+        
         except Exception as e:
-            logger.warning(f"⚠️ Lỗi khi tạo biểu đồ: {str(e)} (tiếp tục xử lý)")
+            logger.warning(f"⚠️ Lỗi khi tạo báo cáo: {str(e)} (tiếp tục xử lý)")
         
-        # Xuất dữ liệu cho GitHub Pages
-        db.export_to_json()
-        logger.info("📁 Đã xuất dữ liệu JSON cho GitHub Pages")
+        # Bước 3: Xuất dữ liệu JSON tối ưu cho web
+        logger.info("📁 Xuất dữ liệu JSON tối ưu...")
+        export_success = db.export_to_json()
+        if export_success:
+            logger.info("✅ Đã xuất dữ liệu JSON cho web")
         
-        # Bước 3: Push lên GitHub
+        # Bước 4: Push lên GitHub
         logger.info("📤 Đẩy dữ liệu lên GitHub...")
         push_success = push_to_github()
         
@@ -161,32 +162,51 @@ def update_realtime_and_generate_reports():
             db.close()
 
 def detect_anomalies():
-    """Phát hiện bất thường và gửi cảnh báo - chạy 15 phút/lần"""
-    logger.info("🔍 Bắt đầu phát hiện bất thường (15 phút/lần)")
+    """Phát hiện bất thường tối ưu OI & Volume - chạy 15 phút/lần"""
+    logger.info("🔍 Bắt đầu phát hiện bất thường tối ưu (15 phút/lần)")
     db = Database()
     
     try:
-        detector = AnomalyDetector(db)
+        detector = OptimizedAnomalyDetector(db)
         
         total_anomalies = 0
+        anomaly_summary = {}
+        
         # Phát hiện bất thường cho từng symbol
         for symbol in SYMBOLS:
             try:
+                logger.info(f"🔍 Phân tích {symbol}...")
                 anomalies = detector.detect_all_anomalies(symbol)
                 total_anomalies += len(anomalies)
-                logger.info(f"📊 {symbol}: {len(anomalies)} anomalies")
+                
+                if anomalies:
+                    anomaly_summary[symbol] = len(anomalies)
+                    # Log chi tiết
+                    for anomaly in anomalies[-3:]:  # Log 3 anomalies gần nhất
+                        logger.info(f"   🚨 {anomaly['data_type']}: {anomaly['severity']} (Z: {anomaly['z_score']:.2f})")
+                else:
+                    logger.info(f"   ✅ {symbol}: Không phát hiện anomaly")
+                    
             except Exception as e:
                 logger.error(f"❌ Lỗi khi phát hiện anomalies cho {symbol}: {str(e)}")
         
-        # Gửi các cảnh báo chưa được thông báo
+        # Gửi cảnh báo qua Telegram
         try:
-            bot = TelegramBot()
-            bot.send_anomalies(db)
-            logger.info("📱 Đã gửi cảnh báo qua Telegram")
+            if total_anomalies > 0:
+                bot = TelegramBot()
+                bot.send_anomalies(db)
+                logger.info("📱 Đã gửi cảnh báo qua Telegram")
         except Exception as e:
             logger.error(f"❌ Lỗi khi gửi cảnh báo Telegram: {str(e)}")
         
-        logger.info(f"✅ Hoàn thành phát hiện bất thường: {total_anomalies} anomalies tổng cộng")
+        # Log summary
+        if anomaly_summary:
+            logger.info(f"✅ Hoàn thành phát hiện bất thường: {total_anomalies} anomalies")
+            for symbol, count in anomaly_summary.items():
+                logger.info(f"   - {symbol}: {count} anomalies")
+        else:
+            logger.info("✅ Hoàn thành phát hiện bất thường: Không có anomaly nào")
+        
         return True
         
     except Exception as e:
@@ -195,30 +215,34 @@ def detect_anomalies():
     finally:
         db.close()
 
-def generate_reports():
-    """Tạo báo cáo và biểu đồ (không push)"""
-    logger.info("📊 Bắt đầu tạo báo cáo và biểu đồ")
+def generate_optimized_reports():
+    """Tạo báo cáo tối ưu cho OI & Volume (không push)"""
+    logger.info("📊 Bắt đầu tạo báo cáo tối ưu OI & Volume")
     db = Database()
     
     try:
         report_gen = ReportGenerator(db)
-        chart_gen = ChartGenerator()
         
         # Tạo báo cáo tổng hợp
         summary = report_gen.generate_daily_summary()
+        if summary:
+            logger.info("✅ Tạo báo cáo tổng hợp thành công")
         
-        # Tạo dữ liệu 24h
+        # Tạo dữ liệu tracking 24h
         hourly_data = report_gen.generate_24h_data()
+        if hourly_data:
+            logger.info("✅ Tạo dữ liệu tracking 24h thành công")
         
-        # Tạo biểu đồ cho từng symbol
-        for symbol in SYMBOLS:
-            charts = chart_gen.generate_all_charts(db, symbol, '1d')
+        # Xuất JSON tối ưu
+        export_success = db.export_to_json()
+        if export_success:
+            logger.info("✅ Xuất dữ liệu JSON thành công")
         
-        logger.info("✅ Hoàn thành tạo báo cáo và biểu đồ")
+        logger.info("✅ Hoàn thành tạo báo cáo tối ưu")
         return True
         
     except Exception as e:
-        logger.error(f"❌ Lỗi khi tạo báo cáo: {str(e)}")
+        logger.error(f"❌ Lỗi khi tạo báo cáo tối ưu: {str(e)}")
         return False
     finally:
         db.close()
@@ -244,7 +268,7 @@ def push_to_github():
         if status_result.returncode != 0:
             # Tạo commit message với timestamp
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            commit_cmd = ["git", "commit", "-m", f"Auto update data and reports: {timestamp}"]
+            commit_cmd = ["git", "commit", "-m", f"🔄 Auto update OI & Volume data: {timestamp}"]
             
             # Thực thi lệnh git commit
             subprocess.run(commit_cmd, check=True)
@@ -278,41 +302,57 @@ def send_daily_report():
         # Tạo báo cáo tổng hợp
         summary = report_gen.generate_daily_summary()
         
-        # Gửi báo cáo cho từng symbol
+        # Gửi báo cáo tối ưu cho từng symbol
         for symbol in SYMBOLS:
-            # Lấy dữ liệu
-            oi_df = db.get_open_interest(symbol)
-            price_df = db.get_klines(symbol, '1d')
-            
-            # Tính các thay đổi
-            if not oi_df.empty and len(oi_df) > 1:
-                oi_change = oi_df['open_interest'].pct_change().iloc[-1] * 100
-            else:
-                oi_change = 0
+            try:
+                # Lấy dữ liệu OI và Volume
+                oi_df = db.get_open_interest(symbol, limit=24)  # 24 điểm gần nhất
+                tracking_df = db.get_24h_tracking_data(symbol)
                 
-            if not price_df.empty and len(price_df) > 1:
-                volume_change = price_df['volume'].pct_change().iloc[-1] * 100
-            else:
+                # Tính các thay đổi từ tracking data
+                oi_change = 0
                 volume_change = 0
-            
-            # Lấy sentiment
-            sentiment = None
-            if summary and 'symbols' in summary and symbol in summary['symbols']:
-                sentiment = {
-                    'sentiment_label': summary['symbols'][symbol]['sentiment'],
-                    'price_change': summary['symbols'][symbol]['price_change']
-                }
-            
-            # Lấy đường dẫn chart
-            chart_path = f'data/charts/{symbol}_1d_price_oi.png'
-            if not os.path.exists(chart_path):
-                chart_path = None
-            
-            # Gửi báo cáo
-            bot.send_daily_report(symbol, sentiment, oi_change, volume_change, chart_path)
-            
-            # Đợi 1 giây để tránh gửi quá nhiều tin nhắn cùng lúc
-            time.sleep(1)
+                
+                if not tracking_df.empty and len(tracking_df) > 1:
+                    latest = tracking_df.iloc[-1]
+                    previous = tracking_df.iloc[-2]
+                    
+                    if previous['open_interest'] > 0:
+                        oi_change = ((latest['open_interest'] - previous['open_interest']) / previous['open_interest']) * 100
+                    
+                    if previous['volume'] > 0:
+                        volume_change = ((latest['volume'] - previous['volume']) / previous['volume']) * 100
+                
+                # Lấy sentiment từ summary
+                sentiment = None
+                if summary and 'symbols' in summary and symbol in summary['symbols']:
+                    sentiment = {
+                        'sentiment_label': summary['symbols'][symbol].get('sentiment', 'neutral'),
+                        'price_change': summary['symbols'][symbol].get('price_change', 0)
+                    }
+                
+                # Lấy đường dẫn chart (nếu có)
+                chart_path = f'data/charts/{symbol}_1d_price_oi.png'
+                if not os.path.exists(chart_path):
+                    chart_path = None
+                
+                # Gửi báo cáo với format mới
+                message = f"📊 **{symbol} Daily Report**\n"
+                message += f"🔸 OI Change: {oi_change:+.2f}%\n"
+                message += f"🔹 Volume Change: {volume_change:+.2f}%\n"
+                
+                if sentiment:
+                    message += f"📈 Sentiment: {sentiment['sentiment_label']}\n"
+                    message += f"💰 Price Change: {sentiment['price_change']:+.2f}%\n"
+                
+                bot.send_message(message)
+                
+                # Đợi 1 giây để tránh spam
+                time.sleep(1)
+                
+            except Exception as e:
+                logger.error(f"❌ Lỗi khi gửi báo cáo cho {symbol}: {str(e)}")
+                continue
         
         logger.info("✅ Hoàn thành gửi báo cáo hàng ngày")
         return True
@@ -323,40 +363,40 @@ def send_daily_report():
     finally:
         db.close()
 
-def schedule_tasks():
-    """Lập lịch các tác vụ định kỳ - ĐÃ CẬP NHẬT VỚI TRACKING 24H"""
-    logger.info("⏰ Thiết lập lịch trình các tác vụ với tracking 24h")
+def schedule_optimized_tasks():
+    """Lập lịch các tác vụ tối ưu cho tracking OI & Volume"""
+    logger.info("⏰ Thiết lập lịch trình tối ưu OI & Volume Tracking")
     
     # 📊 THU THẬP DỮ LIỆU LỊCH SỬ: 24H/LẦN (mỗi ngày lúc 00:05)
     schedule.every().day.at("00:05").do(collect_historical_data)
     logger.info("✅ Lịch thu thập dữ liệu lịch sử: mỗi ngày lúc 00:05")
     
-    # ⏰ CẬP NHẬT DỮ LIỆU HÀNG GIỜ: MỖI GIỜ ĐÚNG (0 phút)
+    # ⏰ CẬP NHẬT TRACKING 24H: MỖI GIỜ ĐÚNG (0 phút)
     schedule.every().hour.at(":00").do(update_hourly_data)
-    logger.info("✅ Lịch cập nhật dữ liệu hàng giờ: mỗi giờ đúng")
+    logger.info("✅ Lịch tracking 24h: mỗi giờ đúng giờ")
     
     # ⚡ CẬP NHẬT REALTIME + TẠO BÁO CÁO + PUSH: 30 PHÚT/LẦN
     schedule.every(30).minutes.do(update_realtime_and_generate_reports)
-    logger.info("✅ Lịch cập nhật realtime + báo cáo + push: mỗi 30 phút")
+    logger.info("✅ Lịch realtime + báo cáo + push: mỗi 30 phút")
     
-    # 🔍 PHÁT HIỆN BẤT THƯỜNG: 15 PHÚT/LẦN
+    # 🔍 PHÁT HIỆN BẤT THƯỜNG TỐI ƯU: 15 PHÚT/LẦN
     schedule.every(15).minutes.do(detect_anomalies)
-    logger.info("✅ Lịch phát hiện bất thường: mỗi 15 phút")
+    logger.info("✅ Lịch phát hiện bất thường tối ưu: mỗi 15 phút")
     
     # 📱 GỬI BÁO CÁO TELEGRAM: MỖI NGÀY LÚC 20:00
     schedule.every().day.at("20:00").do(send_daily_report)
     logger.info("✅ Lịch gửi báo cáo Telegram: mỗi ngày lúc 20:00")
     
-    logger.info("🎯 Đã thiết lập lịch trình tracking 24h:")
+    logger.info("🎯 Đã thiết lập lịch trình tối ưu:")
     logger.info("   📊 Dữ liệu lịch sử: 24h/lần")
-    logger.info("   ⏰ Tracking hàng giờ: mỗi giờ đúng")
+    logger.info("   ⏰ Tracking 24h: mỗi giờ đúng")
     logger.info("   ⚡ Realtime + Reports: 30 phút/lần") 
     logger.info("   🔍 Anomaly detection: 15 phút/lần")
     logger.info("   📱 Daily Telegram: 1 lần/ngày")
 
 def run_scheduled_tasks():
     """Chạy các tác vụ đã lên lịch"""
-    logger.info("🚀 Bắt đầu chạy các tác vụ theo lịch trình tracking 24h")
+    logger.info("🚀 Bắt đầu chạy các tác vụ theo lịch trình OI & Volume Tracking")
     
     while True:
         try:
@@ -369,9 +409,9 @@ def run_scheduled_tasks():
             logger.error(f"❌ Lỗi khi chạy tác vụ theo lịch: {str(e)}")
             time.sleep(10)  # Đợi 10 giây trước khi thử lại
 
-def initialize():
-    """Khởi tạo hệ thống"""
-    logger.info("🔧 Bắt đầu khởi tạo hệ thống")
+def initialize_system():
+    """Khởi tạo hệ thống tối ưu"""
+    logger.info("🔧 Bắt đầu khởi tạo hệ thống OI & Volume Monitor")
     
     # Đảm bảo các thư mục cần thiết tồn tại
     directories = [
@@ -399,16 +439,17 @@ def initialize():
     logger.info("✅ Hoàn thành khởi tạo hệ thống")
 
 def main():
-    """Hàm chính của ứng dụng - ĐÃ CẬP NHẬT VỚI TRACKING 24H"""
+    """Hàm chính của ứng dụng - TƯƠNG THÍCH VỚI GIAO DIỆN MỚI"""
     parser = argparse.ArgumentParser(
-        description='Hệ thống theo dõi Open Interest và Volume từ Binance - Tracking 24h',
+        description='Hệ thống theo dõi OI & Volume tối ưu từ Binance',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Ví dụ sử dụng:
-  python main.py --schedule          # Chạy theo lịch trình tracking 24h (khuyến nghị)
+  python main.py --schedule          # Chạy theo lịch trình tối ưu (khuyến nghị)
   python main.py --collect           # Thu thập dữ liệu lịch sử
   python main.py --realtime          # Cập nhật realtime + báo cáo + push
-  python main.py --hourly            # Cập nhật dữ liệu hàng giờ
+  python main.py --hourly            # Cập nhật tracking 24h
+  python main.py --detect            # Phát hiện bất thường tối ưu
         """
     )
     
@@ -417,30 +458,31 @@ Ví dụ sử dụng:
     parser.add_argument('--realtime', action='store_true', 
                        help='Cập nhật realtime + tạo báo cáo + push GitHub (30 phút/lần)')
     parser.add_argument('--hourly', action='store_true', 
-                       help='Cập nhật dữ liệu hàng giờ (1h/lần)')
+                       help='Cập nhật tracking 24h (1h/lần)')
     parser.add_argument('--detect', action='store_true', 
-                       help='Phát hiện bất thường (15 phút/lần)')
+                       help='Phát hiện bất thường tối ưu (15 phút/lần)')
     parser.add_argument('--report', action='store_true', 
-                       help='Chỉ tạo báo cáo (không push GitHub)')
+                       help='Chỉ tạo báo cáo tối ưu (không push GitHub)')
     parser.add_argument('--push', action='store_true', 
                        help='Chỉ đẩy dữ liệu lên GitHub')
     parser.add_argument('--daily', action='store_true', 
                        help='Gửi báo cáo hàng ngày qua Telegram')
     parser.add_argument('--schedule', action='store_true', 
-                       help='Chạy tất cả tác vụ theo lịch trình tracking 24h (khuyến nghị)')
+                       help='Chạy tất cả tác vụ theo lịch trình tối ưu (khuyến nghị)')
     
     args = parser.parse_args()
     
     # Hiển thị thông tin khởi động
     logger.info("="*60)
-    logger.info("🚀 BINANCE OI & VOLUME MONITOR - TRACKING 24H")
+    logger.info("🚀 BINANCE OI & VOLUME MONITOR - OPTIMIZED VERSION")
     logger.info("="*60)
     logger.info(f"⏰ Khởi động lúc: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info(f"📊 Theo dõi {len(SYMBOLS)} symbols: {', '.join(SYMBOLS)}")
+    logger.info(f"🎯 Focus: OI & Volume tracking (24h + 30d)")
     
     # Khởi tạo hệ thống
     try:
-        initialize()
+        initialize_system()
     except Exception as e:
         logger.error(f"❌ Không thể khởi tạo hệ thống: {str(e)}")
         return 1
@@ -458,18 +500,18 @@ Ví dụ sử dụng:
             return 0 if success else 1
             
         elif args.hourly:
-            logger.info("⏰ CHẾ ĐỘ: Cập nhật dữ liệu hàng giờ")
+            logger.info("⏰ CHẾ ĐỘ: Cập nhật tracking 24h")
             success = update_hourly_data()
             return 0 if success else 1
             
         elif args.detect:
-            logger.info("🔍 CHẾ ĐỘ: Phát hiện bất thường")
+            logger.info("🔍 CHẾ ĐỘ: Phát hiện bất thường tối ưu")
             success = detect_anomalies()
             return 0 if success else 1
             
         elif args.report:
-            logger.info("📊 CHẾ ĐỘ: Chỉ tạo báo cáo")
-            success = generate_reports()
+            logger.info("📊 CHẾ ĐỘ: Chỉ tạo báo cáo tối ưu")
+            success = generate_optimized_reports()
             return 0 if success else 1
             
         elif args.push:
@@ -483,15 +525,15 @@ Ví dụ sử dụng:
             return 0 if success else 1
             
         elif args.schedule:
-            logger.info("⏰ CHẾ ĐỘ: Chạy theo lịch trình tracking 24h")
-            schedule_tasks()
+            logger.info("⏰ CHẾ ĐỘ: Chạy theo lịch trình tối ưu")
+            schedule_optimized_tasks()
             run_scheduled_tasks()
             return 0
             
         else:
-            # Chế độ mặc định: setup đầy đủ với tracking 24h
-            logger.info("🎯 CHẾ ĐỘ MẶC ĐỊNH: Setup tracking 24h")
-            logger.info("📋 Quy trình: Thu thập lịch sử → Realtime + Báo cáo + Push → Tracking 24h")
+            # Chế độ mặc định: setup đầy đủ tối ưu
+            logger.info("🎯 CHẾ ĐỘ MẶC ĐỊNH: Setup OI & Volume tracking tối ưu")
+            logger.info("📋 Quy trình: Thu thập lịch sử → Realtime + Báo cáo + Push → Tracking tối ưu")
             
             # Bước 1: Thu thập dữ liệu lịch sử
             logger.info("🔄 Bước 1/3: Thu thập dữ liệu lịch sử...")
@@ -504,12 +546,12 @@ Ví dụ sử dụng:
             if not update_realtime_and_generate_reports():
                 logger.warning("⚠️ Có lỗi khi cập nhật realtime, nhưng tiếp tục...")
             
-            # Bước 3: Chạy theo lịch trình tracking 24h
-            logger.info("⏰ Bước 3/3: Thiết lập tracking 24h...")
-            schedule_tasks()
+            # Bước 3: Chạy theo lịch trình tối ưu
+            logger.info("⏰ Bước 3/3: Thiết lập tracking tối ưu...")
+            schedule_optimized_tasks()
             
-            logger.info("✅ Hoàn thành setup - Tracking 24h đã được kích hoạt!")
-            logger.info("🔄 Hệ thống sẽ theo dõi từng giờ và cập nhật web...")
+            logger.info("✅ Hoàn thành setup - OI & Volume tracking tối ưu đã được kích hoạt!")
+            logger.info("🔄 Hệ thống sẽ theo dõi OI & Volume từng giờ và cập nhật web...")
             
             run_scheduled_tasks()
             return 0

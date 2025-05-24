@@ -1,11 +1,36 @@
-2025-05-24 12:34:32,417 - data_analyzer.metrics - INFO - Khởi tạo MarketMetrics
-2025-05-24 12:34:32,642 - data_analyzer.metrics - INFO - Sentiment: Neutral (0.00) - Price: -0.14%, OI: -0.09%, Volume: -51.60%
-2025-05-24 12:34:32,649 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.9094, Spearman=0.7889
-2025-05-24 12:34:32,658 - data_analyzer.metrics - INFO - Sentiment: Neutral (0.00) - Price: -0.33%, OI: -0.17%, Volume: -65.89%
-2025-05-24 12:34:32,664 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.9027, Spearman=0.7944
-2025-05-24 12:34:32,671 - data_analyzer.metrics - INFO - Sentiment: Neutral (0.00) - Price: -0.05%, OI: -0.19%, Volume: -42.94%
-2025-05-24 12:34:32,678 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=-0.1194, Spearman=-0.0938
-2025-05-24 12:34:32,686 - data_analyzer.metrics - INFO - Sentiment: Neutral (0.00) - Price: -0.47%, OI: -0.11%, Volume: -57.35%
-2025-05-24 12:34:32,692 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.1911, Spearman=0.2587
-2025-05-24 12:34:32,700 - data_analyzer.metrics - INFO - Sentiment: Slight Bearish (-0.50) - Price: -0.77%, OI: -0.10%, Volume: -51.58%
-2025-05-24 12:34:32,706 - data_analyzer.metrics - INFO - Đã tính toán tương quan: Pearson=0.8213, Spearman=0.8016
+2025-05-24 20:30:57,848 - data_analyzer.metrics - INFO - 🔧 Khởi tạo OptimizedOIVolumeMetrics - Focus OI & Volume
+2025-05-24 20:30:57,861 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bullish 1.61%
+2025-05-24 20:30:57,865 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -17.17%
+2025-05-24 20:30:57,886 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish 1.39%
+2025-05-24 20:30:57,890 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -71.03%
+2025-05-24 20:30:57,898 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bearish 0.80%
+2025-05-24 20:30:57,901 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -38.50%
+2025-05-24 20:30:57,918 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bullish 1.02%
+2025-05-24 20:30:57,922 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -87.09%
+2025-05-24 20:30:57,932 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bullish 2.67%
+2025-05-24 20:30:57,935 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -23.72%
+2025-05-24 20:30:57,952 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bullish 2.62%
+2025-05-24 20:30:57,957 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -68.95%
+2025-05-24 20:30:57,965 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bearish -0.81%
+2025-05-24 20:30:57,968 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -29.71%
+2025-05-24 20:30:57,987 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -0.90%
+2025-05-24 20:30:57,992 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -67.39%
+2025-05-24 20:30:57,999 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bearish -2.34%
+2025-05-24 20:30:58,002 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -31.66%
+2025-05-24 20:30:58,017 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -2.34%
+2025-05-24 20:30:58,020 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -71.87%
+2025-05-24 20:30:58,041 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bullish 1.61%
+2025-05-24 20:30:58,044 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -17.17%
+2025-05-24 20:30:58,045 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): -0.940 (strong)
+2025-05-24 20:30:58,052 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bearish 0.80%
+2025-05-24 20:30:58,056 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -38.50%
+2025-05-24 20:30:58,057 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): -0.810 (strong)
+2025-05-24 20:30:58,064 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bullish 2.67%
+2025-05-24 20:30:58,067 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -23.72%
+2025-05-24 20:30:58,068 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): -0.822 (strong)
+2025-05-24 20:30:58,075 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bearish -0.81%
+2025-05-24 20:30:58,078 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -29.71%
+2025-05-24 20:30:58,079 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.920 (strong)
+2025-05-24 20:30:58,087 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 24h: bearish -2.34%
+2025-05-24 20:30:58,090 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 24h: decreasing -31.66%
+2025-05-24 20:30:58,091 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.982 (strong)

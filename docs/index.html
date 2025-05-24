@@ -198,14 +198,59 @@
             showLoading();
             
             try {
-                // Load symbols list
-                const symbolsResponse = await fetch('data/json/symbols.json');
-                if (!symbolsResponse.ok) throw new Error('Không thể tải danh sách symbols');
+                // Danh sách các đường dẫn có thể cho symbols.json
+                const possibleSymbolPaths = [
+                    'data/json/symbols.json',           // Local development path
+                    './data/json/symbols.json',         // Alternate local path
+                    '../data/json/symbols.json',        // Alternate local path
+                    '/data/json/symbols.json',          // Absolute local path
+                    'assets/data/symbols.json',         // GitHub Pages path
+                    './assets/data/symbols.json',       // Alternate GitHub Pages path
+                    '/assets/data/symbols.json',        // Alternate GitHub Pages path
+                    '/binance-oi-volume-monitor/assets/data/symbols.json',  // Full GitHub Pages path
+                    'https://nhadatxuyenmocbrvt.github.io/binance-oi-volume-monitor/assets/data/symbols.json' // Absolute URL
+                ];
                 
+                let symbolsResponse = null;
+                let dataBasePath = '';
+                
+                // Thử tải từ các đường dẫn khác nhau
+                for (const path of possibleSymbolPaths) {
+                    try {
+                        console.log(`Đang thử tải từ: ${path}`);
+                        const response = await fetch(path);
+                        if (response.ok) {
+                            symbolsResponse = response;
+                            
+                            // Xác định đường dẫn cơ sở từ đường dẫn thành công
+                            if (path.includes('https://')) {
+                                // Nếu là URL đầy đủ, lấy đến thư mục chứa file
+                                dataBasePath = path.substring(0, path.lastIndexOf('/') + 1);
+                            } else {
+                                // Nếu là đường dẫn tương đối, lấy đến thư mục chứa file
+                                dataBasePath = path.substring(0, path.lastIndexOf('/') + 1);
+                            }
+                            
+                            console.log(`✅ Đã tìm thấy symbols.json tại: ${path}`);
+                            console.log(`✅ Đường dẫn cơ sở: ${dataBasePath}`);
+                            break;
+                        }
+                    } catch (e) {
+                        // Tiếp tục thử đường dẫn tiếp theo
+                        console.log(`❌ Không thể tải từ: ${path}`, e.message);
+                    }
+                }
+                
+                if (!symbolsResponse) {
+                    throw new Error('Không thể tải danh sách symbols');
+                }
+                
+                // Đọc danh sách symbols
                 const symbols = await symbolsResponse.json();
+                console.log(`Đã tìm thấy ${symbols.length} symbols:`, symbols);
                 
-                // Load data for each symbol
-                const promises = symbols.map(symbol => loadSymbolData(symbol));
+                // Load data cho từng symbol
+                const promises = symbols.map(symbol => loadSymbolData(symbol, dataBasePath));
                 await Promise.all(promises);
                 
                 // Update last update time
@@ -222,19 +267,29 @@
                 hideLoading();
             }
         }
-        
+
         // Load dữ liệu cho một symbol
-        async function loadSymbolData(symbol) {
+        async function loadSymbolData(symbol, basePath) {
             try {
-                const response = await fetch(`data/json/${symbol}.json`);
-                if (!response.ok) throw new Error(`Không thể tải dữ liệu cho ${symbol}`);
+                console.log(`Đang tải dữ liệu cho ${symbol} từ ${basePath}${symbol}.json`);
+                const response = await fetch(`${basePath}${symbol}.json`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
                 
                 const data = await response.json();
                 coinsData[symbol] = data;
+                console.log(`✅ Đã tải dữ liệu thành công cho ${symbol}`);
                 
             } catch (error) {
-                console.error(`Error loading data for ${symbol}:`, error);
-                coinsData[symbol] = { klines: {}, open_interest: [], tracking_24h: [] };
+                console.error(`❌ Lỗi khi tải dữ liệu cho ${symbol}:`, error);
+                // Tạo dữ liệu mẫu trống cho symbol
+                coinsData[symbol] = { 
+                    klines: {}, 
+                    open_interest: [], 
+                    tracking_24h: [] 
+                };
             }
         }
         

@@ -1,8 +1,9 @@
 import os
 import sqlite3
 import pandas as pd
+import json
 from datetime import datetime, timedelta
-from config.settings import DB_PATH, setup_logging
+from config.settings import DB_PATH, setup_logging, SYMBOLS
 
 logger = setup_logging(__name__, 'database.log')
 
@@ -92,7 +93,7 @@ class Database:
             )
             ''')
             
-            # BẢNG MỚI: Tracking 24h hàng giờ
+            # BẢNG TRACKING 24H TỐI ƯU
             cursor.execute('''
             CREATE TABLE IF NOT EXISTS hourly_tracking (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -136,11 +137,9 @@ class Database:
             df_to_save['symbol'] = symbol
             df_to_save['timeframe'] = timeframe
             
-            # Lưu vào cơ sở dữ liệu - Sửa để xử lý lỗi UNIQUE constraint
-            # Thay vì dùng to_sql, chúng ta sẽ lưu từng bản ghi thông qua INSERT OR REPLACE
+            # Lưu vào cơ sở dữ liệu với INSERT OR REPLACE
             cursor = self.conn.cursor()
             for _, row in df_to_save.iterrows():
-                # Chuẩn bị dữ liệu
                 values = (
                     row['symbol'],
                     row['timeframe'],
@@ -157,7 +156,6 @@ class Database:
                     row['taker_buy_quote_volume']
                 )
                 
-                # Thêm dữ liệu vào bảng với INSERT OR REPLACE
                 cursor.execute('''
                 INSERT OR REPLACE INTO klines 
                 (symbol, timeframe, open_time, open, high, low, close, volume, close_time, 
@@ -180,17 +178,13 @@ class Database:
                 logger.warning(f"Không có dữ liệu Open Interest để lưu cho {symbol}")
                 return 0
             
-            # Định dạng lại DataFrame để phù hợp với cấu trúc bảng
+            # Định dạng lại DataFrame
             df_to_save = df[['timestamp', 'sumOpenInterest', 'sumOpenInterestValue']].copy()
             df_to_save.columns = ['timestamp', 'open_interest', 'open_interest_value']
-            
-            # Thêm cột symbol
             df_to_save['symbol'] = symbol
             
-            # Lưu vào cơ sở dữ liệu - Sửa để xử lý lỗi UNIQUE constraint
             cursor = self.conn.cursor()
             for _, row in df_to_save.iterrows():
-                # Chuẩn bị dữ liệu
                 values = (
                     row['symbol'],
                     row['timestamp'] if isinstance(row['timestamp'], str) else row['timestamp'].strftime('%Y-%m-%d %H:%M:%S'),
@@ -198,7 +192,6 @@ class Database:
                     row['open_interest_value']
                 )
                 
-                # Thêm dữ liệu vào bảng với INSERT OR REPLACE
                 cursor.execute('''
                 INSERT OR REPLACE INTO open_interest 
                 (symbol, timestamp, open_interest, open_interest_value)
@@ -218,7 +211,6 @@ class Database:
         try:
             cursor = self.conn.cursor()
             
-            # Chuẩn bị dữ liệu
             timestamp = ticker_data['timestamp']
             if isinstance(timestamp, datetime):
                 timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
@@ -233,7 +225,6 @@ class Database:
                 ticker_data['priceChangePercent']
             )
             
-            # Thêm dữ liệu vào bảng với INSERT OR REPLACE
             cursor.execute('''
             INSERT OR REPLACE INTO ticker 
             (symbol, timestamp, volume, quote_volume, trade_count, last_price, price_change_percent)
@@ -253,7 +244,6 @@ class Database:
         try:
             cursor = self.conn.cursor()
             
-            # Chuẩn bị dữ liệu
             timestamp = oi_data['timestamp']
             if isinstance(timestamp, datetime):
                 timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
@@ -262,10 +252,9 @@ class Database:
                 symbol,
                 timestamp,
                 oi_data['openInterest'],
-                0  # Không có giá trị OI, đặt bằng 0
+                0  # Không có giá trị OI value
             )
             
-            # Thêm dữ liệu vào bảng với INSERT OR REPLACE
             cursor.execute('''
             INSERT OR REPLACE INTO open_interest 
             (symbol, timestamp, open_interest, open_interest_value)
@@ -280,49 +269,13 @@ class Database:
             logger.error(f"Lỗi khi lưu dữ liệu Open Interest realtime cho {symbol}: {str(e)}")
             return False
     
-    def save_anomaly(self, anomaly_data):
-        """Lưu thông tin về bất thường vào cơ sở dữ liệu"""
-        try:
-            cursor = self.conn.cursor()
-            
-            # Chuẩn bị dữ liệu
-            timestamp = anomaly_data['timestamp']
-            if isinstance(timestamp, datetime):
-                timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
-                
-            data = (
-                anomaly_data['symbol'],
-                timestamp,
-                anomaly_data['data_type'],
-                anomaly_data['value'],
-                anomaly_data['z_score'],
-                anomaly_data['message'],
-                0  # Chưa thông báo
-            )
-            
-            # Thêm dữ liệu vào bảng với INSERT OR REPLACE
-            cursor.execute('''
-            INSERT OR REPLACE INTO anomalies 
-            (symbol, timestamp, data_type, value, z_score, message, notified)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            ''', data)
-            
-            self.conn.commit()
-            logger.info(f"Đã lưu thông tin bất thường cho {anomaly_data['symbol']} - {anomaly_data['data_type']}")
-            return True
-        except Exception as e:
-            self.conn.rollback()
-            logger.error(f"Lỗi khi lưu thông tin bất thường: {str(e)}")
-            return False
-    
     def save_hourly_tracking(self, hour_timestamp):
-        """Lưu dữ liệu tracking 24h - THÊM MỚI"""
+        """Lưu dữ liệu tracking 24h - TỐI ƯU"""
         try:
             cursor = self.conn.cursor()
-            from config.settings import SYMBOLS
             
             for symbol in SYMBOLS:
-                # Lấy dữ liệu gần nhất từ các bảng
+                # Lấy dữ liệu gần nhất
                 price_data = self.get_latest_price(symbol)
                 volume_data = self.get_latest_volume(symbol)
                 oi_data = self.get_latest_oi(symbol)
@@ -443,7 +396,7 @@ class Database:
             return None
     
     def get_24h_tracking_data(self, symbol=None):
-        """Lấy dữ liệu tracking 24h - THÊM MỚI"""
+        """Lấy dữ liệu tracking 24h - TỐI ƯU"""
         try:
             # Lấy 24 giờ gần nhất
             end_time = datetime.now().replace(minute=0, second=0, microsecond=0)
@@ -478,27 +431,22 @@ class Database:
             return pd.DataFrame()
     
     def get_klines(self, symbol, timeframe, limit=100):
-        """Lấy dữ liệu nến từ cơ sở dữ liệu - ĐÃ SỬA"""
+        """Lấy dữ liệu nến từ cơ sở dữ liệu"""
         try:
-            # SỬA: Sử dụng parameterized query và đúng cú pháp LIMIT
             query = '''
             SELECT * FROM klines 
             WHERE symbol = ? AND timeframe = ?
             ORDER BY open_time DESC
             '''
             
-            # Thêm LIMIT vào query nếu cần
             if limit:
                 query += f" LIMIT {limit}"
             
             df = pd.read_sql_query(query, self.conn, params=(symbol, timeframe))
             
-            # Chuyển đổi các cột thời gian sang datetime với định dạng linh hoạt
             if not df.empty:
                 df['open_time'] = pd.to_datetime(df['open_time'], format='mixed', errors='coerce')
                 df['close_time'] = pd.to_datetime(df['close_time'], format='mixed', errors='coerce')
-                
-                # SỬA: Sắp xếp lại theo thời gian tăng dần để tính toán đúng
                 df = df.sort_values('open_time').reset_index(drop=True)
             
             logger.info(f"Đã lấy {len(df)} mẫu klines cho {symbol} - {timeframe}")
@@ -508,26 +456,21 @@ class Database:
             return pd.DataFrame()
 
     def get_open_interest(self, symbol, limit=100):
-        """Lấy dữ liệu Open Interest từ cơ sở dữ liệu - ĐÃ SỬA"""
+        """Lấy dữ liệu Open Interest từ cơ sở dữ liệu"""
         try:
-            # SỬA: Sử dụng parameterized query và đúng cú pháp LIMIT
             query = '''
             SELECT * FROM open_interest 
             WHERE symbol = ?
             ORDER BY timestamp DESC
             '''
             
-            # Thêm LIMIT vào query nếu cần
             if limit:
                 query += f" LIMIT {limit}"
             
             df = pd.read_sql_query(query, self.conn, params=(symbol,))
             
-            # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
             if not df.empty:
                 df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
-                
-                # SỬA: Sắp xếp lại theo thời gian tăng dần để tính toán đúng
                 df = df.sort_values('timestamp').reset_index(drop=True)
             
             logger.info(f"Đã lấy {len(df)} mẫu Open Interest cho {symbol}")
@@ -536,47 +479,131 @@ class Database:
             logger.error(f"Lỗi khi lấy dữ liệu Open Interest: {str(e)}")
             return pd.DataFrame()
 
-    def get_ticker(self, symbol, limit=100):
-        """Lấy dữ liệu ticker từ cơ sở dữ liệu - ĐÃ SỬA"""
+    def export_to_json(self, output_dir='./data/json'):
+        """Xuất dữ liệu JSON tối ưu cho giao diện mới"""
         try:
-            # SỬA: Sử dụng parameterized query và đúng cú pháp LIMIT
-            query = '''
-            SELECT * FROM ticker 
-            WHERE symbol = ?
-            ORDER BY timestamp DESC
-            '''
+            os.makedirs(output_dir, exist_ok=True)
             
-            # Thêm LIMIT vào query nếu cần
-            if limit:
-                query += f" LIMIT {limit}"
+            # Thêm xuất file cho GitHub Pages
+            github_pages_dir = './docs/assets/data'
+            os.makedirs(github_pages_dir, exist_ok=True)
             
-            df = pd.read_sql_query(query, self.conn, params=(symbol,))
-            
-            # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
-            if not df.empty:
-                df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
+            # Xuất dữ liệu cho từng symbol
+            for symbol in SYMBOLS:
+                symbol_data = self.export_symbol_data(symbol)
                 
-                # SỬA: Sắp xếp lại theo thời gian tăng dần để tính toán đúng
-                df = df.sort_values('timestamp').reset_index(drop=True)
+                # Lưu dữ liệu cho symbol vào thư mục chính
+                with open(f"{output_dir}/{symbol}.json", 'w', encoding='utf-8') as f:
+                    json.dump(symbol_data, f, ensure_ascii=False, indent=2)
+                
+                # Lưu vào thư mục GitHub Pages
+                with open(f"{github_pages_dir}/{symbol}.json", 'w', encoding='utf-8') as f:
+                    json.dump(symbol_data, f, ensure_ascii=False, indent=2)
             
-            logger.info(f"Đã lấy {len(df)} mẫu ticker cho {symbol}")
-            return df
+            # Lưu danh sách symbols vào thư mục chính
+            with open(f"{output_dir}/symbols.json", 'w', encoding='utf-8') as f:
+                json.dump(SYMBOLS, f, ensure_ascii=False)
+            
+            # Lưu danh sách symbols vào thư mục GitHub Pages
+            with open(f"{github_pages_dir}/symbols.json", 'w', encoding='utf-8') as f:
+                json.dump(SYMBOLS, f, ensure_ascii=False)
+            
+            # Xuất metadata
+            metadata = {
+                'last_update': datetime.now().isoformat(),
+                'symbols_count': len(SYMBOLS),
+                'data_range': {
+                    'hourly_hours': 24,
+                    'daily_days': 30
+                }
+            }
+            
+            # Lưu metadata vào cả hai thư mục
+            with open(f"{output_dir}/metadata.json", 'w', encoding='utf-8') as f:
+                json.dump(metadata, f, ensure_ascii=False, indent=2)
+            
+            with open(f"{github_pages_dir}/metadata.json", 'w', encoding='utf-8') as f:
+                json.dump(metadata, f, ensure_ascii=False, indent=2)
+            
+            # Xuất anomalies nếu có
+            anomalies_df = self.get_anomalies(limit=50)
+            if not anomalies_df.empty:
+                anomalies_df['timestamp'] = anomalies_df['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+                anomalies_json = anomalies_df.to_dict(orient='records')
+                
+                # Lưu vào cả hai thư mục
+                with open(f"{output_dir}/anomalies.json", 'w', encoding='utf-8') as f:
+                    json.dump(anomalies_json, f, ensure_ascii=False, indent=2)
+                
+                with open(f"{github_pages_dir}/anomalies.json", 'w', encoding='utf-8') as f:
+                    json.dump(anomalies_json, f, ensure_ascii=False, indent=2)
+            
+            logger.info(f"✅ Đã xuất dữ liệu JSON tối ưu trong thư mục {output_dir} và {github_pages_dir}")
+            return True
+            
         except Exception as e:
-            logger.error(f"Lỗi khi lấy dữ liệu ticker: {str(e)}")
-            return pd.DataFrame()
-
+            logger.error(f"❌ Lỗi khi xuất dữ liệu JSON: {str(e)}")
+            return False
+    
+    def export_symbol_data(self, symbol):
+        """Xuất dữ liệu chi tiết cho một symbol"""
+        try:
+            symbol_data = {
+                'symbol': symbol,
+                'last_update': datetime.now().isoformat(),
+                'klines': {},
+                'open_interest': [],
+                'tracking_24h': []
+            }
+            
+            # 1. Xuất dữ liệu klines (30 ngày gần nhất cho 1d)
+            timeframes = ['1h', '4h', '1d']
+            for timeframe in timeframes:
+                klines_df = self.get_klines(symbol, timeframe, limit=30 if timeframe == '1d' else 168)  # 30 ngày hoặc 1 tuần
+                
+                if not klines_df.empty:
+                    # Chỉ lấy các cột cần thiết
+                    klines_clean = klines_df[['open_time', 'open', 'high', 'low', 'close', 'volume']].copy()
+                    klines_clean['open_time'] = klines_clean['open_time'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+                    symbol_data['klines'][timeframe] = klines_clean.to_dict(orient='records')
+            
+            # 2. Xuất dữ liệu Open Interest (30 ngày gần nhất)
+            oi_df = self.get_open_interest(symbol, limit=720)  # 30 ngày * 24 giờ
+            if not oi_df.empty:
+                oi_clean = oi_df[['timestamp', 'open_interest']].copy()
+                oi_clean['timestamp'] = oi_clean['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+                symbol_data['open_interest'] = oi_clean.to_dict(orient='records')
+            
+            # 3. Xuất dữ liệu tracking 24h
+            tracking_df = self.get_24h_tracking_data(symbol)
+            if not tracking_df.empty:
+                tracking_clean = tracking_df[['hour_timestamp', 'price', 'volume', 'open_interest', 
+                                            'price_change_1h', 'volume_change_1h', 'oi_change_1h']].copy()
+                tracking_clean['hour_timestamp'] = tracking_clean['hour_timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+                symbol_data['tracking_24h'] = tracking_clean.to_dict(orient='records')
+            
+            return symbol_data
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi xuất dữ liệu cho {symbol}: {str(e)}")
+            return {
+                'symbol': symbol,
+                'error': str(e),
+                'klines': {},
+                'open_interest': [],
+                'tracking_24h': []
+            }
+    
     def get_anomalies(self, limit=20):
-        """Lấy danh sách các bất thường đã phát hiện - ĐÃ SỬA"""
+        """Lấy danh sách các bất thường đã phát hiện"""
         try:
             query = "SELECT * FROM anomalies ORDER BY timestamp DESC"
             
-            # Thêm LIMIT vào query nếu cần
             if limit:
                 query += f" LIMIT {limit}"
             
             df = pd.read_sql_query(query, self.conn)
             
-            # Chuyển đổi timestamp sang datetime với định dạng linh hoạt
             if not df.empty:
                 df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
             
@@ -586,139 +613,35 @@ class Database:
             logger.error(f"Lỗi khi lấy dữ liệu anomalies: {str(e)}")
             return pd.DataFrame()
     
-    def mark_anomaly_as_notified(self, anomaly_id):
-        """Đánh dấu một bất thường đã được thông báo"""
+    def save_anomaly(self, anomaly_data):
+        """Lưu thông tin về bất thường vào cơ sở dữ liệu"""
         try:
             cursor = self.conn.cursor()
-            cursor.execute("UPDATE anomalies SET notified = 1 WHERE id = ?", (anomaly_id,))
+            
+            timestamp = anomaly_data['timestamp']
+            if isinstance(timestamp, datetime):
+                timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+                
+            data = (
+                anomaly_data['symbol'],
+                timestamp,
+                anomaly_data['data_type'],
+                anomaly_data['value'],
+                anomaly_data['z_score'],
+                anomaly_data['message'],
+                0  # Chưa thông báo
+            )
+            
+            cursor.execute('''
+            INSERT OR REPLACE INTO anomalies 
+            (symbol, timestamp, data_type, value, z_score, message, notified)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            ''', data)
+            
             self.conn.commit()
-            logger.info(f"Đã đánh dấu anomaly {anomaly_id} là đã thông báo")
+            logger.info(f"Đã lưu thông tin bất thường cho {anomaly_data['symbol']} - {anomaly_data['data_type']}")
             return True
         except Exception as e:
             self.conn.rollback()
-            logger.error(f"Lỗi khi đánh dấu anomaly đã thông báo: {str(e)}")
-            return False
-    
-    def export_to_json(self, output_dir='./data/json'):
-        """Xuất dữ liệu để sử dụng cho GitHub Pages - ĐÃ CẬP NHẬT VỚI 24H TRACKING"""
-        try:
-            os.makedirs(output_dir, exist_ok=True)
-            
-            # Xuất dữ liệu klines
-            query = '''
-            SELECT symbol, timeframe, open_time, open, high, low, close, volume
-            FROM klines
-            ORDER BY symbol, timeframe, open_time
-            '''
-            klines_df = pd.read_sql_query(query, self.conn)
-            
-            # Xử lý đúng định dạng thời gian - FIX ISSUE
-            if not klines_df.empty:
-                try:
-                    # Thử chuyển đổi với định dạng từ cơ sở dữ liệu
-                    klines_df['open_time'] = pd.to_datetime(klines_df['open_time'], errors='coerce')
-                except:
-                    # Nếu lỗi, thử với định dạng ISO
-                    klines_df['open_time'] = pd.to_datetime(klines_df['open_time'], format='ISO8601', errors='coerce')
-                
-                # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
-                klines_df['open_time'] = klines_df['open_time'].dt.strftime('%Y-%m-%dT%H:%M:%S')
-            
-            # Xuất dữ liệu Open Interest
-            query = '''
-            SELECT symbol, timestamp, open_interest
-            FROM open_interest
-            ORDER BY symbol, timestamp
-            '''
-            oi_df = pd.read_sql_query(query, self.conn)
-            
-            # Xử lý đúng định dạng thời gian - FIX ISSUE
-            if not oi_df.empty:
-                try:
-                    # Thử chuyển đổi với định dạng từ cơ sở dữ liệu
-                    oi_df['timestamp'] = pd.to_datetime(oi_df['timestamp'], errors='coerce')
-                except:
-                    # Nếu lỗi, thử với định dạng ISO
-                    oi_df['timestamp'] = pd.to_datetime(oi_df['timestamp'], format='ISO8601', errors='coerce')
-                
-                # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
-                oi_df['timestamp'] = oi_df['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
-            
-            # Xuất dữ liệu anomalies
-            query = '''
-            SELECT symbol, timestamp, data_type, value, z_score, message
-            FROM anomalies
-            ORDER BY timestamp DESC
-            LIMIT 100
-            '''
-            anomalies_df = pd.read_sql_query(query, self.conn)
-            
-            # Xử lý đúng định dạng thời gian - FIX ISSUE
-            if not anomalies_df.empty:
-                try:
-                    # Thử chuyển đổi với định dạng từ cơ sở dữ liệu
-                    anomalies_df['timestamp'] = pd.to_datetime(anomalies_df['timestamp'], errors='coerce')
-                except:
-                    # Nếu lỗi, thử với định dạng ISO
-                    anomalies_df['timestamp'] = pd.to_datetime(anomalies_df['timestamp'], format='ISO8601', errors='coerce')
-                
-                # Chuyển đổi sang chuỗi ISO để tránh lỗi định dạng
-                anomalies_df['timestamp'] = anomalies_df['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
-            
-            # XUẤT DỮ LIỆU TRACKING 24H - THÊM MỚI
-            tracking_24h_df = self.get_24h_tracking_data()
-            if not tracking_24h_df.empty:
-                tracking_24h_df['hour_timestamp'] = tracking_24h_df['hour_timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
-                
-                # Lưu tracking 24h
-                with open(f"{output_dir}/tracking_24h.json", 'w', encoding='utf-8') as f:
-                    import json
-                    json.dump(tracking_24h_df.to_dict(orient='records'), f, ensure_ascii=False)
-            
-            # Tạo dữ liệu tổng hợp cho mỗi symbol
-            if not klines_df.empty:
-                for symbol in klines_df['symbol'].unique():
-                    symbol_data = {
-                        'klines': {},
-                        'open_interest': [],
-                        'tracking_24h': []
-                    }
-                    
-                    # Dữ liệu klines cho từng timeframe
-                    for timeframe in klines_df[klines_df['symbol'] == symbol]['timeframe'].unique():
-                        df_filtered = klines_df[(klines_df['symbol'] == symbol) & (klines_df['timeframe'] == timeframe)]
-                        symbol_data['klines'][timeframe] = df_filtered.to_dict(orient='records')
-                    
-                    # Dữ liệu Open Interest
-                    if not oi_df.empty:
-                        df_filtered = oi_df[oi_df['symbol'] == symbol]
-                        symbol_data['open_interest'] = df_filtered.to_dict(orient='records')
-                    
-                    # Dữ liệu tracking 24h cho symbol
-                    if not tracking_24h_df.empty:
-                        df_filtered = tracking_24h_df[tracking_24h_df['symbol'] == symbol]
-                        symbol_data['tracking_24h'] = df_filtered.to_dict(orient='records')
-                    
-                    # Lưu dữ liệu cho symbol
-                    with open(f"{output_dir}/{symbol}.json", 'w', encoding='utf-8') as f:
-                        import json
-                        json.dump(symbol_data, f, ensure_ascii=False)
-            
-            # Lưu dữ liệu anomalies
-            if not anomalies_df.empty:
-                with open(f"{output_dir}/anomalies.json", 'w', encoding='utf-8') as f:
-                    import json
-                    json.dump(anomalies_df.to_dict(orient='records'), f, ensure_ascii=False)
-            
-            # Lưu danh sách các symbols có sẵn
-            if not klines_df.empty:
-                symbols_list = list(klines_df['symbol'].unique())
-                with open(f"{output_dir}/symbols.json", 'w', encoding='utf-8') as f:
-                    import json
-                    json.dump(symbols_list, f, ensure_ascii=False)
-            
-            logger.info(f"Đã xuất dữ liệu sang định dạng JSON (bao gồm tracking 24h) trong thư mục {output_dir}")
-            return True
-        except Exception as e:
-            logger.error(f"Lỗi khi xuất dữ liệu sang JSON: {str(e)}")
+            logger.error(f"Lỗi khi lưu thông tin bất thường: {str(e)}")
             return False

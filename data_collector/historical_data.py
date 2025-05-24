@@ -2,259 +2,263 @@ import pandas as pd
 from datetime import datetime, timedelta
 import time
 from config.settings import SYMBOLS, TIMEFRAMES, LOOKBACK_DAYS, setup_logging
-from data_collector.binance_api import BinanceAPI
+from data_collector.binance_api import OptimizedBinanceAPI
 
 logger = setup_logging(__name__, 'historical_data.log')
 
-class HistoricalDataCollector:
+class OptimizedHistoricalDataCollector:
+    """
+    Thu thập dữ liệu lịch sử tối ưu cho OI & Volume
+    Focus: 24h tracking (hourly) + 30d tracking (daily)
+    """
+    
     def __init__(self):
-        self.api = BinanceAPI()
+        self.api = OptimizedBinanceAPI()
         self.symbols = SYMBOLS
         self.timeframes = TIMEFRAMES
-        self.lookback_days = LOOKBACK_DAYS
-        logger.info(f"Khởi tạo HistoricalDataCollector với {len(self.symbols)} symbols và {len(self.timeframes)} timeframes")
+        self.lookback_days = max(LOOKBACK_DAYS, 7)  # Minimum 7 days
+        
+        # Test API connection
+        if not self.api.test_connection():
+            logger.warning("⚠️ API connection test failed, but continuing...")
+        
+        logger.info(f"🔧 Khởi tạo OptimizedHistoricalDataCollector với {len(self.symbols)} symbols")
+        logger.info(f"📊 Symbols: {', '.join(self.symbols)}")
+        logger.info(f"⏰ Timeframes: {', '.join(self.timeframes)}")
+        logger.info(f"📅 Lookback: {self.lookback_days} days")
     
-    def _get_start_end_time(self):
-        """Tính toán thời gian bắt đầu và kết thúc cho dữ liệu lịch sử"""
-        # Lấy thời gian từ máy chủ Binance để đảm bảo không nằm trong tương lai
-        server_time = self.api.get_server_time()
-        
-        # Chuyển server_time sang datetime để log
-        server_datetime = datetime.fromtimestamp(server_time/1000)
-        logger.info(f"Thời gian máy chủ Binance: {server_datetime}")
-        
-        # Đảm bảo lookback_days là số dương
-        lookback_days = abs(self.lookback_days)
-        if lookback_days != self.lookback_days:
-            logger.warning(f"Giá trị LOOKBACK_DAYS ({self.lookback_days}) là âm, đã chuyển thành dương: {lookback_days}")
-            self.lookback_days = lookback_days
-        
-        # Giới hạn lookback_days không vượt quá 7 ngày cho Open Interest
-        if lookback_days > 7:
-            logger.warning(f"Giá trị LOOKBACK_DAYS ({lookback_days}) vượt quá 7 ngày, đã điều chỉnh thành 7 ngày cho Open Interest")
-            lookback_days = 7
-        
-        # Tính thời gian bắt đầu (lookback_days ngày trước server_time)
-        lookback_ms = lookback_days * 24 * 60 * 60 * 1000
-        start_timestamp = server_time - lookback_ms
-        
-        # Sử dụng server_time làm end_timestamp
-        end_timestamp = server_time
-        
-        # Log thời gian đã chuyển đổi để kiểm tra
-        start_date = datetime.fromtimestamp(start_timestamp/1000)
-        end_date = datetime.fromtimestamp(end_timestamp/1000)
-        
-        logger.info(f"Timestamps đã điều chỉnh: start={start_timestamp} ({start_date}), end={end_timestamp} ({end_date})")
-        
-        return start_timestamp, end_timestamp
-
-    def _get_24h_hourly_time_range(self):
-        """Tính toán thời gian cho dữ liệu 24h theo giờ - THÊM MỚI"""
+    def _get_24h_time_range(self):
+        """Tính toán thời gian cho dữ liệu 24h theo giờ"""
         server_time = self.api.get_server_time()
         server_datetime = datetime.fromtimestamp(server_time/1000)
         
         # Làm tròn xuống giờ hiện tại
         current_hour = server_datetime.replace(minute=0, second=0, microsecond=0)
         
-        # Tính 24 giờ trước (từ giờ hiện tại trở về)
+        # Lấy 24 giờ gần nhất (bao gồm giờ hiện tại)
         start_time = current_hour - timedelta(hours=23)  # 23 giờ trước + giờ hiện tại = 24 điểm
-        end_time = current_hour + timedelta(hours=1)  # Thêm 1 giờ để đảm bảo có dữ liệu giờ hiện tại
+        end_time = current_hour + timedelta(minutes=30)  # Thêm buffer
         
         start_timestamp = int(start_time.timestamp() * 1000)
         end_timestamp = int(end_time.timestamp() * 1000)
         
-        logger.info(f"Thời gian 24h theo giờ: từ {start_time} đến {end_time}")
+        logger.info(f"⏰ 24h range: {start_time.strftime('%Y-%m-%d %H:%M')} → {end_time.strftime('%Y-%m-%d %H:%M')}")
         return start_timestamp, end_timestamp
-
+    
+    def _get_30d_time_range(self):
+        """Tính toán thời gian cho dữ liệu 30 ngày"""
+        server_time = self.api.get_server_time()
+        server_datetime = datetime.fromtimestamp(server_time/1000)
+        
+        # Làm tròn xuống ngày hiện tại
+        current_date = server_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
+        
+        # Lấy 30 ngày gần nhất
+        start_date = current_date - timedelta(days=29)  # 29 ngày trước + ngày hiện tại = 30 ngày
+        end_date = current_date + timedelta(days=1)  # Thêm buffer
+        
+        start_timestamp = int(start_date.timestamp() * 1000)
+        end_timestamp = int(end_date.timestamp() * 1000)
+        
+        logger.info(f"📅 30d range: {start_date.strftime('%Y-%m-%d')} → {end_date.strftime('%Y-%m-%d')}")
+        return start_timestamp, end_timestamp
+    
+    def _get_custom_time_range(self, days=None):
+        """Tính toán thời gian tuỳ chỉnh"""
+        if days is None:
+            days = self.lookback_days
+            
+        server_time = self.api.get_server_time()
+        end_timestamp = server_time
+        start_timestamp = server_time - (days * 24 * 60 * 60 * 1000)
+        
+        start_date = datetime.fromtimestamp(start_timestamp/1000)
+        end_date = datetime.fromtimestamp(end_timestamp/1000)
+        
+        logger.info(f"📊 Custom range ({days}d): {start_date.strftime('%Y-%m-%d %H:%M')} → {end_date.strftime('%Y-%m-%d %H:%M')}")
+        return start_timestamp, end_timestamp
+    
     def collect_24h_hourly_data(self):
-        """Thu thập dữ liệu 24h theo từng giờ - THÊM MỚI"""
-        logger.info("🕒 Bắt đầu thu thập dữ liệu 24h theo giờ")
-        start_time, end_time = self._get_24h_hourly_time_range()
+        """
+        Thu thập dữ liệu 24h theo từng giờ - CORE FUNCTION
+        Tối ưu cho tracking OI & Volume theo giờ
+        """
+        logger.info("🕒 Bắt đầu thu thập dữ liệu 24h hourly - OI & Volume focus")
+        start_time, end_time = self._get_24h_time_range()
         
         result = {
+            'timestamp': datetime.now().isoformat(),
+            'data_type': '24h_hourly',
             'klines': {},
-            'open_interest': {}
+            'open_interest': {},
+            'success_count': 0,
+            'error_count': 0
         }
         
-        for symbol in self.symbols:
-            logger.info(f"📊 Thu thập dữ liệu 24h cho {symbol}")
+        total_symbols = len(self.symbols)
+        
+        for i, symbol in enumerate(self.symbols, 1):
+            logger.info(f"📊 [{i}/{total_symbols}] Thu thập 24h data cho {symbol}")
             
             try:
-                # Thu thập dữ liệu klines 1h cho 24h
-                klines_data = self.api.get_klines(symbol, '1h', start_time, end_time, limit=24)
+                # Thu thập klines 1h cho 24h
+                logger.info(f"   📈 Collecting 1h klines for {symbol}")
+                klines_data = self.api.get_klines(
+                    symbol=symbol, 
+                    interval='1h', 
+                    start_time=start_time, 
+                    end_time=end_time, 
+                    limit=25  # 24 + 1 buffer
+                )
+                
                 if klines_data is not None and not klines_data.empty:
+                    # Lọc chỉ lấy 24 điểm gần nhất
+                    klines_data = klines_data.tail(24)
                     result['klines'][symbol] = klines_data
-                    logger.info(f"✅ Nhận được {len(klines_data)} nến 1h cho {symbol}")
+                    logger.info(f"   ✅ {len(klines_data)} klines collected")
                 else:
-                    logger.warning(f"⚠️ Không có dữ liệu klines cho {symbol}")
+                    logger.warning(f"   ⚠️ No klines data for {symbol}")
                     result['klines'][symbol] = pd.DataFrame()
                 
-                time.sleep(0.5)  # Tránh rate limit
+                # Rate limiting between API calls
+                time.sleep(0.3)
                 
-                # Thu thập dữ liệu Open Interest cho 24h
-                oi_data = self.api.get_open_interest(symbol, period='1h', start_time=start_time, end_time=end_time)
+                # Thu thập Open Interest 1h cho 24h
+                logger.info(f"   📊 Collecting 1h OI for {symbol}")
+                oi_data = self.api.get_open_interest(
+                    symbol=symbol, 
+                    period='1h', 
+                    start_time=start_time, 
+                    end_time=end_time, 
+                    limit=25
+                )
+                
                 if oi_data is not None and not oi_data.empty:
+                    # Lọc chỉ lấy 24 điểm gần nhất
+                    oi_data = oi_data.tail(24)
                     result['open_interest'][symbol] = oi_data
-                    logger.info(f"✅ Nhận được {len(oi_data)} điểm OI cho {symbol}")
+                    logger.info(f"   ✅ {len(oi_data)} OI points collected")
                 else:
-                    logger.warning(f"⚠️ Không có dữ liệu OI cho {symbol}")
+                    logger.warning(f"   ⚠️ No OI data for {symbol}")
                     result['open_interest'][symbol] = pd.DataFrame()
                 
-                time.sleep(0.5)  # Tránh rate limit
+                result['success_count'] += 1
+                logger.info(f"   🎯 {symbol}: Success")
+                
+                # Rate limiting between symbols
+                time.sleep(0.5)
                 
             except Exception as e:
-                logger.error(f"❌ Lỗi khi thu thập dữ liệu 24h cho {symbol}: {str(e)}")
+                logger.error(f"   ❌ Error collecting 24h data for {symbol}: {str(e)}")
                 result['klines'][symbol] = pd.DataFrame()
                 result['open_interest'][symbol] = pd.DataFrame()
+                result['error_count'] += 1
         
-        logger.info("✅ Hoàn thành thu thập dữ liệu 24h theo giờ")
-        return result
-
-    def collect_open_interest_data(self):
-        """Thu thập dữ liệu Open Interest lịch sử cho tất cả symbols"""
-        start_time, end_time = self._get_start_end_time()
-        logger.info(f"Thu thập dữ liệu Open Interest từ {datetime.fromtimestamp(start_time/1000)} đến {datetime.fromtimestamp(end_time/1000)}")
-        
-        result = {}
-        for symbol in self.symbols:
-            logger.info(f"Đang lấy dữ liệu Open Interest cho {symbol}")
-            try:
-                # Lấy dữ liệu theo nhiều lần nếu khoảng thời gian lớn
-                all_data = []
-                current_start = start_time
-                
-                # Giới hạn số lần request để tránh vòng lặp vô tận
-                max_requests = 30
-                request_count = 0
-                
-                while current_start < end_time and request_count < max_requests:
-                    # Giới hạn khoảng thời gian mỗi request để tránh lỗi
-                    # Giảm xuống 12 giờ thay vì 24 giờ
-                    current_end = min(current_start + (1000 * 60 * 60 * 12), end_time)  # Giới hạn 12 giờ mỗi request
-                    
-                    # In thông tin request để debug
-                    start_date = datetime.fromtimestamp(current_start/1000)
-                    end_date = datetime.fromtimestamp(current_end/1000)
-                    logger.info(f"Request OI: symbol={symbol}, start={start_date}, end={end_date}")
-                    
-                    # Thêm thời gian chờ trước mỗi request để tránh rate limit
-                    time.sleep(1.0)  # Tăng thời gian chờ lên 1 giây
-                    
-                    # Thử tối đa 3 lần nếu request thất bại
-                    retry_count = 0
-                    max_retries = 3
-                    success = False
-                    
-                    while retry_count < max_retries and not success:
-                        df = self.api.get_open_interest(symbol, period='1h', start_time=current_start, end_time=current_end)
-                        
-                        if df is not None and not df.empty:
-                            all_data.append(df)
-                            logger.info(f"Nhận được {len(df)} bản ghi OI cho {symbol}")
-                            success = True
-                        else:
-                            retry_count += 1
-                            if retry_count < max_retries:
-                                wait_time = 2 ** retry_count  # Backoff exponential: 2, 4, 8 giây
-                                logger.warning(f"Lần thử {retry_count}/{max_retries} thất bại, thử lại sau {wait_time} giây")
-                                time.sleep(wait_time)
-                    
-                    if not success:
-                        logger.warning(f"Không nhận được dữ liệu OI cho {symbol} trong khoảng {start_date} - {end_date} sau {max_retries} lần thử")
-                    
-                    # Cập nhật thời gian bắt đầu cho request tiếp theo
-                    current_start = current_end
-                    request_count += 1
-                
-                if all_data:
-                    # Gộp tất cả dữ liệu
-                    result[symbol] = pd.concat(all_data).drop_duplicates()
-                    logger.info(f"Đã lấy tổng cộng {len(result[symbol])} mẫu Open Interest cho {symbol}")
-                else:
-                    logger.warning(f"Không có dữ liệu Open Interest cho {symbol}")
-                    result[symbol] = pd.DataFrame()
-                    
-            except Exception as e:
-                logger.error(f"Lỗi khi lấy dữ liệu Open Interest cho {symbol}: {str(e)}")
-                result[symbol] = pd.DataFrame()
-        
+        logger.info(f"✅ 24h collection complete: {result['success_count']}/{total_symbols} success, {result['error_count']} errors")
         return result
     
-    def collect_klines_data(self):
-        """Thu thập dữ liệu nến lịch sử cho tất cả symbols và timeframes"""
-        start_time, end_time = self._get_start_end_time()
-        logger.info(f"Thu thập dữ liệu nến từ {datetime.fromtimestamp(start_time/1000)} đến {datetime.fromtimestamp(end_time/1000)}")
+    def collect_30d_daily_data(self):
+        """
+        Thu thập dữ liệu 30 ngày daily - CORE FUNCTION  
+        Tối ưu cho tracking OI & Volume theo ngày
+        """
+        logger.info("📅 Bắt đầu thu thập dữ liệu 30d daily - OI & Volume focus")
+        start_time, end_time = self._get_30d_time_range()
         
-        result = {}
-        for symbol in self.symbols:
-            result[symbol] = {}
-            for timeframe in self.timeframes:
-                logger.info(f"Đang lấy dữ liệu klines cho {symbol} - {timeframe}")
-                try:
-                    # Lấy dữ liệu theo nhiều lần nếu khoảng thời gian lớn
-                    all_data = []
-                    current_start = start_time
-                    
-                    # Giới hạn số lần request để tránh vòng lặp vô tận
-                    max_requests = 30
-                    request_count = 0
-                    
-                    while current_start < end_time and request_count < max_requests:
-                        # Tính toán thời gian kết thúc cho mỗi request
-                        current_end = min(current_start + (1000 * 60 * 60 * 24), end_time)  # Giới hạn 1 ngày mỗi request
-                        
-                        logger.info(f"Request klines: symbol={symbol}, timeframe={timeframe}, start={datetime.fromtimestamp(current_start/1000)}, end={datetime.fromtimestamp(current_end/1000)}")
-                        
-                        df = self.api.get_klines(symbol, timeframe, current_start, current_end)
-                        if df is not None and not df.empty:
-                            all_data.append(df)
-                            logger.info(f"Nhận được {len(df)} nến cho {symbol} - {timeframe}")
-                            # Đợi một chút để tránh rate limit
-                            time.sleep(0.5)
-                        else:
-                            logger.warning(f"Không nhận được dữ liệu klines cho {symbol} - {timeframe}")
-                        
-                        # Cập nhật thời gian bắt đầu cho request tiếp theo
-                        current_start = current_end
-                        request_count += 1
-                    
-                    if all_data:
-                        # Gộp tất cả dữ liệu
-                        result[symbol][timeframe] = pd.concat(all_data).drop_duplicates()
-                        logger.info(f"Đã lấy tổng cộng {len(result[symbol][timeframe])} nến cho {symbol} - {timeframe}")
-                    else:
-                        logger.warning(f"Không có dữ liệu cho {symbol} - {timeframe}")
-                        result[symbol][timeframe] = pd.DataFrame()
-                except Exception as e:
-                    logger.error(f"Lỗi khi lấy dữ liệu klines cho {symbol} - {timeframe}: {str(e)}")
-                    result[symbol][timeframe] = pd.DataFrame()
-        
-        return result
-    
-    def collect_all_historical_data(self):
-        """Thu thập tất cả dữ liệu lịch sử (klines và open interest)"""
-        logger.info("Bắt đầu thu thập tất cả dữ liệu lịch sử")
-        
-        klines_data = self.collect_klines_data()
-        oi_data = self.collect_open_interest_data()
-        
-        return {
-            'klines': klines_data,
-            'open_interest': oi_data
+        result = {
+            'timestamp': datetime.now().isoformat(),
+            'data_type': '30d_daily',
+            'klines': {},
+            'open_interest': {},
+            'success_count': 0,
+            'error_count': 0
         }
+        
+        total_symbols = len(self.symbols)
+        
+        for i, symbol in enumerate(self.symbols, 1):
+            logger.info(f"📊 [{i}/{total_symbols}] Thu thập 30d data cho {symbol}")
+            
+            try:
+                # Thu thập klines 1d cho 30 ngày
+                logger.info(f"   📈 Collecting daily klines for {symbol}")
+                klines_data = self.api.get_klines(
+                    symbol=symbol, 
+                    interval='1d', 
+                    start_time=start_time, 
+                    end_time=end_time, 
+                    limit=31  # 30 + 1 buffer
+                )
+                
+                if klines_data is not None and not klines_data.empty:
+                    # Lọc chỉ lấy 30 ngày gần nhất
+                    klines_data = klines_data.tail(30)
+                    result['klines'][symbol] = klines_data
+                    logger.info(f"   ✅ {len(klines_data)} daily klines collected")
+                else:
+                    logger.warning(f"   ⚠️ No daily klines for {symbol}")
+                    result['klines'][symbol] = pd.DataFrame()
+                
+                # Rate limiting
+                time.sleep(0.3)
+                
+                # Thu thập Open Interest (chunked cho 30 ngày)
+                logger.info(f"   📊 Collecting 30d OI for {symbol}")
+                oi_data = self.api.get_open_interest_chunked(
+                    symbol=symbol, 
+                    period='1h',  # Lấy hourly rồi aggregate về daily
+                    start_time=start_time, 
+                    end_time=end_time,
+                    days_per_chunk=10  # 10 ngày per chunk để tránh rate limit
+                )
+                
+                if oi_data is not None and not oi_data.empty:
+                    # Aggregate hourly OI to daily
+                    oi_daily = self._aggregate_oi_to_daily(oi_data)
+                    result['open_interest'][symbol] = oi_daily
+                    logger.info(f"   ✅ {len(oi_daily)} daily OI points collected")
+                else:
+                    logger.warning(f"   ⚠️ No OI data for {symbol}")
+                    result['open_interest'][symbol] = pd.DataFrame()
+                
+                result['success_count'] += 1
+                logger.info(f"   🎯 {symbol}: Success")
+                
+                # Rate limiting between symbols
+                time.sleep(1.0)
+                
+            except Exception as e:
+                logger.error(f"   ❌ Error collecting 30d data for {symbol}: {str(e)}")
+                result['klines'][symbol] = pd.DataFrame()
+                result['open_interest'][symbol] = pd.DataFrame()
+                result['error_count'] += 1
+        
+        logger.info(f"✅ 30d collection complete: {result['success_count']}/{total_symbols} success, {result['error_count']} errors")
+        return result
     
     def collect_realtime_data(self):
-        """Thu thập dữ liệu realtime cho tất cả symbols"""
-        logger.info("Thu thập dữ liệu realtime")
+        """
+        Thu thập dữ liệu realtime cho tất cả symbols
+        Tối ưu cho cập nhật tracking
+        """
+        logger.info("⚡ Thu thập dữ liệu realtime cho tracking")
+        
         result = {
+            'timestamp': datetime.now().isoformat(),
+            'data_type': 'realtime',
             'ticker': {},
-            'open_interest': {}
+            'open_interest': {},
+            'success_count': 0,
+            'error_count': 0
         }
         
-        for symbol in self.symbols:
+        total_symbols = len(self.symbols)
+        
+        for i, symbol in enumerate(self.symbols, 1):
             try:
-                # Lấy dữ liệu ticker (volume)
+                logger.info(f"⚡ [{i}/{total_symbols}] Realtime data for {symbol}")
+                
+                # Lấy ticker data (volume, price)
                 ticker_data = self.api.get_ticker(symbol)
                 if ticker_data:
                     result['ticker'][symbol] = {
@@ -264,10 +268,17 @@ class HistoricalDataCollector:
                         'quoteVolume': float(ticker_data['quoteVolume']),
                         'count': int(ticker_data['count']),
                         'lastPrice': float(ticker_data['lastPrice']),
-                        'priceChangePercent': float(ticker_data['priceChangePercent'])
+                        'priceChangePercent': float(ticker_data['priceChangePercent']),
+                        'openPrice': float(ticker_data['openPrice']),
+                        'highPrice': float(ticker_data['highPrice']),
+                        'lowPrice': float(ticker_data['lowPrice'])
                     }
+                    logger.info(f"   📈 Ticker: {ticker_data['lastPrice']} ({ticker_data['priceChangePercent']}%)")
                 
-                # Lấy dữ liệu open interest
+                # Rate limiting
+                time.sleep(0.2)
+                
+                # Lấy Open Interest current
                 oi_data = self.api.get_open_interest_realtime(symbol)
                 if oi_data:
                     result['open_interest'][symbol] = {
@@ -275,9 +286,228 @@ class HistoricalDataCollector:
                         'timestamp': datetime.now(),
                         'openInterest': float(oi_data['openInterest'])
                     }
+                    logger.info(f"   📊 OI: {oi_data['openInterest']}")
                 
-                time.sleep(0.3)  # Đợi một chút để tránh rate limit
+                result['success_count'] += 1
+                
+                # Rate limiting between symbols
+                time.sleep(0.3)
+                
             except Exception as e:
-                logger.error(f"Lỗi khi lấy dữ liệu realtime cho {symbol}: {str(e)}")
+                logger.error(f"   ❌ Error getting realtime data for {symbol}: {str(e)}")
+                result['error_count'] += 1
         
+        logger.info(f"✅ Realtime collection: {result['success_count']}/{total_symbols} success")
         return result
+    
+    def collect_klines_data(self, custom_timeframes=None, custom_days=None):
+        """
+        Thu thập dữ liệu klines lịch sử theo timeframes
+        """
+        timeframes = custom_timeframes or self.timeframes
+        start_time, end_time = self._get_custom_time_range(custom_days)
+        
+        logger.info(f"📈 Thu thập klines data cho {len(timeframes)} timeframes")
+        
+        result = {}
+        total_items = len(self.symbols) * len(timeframes)
+        current_item = 0
+        
+        for symbol in self.symbols:
+            result[symbol] = {}
+            
+            for timeframe in timeframes:
+                current_item += 1
+                logger.info(f"📊 [{current_item}/{total_items}] {symbol} - {timeframe}")
+                
+                try:
+                    # Sử dụng chunked collection cho timeframes nhỏ
+                    if timeframe in ['1m', '3m', '5m', '15m', '30m']:
+                        df = self.api.get_klines_chunked(
+                            symbol=symbol,
+                            interval=timeframe,
+                            start_time=start_time,
+                            end_time=end_time,
+                            chunk_size=1000
+                        )
+                    else:
+                        df = self.api.get_klines(
+                            symbol=symbol,
+                            interval=timeframe,
+                            start_time=start_time,
+                            end_time=end_time,
+                            limit=1000
+                        )
+                    
+                    if df is not None and not df.empty:
+                        result[symbol][timeframe] = df
+                        logger.info(f"   ✅ {len(df)} candles collected")
+                    else:
+                        logger.warning(f"   ⚠️ No data for {symbol} {timeframe}")
+                        result[symbol][timeframe] = pd.DataFrame()
+                    
+                    # Rate limiting
+                    time.sleep(0.4)
+                    
+                except Exception as e:
+                    logger.error(f"   ❌ Error: {str(e)}")
+                    result[symbol][timeframe] = pd.DataFrame()
+        
+        logger.info("✅ Klines collection complete")
+        return result
+    
+    def collect_open_interest_data(self, custom_days=None):
+        """
+        Thu thập dữ liệu Open Interest lịch sử
+        """
+        days = custom_days or min(self.lookback_days, 30)  # Max 30 days
+        start_time, end_time = self._get_custom_time_range(days)
+        
+        logger.info(f"📊 Thu thập OI data cho {days} ngày")
+        
+        result = {}
+        
+        for i, symbol in enumerate(self.symbols, 1):
+            logger.info(f"📊 [{i}/{len(self.symbols)}] OI for {symbol}")
+            
+            try:
+                # Sử dụng chunked collection để lấy nhiều dữ liệu
+                df = self.api.get_open_interest_chunked(
+                    symbol=symbol,
+                    period='1h',
+                    start_time=start_time,
+                    end_time=end_time,
+                    days_per_chunk=7  # 7 days per chunk
+                )
+                
+                if df is not None and not df.empty:
+                    result[symbol] = df
+                    logger.info(f"   ✅ {len(df)} OI points collected")
+                else:
+                    logger.warning(f"   ⚠️ No OI data for {symbol}")
+                    result[symbol] = pd.DataFrame()
+                
+                # Rate limiting between symbols
+                time.sleep(1.0)
+                
+            except Exception as e:
+                logger.error(f"   ❌ Error: {str(e)}")
+                result[symbol] = pd.DataFrame()
+        
+        logger.info("✅ OI collection complete")
+        return result
+    
+    def collect_all_historical_data(self, mode='full'):
+        """
+        Thu thập tất cả dữ liệu lịch sử
+        mode: 'full', 'klines_only', 'oi_only'
+        """
+        logger.info(f"📚 Bắt đầu thu thập dữ liệu lịch sử - mode: {mode}")
+        
+        result = {
+            'timestamp': datetime.now().isoformat(),
+            'mode': mode,
+            'klines': {},
+            'open_interest': {}
+        }
+        
+        if mode in ['full', 'klines_only']:
+            logger.info("📈 Collecting klines data...")
+            result['klines'] = self.collect_klines_data()
+        
+        if mode in ['full', 'oi_only']:
+            logger.info("📊 Collecting OI data...")
+            result['open_interest'] = self.collect_open_interest_data()
+        
+        logger.info("✅ All historical data collection complete")
+        return result
+    
+    # Helper methods
+    def _aggregate_oi_to_daily(self, oi_hourly_df):
+        """
+        Aggregate hourly OI data to daily
+        """
+        if oi_hourly_df.empty:
+            return pd.DataFrame()
+        
+        try:
+            # Tạo date column
+            oi_hourly_df['date'] = oi_hourly_df['timestamp'].dt.date
+            
+            # Group by date và tính average OI cho mỗi ngày
+            daily_oi = oi_hourly_df.groupby('date').agg({
+                'sumOpenInterest': 'mean',  # Average OI trong ngày
+                'sumOpenInterestValue': 'mean',
+                'timestamp': 'first'  # Lấy timestamp đầu tiên của ngày
+            }).reset_index()
+            
+            # Rename columns
+            daily_oi = daily_oi.rename(columns={
+                'sumOpenInterest': 'avg_open_interest',
+                'sumOpenInterestValue': 'avg_open_interest_value'
+            })
+            
+            # Sort by date
+            daily_oi = daily_oi.sort_values('date').reset_index(drop=True)
+            
+            logger.info(f"📊 Aggregated {len(oi_hourly_df)} hourly points to {len(daily_oi)} daily points")
+            return daily_oi
+            
+        except Exception as e:
+            logger.error(f"❌ Error aggregating OI to daily: {str(e)}")
+            return pd.DataFrame()
+    
+    def get_data_summary(self):
+        """
+        Lấy tóm tắt dữ liệu có sẵn
+        """
+        summary = {
+            'timestamp': datetime.now().isoformat(),
+            'symbols': self.symbols,
+            'timeframes': self.timeframes,
+            'lookback_days': self.lookback_days,
+            'api_status': 'connected' if self.api.test_connection() else 'disconnected'
+        }
+        
+        logger.info(f"📋 Data summary: {len(self.symbols)} symbols, {len(self.timeframes)} timeframes")
+        return summary
+    
+    def validate_data_quality(self, data):
+        """
+        Kiểm tra chất lượng dữ liệu
+        """
+        quality_report = {
+            'timestamp': datetime.now().isoformat(),
+            'symbols_with_data': 0,
+            'symbols_without_data': 0,
+            'total_klines_points': 0,
+            'total_oi_points': 0,
+            'issues': []
+        }
+        
+        if 'klines' in data:
+            for symbol, timeframe_data in data['klines'].items():
+                has_data = False
+                for timeframe, df in timeframe_data.items():
+                    if not df.empty:
+                        has_data = True
+                        quality_report['total_klines_points'] += len(df)
+                
+                if has_data:
+                    quality_report['symbols_with_data'] += 1
+                else:
+                    quality_report['symbols_without_data'] += 1
+                    quality_report['issues'].append(f"No klines data for {symbol}")
+        
+        if 'open_interest' in data:
+            for symbol, df in data['open_interest'].items():
+                if not df.empty:
+                    quality_report['total_oi_points'] += len(df)
+                else:
+                    quality_report['issues'].append(f"No OI data for {symbol}")
+        
+        logger.info(f"📊 Data quality: {quality_report['symbols_with_data']} symbols OK, {len(quality_report['issues'])} issues")
+        return quality_report
+
+# Backward compatibility
+HistoricalDataCollector = OptimizedHistoricalDataCollector

@@ -1,336 +1,517 @@
 import os
 import json
+import pandas as pd
+import numpy as np
 from datetime import datetime, timedelta
-from config.settings import SYMBOLS, setup_logging
-from data_analyzer.metrics import MarketMetrics
+from config.settings import setup_logging, SYMBOLS
+from data_analyzer.metrics import OptimizedOIVolumeMetrics
 
 logger = setup_logging(__name__, 'report_generator.log')
 
-class ReportGenerator:
+# Thêm NumpyEncoder để xử lý các kiểu dữ liệu NumPy
+class NumpyEncoder(json.JSONEncoder):
+    """JSON Encoder tùy chỉnh để xử lý các kiểu dữ liệu NumPy"""
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, np.bool_):
+            return bool(obj)
+        return super(NumpyEncoder, self).default(obj)
+
+# Hàm tiện ích để chuyển đổi dữ liệu NumPy
+def convert_numpy_types(obj):
+    """Chuyển đổi các kiểu dữ liệu NumPy thành kiểu Python tiêu chuẩn"""
+    if isinstance(obj, dict):
+        return {k: convert_numpy_types(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_numpy_types(item) for item in obj]
+    elif isinstance(obj, np.integer):
+        return int(obj)
+    elif isinstance(obj, np.floating):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return obj.tolist()
+    elif isinstance(obj, np.bool_):
+        return bool(obj)
+    elif pd.isna(obj):  # Xử lý giá trị NaN, NaT
+        return None
+    else:
+        return obj
+
+class OptimizedReportGenerator:
+    """
+    Tạo báo cáo tối ưu cho OI & Volume
+    Focus: Tracking 24h (hourly) + 30d (daily)
+    """
+    
     def __init__(self, db):
         self.db = db
-        self.metrics = MarketMetrics()
-        # Đảm bảo các thư mục tồn tại
-        os.makedirs('data/reports', exist_ok=True)
-        os.makedirs('docs/assets/data', exist_ok=True)
-        logger.info("Khởi tạo ReportGenerator")
-    
-# Các methods phụ trợ đã được chuyển vào metrics.py
-    
-    def generate_symbol_report(self, symbol):
-        """Tạo báo cáo cho một symbol - ĐÃ SỬA ĐỂ SỬ DỤNG DỮ LIỆU THỰC"""
-        try:
-            # Lấy dữ liệu thực tế từ database
-            price_df = self.db.get_klines(symbol, '1h', limit=48)  # 48h để có đủ dữ liệu
-            oi_df = self.db.get_open_interest(symbol, limit=48)
-            
-            # Tính toán thông tin giá
-            price_info = {'current': None, 'change_percent': 0.0}
-            if not price_df.empty:
-                price_info['current'] = float(price_df['close'].iloc[-1])
-                price_info['change_percent'] = self.metrics.calculate_24h_percentage_change(price_df, 'close', '1h')
-            
-            # Tính toán thông tin volume  
-            volume_info = {'current': None, 'change_percent': 0.0}
-            if not price_df.empty:
-                volume_info['current'] = float(price_df['volume'].iloc[-1])
-                volume_info['change_percent'] = self.metrics.calculate_24h_percentage_change(price_df, 'volume', '1h')
-            
-            # Tính toán thông tin Open Interest
-            oi_info = {'current': None, 'change_percent': 0.0}
-            if not oi_df.empty:
-                oi_info['current'] = float(oi_df['open_interest'].iloc[-1])
-                oi_info['change_percent'] = self.metrics.calculate_safe_percentage_change(oi_df, 'open_interest')
-            
-            # Tính toán sentiment với dữ liệu thực tế
-            sentiment = self.metrics.calculate_market_sentiment(price_df, oi_df, price_df)
-            
-            # Tính toán tương quan
-            correlation = self.metrics.calculate_correlation(price_df, oi_df)
-            
-            # Tạo báo cáo
-            report = {
-                'symbol': symbol,
-                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                'price': price_info,
-                'open_interest': oi_info,
-                'volume': volume_info,
-                'correlation': correlation['pearson_correlation'] if correlation else None,
-                'sentiment': sentiment
-            }
-            
-            # Lưu báo cáo
-            file_path = f'data/reports/{symbol}_report.json'
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(report, f, ensure_ascii=False, indent=2, default=str)
-            
-            logger.info(f"Đã tạo báo cáo cho {symbol}: Price {price_info['change_percent']:.2f}%, OI {oi_info['change_percent']:.2f}%, Volume {volume_info['change_percent']:.2f}%")
-            return report
-        except Exception as e:
-            logger.error(f"Lỗi khi tạo báo cáo cho {symbol}: {str(e)}")
-            return None
-    
-    def prepare_symbol_data_for_web(self, symbol):
-        """Chuẩn bị dữ liệu JSON cho từng symbol để hiển thị trên web"""
-        try:
-            klines_data = {}
-            for timeframe in ['1d', '4h', '1h']:
-                df = self.db.get_klines(symbol, timeframe)
-                if not df.empty:
-                    # Chuyển đổi datetime thành string để JSON có thể serialize
-                    df_copy = df.copy()
-                    if 'open_time' in df_copy.columns:
-                        df_copy['open_time'] = df_copy['open_time'].astype(str)
-                    if 'close_time' in df_copy.columns:
-                        df_copy['close_time'] = df_copy['close_time'].astype(str)
-                    
-                    klines_data[timeframe] = df_copy.to_dict('records')
-            
-            oi_data = self.db.get_open_interest(symbol)
-            if not oi_data.empty:
-                # Chuyển đổi datetime thành string
-                oi_data_copy = oi_data.copy()
-                if 'timestamp' in oi_data_copy.columns:
-                    oi_data_copy['timestamp'] = oi_data_copy['timestamp'].astype(str)
-                
-                oi_list = oi_data_copy.to_dict('records')
-            else:
-                oi_list = []
-            
-            return {
-                'klines': klines_data,
-                'open_interest': oi_list
-            }
-        except Exception as e:
-            logger.error(f"Lỗi khi chuẩn bị dữ liệu web cho {symbol}: {str(e)}")
-            return {'klines': {}, 'open_interest': []}
-
-    def generate_24h_data(self):
-        """Tạo dữ liệu tracking 24h cho trang web"""
-        try:
-            logger.info("📈 Bắt đầu tạo dữ liệu tracking 24h")
-            
-            tracking_data = {
-                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                'symbols': {},
-                'summary': {
-                    'total_symbols': len(SYMBOLS),
-                    'most_volatile': None,
-                    'highest_volume_change': None,
-                    'highest_oi_change': None
-                }
-            }
-            
-            max_volatility = 0
-            max_volume_change = 0
-            max_oi_change = 0
-            
-            for symbol in SYMBOLS:
-                try:
-                    # Lấy dữ liệu 1h cho 24 giờ qua
-                    price_df = self.db.get_klines(symbol, '1h', limit=24)
-                    oi_df = self.db.get_open_interest(symbol, limit=24)
-                    
-                    if price_df.empty:
-                        logger.warning(f"Không có dữ liệu giá cho {symbol}")
-                        continue
-                    
-                    # Tính toán dữ liệu theo từng giờ
-                    hours_data = []
-                    
-                    for i in range(len(price_df)):
-                        hour_data = {
-                            'hour_timestamp': price_df.iloc[i]['open_time'].strftime('%Y-%m-%d %H:%M:%S') if i < len(price_df) else None,
-                            'hour': i,
-                            'price': float(price_df.iloc[i]['close']) if i < len(price_df) else None,
-                            'volume': float(price_df.iloc[i]['volume']) if i < len(price_df) else None,
-                            'price_change_1h': 0.0,
-                            'volume_change_1h': 0.0,
-                            'oi': None,
-                            'oi_change_1h': 0.0
-                        }
-                        
-                        # Tính thay đổi giá so với giờ trước
-                        if i > 0:
-                            prev_price = float(price_df.iloc[i-1]['close'])
-                            curr_price = float(price_df.iloc[i]['close'])
-                            hour_data['price_change_1h'] = ((curr_price - prev_price) / prev_price) * 100
-                            
-                            prev_volume = float(price_df.iloc[i-1]['volume'])
-                            curr_volume = float(price_df.iloc[i]['volume'])
-                            if prev_volume > 0:
-                                hour_data['volume_change_1h'] = ((curr_volume - prev_volume) / prev_volume) * 100
-                        
-                        # Thêm dữ liệu OI nếu có
-                        if not oi_df.empty and i < len(oi_df):
-                            hour_data['oi'] = float(oi_df.iloc[i]['open_interest'])
-                            if i > 0 and i < len(oi_df):
-                                prev_oi = float(oi_df.iloc[i-1]['open_interest'])
-                                curr_oi = float(oi_df.iloc[i]['open_interest'])
-                                if prev_oi > 0:
-                                    hour_data['oi_change_1h'] = ((curr_oi - prev_oi) / prev_oi) * 100
-                        
-                        hours_data.append(hour_data)
-                    
-                    # Tính toán các thống kê tổng hợp
-                    if len(price_df) >= 2:
-                        # Thay đổi giá 24h
-                        price_24h_change = ((float(price_df.iloc[-1]['close']) - float(price_df.iloc[0]['close'])) / float(price_df.iloc[0]['close'])) * 100
-                        
-                        # Độ biến động (volatility) = standard deviation của thay đổi giá theo giờ
-                        price_changes = [h['price_change_1h'] for h in hours_data if h['price_change_1h'] != 0]
-                        price_volatility = 0
-                        if len(price_changes) > 1:
-                            import statistics
-                            price_volatility = statistics.stdev(price_changes)
-                        
-                        # Tìm giờ có thay đổi giá cao nhất
-                        max_change_hour = max(hours_data, key=lambda x: abs(x['price_change_1h']))
-                        
-                        # Thay đổi volume 24h
-                        volume_24h_change = 0
-                        if len(price_df) >= 2:
-                            volume_24h_change = ((float(price_df.iloc[-1]['volume']) - float(price_df.iloc[0]['volume'])) / float(price_df.iloc[0]['volume'])) * 100
-                        
-                        # Thay đổi OI 24h
-                        oi_24h_change = 0
-                        if not oi_df.empty and len(oi_df) >= 2:
-                            oi_24h_change = ((float(oi_df.iloc[-1]['open_interest']) - float(oi_df.iloc[0]['open_interest'])) / float(oi_df.iloc[0]['open_interest'])) * 100
-                        
-                        symbol_data = {
-                            'hours_data': hours_data,
-                            'price_24h_change': price_24h_change,
-                            'volume_24h_change': volume_24h_change,
-                            'oi_24h_change': oi_24h_change,
-                            'price_volatility': price_volatility,
-                            'max_price_change_hour': {
-                                'hour': max_change_hour['hour'],
-                                'change': max_change_hour['price_change_1h'],
-                                'timestamp': max_change_hour['hour_timestamp']
-                            },
-                            'current_price': float(price_df.iloc[-1]['close']),
-                            'current_volume': float(price_df.iloc[-1]['volume']),
-                            'current_oi': float(oi_df.iloc[-1]['open_interest']) if not oi_df.empty else 0
-                        }
-                        
-                        tracking_data['symbols'][symbol] = symbol_data
-                        
-                        # Cập nhật summary
-                        if price_volatility > max_volatility:
-                            max_volatility = price_volatility
-                            tracking_data['summary']['most_volatile'] = symbol
-                        
-                        if abs(volume_24h_change) > max_volume_change:
-                            max_volume_change = abs(volume_24h_change)
-                            tracking_data['summary']['highest_volume_change'] = symbol
-                        
-                        if abs(oi_24h_change) > max_oi_change:
-                            max_oi_change = abs(oi_24h_change)
-                            tracking_data['summary']['highest_oi_change'] = symbol
-                    
-                    logger.info(f"Đã tạo dữ liệu tracking 24h cho {symbol}")
-                    
-                except Exception as e:
-                    logger.error(f"Lỗi khi tạo dữ liệu tracking 24h cho {symbol}: {str(e)}")
-                    continue
-            
-            # Lưu dữ liệu tracking 24h vào file JSON
-            tracking_file_path = 'docs/assets/data/tracking_24h.json'
-            with open(tracking_file_path, 'w', encoding='utf-8') as f:
-                json.dump(tracking_data, f, ensure_ascii=False, indent=2, default=str)
-            
-            logger.info(f"✅ Đã tạo dữ liệu tracking 24h thành công với {len(tracking_data['symbols'])} symbols")
-            return tracking_data
-            
-        except Exception as e:
-            logger.error(f"Lỗi khi tạo dữ liệu tracking 24h: {str(e)}")
-            return None
+        self.metrics = OptimizedOIVolumeMetrics()
+        logger.info("🔧 Khởi tạo OptimizedReportGenerator - Focus OI & Volume")
     
     def generate_daily_summary(self):
-        """Tạo báo cáo tổng hợp hàng ngày"""
+        """
+        Tạo báo cáo tổng hợp hàng ngày tối ưu
+        """
         try:
-            # Thông tin tổng hợp
+            logger.info("📊 Tạo báo cáo tổng hợp hàng ngày")
+            
             summary = {
-                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                'symbols': {}
+                'timestamp': datetime.now().isoformat(),
+                'report_type': 'daily_oi_volume_summary',
+                'symbols': {},
+                'overall_metrics': {
+                    'total_symbols': len(SYMBOLS),
+                    'bullish_count': 0,
+                    'bearish_count': 0,
+                    'neutral_count': 0
+                },
+                'anomalies_summary': {},
+                'data_quality': {}
             }
             
             # Tạo báo cáo cho từng symbol
             for symbol in SYMBOLS:
-                report = self.generate_symbol_report(symbol)
-                if report:
-                    summary['symbols'][symbol] = {
-                        'price_change': report['price']['change_percent'],
-                        'oi_change': report['open_interest']['change_percent'],
-                        'volume_change': report['volume']['change_percent'],
-                        'sentiment': report['sentiment']['sentiment_label'] if report['sentiment'] else 'Neutral'
-                    }
-                else:
-                    # Nếu không tạo được báo cáo, đặt giá trị mặc định
-                    summary['symbols'][symbol] = {
-                        'price_change': 0.0,
-                        'oi_change': 0.0,
-                        'volume_change': 0.0,
-                        'sentiment': 'Neutral'
-                    }
+                try:
+                    symbol_report = self._generate_symbol_report(symbol)
+                    summary['symbols'][symbol] = symbol_report
+                    
+                    # Cập nhật overall metrics
+                    sentiment = symbol_report.get('overall_sentiment', 'neutral')
+                    if 'bullish' in sentiment:
+                        summary['overall_metrics']['bullish_count'] += 1
+                    elif 'bearish' in sentiment:
+                        summary['overall_metrics']['bearish_count'] += 1
+                    else:
+                        summary['overall_metrics']['neutral_count'] += 1
+                        
+                except Exception as e:
+                    logger.error(f"❌ Lỗi khi tạo báo cáo cho {symbol}: {str(e)}")
+                    summary['symbols'][symbol] = self._get_empty_symbol_report()
             
-            # Lấy danh sách các bất thường gần đây
-            anomalies_df = self.db.get_anomalies(limit=20)
-            anomalies = []
-            for _, row in anomalies_df.iterrows():
-                anomalies.append({
-                    'symbol': row['symbol'],
-                    'timestamp': row['timestamp'],
-                    'data_type': row['data_type'],
-                    'message': row['message']
+            # Tạo anomalies summary
+            summary['anomalies_summary'] = self._generate_anomalies_summary()
+            
+            # Lưu báo cáo
+            self._save_report(summary, 'daily_summary.json')
+            
+            logger.info("✅ Hoàn thành báo cáo tổng hợp hàng ngày")
+            return summary
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi tạo báo cáo tổng hợp: {str(e)}")
+            return {}
+    
+    def generate_24h_data(self):
+        """
+        Tạo dữ liệu tracking 24h cho web interface
+        """
+        try:
+            logger.info("📈 Tạo dữ liệu tracking 24h")
+            
+            tracking_data = {
+                'timestamp': datetime.now().isoformat(),
+                'data_type': '24h_hourly_tracking',
+                'symbols': {}
+            }
+            
+            for symbol in SYMBOLS:
+                try:
+                    # Lấy dữ liệu tracking 24h
+                    tracking_df = self.db.get_24h_tracking_data(symbol)
+                    
+                    if not tracking_df.empty:
+                        # Tính toán metrics
+                        oi_metrics = self.metrics.calculate_hourly_oi_metrics(tracking_df)
+                        volume_metrics = self.metrics.calculate_hourly_volume_metrics(tracking_df)
+                        correlation = self.metrics.calculate_oi_volume_correlation(tracking_df, '24h')
+                        
+                        # Chuẩn bị dữ liệu cho chart
+                        chart_data = []
+                        for _, row in tracking_df.iterrows():
+                            chart_data.append({
+                                'timestamp': row['hour_timestamp'].isoformat() if hasattr(row['hour_timestamp'], 'isoformat') else str(row['hour_timestamp']),
+                                'hour': row['hour_timestamp'].strftime('%H:00') if hasattr(row['hour_timestamp'], 'strftime') else str(row['hour_timestamp']),
+                                'oi': float(row['open_interest']),
+                                'volume': float(row['volume']),
+                                'price': float(row['price']),
+                                'oi_change_1h': float(row.get('oi_change_1h', 0)),
+                                'volume_change_1h': float(row.get('volume_change_1h', 0)),
+                                'price_change_1h': float(row.get('price_change_1h', 0))
+                            })
+                        
+                        # Tạo dữ liệu symbol
+                        tracking_data['symbols'][symbol] = {
+                            'oi_metrics': oi_metrics,
+                            'volume_metrics': volume_metrics,
+                            'correlation': correlation,
+                            'chart_data': chart_data,
+                            'data_points': len(chart_data),
+                            'last_update': tracking_df['hour_timestamp'].iloc[-1].isoformat() if not tracking_df.empty else None
+                        }
+                        
+                    else:
+                        tracking_data['symbols'][symbol] = self._get_empty_24h_data()
+                        
+                except Exception as e:
+                    logger.error(f"❌ Lỗi khi tạo tracking 24h cho {symbol}: {str(e)}")
+                    tracking_data['symbols'][symbol] = self._get_empty_24h_data()
+            
+            # Lưu dữ liệu tracking 24h
+            self._save_report(tracking_data, '24h_tracking.json')
+            
+            logger.info("✅ Hoàn thành tạo dữ liệu tracking 24h")
+            return tracking_data
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi tạo dữ liệu tracking 24h: {str(e)}")
+            return {}
+    
+    def generate_30d_data(self):
+        """
+        Tạo dữ liệu tracking 30d cho web interface
+        """
+        try:
+            logger.info("📊 Tạo dữ liệu tracking 30d")
+            
+            tracking_data = {
+                'timestamp': datetime.now().isoformat(),
+                'data_type': '30d_daily_tracking',
+                'symbols': {}
+            }
+            
+            for symbol in SYMBOLS:
+                try:
+                    # Lấy dữ liệu OI và klines 30 ngày
+                    oi_df = self.db.get_open_interest(symbol, limit=720)  # 30 days * 24 hours
+                    klines_df = self.db.get_klines(symbol, '1d', limit=30)
+                    
+                    if not oi_df.empty and not klines_df.empty:
+                        # Tính toán metrics
+                        oi_metrics = self.metrics.calculate_daily_oi_metrics(oi_df)
+                        volume_metrics = self.metrics.calculate_daily_volume_metrics(klines_df)
+                        
+                        # Merge dữ liệu cho correlation
+                        merged_df = self._merge_daily_data(oi_df, klines_df)
+                        correlation = self.metrics.calculate_oi_volume_correlation(merged_df, '30d')
+                        
+                        # Chuẩn bị dữ liệu chart (daily aggregated)
+                        chart_data = self._prepare_30d_chart_data(oi_df, klines_df)
+                        
+                        tracking_data['symbols'][symbol] = {
+                            'oi_metrics': oi_metrics,
+                            'volume_metrics': volume_metrics,
+                            'correlation': correlation,
+                            'chart_data': chart_data,
+                            'data_points': len(chart_data),
+                            'last_update': datetime.now().isoformat()
+                        }
+                        
+                    else:
+                        tracking_data['symbols'][symbol] = self._get_empty_30d_data()
+                        
+                except Exception as e:
+                    logger.error(f"❌ Lỗi khi tạo tracking 30d cho {symbol}: {str(e)}")
+                    tracking_data['symbols'][symbol] = self._get_empty_30d_data()
+            
+            # Lưu dữ liệu tracking 30d
+            self._save_report(tracking_data, '30d_tracking.json')
+            
+            logger.info("✅ Hoàn thành tạo dữ liệu tracking 30d")
+            return tracking_data
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi tạo dữ liệu tracking 30d: {str(e)}")
+            return {}
+    
+    def generate_web_data(self):
+        """
+        Tạo tất cả dữ liệu cần thiết cho web interface
+        """
+        try:
+            logger.info("🌐 Tạo dữ liệu cho web interface")
+            
+            # Tạo dữ liệu 24h và 30d
+            data_24h = self.generate_24h_data()
+            data_30d = self.generate_30d_data()
+            daily_summary = self.generate_daily_summary()
+            
+            # Tạo index data cho web
+            web_data = {
+                'last_update': datetime.now().isoformat(),
+                'symbols': SYMBOLS,
+                'data_24h': data_24h,
+                'data_30d': data_30d,
+                'summary': daily_summary,
+                'status': 'active'
+            }
+            
+            # Lưu index data
+            self._save_report(web_data, 'web_index.json')
+            
+            logger.info("✅ Hoàn thành tạo dữ liệu cho web")
+            return web_data
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi tạo dữ liệu web: {str(e)}")
+            return {}
+    
+    def _generate_symbol_report(self, symbol):
+        """
+        Tạo báo cáo chi tiết cho một symbol
+        """
+        try:
+            report = {
+                'symbol': symbol,
+                'timestamp': datetime.now().isoformat()
+            }
+            
+            # Lấy dữ liệu tracking 24h
+            tracking_df = self.db.get_24h_tracking_data(symbol)
+            if not tracking_df.empty:
+                oi_metrics_24h = self.metrics.calculate_hourly_oi_metrics(tracking_df)
+                volume_metrics_24h = self.metrics.calculate_hourly_volume_metrics(tracking_df)
+                
+                report['24h_metrics'] = {
+                    'oi': oi_metrics_24h,
+                    'volume': volume_metrics_24h
+                }
+            else:
+                report['24h_metrics'] = {
+                    'oi': self.metrics._get_empty_oi_metrics(),
+                    'volume': self.metrics._get_empty_volume_metrics()
+                }
+            
+            # Lấy dữ liệu 30d
+            oi_df = self.db.get_open_interest(symbol, limit=720)
+            klines_df = self.db.get_klines(symbol, '1d', limit=30)
+            
+            if not oi_df.empty and not klines_df.empty:
+                oi_metrics_30d = self.metrics.calculate_daily_oi_metrics(oi_df)
+                volume_metrics_30d = self.metrics.calculate_daily_volume_metrics(klines_df)
+                
+                report['30d_metrics'] = {
+                    'oi': oi_metrics_30d,
+                    'volume': volume_metrics_30d
+                }
+            else:
+                report['30d_metrics'] = {
+                    'oi': self.metrics._get_empty_oi_metrics_30d(),
+                    'volume': self.metrics._get_empty_volume_metrics_30d()
+                }
+            
+            # Tính overall sentiment
+            report['overall_sentiment'] = self._determine_overall_sentiment(
+                report['24h_metrics'],
+                report['30d_metrics']
+            )
+            
+            # Thêm summary metrics
+            report['price_change'] = report['24h_metrics']['oi'].get('oi_change_24h', 0)  # Tạm thời dùng OI change
+            report['sentiment'] = report['overall_sentiment']
+            
+            return report
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi tạo báo cáo symbol {symbol}: {str(e)}")
+            return self._get_empty_symbol_report()
+    
+    def _generate_anomalies_summary(self):
+        """
+        Tạo tóm tắt anomalies gần đây
+        """
+        try:
+            # Lấy anomalies 24h gần nhất
+            anomalies_df = self.db.get_anomalies(limit=100)
+            
+            if anomalies_df.empty:
+                return {
+                    'total': 0,
+                    'by_symbol': {},
+                    'by_type': {},
+                    'recent_24h': 0
+                }
+            
+            # Lọc anomalies 24h gần nhất
+            cutoff_time = datetime.now() - timedelta(hours=24)
+            recent_anomalies = anomalies_df[anomalies_df['timestamp'] >= cutoff_time]
+            
+            summary = {
+                'total': len(anomalies_df),
+                'recent_24h': len(recent_anomalies),
+                'by_symbol': recent_anomalies['symbol'].value_counts().to_dict() if not recent_anomalies.empty else {},
+                'by_type': recent_anomalies['data_type'].value_counts().to_dict() if not recent_anomalies.empty else {},
+                'timestamp': datetime.now().isoformat()
+            }
+            
+            return summary
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi tạo anomalies summary: {str(e)}")
+            return {
+                'total': 0,
+                'by_symbol': {},
+                'by_type': {},
+                'recent_24h': 0
+            }
+    
+    def _merge_daily_data(self, oi_df, klines_df):
+        """
+        Merge dữ liệu OI và klines theo ngày
+        """
+        try:
+            # Group OI data by date
+            oi_df['date'] = pd.to_datetime(oi_df['timestamp']).dt.date
+            oi_daily = oi_df.groupby('date')['open_interest'].mean().reset_index()
+            
+            # Group klines data by date
+            klines_df['date'] = pd.to_datetime(klines_df['open_time']).dt.date
+            volume_daily = klines_df.groupby('date')[['volume', 'close']].agg({
+                'volume': 'sum',
+                'close': 'last'
+            }).reset_index()
+            
+            # Merge
+            merged = pd.merge(oi_daily, volume_daily, on='date', how='inner')
+            merged['timestamp'] = pd.to_datetime(merged['date'])
+            
+            return merged
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi merge daily data: {str(e)}")
+            return pd.DataFrame()
+    
+    def _prepare_30d_chart_data(self, oi_df, klines_df):
+        """
+        Chuẩn bị dữ liệu chart cho 30 ngày
+        """
+        try:
+            merged_df = self._merge_daily_data(oi_df, klines_df)
+            
+            if merged_df.empty:
+                return []
+            
+            # Lấy 30 ngày gần nhất
+            merged_df = merged_df.sort_values('date').tail(30)
+            
+            chart_data = []
+            for _, row in merged_df.iterrows():
+                chart_data.append({
+                    'date': row['date'].isoformat(),
+                    'oi': float(row['open_interest']),
+                    'volume': float(row['volume']),
+                    'price': float(row['close'])
                 })
             
-            summary['anomalies'] = anomalies
+            return chart_data
             
-            # Lưu báo cáo tổng hợp vào thư mục reports
-            file_path = f'data/reports/daily_summary_{datetime.now().strftime("%Y%m%d")}.json'
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(summary, f, ensure_ascii=False, indent=2, default=str)
-            
-            # ===== PHẦN THÊM MỚI: TẠO DỮ LIỆU CHO GITHUB PAGES =====
-            
-            # Đảm bảo thư mục assets/data tồn tại
-            os.makedirs('docs/assets/data', exist_ok=True)
-            
-            # Lưu daily_summary cho trang web
-            web_summary_path = 'docs/assets/data/daily_summary.json'
-            with open(web_summary_path, 'w', encoding='utf-8') as f:
-                json.dump(summary, f, ensure_ascii=False, indent=2, default=str)
-            
-            # Lưu danh sách symbols cho trang web
-            symbols_web_path = 'docs/assets/data/symbols.json'
-            with open(symbols_web_path, 'w') as f:
-                json.dump(SYMBOLS, f)
-            
-            # Lưu anomalies cho trang web
-            anomalies_web_path = 'docs/assets/data/anomalies.json'
-            with open(anomalies_web_path, 'w') as f:
-                json.dump(anomalies, f, default=str)
-            
-            # Lưu dữ liệu cho từng symbol
-            for symbol in SYMBOLS:
-                # Tạo dữ liệu JSON cho từng symbol
-                symbol_data = self.prepare_symbol_data_for_web(symbol)
-                
-                # Lưu vào thư mục web
-                symbol_web_path = f'docs/assets/data/{symbol}.json'
-                with open(symbol_web_path, 'w') as f:
-                    json.dump(symbol_data, f, default=str)
-            
-            # ===== TẠO DỮ LIỆU TRACKING 24H =====
-            tracking_24h_data = self.generate_24h_data()
-            if tracking_24h_data:
-                logger.info("✅ Đã tạo dữ liệu tracking 24h thành công")
-            else:
-                logger.warning("⚠️ Không thể tạo dữ liệu tracking 24h")
-            
-            logger.info(f"Đã tạo báo cáo tổng hợp hàng ngày và dữ liệu cho GitHub Pages")
-            return summary
         except Exception as e:
-            logger.error(f"Lỗi khi tạo báo cáo tổng hợp hàng ngày: {str(e)}")
-            return None
+            logger.error(f"❌ Lỗi khi chuẩn bị 30d chart data: {str(e)}")
+            return []
+    
+    def _determine_overall_sentiment(self, metrics_24h, metrics_30d):
+        """
+        Xác định sentiment tổng thể
+        """
+        try:
+            # Lấy thay đổi từ metrics
+            oi_change_24h = metrics_24h['oi'].get('oi_change_24h', 0)
+            volume_change_24h = metrics_24h['volume'].get('volume_change_24h', 0)
+            oi_change_30d = metrics_30d['oi'].get('oi_change_30d', 0)
+            volume_change_30d = metrics_30d['volume'].get('volume_change_30d', 0)
+            
+            # Logic sentiment đơn giản
+            if oi_change_24h > 5 and volume_change_24h > 10:
+                return 'strong_bullish'
+            elif oi_change_24h > 1 and volume_change_24h > 5:
+                return 'bullish'
+            elif oi_change_24h < -5 and volume_change_24h < -10:
+                return 'strong_bearish'
+            elif oi_change_24h < -1 and volume_change_24h < -5:
+                return 'bearish'
+            elif abs(oi_change_30d) > 20 or abs(volume_change_30d) > 30:
+                return 'volatile'
+            else:
+                return 'neutral'
+                
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi xác định sentiment: {str(e)}")
+            return 'neutral'
+    
+    def _save_report(self, data, filename):
+        """
+        Lưu báo cáo vào file JSON
+        """
+        try:
+            # Đảm bảo thư mục tồn tại
+            os.makedirs('data/reports', exist_ok=True)
+            os.makedirs('data/json', exist_ok=True)
+            os.makedirs('docs/assets/data', exist_ok=True)  # Thêm thư mục cho GitHub Pages
+            
+            # Chuyển đổi dữ liệu NumPy trước khi lưu
+            converted_data = convert_numpy_types(data)
+            
+            # Lưu vào thư mục reports
+            reports_path = f'data/reports/{filename}'
+            with open(reports_path, 'w', encoding='utf-8') as f:
+                json.dump(converted_data, f, ensure_ascii=False, indent=2, cls=NumpyEncoder)
+            
+            # Lưu vào thư mục json cho web
+            json_path = f'data/json/{filename}'
+            with open(json_path, 'w', encoding='utf-8') as f:
+                json.dump(converted_data, f, ensure_ascii=False, indent=2, cls=NumpyEncoder)
+                
+            # Lưu vào thư mục GitHub Pages
+            github_pages_path = f'docs/assets/data/{filename}'
+            with open(github_pages_path, 'w', encoding='utf-8') as f:
+                json.dump(converted_data, f, ensure_ascii=False, indent=2, cls=NumpyEncoder)
+            
+            logger.info(f"💾 Đã lưu báo cáo: {filename}")
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi lưu báo cáo {filename}: {str(e)}")
+    
+    # Helper methods để trả về dữ liệu trống
+    def _get_empty_symbol_report(self):
+        return {
+            'symbol': '',
+            'timestamp': datetime.now().isoformat(),
+            '24h_metrics': {
+                'oi': self.metrics._get_empty_oi_metrics(),
+                'volume': self.metrics._get_empty_volume_metrics()
+            },
+            '30d_metrics': {
+                'oi': self.metrics._get_empty_oi_metrics_30d(),
+                'volume': self.metrics._get_empty_volume_metrics_30d()
+            },
+            'overall_sentiment': 'neutral',
+            'price_change': 0,
+            'sentiment': 'neutral'
+        }
+    
+    def _get_empty_24h_data(self):
+        return {
+            'oi_metrics': self.metrics._get_empty_oi_metrics(),
+            'volume_metrics': self.metrics._get_empty_volume_metrics(),
+            'correlation': {'correlation': 0, 'correlation_strength': 'no_data'},
+            'chart_data': [],
+            'data_points': 0,
+            'last_update': None
+        }
+    
+    def _get_empty_30d_data(self):
+        return {
+            'oi_metrics': self.metrics._get_empty_oi_metrics_30d(),
+            'volume_metrics': self.metrics._get_empty_volume_metrics_30d(),
+            'correlation': {'correlation': 0, 'correlation_strength': 'no_data'},
+            'chart_data': [],
+            'data_points': 0,
+            'last_update': None
+        }
+
+# Backward compatibility alias
+ReportGenerator = OptimizedReportGenerator
