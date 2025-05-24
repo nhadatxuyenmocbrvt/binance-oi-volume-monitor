@@ -365,11 +365,11 @@ class Database:
             return 0
     
     def get_latest_volume(self, symbol):
-        """Lấy volume mới nhất của symbol"""
+        """Lấy volume mới nhất của symbol theo USDT"""
         try:
             cursor = self.conn.cursor()
             cursor.execute('''
-            SELECT volume FROM ticker 
+            SELECT quote_volume FROM ticker  # Thay đổi từ volume sang quote_volume
             WHERE symbol = ? 
             ORDER BY timestamp DESC 
             LIMIT 1
@@ -380,13 +380,13 @@ class Database:
         except Exception as e:
             logger.error(f"Lỗi khi lấy volume mới nhất cho {symbol}: {str(e)}")
             return 0
-    
+
     def get_latest_oi(self, symbol):
-        """Lấy Open Interest mới nhất của symbol"""
+        """Lấy Open Interest mới nhất của symbol theo USDT"""
         try:
             cursor = self.conn.cursor()
             cursor.execute('''
-            SELECT open_interest FROM open_interest 
+            SELECT open_interest_value FROM open_interest  # Thay đổi từ open_interest sang open_interest_value
             WHERE symbol = ? 
             ORDER BY timestamp DESC 
             LIMIT 1

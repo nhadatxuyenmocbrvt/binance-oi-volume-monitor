@@ -1,278 +1,347 @@
-2025-05-24 21:53:09,448 - data_collector.binance_api - INFO - 🔧 Khởi tạo OptimizedBinanceAPI - Focus OI & Volume [FIXED]
-2025-05-24 21:53:10,164 - data_collector.binance_api - INFO - 🕒 Server time updated: 2025-05-24 21:53:10.107000
-2025-05-24 21:53:10,987 - data_collector.binance_api - INFO - ✅ API connection test successful
-2025-05-24 21:53:11,786 - data_collector.binance_api - INFO - 📋 Symbol BTCUSDT info cached: onboard=2019-09-25 15:00:00
-2025-05-24 21:53:11,788 - data_collector.binance_api - INFO - 📊 Requesting klines for BTCUSDT 1h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:12,537 - data_collector.binance_api - INFO - 📊 Sample volume: 16105.779, Quote volume: 1533088039.7363
-2025-05-24 21:53:12,538 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for BTCUSDT 1h
-2025-05-24 21:53:12,949 - data_collector.binance_api - INFO - 📊 Requesting klines for BTCUSDT 4h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:13,747 - data_collector.binance_api - INFO - 📊 Sample volume: 31103.127, Quote volume: 2953201596.032
-2025-05-24 21:53:13,748 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for BTCUSDT 4h
-2025-05-24 21:53:14,160 - data_collector.binance_api - INFO - 📊 Requesting klines for BTCUSDT 1d: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:14,989 - data_collector.binance_api - INFO - 📊 Sample volume: 72538.209, Quote volume: 6848477987.1194
-2025-05-24 21:53:14,990 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for BTCUSDT 1d
-2025-05-24 21:53:16,196 - data_collector.binance_api - INFO - 📋 Symbol ETHUSDT info cached: onboard=2019-09-25 15:00:00
-2025-05-24 21:53:16,199 - data_collector.binance_api - INFO - 📊 Requesting klines for ETHUSDT 1h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:17,016 - data_collector.binance_api - INFO - 📊 Sample volume: 643195.892, Quote volume: 1164993415.04515
-2025-05-24 21:53:17,017 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for ETHUSDT 1h
-2025-05-24 21:53:17,427 - data_collector.binance_api - INFO - 📊 Requesting klines for ETHUSDT 4h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:18,194 - data_collector.binance_api - INFO - 📊 Sample volume: 909113.932, Quote volume: 1632374905.7693
-2025-05-24 21:53:18,194 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for ETHUSDT 4h
-2025-05-24 21:53:18,609 - data_collector.binance_api - INFO - 📊 Requesting klines for ETHUSDT 1d: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:19,365 - data_collector.binance_api - INFO - 📊 Sample volume: 3965587.849, Quote volume: 7150557099.82798
-2025-05-24 21:53:19,366 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for ETHUSDT 1d
-2025-05-24 21:53:20,565 - data_collector.binance_api - INFO - 📋 Symbol BNBUSDT info cached: onboard=2019-09-25 15:00:00
-2025-05-24 21:53:20,567 - data_collector.binance_api - INFO - 📊 Requesting klines for BNBUSDT 1h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:21,411 - data_collector.binance_api - INFO - 📊 Sample volume: 30681.13, Quote volume: 18618539.3092
-2025-05-24 21:53:21,412 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for BNBUSDT 1h
-2025-05-24 21:53:21,827 - data_collector.binance_api - INFO - 📊 Requesting klines for BNBUSDT 4h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:22,650 - data_collector.binance_api - INFO - 📊 Sample volume: 61826.53, Quote volume: 37343195.7345
-2025-05-24 21:53:22,651 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for BNBUSDT 4h
-2025-05-24 21:53:23,061 - data_collector.binance_api - INFO - 📊 Requesting klines for BNBUSDT 1d: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:23,878 - data_collector.binance_api - INFO - 📊 Sample volume: 360399.89, Quote volume: 217794125.03
-2025-05-24 21:53:23,879 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for BNBUSDT 1d
-2025-05-24 21:53:25,126 - data_collector.binance_api - INFO - 📋 Symbol SOLUSDT info cached: onboard=2019-09-25 15:00:00
-2025-05-24 21:53:25,128 - data_collector.binance_api - INFO - 📊 Requesting klines for SOLUSDT 1h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:25,841 - data_collector.binance_api - INFO - 📊 Sample volume: 1675587.5, Quote volume: 257355168.5248
-2025-05-24 21:53:25,842 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for SOLUSDT 1h
-2025-05-24 21:53:26,258 - data_collector.binance_api - INFO - 📊 Requesting klines for SOLUSDT 4h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:27,020 - data_collector.binance_api - INFO - 📊 Sample volume: 3845546.7, Quote volume: 583257217.96527
-2025-05-24 21:53:27,021 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for SOLUSDT 4h
-2025-05-24 21:53:27,427 - data_collector.binance_api - INFO - 📊 Requesting klines for SOLUSDT 1d: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:28,215 - data_collector.binance_api - INFO - 📊 Sample volume: 12075945.42, Quote volume: 1809760403.48766
-2025-05-24 21:53:28,215 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for SOLUSDT 1d
-2025-05-24 21:53:29,465 - data_collector.binance_api - INFO - 📋 Symbol DOGEUSDT info cached: onboard=2019-09-25 15:00:00
-2025-05-24 21:53:29,467 - data_collector.binance_api - INFO - 📊 Requesting klines for DOGEUSDT 1h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:30,266 - data_collector.binance_api - INFO - 📊 Sample volume: 498960332, Quote volume: 91697282.52579
-2025-05-24 21:53:30,267 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for DOGEUSDT 1h
-2025-05-24 21:53:30,672 - data_collector.binance_api - INFO - 📊 Requesting klines for DOGEUSDT 4h: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:31,500 - data_collector.binance_api - INFO - 📊 Sample volume: 1081967901, Quote volume: 197139181.8575
-2025-05-24 21:53:31,500 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for DOGEUSDT 4h
-2025-05-24 21:53:31,918 - data_collector.binance_api - INFO - 📊 Requesting klines for DOGEUSDT 1d: 2025-04-25 21:53:11.655000 - 2025-05-24 21:53:11.655000
-2025-05-24 21:53:32,714 - data_collector.binance_api - INFO - 📊 Sample volume: 5056885810, Quote volume: 934458968.66721
-2025-05-24 21:53:32,715 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for DOGEUSDT 1d
-2025-05-24 21:53:33,122 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-04-25 21:53:33.777000 - 2025-05-02 21:53:33.777000
-2025-05-24 21:53:33,928 - data_collector.binance_api - INFO - 📊 Sample OI value: 84342.177
-2025-05-24 21:53:33,929 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8039521614.2931
-2025-05-24 21:53:33,931 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=84342.177, Value=8039521614.2931
-2025-05-24 21:53:33,932 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BTCUSDT 1h
-2025-05-24 21:53:33,933 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 80005.129 - 88033.396
-2025-05-24 21:53:33,933 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 7538483829.593407 - 8549527612.5954
-2025-05-24 21:53:33,934 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:53:33.777000
-2025-05-24 21:53:34,939 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-05-02 22:53:33.777000 - 2025-05-09 22:53:33.777000
-2025-05-24 21:53:35,753 - data_collector.binance_api - INFO - 📊 Sample OI value: 87860.982
-2025-05-24 21:53:35,755 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8546864423.248101
-2025-05-24 21:53:35,756 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=87860.982, Value=8546864423.248101
-2025-05-24 21:53:35,757 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BTCUSDT 1h
-2025-05-24 21:53:35,758 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 79443.86 - 87860.982
-2025-05-24 21:53:35,759 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 7498336763.552 - 8546864423.248101
-2025-05-24 21:53:35,760 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:53:33.777000
-2025-05-24 21:53:36,767 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-05-09 23:53:33.777000 - 2025-05-16 23:53:33.777000
-2025-05-24 21:53:37,564 - data_collector.binance_api - INFO - 📊 Sample OI value: 79272.305
-2025-05-24 21:53:37,566 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8121178121.413
-2025-05-24 21:53:37,567 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=79272.305, Value=8121178121.413
-2025-05-24 21:53:37,568 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BTCUSDT 1h
-2025-05-24 21:53:37,569 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 78337.369 - 83667.028
-2025-05-24 21:53:37,569 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8054882525.477443 - 8720341701.8492
-2025-05-24 21:53:37,570 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:53:33.777000
-2025-05-24 21:53:38,583 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-05-17 00:53:33.777000 - 2025-05-24 00:53:33.777000
-2025-05-24 21:53:39,376 - data_collector.binance_api - INFO - 📊 Sample OI value: 81391.653
-2025-05-24 21:53:39,378 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8450636954.957006
-2025-05-24 21:53:39,380 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=81391.653, Value=8450636954.957006
-2025-05-24 21:53:39,381 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BTCUSDT 1h
-2025-05-24 21:53:39,382 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 78392.251 - 91110.785
-2025-05-24 21:53:39,384 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8009291670.105821 - 10142404731.7698
-2025-05-24 21:53:39,385 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:53:33.777000
-2025-05-24 21:53:40,400 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-05-24 01:53:33.777000 - 2025-05-24 21:53:33.777000
-2025-05-24 21:53:41,230 - data_collector.binance_api - INFO - 📊 Sample OI value: 85290.886
-2025-05-24 21:53:41,232 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 9275426734.96552
-2025-05-24 21:53:41,234 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=85290.886, Value=9275426734.96552
-2025-05-24 21:53:41,235 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for BTCUSDT 1h
-2025-05-24 21:53:41,235 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 83986.561 - 85376.946
-2025-05-24 21:53:41,236 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 9014516769.637 - 9284367663.145311
-2025-05-24 21:53:41,237 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:53:33.777000
-2025-05-24 21:53:42,248 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for BTCUSDT (5 chunks)
-2025-05-24 21:53:42,249 - data_collector.binance_api - INFO - 📈 Final OI data summary for BTCUSDT:
-2025-05-24 21:53:42,251 - data_collector.binance_api - INFO -    - OI range: 78337.369 - 91110.785
-2025-05-24 21:53:42,252 - data_collector.binance_api - INFO -    - OI value range: 7498336763.552 - 10142404731.7698
-2025-05-24 21:53:42,254 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
-2025-05-24 21:53:43,272 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-04-25 21:53:33.777000 - 2025-05-02 21:53:33.777000
-2025-05-24 21:53:44,052 - data_collector.binance_api - INFO - 📊 Sample OI value: 1712810.245
-2025-05-24 21:53:44,054 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 3095030984.61255
-2025-05-24 21:53:44,056 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1712810.245, Value=3095030984.61255
-2025-05-24 21:53:44,057 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for ETHUSDT 1h
-2025-05-24 21:53:44,059 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 1600562.291 - 1816509.366
-2025-05-24 21:53:44,060 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 2854486282.22228 - 3357294042.2361293
-2025-05-24 21:53:44,061 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:53:33.777000
-2025-05-24 21:53:45,076 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-05-02 22:53:33.777000 - 2025-05-09 22:53:33.777000
-2025-05-24 21:53:45,875 - data_collector.binance_api - INFO - 📊 Sample OI value: 1713774.761
-2025-05-24 21:53:45,876 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 3154013586.985487
-2025-05-24 21:53:45,878 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1713774.761, Value=3154013586.985487
-2025-05-24 21:53:45,879 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for ETHUSDT 1h
-2025-05-24 21:53:45,880 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 1526509.201 - 1848428.406
-2025-05-24 21:53:45,880 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 2759170477.4304 - 4370388142.785248
-2025-05-24 21:53:45,881 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:53:33.777000
-2025-05-24 21:53:46,885 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-05-09 23:53:33.777000 - 2025-05-16 23:53:33.777000
-2025-05-24 21:53:47,697 - data_collector.binance_api - INFO - 📊 Sample OI value: 1726292.551
-2025-05-24 21:53:47,699 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 3967444628.9888167
-2025-05-24 21:53:47,702 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1726292.551, Value=3967444628.9888167
-2025-05-24 21:53:47,703 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for ETHUSDT 1h
-2025-05-24 21:53:47,704 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 1697571.49 - 1858085.838
-2025-05-24 21:53:47,706 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 3967444628.9888167 - 4919415654.384531
-2025-05-24 21:53:47,707 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:53:33.777000
-2025-05-24 21:53:48,720 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-05-17 00:53:33.777000 - 2025-05-24 00:53:33.777000
-2025-05-24 21:53:49,547 - data_collector.binance_api - INFO - 📊 Sample OI value: 1819327.665
-2025-05-24 21:53:49,548 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 4688407392.705
-2025-05-24 21:53:49,550 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1819327.665, Value=4688407392.705
-2025-05-24 21:53:49,551 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for ETHUSDT 1h
-2025-05-24 21:53:49,552 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 1504214.863 - 1819327.665
-2025-05-24 21:53:49,553 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 3659699382.265932 - 4825320037.771812
-2025-05-24 21:53:49,554 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:53:33.777000
-2025-05-24 21:53:50,560 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-05-24 01:53:33.777000 - 2025-05-24 21:53:33.777000
-2025-05-24 21:53:51,367 - data_collector.binance_api - INFO - 📊 Sample OI value: 1630060.156
-2025-05-24 21:53:51,368 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 4171005534.125628
-2025-05-24 21:53:51,370 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1630060.156, Value=4171005534.125628
-2025-05-24 21:53:51,371 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for ETHUSDT 1h
-2025-05-24 21:53:51,372 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 1610509.719 - 1662484.184
-2025-05-24 21:53:51,372 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 4079821206.98996 - 4258918732.88752
-2025-05-24 21:53:51,373 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:53:33.777000
-2025-05-24 21:53:52,385 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for ETHUSDT (5 chunks)
-2025-05-24 21:53:52,386 - data_collector.binance_api - INFO - 📈 Final OI data summary for ETHUSDT:
-2025-05-24 21:53:52,386 - data_collector.binance_api - INFO -    - OI range: 1504214.863 - 1858085.838
-2025-05-24 21:53:52,387 - data_collector.binance_api - INFO -    - OI value range: 2759170477.4304 - 4919415654.384531
-2025-05-24 21:53:52,388 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
-2025-05-24 21:53:53,399 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-04-25 21:53:33.777000 - 2025-05-02 21:53:33.777000
-2025-05-24 21:53:54,218 - data_collector.binance_api - INFO - 📊 Sample OI value: 483108.8
-2025-05-24 21:53:54,219 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 293218055.072
-2025-05-24 21:53:54,221 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=483108.8, Value=293218055.072
-2025-05-24 21:53:54,221 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BNBUSDT 1h
-2025-05-24 21:53:54,222 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 462034.12 - 489151.1
-2025-05-24 21:53:54,223 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 276980214.2576 - 297452783.91
-2025-05-24 21:53:54,224 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:53:33.777000
-2025-05-24 21:53:55,225 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-05-02 22:53:33.777000 - 2025-05-09 22:53:33.777000
-2025-05-24 21:53:56,019 - data_collector.binance_api - INFO - 📊 Sample OI value: 466599.1
-2025-05-24 21:53:56,021 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 279688119.60990113
-2025-05-24 21:53:56,022 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=466599.1, Value=279688119.60990113
-2025-05-24 21:53:56,022 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BNBUSDT 1h
-2025-05-24 21:53:56,023 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 454772.57 - 522375.38
-2025-05-24 21:53:56,024 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 272269431.544 - 329975365.87565434
-2025-05-24 21:53:56,025 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:53:33.777000
-2025-05-24 21:53:57,033 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-05-09 23:53:33.777000 - 2025-05-16 23:53:33.777000
-2025-05-24 21:53:57,836 - data_collector.binance_api - INFO - 📊 Sample OI value: 510668.34
-2025-05-24 21:53:57,839 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 322885378.0152
-2025-05-24 21:53:57,841 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=510668.34, Value=322885378.0152
-2025-05-24 21:53:57,842 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BNBUSDT 1h
-2025-05-24 21:53:57,843 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 493565.67 - 534957.97
-2025-05-24 21:53:57,845 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 322885378.0152 - 368682333.7646
-2025-05-24 21:53:57,846 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:53:33.777000
-2025-05-24 21:53:58,857 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-05-17 00:53:33.777000 - 2025-05-24 00:53:33.777000
-2025-05-24 21:53:59,715 - data_collector.binance_api - INFO - 📊 Sample OI value: 512190.78
-2025-05-24 21:53:59,718 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 332362820.3163244
-2025-05-24 21:53:59,720 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=512190.78, Value=332362820.3163244
-2025-05-24 21:53:59,721 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BNBUSDT 1h
-2025-05-24 21:53:59,723 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 494595.5 - 537898.84
-2025-05-24 21:53:59,724 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 315879449.454 - 368320824.7432
-2025-05-24 21:53:59,725 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:53:33.777000
-2025-05-24 21:54:00,731 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-05-24 01:53:33.777000 - 2025-05-24 21:53:33.777000
-2025-05-24 21:54:01,544 - data_collector.binance_api - INFO - 📊 Sample OI value: 525453.28
-2025-05-24 21:54:01,546 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 350539420.1911408
-2025-05-24 21:54:01,548 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=525453.28, Value=350539420.1911408
-2025-05-24 21:54:01,549 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for BNBUSDT 1h
-2025-05-24 21:54:01,551 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 525453.28 - 545038.88
-2025-05-24 21:54:01,552 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 348720187.0875 - 368711637.27158594
-2025-05-24 21:54:01,553 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:53:33.777000
-2025-05-24 21:54:02,562 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for BNBUSDT (5 chunks)
-2025-05-24 21:54:02,563 - data_collector.binance_api - INFO - 📈 Final OI data summary for BNBUSDT:
-2025-05-24 21:54:02,563 - data_collector.binance_api - INFO -    - OI range: 454772.57 - 545038.88
-2025-05-24 21:54:02,564 - data_collector.binance_api - INFO -    - OI value range: 272269431.544 - 368711637.27158594
-2025-05-24 21:54:02,565 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
-2025-05-24 21:54:03,574 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-04-25 21:53:33.777000 - 2025-05-02 21:53:33.777000
-2025-05-24 21:54:04,438 - data_collector.binance_api - INFO - 📊 Sample OI value: 7957210.77
-2025-05-24 21:54:04,440 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1232333231.9499
-2025-05-24 21:54:04,441 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7957210.77, Value=1232333231.9499
-2025-05-24 21:54:04,442 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for SOLUSDT 1h
-2025-05-24 21:54:04,443 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 7241585.74 - 7957210.77
-2025-05-24 21:54:04,444 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1044261466.0296 - 1232333231.9499
-2025-05-24 21:54:04,445 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:53:33.777000
-2025-05-24 21:54:05,451 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-05-02 22:53:33.777000 - 2025-05-09 22:53:33.777000
-2025-05-24 21:54:06,287 - data_collector.binance_api - INFO - 📊 Sample OI value: 7360733.93
-2025-05-24 21:54:06,289 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1102858764.7319
-2025-05-24 21:54:06,291 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7360733.93, Value=1102858764.7319
-2025-05-24 21:54:06,292 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for SOLUSDT 1h
-2025-05-24 21:54:06,293 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 7319128.34 - 8008463.22
-2025-05-24 21:54:06,294 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1065755964.4256665 - 1331181787.7655
-2025-05-24 21:54:06,295 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:53:33.777000
-2025-05-24 21:54:07,307 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-05-09 23:53:33.777000 - 2025-05-16 23:53:33.777000
-2025-05-24 21:54:08,040 - data_collector.binance_api - INFO - 📊 Sample OI value: 7573509.01
-2025-05-24 21:54:08,041 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1280084099.9421144
-2025-05-24 21:54:08,044 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7573509.01, Value=1280084099.9421144
-2025-05-24 21:54:08,045 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for SOLUSDT 1h
-2025-05-24 21:54:08,046 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 7341653.86 - 8027860.73
-2025-05-24 21:54:08,047 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1255005471.4004 - 1474236344.4572
-2025-05-24 21:54:08,048 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:53:33.777000
-2025-05-24 21:54:09,062 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-05-17 00:53:33.777000 - 2025-05-24 00:53:33.777000
-2025-05-24 21:54:09,885 - data_collector.binance_api - INFO - 📊 Sample OI value: 7475013.53
-2025-05-24 21:54:09,886 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1272882469.1324203
-2025-05-24 21:54:09,887 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7475013.53, Value=1272882469.1324203
-2025-05-24 21:54:09,888 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for SOLUSDT 1h
-2025-05-24 21:54:09,889 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 6961781.69 - 8039703.44
-2025-05-24 21:54:09,890 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1170814990.9480066 - 1500446045.67
-2025-05-24 21:54:09,890 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:53:33.777000
-2025-05-24 21:54:10,900 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-05-24 01:53:33.777000 - 2025-05-24 21:53:33.777000
-2025-05-24 21:54:11,666 - data_collector.binance_api - INFO - 📊 Sample OI value: 7790671.96
-2025-05-24 21:54:11,668 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1393071231.4860694
-2025-05-24 21:54:11,669 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7790671.96, Value=1393071231.4860694
-2025-05-24 21:54:11,670 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for SOLUSDT 1h
-2025-05-24 21:54:11,671 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 7434786.36 - 7810040.97
-2025-05-24 21:54:11,671 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1300432710.508 - 1398544036.4979
-2025-05-24 21:54:11,672 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:53:33.777000
-2025-05-24 21:54:12,684 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for SOLUSDT (5 chunks)
-2025-05-24 21:54:12,685 - data_collector.binance_api - INFO - 📈 Final OI data summary for SOLUSDT:
-2025-05-24 21:54:12,686 - data_collector.binance_api - INFO -    - OI range: 6961781.69 - 8039703.44
-2025-05-24 21:54:12,687 - data_collector.binance_api - INFO -    - OI value range: 1044261466.0296 - 1500446045.67
-2025-05-24 21:54:12,688 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
-2025-05-24 21:54:13,705 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-04-25 21:53:33.777000 - 2025-05-02 21:53:33.777000
-2025-05-24 21:54:14,544 - data_collector.binance_api - INFO - 📊 Sample OI value: 1817992459.0
-2025-05-24 21:54:14,545 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 337782998.8822
-2025-05-24 21:54:14,546 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1817992459.0, Value=337782998.8822
-2025-05-24 21:54:14,547 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for DOGEUSDT 1h
-2025-05-24 21:54:14,547 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 1556744022.0 - 1825872414.0
-2025-05-24 21:54:14,548 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 267850505.958 - 348315011.207576
-2025-05-24 21:54:14,549 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:53:33.777000
-2025-05-24 21:54:15,559 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-05-02 22:53:33.777000 - 2025-05-09 22:53:33.777000
-2025-05-24 21:54:16,310 - data_collector.binance_api - INFO - 📊 Sample OI value: 1661110565.0
-2025-05-24 21:54:16,312 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 301275623.17405
-2025-05-24 21:54:16,313 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1661110565.0, Value=301275623.17405
-2025-05-24 21:54:16,314 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for DOGEUSDT 1h
-2025-05-24 21:54:16,315 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 1554012850.0 - 1836124011.0
-2025-05-24 21:54:16,315 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 263278304.4755892 - 382280406.765278
-2025-05-24 21:54:16,316 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:53:33.777000
-2025-05-24 21:54:17,322 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-05-09 23:53:33.777000 - 2025-05-16 23:53:33.777000
-2025-05-24 21:54:18,131 - data_collector.binance_api - INFO - 📊 Sample OI value: 1795470987.0
-2025-05-24 21:54:18,132 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 361703752.8872157
-2025-05-24 21:54:18,134 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1795470987.0, Value=361703752.8872157
-2025-05-24 21:54:18,135 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for DOGEUSDT 1h
-2025-05-24 21:54:18,136 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 1754598408.0 - 2112396400.0
-2025-05-24 21:54:18,136 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 361703752.8872157 - 503991659.9449375
-2025-05-24 21:54:18,137 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:53:33.777000
-2025-05-24 21:54:19,139 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-05-17 00:53:33.777000 - 2025-05-24 00:53:33.777000
-2025-05-24 21:54:19,904 - data_collector.binance_api - INFO - 📊 Sample OI value: 1796677850.0
-2025-05-24 21:54:19,906 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 405600024.6375
-2025-05-24 21:54:19,909 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1796677850.0, Value=405600024.6375
-2025-05-24 21:54:19,910 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for DOGEUSDT 1h
-2025-05-24 21:54:19,911 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 1717042548.0 - 2048846780.0
-2025-05-24 21:54:19,912 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 368458888.7331213 - 514255747.4785348
-2025-05-24 21:54:19,913 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:53:33.777000
-2025-05-24 21:54:20,929 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-05-24 01:53:33.777000 - 2025-05-24 21:53:33.777000
-2025-05-24 21:54:21,725 - data_collector.binance_api - INFO - 📊 Sample OI value: 1936388016.0
-2025-05-24 21:54:21,727 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 451372046.5296
-2025-05-24 21:54:21,729 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1936388016.0, Value=451372046.5296
-2025-05-24 21:54:21,729 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for DOGEUSDT 1h
-2025-05-24 21:54:21,730 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 1843522139.0 - 1936388016.0
-2025-05-24 21:54:21,731 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 418517483.673842 - 451372046.5296
-2025-05-24 21:54:21,732 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:53:33.777000
-2025-05-24 21:54:22,746 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for DOGEUSDT (5 chunks)
-2025-05-24 21:54:22,747 - data_collector.binance_api - INFO - 📈 Final OI data summary for DOGEUSDT:
-2025-05-24 21:54:22,748 - data_collector.binance_api - INFO -    - OI range: 1554012850.0 - 2112396400.0
-2025-05-24 21:54:22,749 - data_collector.binance_api - INFO -    - OI value range: 263278304.4755892 - 514255747.4785348
-2025-05-24 21:54:22,750 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
+2025-05-24 21:55:53,314 - data_collector.binance_api - INFO - 🔧 Khởi tạo OptimizedBinanceAPI - Focus OI & Volume [FIXED]
+2025-05-24 21:55:54,163 - data_collector.binance_api - INFO - 🕒 Server time updated: 2025-05-24 21:55:54.102000
+2025-05-24 21:55:54,982 - data_collector.binance_api - INFO - ✅ API connection test successful
+2025-05-24 21:55:55,865 - data_collector.binance_api - INFO - 📋 Symbol BTCUSDT info cached: onboard=2019-09-25 15:00:00
+2025-05-24 21:55:55,867 - data_collector.binance_api - INFO - 📊 Requesting klines for BTCUSDT 1h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:55:56,760 - data_collector.binance_api - INFO - 📊 Sample volume: 16105.779, Quote volume: 1533088039.7363
+2025-05-24 21:55:56,762 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for BTCUSDT 1h
+2025-05-24 21:55:57,172 - data_collector.binance_api - INFO - 📊 Requesting klines for BTCUSDT 4h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:55:58,021 - data_collector.binance_api - INFO - 📊 Sample volume: 31103.127, Quote volume: 2953201596.032
+2025-05-24 21:55:58,022 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for BTCUSDT 4h
+2025-05-24 21:55:58,433 - data_collector.binance_api - INFO - 📊 Requesting klines for BTCUSDT 1d: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:55:59,292 - data_collector.binance_api - INFO - 📊 Sample volume: 72538.209, Quote volume: 6848477987.1194
+2025-05-24 21:55:59,293 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for BTCUSDT 1d
+2025-05-24 21:56:00,629 - data_collector.binance_api - INFO - 📋 Symbol ETHUSDT info cached: onboard=2019-09-25 15:00:00
+2025-05-24 21:56:00,631 - data_collector.binance_api - INFO - 📊 Requesting klines for ETHUSDT 1h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:01,602 - data_collector.binance_api - INFO - 📊 Sample volume: 643195.892, Quote volume: 1164993415.04515
+2025-05-24 21:56:01,603 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for ETHUSDT 1h
+2025-05-24 21:56:02,015 - data_collector.binance_api - INFO - 📊 Requesting klines for ETHUSDT 4h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:02,852 - data_collector.binance_api - INFO - 📊 Sample volume: 909113.932, Quote volume: 1632374905.7693
+2025-05-24 21:56:02,853 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for ETHUSDT 4h
+2025-05-24 21:56:03,271 - data_collector.binance_api - INFO - 📊 Requesting klines for ETHUSDT 1d: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:04,221 - data_collector.binance_api - INFO - 📊 Sample volume: 3965587.849, Quote volume: 7150557099.82798
+2025-05-24 21:56:04,222 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for ETHUSDT 1d
+2025-05-24 21:56:05,485 - data_collector.binance_api - INFO - 📋 Symbol BNBUSDT info cached: onboard=2019-09-25 15:00:00
+2025-05-24 21:56:05,488 - data_collector.binance_api - INFO - 📊 Requesting klines for BNBUSDT 1h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:06,391 - data_collector.binance_api - INFO - 📊 Sample volume: 30681.13, Quote volume: 18618539.3092
+2025-05-24 21:56:06,392 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for BNBUSDT 1h
+2025-05-24 21:56:06,796 - data_collector.binance_api - INFO - 📊 Requesting klines for BNBUSDT 4h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:07,663 - data_collector.binance_api - INFO - 📊 Sample volume: 61826.53, Quote volume: 37343195.7345
+2025-05-24 21:56:07,664 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for BNBUSDT 4h
+2025-05-24 21:56:08,077 - data_collector.binance_api - INFO - 📊 Requesting klines for BNBUSDT 1d: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:08,941 - data_collector.binance_api - INFO - 📊 Sample volume: 360399.89, Quote volume: 217794125.03
+2025-05-24 21:56:08,943 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for BNBUSDT 1d
+2025-05-24 21:56:10,308 - data_collector.binance_api - INFO - 📋 Symbol SOLUSDT info cached: onboard=2019-09-25 15:00:00
+2025-05-24 21:56:10,311 - data_collector.binance_api - INFO - 📊 Requesting klines for SOLUSDT 1h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:11,280 - data_collector.binance_api - INFO - 📊 Sample volume: 1675587.5, Quote volume: 257355168.5248
+2025-05-24 21:56:11,281 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for SOLUSDT 1h
+2025-05-24 21:56:11,694 - data_collector.binance_api - INFO - 📊 Requesting klines for SOLUSDT 4h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:12,524 - data_collector.binance_api - INFO - 📊 Sample volume: 3845546.7, Quote volume: 583257217.96527
+2025-05-24 21:56:12,525 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for SOLUSDT 4h
+2025-05-24 21:56:12,942 - data_collector.binance_api - INFO - 📊 Requesting klines for SOLUSDT 1d: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:13,772 - data_collector.binance_api - INFO - 📊 Sample volume: 12075945.42, Quote volume: 1809760403.48766
+2025-05-24 21:56:13,773 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for SOLUSDT 1d
+2025-05-24 21:56:15,181 - data_collector.binance_api - INFO - 📋 Symbol DOGEUSDT info cached: onboard=2019-09-25 15:00:00
+2025-05-24 21:56:15,183 - data_collector.binance_api - INFO - 📊 Requesting klines for DOGEUSDT 1h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:16,078 - data_collector.binance_api - INFO - 📊 Sample volume: 498960332, Quote volume: 91697282.52579
+2025-05-24 21:56:16,079 - data_collector.binance_api - INFO - ✅ Retrieved 696 klines for DOGEUSDT 1h
+2025-05-24 21:56:16,484 - data_collector.binance_api - INFO - 📊 Requesting klines for DOGEUSDT 4h: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:17,379 - data_collector.binance_api - INFO - 📊 Sample volume: 1081967901, Quote volume: 197139181.8575
+2025-05-24 21:56:17,380 - data_collector.binance_api - INFO - ✅ Retrieved 174 klines for DOGEUSDT 4h
+2025-05-24 21:56:17,788 - data_collector.binance_api - INFO - 📊 Requesting klines for DOGEUSDT 1d: 2025-04-25 21:55:55.785000 - 2025-05-24 21:55:55.785000
+2025-05-24 21:56:18,659 - data_collector.binance_api - INFO - 📊 Sample volume: 5056885810, Quote volume: 934458968.66721
+2025-05-24 21:56:18,660 - data_collector.binance_api - INFO - ✅ Retrieved 29 klines for DOGEUSDT 1d
+2025-05-24 21:56:19,072 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-04-25 21:56:19.856000 - 2025-05-02 21:56:19.856000
+2025-05-24 21:56:19,922 - data_collector.binance_api - INFO - 📊 Sample OI value: 84342.177
+2025-05-24 21:56:19,924 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8039521614.2931
+2025-05-24 21:56:19,926 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=84342.177, Value=8039521614.2931
+2025-05-24 21:56:19,927 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BTCUSDT 1h
+2025-05-24 21:56:19,929 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 80005.129 - 88033.396
+2025-05-24 21:56:19,930 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 7538483829.593407 - 8549527612.5954
+2025-05-24 21:56:19,931 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:56:19.856000
+2025-05-24 21:56:20,936 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-05-02 22:56:19.856000 - 2025-05-09 22:56:19.856000
+2025-05-24 21:56:21,732 - data_collector.binance_api - INFO - 📊 Sample OI value: 87860.982
+2025-05-24 21:56:21,733 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8546864423.248101
+2025-05-24 21:56:21,736 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=87860.982, Value=8546864423.248101
+2025-05-24 21:56:21,737 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BTCUSDT 1h
+2025-05-24 21:56:21,738 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 79443.86 - 87860.982
+2025-05-24 21:56:21,739 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 7498336763.552 - 8546864423.248101
+2025-05-24 21:56:21,740 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:56:19.856000
+2025-05-24 21:56:22,753 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-05-09 23:56:19.856000 - 2025-05-16 23:56:19.856000
+2025-05-24 21:56:23,565 - data_collector.binance_api - INFO - 📊 Sample OI value: 79272.305
+2025-05-24 21:56:23,567 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8121178121.413
+2025-05-24 21:56:23,570 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=79272.305, Value=8121178121.413
+2025-05-24 21:56:23,571 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BTCUSDT 1h
+2025-05-24 21:56:23,572 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 78337.369 - 83667.028
+2025-05-24 21:56:23,573 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8054882525.477443 - 8720341701.8492
+2025-05-24 21:56:23,574 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:56:19.856000
+2025-05-24 21:56:24,575 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-05-17 00:56:19.856000 - 2025-05-24 00:56:19.856000
+2025-05-24 21:56:25,495 - data_collector.binance_api - INFO - 📊 Sample OI value: 81391.653
+2025-05-24 21:56:25,498 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8450636954.957006
+2025-05-24 21:56:25,500 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=81391.653, Value=8450636954.957006
+2025-05-24 21:56:25,501 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BTCUSDT 1h
+2025-05-24 21:56:25,503 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 78392.251 - 91110.785
+2025-05-24 21:56:25,505 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8009291670.105821 - 10142404731.7698
+2025-05-24 21:56:25,506 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:56:19.856000
+2025-05-24 21:56:26,515 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1h: 2025-05-24 01:56:19.856000 - 2025-05-24 21:56:19.856000
+2025-05-24 21:56:27,349 - data_collector.binance_api - INFO - 📊 Sample OI value: 85290.886
+2025-05-24 21:56:27,351 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 9275426734.96552
+2025-05-24 21:56:27,353 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=85290.886, Value=9275426734.96552
+2025-05-24 21:56:27,355 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for BTCUSDT 1h
+2025-05-24 21:56:27,356 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 83986.561 - 85376.946
+2025-05-24 21:56:27,357 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 9014516769.637 - 9284367663.145311
+2025-05-24 21:56:27,358 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:56:19.856000
+2025-05-24 21:56:28,369 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for BTCUSDT (5 chunks)
+2025-05-24 21:56:28,370 - data_collector.binance_api - INFO - 📈 Final OI data summary for BTCUSDT:
+2025-05-24 21:56:28,372 - data_collector.binance_api - INFO -    - OI range: 78337.369 - 91110.785
+2025-05-24 21:56:28,373 - data_collector.binance_api - INFO -    - OI value range: 7498336763.552 - 10142404731.7698
+2025-05-24 21:56:28,375 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
+2025-05-24 21:56:29,386 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-04-25 21:56:19.856000 - 2025-05-02 21:56:19.856000
+2025-05-24 21:56:30,255 - data_collector.binance_api - INFO - 📊 Sample OI value: 1712810.245
+2025-05-24 21:56:30,257 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 3095030984.61255
+2025-05-24 21:56:30,260 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1712810.245, Value=3095030984.61255
+2025-05-24 21:56:30,261 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for ETHUSDT 1h
+2025-05-24 21:56:30,262 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 1600562.291 - 1816509.366
+2025-05-24 21:56:30,263 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 2854486282.22228 - 3357294042.2361293
+2025-05-24 21:56:30,264 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:56:19.856000
+2025-05-24 21:56:31,268 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-05-02 22:56:19.856000 - 2025-05-09 22:56:19.856000
+2025-05-24 21:56:32,112 - data_collector.binance_api - INFO - 📊 Sample OI value: 1713774.761
+2025-05-24 21:56:32,113 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 3154013586.985487
+2025-05-24 21:56:32,115 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1713774.761, Value=3154013586.985487
+2025-05-24 21:56:32,115 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for ETHUSDT 1h
+2025-05-24 21:56:32,116 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 1526509.201 - 1848428.406
+2025-05-24 21:56:32,117 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 2759170477.4304 - 4370388142.785248
+2025-05-24 21:56:32,118 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:56:19.856000
+2025-05-24 21:56:33,126 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-05-09 23:56:19.856000 - 2025-05-16 23:56:19.856000
+2025-05-24 21:56:34,025 - data_collector.binance_api - INFO - 📊 Sample OI value: 1726292.551
+2025-05-24 21:56:34,027 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 3967444628.9888167
+2025-05-24 21:56:34,029 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1726292.551, Value=3967444628.9888167
+2025-05-24 21:56:34,030 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for ETHUSDT 1h
+2025-05-24 21:56:34,031 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 1697571.49 - 1858085.838
+2025-05-24 21:56:34,032 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 3967444628.9888167 - 4919415654.384531
+2025-05-24 21:56:34,033 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:56:19.856000
+2025-05-24 21:56:35,042 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-05-17 00:56:19.856000 - 2025-05-24 00:56:19.856000
+2025-05-24 21:56:35,866 - data_collector.binance_api - INFO - 📊 Sample OI value: 1819327.665
+2025-05-24 21:56:35,868 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 4688407392.705
+2025-05-24 21:56:35,870 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1819327.665, Value=4688407392.705
+2025-05-24 21:56:35,871 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for ETHUSDT 1h
+2025-05-24 21:56:35,873 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 1504214.863 - 1819327.665
+2025-05-24 21:56:35,874 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 3659699382.265932 - 4825320037.771812
+2025-05-24 21:56:35,875 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:56:19.856000
+2025-05-24 21:56:36,889 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1h: 2025-05-24 01:56:19.856000 - 2025-05-24 21:56:19.856000
+2025-05-24 21:56:37,746 - data_collector.binance_api - INFO - 📊 Sample OI value: 1630060.156
+2025-05-24 21:56:37,747 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 4171005534.125628
+2025-05-24 21:56:37,749 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1630060.156, Value=4171005534.125628
+2025-05-24 21:56:37,750 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for ETHUSDT 1h
+2025-05-24 21:56:37,751 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 1610509.719 - 1662484.184
+2025-05-24 21:56:37,752 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 4079821206.98996 - 4258918732.88752
+2025-05-24 21:56:37,752 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:56:19.856000
+2025-05-24 21:56:38,759 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for ETHUSDT (5 chunks)
+2025-05-24 21:56:38,760 - data_collector.binance_api - INFO - 📈 Final OI data summary for ETHUSDT:
+2025-05-24 21:56:38,762 - data_collector.binance_api - INFO -    - OI range: 1504214.863 - 1858085.838
+2025-05-24 21:56:38,763 - data_collector.binance_api - INFO -    - OI value range: 2759170477.4304 - 4919415654.384531
+2025-05-24 21:56:38,765 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
+2025-05-24 21:56:39,781 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-04-25 21:56:19.856000 - 2025-05-02 21:56:19.856000
+2025-05-24 21:56:40,746 - data_collector.binance_api - INFO - 📊 Sample OI value: 483108.8
+2025-05-24 21:56:40,748 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 293218055.072
+2025-05-24 21:56:40,751 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=483108.8, Value=293218055.072
+2025-05-24 21:56:40,752 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BNBUSDT 1h
+2025-05-24 21:56:40,753 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 462034.12 - 489151.1
+2025-05-24 21:56:40,755 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 276980214.2576 - 297452783.91
+2025-05-24 21:56:40,756 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:56:19.856000
+2025-05-24 21:56:41,770 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-05-02 22:56:19.856000 - 2025-05-09 22:56:19.856000
+2025-05-24 21:56:42,686 - data_collector.binance_api - INFO - 📊 Sample OI value: 466599.1
+2025-05-24 21:56:42,688 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 279688119.60990113
+2025-05-24 21:56:42,689 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=466599.1, Value=279688119.60990113
+2025-05-24 21:56:42,690 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BNBUSDT 1h
+2025-05-24 21:56:42,691 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 454772.57 - 522375.38
+2025-05-24 21:56:42,691 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 272269431.544 - 329975365.87565434
+2025-05-24 21:56:42,692 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:56:19.856000
+2025-05-24 21:56:43,702 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-05-09 23:56:19.856000 - 2025-05-16 23:56:19.856000
+2025-05-24 21:56:44,539 - data_collector.binance_api - INFO - 📊 Sample OI value: 510668.34
+2025-05-24 21:56:44,541 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 322885378.0152
+2025-05-24 21:56:44,544 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=510668.34, Value=322885378.0152
+2025-05-24 21:56:44,545 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BNBUSDT 1h
+2025-05-24 21:56:44,546 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 493565.67 - 534957.97
+2025-05-24 21:56:44,548 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 322885378.0152 - 368682333.7646
+2025-05-24 21:56:44,549 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:56:19.856000
+2025-05-24 21:56:45,564 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-05-17 00:56:19.856000 - 2025-05-24 00:56:19.856000
+2025-05-24 21:56:46,570 - data_collector.binance_api - INFO - 📊 Sample OI value: 512190.78
+2025-05-24 21:56:46,572 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 332362820.3163244
+2025-05-24 21:56:46,575 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=512190.78, Value=332362820.3163244
+2025-05-24 21:56:46,576 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for BNBUSDT 1h
+2025-05-24 21:56:46,578 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 494595.5 - 537898.84
+2025-05-24 21:56:46,579 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 315879449.454 - 368320824.7432
+2025-05-24 21:56:46,580 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:56:19.856000
+2025-05-24 21:56:47,583 - data_collector.binance_api - INFO - 🔢 Requesting OI for BNBUSDT 1h: 2025-05-24 01:56:19.856000 - 2025-05-24 21:56:19.856000
+2025-05-24 21:56:48,436 - data_collector.binance_api - INFO - 📊 Sample OI value: 525453.28
+2025-05-24 21:56:48,438 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 350539420.1911408
+2025-05-24 21:56:48,440 - data_collector.binance_api - INFO - 🔍 Sample OI data for BNBUSDT: OI=525453.28, Value=350539420.1911408
+2025-05-24 21:56:48,440 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for BNBUSDT 1h
+2025-05-24 21:56:48,441 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 525453.28 - 545038.88
+2025-05-24 21:56:48,442 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 348720187.0875 - 368711637.27158594
+2025-05-24 21:56:48,443 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:56:19.856000
+2025-05-24 21:56:49,459 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for BNBUSDT (5 chunks)
+2025-05-24 21:56:49,461 - data_collector.binance_api - INFO - 📈 Final OI data summary for BNBUSDT:
+2025-05-24 21:56:49,462 - data_collector.binance_api - INFO -    - OI range: 454772.57 - 545038.88
+2025-05-24 21:56:49,464 - data_collector.binance_api - INFO -    - OI value range: 272269431.544 - 368711637.27158594
+2025-05-24 21:56:49,466 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
+2025-05-24 21:56:50,470 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-04-25 21:56:19.856000 - 2025-05-02 21:56:19.856000
+2025-05-24 21:56:51,385 - data_collector.binance_api - INFO - 📊 Sample OI value: 7957210.77
+2025-05-24 21:56:51,387 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1232333231.9499
+2025-05-24 21:56:51,390 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7957210.77, Value=1232333231.9499
+2025-05-24 21:56:51,391 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for SOLUSDT 1h
+2025-05-24 21:56:51,392 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 7241585.74 - 7957210.77
+2025-05-24 21:56:51,393 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1044261466.0296 - 1232333231.9499
+2025-05-24 21:56:51,394 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:56:19.856000
+2025-05-24 21:56:52,406 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-05-02 22:56:19.856000 - 2025-05-09 22:56:19.856000
+2025-05-24 21:56:53,233 - data_collector.binance_api - INFO - 📊 Sample OI value: 7360733.93
+2025-05-24 21:56:53,235 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1102858764.7319
+2025-05-24 21:56:53,237 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7360733.93, Value=1102858764.7319
+2025-05-24 21:56:53,238 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for SOLUSDT 1h
+2025-05-24 21:56:53,239 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 7319128.34 - 8008463.22
+2025-05-24 21:56:53,240 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1065755964.4256665 - 1331181787.7655
+2025-05-24 21:56:53,240 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:56:19.856000
+2025-05-24 21:56:54,251 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-05-09 23:56:19.856000 - 2025-05-16 23:56:19.856000
+2025-05-24 21:56:55,080 - data_collector.binance_api - INFO - 📊 Sample OI value: 7573509.01
+2025-05-24 21:56:55,082 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1280084099.9421144
+2025-05-24 21:56:55,085 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7573509.01, Value=1280084099.9421144
+2025-05-24 21:56:55,086 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for SOLUSDT 1h
+2025-05-24 21:56:55,087 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 7341653.86 - 8027860.73
+2025-05-24 21:56:55,089 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1255005471.4004 - 1474236344.4572
+2025-05-24 21:56:55,090 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:56:19.856000
+2025-05-24 21:56:56,099 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-05-17 00:56:19.856000 - 2025-05-24 00:56:19.856000
+2025-05-24 21:56:56,965 - data_collector.binance_api - INFO - 📊 Sample OI value: 7475013.53
+2025-05-24 21:56:56,967 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1272882469.1324203
+2025-05-24 21:56:56,970 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7475013.53, Value=1272882469.1324203
+2025-05-24 21:56:56,971 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for SOLUSDT 1h
+2025-05-24 21:56:56,972 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 6961781.69 - 8039703.44
+2025-05-24 21:56:56,974 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1170814990.9480066 - 1500446045.67
+2025-05-24 21:56:56,975 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:56:19.856000
+2025-05-24 21:56:57,976 - data_collector.binance_api - INFO - 🔢 Requesting OI for SOLUSDT 1h: 2025-05-24 01:56:19.856000 - 2025-05-24 21:56:19.856000
+2025-05-24 21:56:58,833 - data_collector.binance_api - INFO - 📊 Sample OI value: 7790671.96
+2025-05-24 21:56:58,835 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 1393071231.4860694
+2025-05-24 21:56:58,838 - data_collector.binance_api - INFO - 🔍 Sample OI data for SOLUSDT: OI=7790671.96, Value=1393071231.4860694
+2025-05-24 21:56:58,839 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for SOLUSDT 1h
+2025-05-24 21:56:58,840 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 7434786.36 - 7810040.97
+2025-05-24 21:56:58,841 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 1300432710.508 - 1398544036.4979
+2025-05-24 21:56:58,842 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:56:19.856000
+2025-05-24 21:56:59,856 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for SOLUSDT (5 chunks)
+2025-05-24 21:56:59,858 - data_collector.binance_api - INFO - 📈 Final OI data summary for SOLUSDT:
+2025-05-24 21:56:59,859 - data_collector.binance_api - INFO -    - OI range: 6961781.69 - 8039703.44
+2025-05-24 21:56:59,861 - data_collector.binance_api - INFO -    - OI value range: 1044261466.0296 - 1500446045.67
+2025-05-24 21:56:59,862 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
+2025-05-24 21:57:00,868 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-04-25 21:56:19.856000 - 2025-05-02 21:56:19.856000
+2025-05-24 21:57:01,734 - data_collector.binance_api - INFO - 📊 Sample OI value: 1817992459.0
+2025-05-24 21:57:01,736 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 337782998.8822
+2025-05-24 21:57:01,738 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1817992459.0, Value=337782998.8822
+2025-05-24 21:57:01,739 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for DOGEUSDT 1h
+2025-05-24 21:57:01,740 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 1556744022.0 - 1825872414.0
+2025-05-24 21:57:01,741 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 267850505.958 - 348315011.207576
+2025-05-24 21:57:01,742 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 168 points from 2025-04-25 21:56:19.856000
+2025-05-24 21:57:02,750 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-05-02 22:56:19.856000 - 2025-05-09 22:56:19.856000
+2025-05-24 21:57:03,628 - data_collector.binance_api - INFO - 📊 Sample OI value: 1661110565.0
+2025-05-24 21:57:03,630 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 301275623.17405
+2025-05-24 21:57:03,633 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1661110565.0, Value=301275623.17405
+2025-05-24 21:57:03,633 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for DOGEUSDT 1h
+2025-05-24 21:57:03,635 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 1554012850.0 - 1836124011.0
+2025-05-24 21:57:03,636 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 263278304.4755892 - 382280406.765278
+2025-05-24 21:57:03,637 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 168 points from 2025-05-02 22:56:19.856000
+2025-05-24 21:57:04,650 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-05-09 23:56:19.856000 - 2025-05-16 23:56:19.856000
+2025-05-24 21:57:05,561 - data_collector.binance_api - INFO - 📊 Sample OI value: 1795470987.0
+2025-05-24 21:57:05,563 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 361703752.8872157
+2025-05-24 21:57:05,566 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1795470987.0, Value=361703752.8872157
+2025-05-24 21:57:05,567 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for DOGEUSDT 1h
+2025-05-24 21:57:05,568 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 1754598408.0 - 2112396400.0
+2025-05-24 21:57:05,570 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 361703752.8872157 - 503991659.9449375
+2025-05-24 21:57:05,571 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 168 points from 2025-05-09 23:56:19.856000
+2025-05-24 21:57:06,586 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-05-17 00:56:19.856000 - 2025-05-24 00:56:19.856000
+2025-05-24 21:57:07,343 - data_collector.binance_api - INFO - 📊 Sample OI value: 1796677850.0
+2025-05-24 21:57:07,345 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 405600024.6375
+2025-05-24 21:57:07,347 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1796677850.0, Value=405600024.6375
+2025-05-24 21:57:07,347 - data_collector.binance_api - INFO - ✅ Retrieved 168 OI points for DOGEUSDT 1h
+2025-05-24 21:57:07,348 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 1717042548.0 - 2048846780.0
+2025-05-24 21:57:07,349 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 368458888.7331213 - 514255747.4785348
+2025-05-24 21:57:07,349 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 168 points from 2025-05-17 00:56:19.856000
+2025-05-24 21:57:08,359 - data_collector.binance_api - INFO - 🔢 Requesting OI for DOGEUSDT 1h: 2025-05-24 01:56:19.856000 - 2025-05-24 21:56:19.856000
+2025-05-24 21:57:09,207 - data_collector.binance_api - INFO - 📊 Sample OI value: 1936388016.0
+2025-05-24 21:57:09,209 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 451372046.5296
+2025-05-24 21:57:09,210 - data_collector.binance_api - INFO - 🔍 Sample OI data for DOGEUSDT: OI=1936388016.0, Value=451372046.5296
+2025-05-24 21:57:09,211 - data_collector.binance_api - INFO - ✅ Retrieved 20 OI points for DOGEUSDT 1h
+2025-05-24 21:57:09,212 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 1843522139.0 - 1936388016.0
+2025-05-24 21:57:09,213 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 418517483.673842 - 451372046.5296
+2025-05-24 21:57:09,214 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 20 points from 2025-05-24 01:56:19.856000
+2025-05-24 21:57:10,230 - data_collector.binance_api - INFO - ✅ Total 692 OI points collected for DOGEUSDT (5 chunks)
+2025-05-24 21:57:10,231 - data_collector.binance_api - INFO - 📈 Final OI data summary for DOGEUSDT:
+2025-05-24 21:57:10,232 - data_collector.binance_api - INFO -    - OI range: 1554012850.0 - 2112396400.0
+2025-05-24 21:57:10,234 - data_collector.binance_api - INFO -    - OI value range: 263278304.4755892 - 514255747.4785348
+2025-05-24 21:57:10,236 - data_collector.binance_api - INFO -    - Date range: 2025-04-25 15:00:00 - 2025-05-24 14:00:00
+2025-05-24 21:57:13,276 - data_collector.binance_api - INFO - 🔧 Khởi tạo OptimizedBinanceAPI - Focus OI & Volume [FIXED]
+2025-05-24 21:57:13,997 - data_collector.binance_api - INFO - 🕒 Server time updated: 2025-05-24 21:57:13.939000
+2025-05-24 21:57:14,825 - data_collector.binance_api - INFO - ✅ API connection test successful
+2025-05-24 21:57:15,706 - data_collector.binance_api - INFO - 📈 Ticker for BTCUSDT: 108904.00
+2025-05-24 21:57:16,762 - data_collector.binance_api - INFO - 📊 Current OI for BTCUSDT: 85077.477
+2025-05-24 21:57:17,629 - data_collector.binance_api - INFO - 📈 Ticker for BTCUSDT: 108904.00
+2025-05-24 21:57:17,630 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for BTCUSDT: 9265277555.208
+2025-05-24 21:57:18,730 - data_collector.binance_api - INFO - 📈 Ticker for ETHUSDT: 2558.85
+2025-05-24 21:57:19,793 - data_collector.binance_api - INFO - 📊 Current OI for ETHUSDT: 1657263.195
+2025-05-24 21:57:20,689 - data_collector.binance_api - INFO - 📈 Ticker for ETHUSDT: 2558.85
+2025-05-24 21:57:20,690 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for ETHUSDT: 4240687926.52575
+2025-05-24 21:57:21,833 - data_collector.binance_api - INFO - 📈 Ticker for BNBUSDT: 673.810
+2025-05-24 21:57:22,853 - data_collector.binance_api - INFO - 📊 Current OI for BNBUSDT: 544383.46
+2025-05-24 21:57:23,756 - data_collector.binance_api - INFO - 📈 Ticker for BNBUSDT: 673.810
+2025-05-24 21:57:23,757 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for BNBUSDT: 366811019.18259996
+2025-05-24 21:57:24,953 - data_collector.binance_api - INFO - 📈 Ticker for SOLUSDT: 176.8400
+2025-05-24 21:57:26,016 - data_collector.binance_api - INFO - 📊 Current OI for SOLUSDT: 7454879.99
+2025-05-24 21:57:26,796 - data_collector.binance_api - INFO - 📈 Ticker for SOLUSDT: 176.8400
+2025-05-24 21:57:26,796 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for SOLUSDT: 1318320977.4316
+2025-05-24 21:57:27,955 - data_collector.binance_api - INFO - 📈 Ticker for DOGEUSDT: 0.228440
+2025-05-24 21:57:29,090 - data_collector.binance_api - INFO - 📊 Current OI for DOGEUSDT: 1840811261.0
+2025-05-24 21:57:29,946 - data_collector.binance_api - INFO - 📈 Ticker for DOGEUSDT: 0.228460
+2025-05-24 21:57:29,947 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for DOGEUSDT: 420551740.68806
+2025-05-24 22:00:00,898 - data_collector.binance_api - INFO - 🔧 Khởi tạo OptimizedBinanceAPI - Focus OI & Volume [FIXED]
+2025-05-24 22:00:02,037 - data_collector.binance_api - INFO - 🕒 Server time updated: 2025-05-24 22:00:01.935000
+2025-05-24 22:00:02,897 - data_collector.binance_api - INFO - ✅ API connection test successful
+2025-05-24 22:00:03,712 - data_collector.binance_api - INFO - 📈 Ticker for BTCUSDT: 108913.10
+2025-05-24 22:00:04,688 - data_collector.binance_api - INFO - 📊 Current OI for BTCUSDT: 85035.444
+2025-05-24 22:00:05,472 - data_collector.binance_api - INFO - 📈 Ticker for BTCUSDT: 108916.90
+2025-05-24 22:00:05,473 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for BTCUSDT: 9261796950.6036
+2025-05-24 22:00:06,588 - data_collector.binance_api - INFO - 📈 Ticker for ETHUSDT: 2557.45
+2025-05-24 22:00:07,562 - data_collector.binance_api - INFO - 📊 Current OI for ETHUSDT: 1657088.686
+2025-05-24 22:00:08,293 - data_collector.binance_api - INFO - 📈 Ticker for ETHUSDT: 2557.49
+2025-05-24 22:00:08,294 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for ETHUSDT: 4237987743.55814
+2025-05-24 22:00:09,424 - data_collector.binance_api - INFO - 📈 Ticker for BNBUSDT: 674.000
+2025-05-24 22:00:10,433 - data_collector.binance_api - INFO - 📊 Current OI for BNBUSDT: 544430.98
+2025-05-24 22:00:11,292 - data_collector.binance_api - INFO - 📈 Ticker for BNBUSDT: 674.000
+2025-05-24 22:00:11,293 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for BNBUSDT: 366946480.52
+2025-05-24 22:00:12,373 - data_collector.binance_api - INFO - 📈 Ticker for SOLUSDT: 176.6600
+2025-05-24 22:00:13,357 - data_collector.binance_api - INFO - 📊 Current OI for SOLUSDT: 7459447.22
+2025-05-24 22:00:14,172 - data_collector.binance_api - INFO - 📈 Ticker for SOLUSDT: 176.7100
+2025-05-24 22:00:14,173 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for SOLUSDT: 1318158918.2462
+2025-05-24 22:00:15,241 - data_collector.binance_api - INFO - 📈 Ticker for DOGEUSDT: 0.228300
+2025-05-24 22:00:16,276 - data_collector.binance_api - INFO - 📊 Current OI for DOGEUSDT: 1840505687.0
+2025-05-24 22:00:17,091 - data_collector.binance_api - INFO - 📈 Ticker for DOGEUSDT: 0.228330
+2025-05-24 22:00:17,092 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for DOGEUSDT: 420242663.51271003
+2025-05-24 22:08:23,895 - data_collector.binance_api - INFO - 🔧 Khởi tạo OptimizedBinanceAPI - Focus OI & Volume [FIXED]
+2025-05-24 22:08:24,782 - data_collector.binance_api - INFO - 🕒 Server time updated: 2025-05-24 22:08:24.721000
+2025-05-24 22:08:25,619 - data_collector.binance_api - INFO - ✅ API connection test successful
+2025-05-24 22:08:26,525 - data_collector.binance_api - INFO - 📈 Ticker for BTCUSDT: 109107.00
+2025-05-24 22:08:27,583 - data_collector.binance_api - INFO - 📊 Current OI for BTCUSDT: 85044.295
+2025-05-24 22:08:28,446 - data_collector.binance_api - INFO - 📈 Ticker for BTCUSDT: 109086.50
+2025-05-24 22:08:28,446 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for BTCUSDT: 9277184486.5175
+2025-05-24 22:08:29,635 - data_collector.binance_api - INFO - 📈 Ticker for ETHUSDT: 2560.55
+2025-05-24 22:08:30,670 - data_collector.binance_api - INFO - 📊 Current OI for ETHUSDT: 1656266.593
+2025-05-24 22:08:31,539 - data_collector.binance_api - INFO - 📈 Ticker for ETHUSDT: 2560.27
+2025-05-24 22:08:31,540 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for ETHUSDT: 4240489670.06011
+2025-05-24 22:08:32,626 - data_collector.binance_api - INFO - 📈 Ticker for BNBUSDT: 674.040
+2025-05-24 22:08:33,664 - data_collector.binance_api - INFO - 📊 Current OI for BNBUSDT: 544304.09
+2025-05-24 22:08:34,542 - data_collector.binance_api - INFO - 📈 Ticker for BNBUSDT: 674.040
+2025-05-24 22:08:34,544 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for BNBUSDT: 366882728.82359993
+2025-05-24 22:08:35,662 - data_collector.binance_api - INFO - 📈 Ticker for SOLUSDT: 176.8000
+2025-05-24 22:08:36,713 - data_collector.binance_api - INFO - 📊 Current OI for SOLUSDT: 7459267.99
+2025-05-24 22:08:37,542 - data_collector.binance_api - INFO - 📈 Ticker for SOLUSDT: 176.8100
+2025-05-24 22:08:37,542 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for SOLUSDT: 1318873173.3119001
+2025-05-24 22:08:38,612 - data_collector.binance_api - INFO - 📈 Ticker for DOGEUSDT: 0.228800
+2025-05-24 22:08:39,703 - data_collector.binance_api - INFO - 📊 Current OI for DOGEUSDT: 1839280689.0
+2025-05-24 22:08:40,572 - data_collector.binance_api - INFO - 📈 Ticker for DOGEUSDT: 0.228800
+2025-05-24 22:08:40,573 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for DOGEUSDT: 420827421.6432
