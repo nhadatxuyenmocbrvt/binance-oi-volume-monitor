@@ -1,6 +1,6 @@
 {
   "symbol": "ETHUSDT",
-  "last_update": "2025-05-25T01:45:17.972804",
+  "last_update": "2025-05-25T02:15:38.601089",
   "klines": {
     "1h": [
       {
@@ -3296,16 +3296,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-23T17:00:00",
-      "open_interest": 1634058.726,
-      "open_interest_value": 4193039614.8670096
-    },
-    {
-      "timestamp": "2025-05-23T18:00:00",
-      "open_interest": 1632543.635,
-      "open_interest_value": 4205367102.0146
-    },
-    {
       "timestamp": "2025-05-23T19:00:00",
       "open_interest": 1630060.156,
       "open_interest_value": 4171005534.125628
@@ -3444,18 +3434,19 @@
       "timestamp": "2025-05-25T01:45:08",
       "open_interest": 1648077.827,
       "open_interest_value": 4213640580.2908998
+    },
+    {
+      "timestamp": "2025-05-25T02:00:00",
+      "open_interest": 1645687.188,
+      "open_interest_value": 4193573006.20536
+    },
+    {
+      "timestamp": "2025-05-25T02:15:28",
+      "open_interest": 1645002.512,
+      "open_interest_value": 4195430856.62992
     }
   ],
   "tracking_24h": [
-    {
-      "hour_timestamp": "2025-05-24T02:00:00",
-      "price": 2539.75,
-      "volume": 249612028.56892,
-      "open_interest": 4129090417.94768,
-      "price_change_1h": 0.649530784351019,
-      "volume_change_1h": -15.623280637744626,
-      "oi_change_1h": 0.7188389815751206
-    },
     {
       "hour_timestamp": "2025-05-24T03:00:00",
       "price": 2548.98,
@@ -3662,6 +3653,15 @@
       "price_change_1h": -0.16403943195489198,
       "volume_change_1h": 16524.28778227081,
       "oi_change_1h": -0.06921218206354249
+    },
+    {
+      "hour_timestamp": "2025-05-25T02:00:00",
+      "price": 2548.22,
+      "volume": 8512497774.25,
+      "open_interest": 4193573006.20536,
+      "price_change_1h": -0.31062218327491453,
+      "volume_change_1h": -4.174761879684257,
+      "oi_change_1h": -0.6499478437529344
     }
   ]
 }
