@@ -1,6 +1,6 @@
 {
   "symbol": "BTCUSDT",
-  "last_update": "2025-05-25T05:48:06.485575",
+  "last_update": "2025-05-25T06:18:27.316508",
   "klines": {
     "1h": [
       {
@@ -3296,16 +3296,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-24T06:00:00",
-      "open_interest": 84040.658,
-      "open_interest_value": 9092627719.1256
-    },
-    {
-      "timestamp": "2025-05-24T07:00:00",
-      "open_interest": 84227.961,
-      "open_interest_value": 9089705642.854568
-    },
-    {
       "timestamp": "2025-05-24T08:00:00",
       "open_interest": 84209.059,
       "open_interest_value": 9057092941.571575
@@ -3444,18 +3434,19 @@
       "timestamp": "2025-05-25T05:47:52",
       "open_interest": 86123.679,
       "open_interest_value": 9321940891.281
+    },
+    {
+      "timestamp": "2025-05-25T06:00:00",
+      "open_interest": 86082.219,
+      "open_interest_value": 9301691648.042099
+    },
+    {
+      "timestamp": "2025-05-25T06:18:14",
+      "open_interest": 85501.625,
+      "open_interest_value": 9251797384.9125
     }
   ],
   "tracking_24h": [
-    {
-      "hour_timestamp": "2025-05-24T06:00:00",
-      "price": 107916.8,
-      "volume": 809224547.5113,
-      "open_interest": 9092627719.1256,
-      "price_change_1h": -0.2554689204127378,
-      "volume_change_1h": 58.53339843528131,
-      "oi_change_1h": -0.19912007533486425
-    },
     {
       "hour_timestamp": "2025-05-24T07:00:00",
       "price": 107550.6,
@@ -3662,6 +3653,15 @@
       "price_change_1h": -0.038045491011990513,
       "volume_change_1h": -1.826796534169821,
       "oi_change_1h": -0.19770718377150093
+    },
+    {
+      "hour_timestamp": "2025-05-25T06:00:00",
+      "price": 107999.0,
+      "volume": 17054370666.62,
+      "open_interest": 9301691648.042099,
+      "price_change_1h": -0.7140381537420556,
+      "volume_change_1h": 1.4499952535712057,
+      "oi_change_1h": 0.43947842522189173
     }
   ]
 }
