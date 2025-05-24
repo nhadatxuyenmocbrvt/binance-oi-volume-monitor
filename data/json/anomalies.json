@@ -1,5 +1,35 @@
 [
   {
+    "id": 185,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-25T05:00:00",
+    "data_type": "24h_OI",
+    "value": 4120104266.9807997,
+    "z_score": 2.905010073047356,
+    "message": "Bất thường OI 24h cho ETHUSDT: 4120104266.98 (Z-score: 2.91)",
+    "notified": 0
+  },
+  {
+    "id": 186,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-25T05:00:00",
+    "data_type": "30d_OI",
+    "value": 1622599.349,
+    "z_score": 2.5558445643491323,
+    "message": "Bất thường OI 30d cho ETHUSDT: 1622599.35 (Z-score: 2.56)",
+    "notified": 0
+  },
+  {
+    "id": 180,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-25T04:47:12",
+    "data_type": "30d_OI",
+    "value": 1625154.808,
+    "z_score": 2.6536573210347423,
+    "message": "Bất thường OI 30d cho ETHUSDT: 1625154.81 (Z-score: 2.65)",
+    "notified": 0
+  },
+  {
     "id": 156,
     "symbol": "BNBUSDT",
     "timestamp": "2025-05-25T03:00:00",
@@ -150,13 +180,33 @@
     "notified": 0
   },
   {
-    "id": 177,
+    "id": 187,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-24T06:00:00",
+    "data_type": "24h_OI",
+    "value": 353019190.797,
+    "z_score": 2.731835667089885,
+    "message": "Bất thường OI 24h cho BNBUSDT: 353019190.80 (Z-score: 2.73)",
+    "notified": 0
+  },
+  {
+    "id": 189,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-24T04:00:00",
+    "data_type": "30d_OI",
+    "value": 7601538.0,
+    "z_score": 2.806208428526998,
+    "message": "Bất thường OI 30d cho SOLUSDT: 7601538.00 (Z-score: 2.81)",
+    "notified": 0
+  },
+  {
+    "id": 182,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-24T03:00:00",
     "data_type": "30d_OI",
     "value": 7666760.07,
-    "z_score": 2.6884469251317595,
-    "message": "Bất thường OI 30d cho SOLUSDT: 7666760.07 (Z-score: 2.69)",
+    "z_score": 3.355951488973162,
+    "message": "Bất thường OI 30d cho SOLUSDT: 7666760.07 (Z-score: 3.36)",
     "notified": 0
   },
   {
@@ -230,7 +280,7 @@
     "notified": 0
   },
   {
-    "id": 174,
+    "id": 184,
     "symbol": "BTCUSDT",
     "timestamp": "1970-01-01T00:00:00",
     "data_type": "30d_Volume",
@@ -240,7 +290,7 @@
     "notified": 0
   },
   {
-    "id": 175,
+    "id": 188,
     "symbol": "BNBUSDT",
     "timestamp": "1970-01-01T00:00:00",
     "data_type": "30d_Volume",
@@ -250,7 +300,7 @@
     "notified": 0
   },
   {
-    "id": 178,
+    "id": 190,
     "symbol": "DOGEUSDT",
     "timestamp": "1970-01-01T00:00:00",
     "data_type": "30d_Volume",
