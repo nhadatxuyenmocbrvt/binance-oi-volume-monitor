@@ -2,6 +2,7 @@
  * Simple OI & Volume Monitor JavaScript
  * Fixed: Smart data path detection for GitHub Pages
  * Fixed: Data display issues, chart scaling, and repeated data
+ * Fixed: Cấu trúc dữ liệu 30 ngày đã được sửa
  */
 
 class SimpleOIVolumeMonitor {
@@ -200,6 +201,40 @@ class SimpleOIVolumeMonitor {
         // Sort data by timestamp
         if (processed.open_interest.length > 0) {
             processed.open_interest.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+            // Log để debug
+            console.log(`📊 ${rawData.symbol} OI data: ${processed.open_interest.length} records`);
+            if (processed.open_interest.length > 0) {
+                console.log(`   Last OI value: ${processed.open_interest[processed.open_interest.length-1].open_interest_value}`);
+            }
+        }
+        
+        // Xử lý dữ liệu tracking_30d
+        if (processed.tracking_30d && processed.tracking_30d.length > 0) {
+            processed.tracking_30d.sort((a, b) => new Date(a.date_timestamp) - new Date(b.date_timestamp));
+            
+            // Log để debug
+            console.log(`📊 ${rawData.symbol} 30d tracking data: ${processed.tracking_30d.length} records`);
+            if (processed.tracking_30d.length > 0) {
+                const lastRecord = processed.tracking_30d[processed.tracking_30d.length-1];
+                console.log(`   Last 30d record: date=${lastRecord.date_timestamp}, OI=${lastRecord.open_interest_value}, volume=${lastRecord.quote_volume}`);
+            }
+            
+            // Kiểm tra các trường dữ liệu quan trọng
+            const checkFields = ['open_interest_value', 'quote_volume'];
+            const missingFields = [];
+            
+            if (processed.tracking_30d.length > 0) {
+                const sampleRecord = processed.tracking_30d[0];
+                checkFields.forEach(field => {
+                    if (sampleRecord[field] === undefined) {
+                        missingFields.push(field);
+                    }
+                });
+            }
+            
+            if (missingFields.length > 0) {
+                console.warn(`⚠️ Missing fields in 30d tracking data: ${missingFields.join(', ')}`);
+            }
         }
         
         // FIX: Xử lý dữ liệu trùng lặp trong 24h tracking
@@ -234,33 +269,6 @@ class SimpleOIVolumeMonitor {
             // Ở đây, chúng ta vẫn giữ dữ liệu gốc nhưng đã đánh dấu để debug
         }
         
-        // FIX: Xử lý dữ liệu ngày hiện tại trong tracking 30d
-        if (processed.tracking_30d && processed.tracking_30d.length > 0) {
-            processed.tracking_30d.sort((a, b) => new Date(a.date_timestamp) - new Date(b.date_timestamp));
-            
-            // Kiểm tra xem ngày hiện tại đã có dữ liệu chưa
-            const today = new Date().toISOString().split('T')[0];
-            const hasToday = processed.tracking_30d.some(item => 
-                item.date_timestamp.split('T')[0] === today && 
-                item.quote_volume > 0 && 
-                item.open_interest_value > 0
-            );
-            
-            if (!hasToday) {
-                console.log(`⚠️ Missing or incomplete data for today (${today})`);
-                
-                // Tìm phần tử cuối cùng có dữ liệu đầy đủ
-                const lastValidIndex = processed.tracking_30d.findIndex(item => 
-                    item.quote_volume > 0 && item.open_interest_value > 0
-                );
-                
-                if (lastValidIndex >= 0) {
-                    const lastValid = processed.tracking_30d[lastValidIndex];
-                    console.log(`ℹ️ Using last valid data from ${lastValid.date_timestamp}`);
-                }
-            }
-        }
-        
         // Process klines data
         Object.keys(processed.klines).forEach(timeframe => {
             if (processed.klines[timeframe] && processed.klines[timeframe].length > 0) {
@@ -277,7 +285,8 @@ class SimpleOIVolumeMonitor {
         const sampleData = {
             klines: { '1d': [] },
             open_interest: [],
-            tracking_24h: []
+            tracking_24h: [],
+            tracking_30d: [] // Thêm mảng tracking_30d
         };
         
         // Generate 30 days of sample data
@@ -298,6 +307,19 @@ class SimpleOIVolumeMonitor {
                 volume: baseValue * (0.5 + Math.random() * 1.5),
                 quote_volume: baseValue * (0.5 + Math.random() * 1.5), // Added for consistency
                 close: 50000 * (0.8 + Math.random() * 0.4)
+            });
+            
+            // Generate tracking_30d data
+            sampleData.tracking_30d.push({
+                date_timestamp: date.toISOString(),
+                price: 50000 * (0.8 + Math.random() * 0.4),
+                quote_volume: baseValue * (0.5 + Math.random() * 1.5),
+                open_interest_value: baseValue * (0.8 + Math.random() * 0.4),
+                avg_open_interest_value: baseValue * (0.8 + Math.random() * 0.4),
+                price_change_1d: (Math.random() * 8) - 4,
+                volume_change_1d: (Math.random() * 20) - 10,
+                oi_change_1d: (Math.random() * 12) - 6,
+                is_actual_data: 0
             });
         }
         
@@ -383,7 +405,7 @@ class SimpleOIVolumeMonitor {
         if (this.currentView === 'hourly') {
             return this.generateHourlyMetrics(data);
         } else {
-            return this.generateDailyMetrics(data);
+            return this.generateDailyMetrics(symbol, data);
         }
     }
     
@@ -444,19 +466,32 @@ class SimpleOIVolumeMonitor {
         `;
     }
     
-    generateDailyMetrics(data) {
+    generateDailyMetrics(symbol, data) {
         // FIX: Ưu tiên sử dụng tracking_30d nếu có
         if (data.tracking_30d && data.tracking_30d.length > 0) {
+            // Debug thông tin dữ liệu
+            console.log(`DEBUG: Processing 30d data for ${symbol}`, data.tracking_30d.length, 'records');
+            
+            // Lọc các dữ liệu có giá trị hợp lệ
             const validData = data.tracking_30d.filter(item => 
                 item && 
                 typeof item.open_interest_value === 'number' && 
-                typeof item.quote_volume === 'number'
+                typeof item.quote_volume === 'number' &&
+                !isNaN(item.open_interest_value) &&
+                !isNaN(item.quote_volume) &&
+                item.open_interest_value > 0 &&
+                item.quote_volume > 0
             );
+            
+            console.log(`   After filtering: ${validData.length} valid records`);
             
             if (validData.length > 0) {
                 const latest = validData[validData.length - 1];
                 const previous = validData.length > 1 ? validData[validData.length - 2] : latest;
                 
+                console.log(`   Latest data for ${symbol}: OI=${latest.open_interest_value}, Volume=${latest.quote_volume}`);
+                
+                // FIX: Đảm bảo sử dụng đúng trường dữ liệu
                 const oiChange = this.calculateChange(latest.open_interest_value, previous.open_interest_value);
                 const volumeChange = this.calculateChange(latest.quote_volume, previous.quote_volume);
                 
@@ -570,7 +605,7 @@ class SimpleOIVolumeMonitor {
         }
         
         const ctx = canvas.getContext('2d');
-        const chartData = this.prepareChartData(data);
+        const chartData = this.prepareChartData(symbol, data);
         
         if (chartData.length === 0) {
             // Draw "no data" message
@@ -690,7 +725,7 @@ class SimpleOIVolumeMonitor {
         });
     }
     
-    prepareChartData(data) {
+    prepareChartData(symbol, data) {
         let chartData = [];
         
         if (this.currentView === 'hourly') {
@@ -745,14 +780,29 @@ class SimpleOIVolumeMonitor {
         } else {
             // FIX: Ưu tiên sử dụng tracking_30d nếu có
             if (data.tracking_30d && data.tracking_30d.length > 0) {
+                // Debug dữ liệu trước khi xử lý
+                console.log(`DEBUG ${symbol} raw data sample:`, data.tracking_30d[0]);
+                
                 chartData = data.tracking_30d
-                    .filter(item => item && item.date_timestamp)
+                    .filter(item => 
+                        item && 
+                        item.date_timestamp && 
+                        item.open_interest_value !== undefined && 
+                        item.quote_volume !== undefined &&
+                        parseFloat(item.open_interest_value) > 0 &&
+                        parseFloat(item.quote_volume) > 0
+                    )
                     .map(item => ({
                         x: item.date_timestamp,
-                        oi: item.open_interest_value || 0,
-                        volume: item.quote_volume || 0
+                        oi: parseFloat(item.open_interest_value) || 0,
+                        volume: parseFloat(item.quote_volume) || 0
                     }));
-                    
+                
+                // Log mẫu dữ liệu đã xử lý
+                if (chartData.length > 0) {
+                    console.log(`Sample processed data (${chartData.length} points):`, chartData[0]);
+                }
+                
                 console.log(`📊 Using tracking_30d for daily chart with ${chartData.length} points`);
             } else {
                 // Fallback: Data cho view theo ngày (30 ngày) từ open_interest và klines
