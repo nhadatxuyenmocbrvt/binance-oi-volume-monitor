@@ -2,6 +2,7 @@ import os
 import sqlite3
 import pandas as pd
 import json
+import random
 from datetime import datetime, timedelta
 from config.settings import DB_PATH, setup_logging, SYMBOLS
 
@@ -51,7 +52,7 @@ class Database:
             )
             ''')
             
-            # Bảng lưu dữ liệu Open Interest
+            # Bảng lưu dữ liệu Open Interest - ĐÃ SỬA để thêm các cột bổ sung
             cursor.execute('''
             CREATE TABLE IF NOT EXISTS open_interest (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -59,6 +60,9 @@ class Database:
                 timestamp TIMESTAMP NOT NULL,
                 open_interest REAL NOT NULL,
                 open_interest_value REAL NOT NULL,
+                avg_open_interest REAL,
+                avg_open_interest_value REAL,
+                date_only DATE,
                 UNIQUE(symbol, timestamp)
             )
             ''')
@@ -106,6 +110,27 @@ class Database:
                 volume_change_1h REAL DEFAULT 0,
                 oi_change_1h REAL DEFAULT 0,
                 UNIQUE(symbol, hour_timestamp)
+            )
+            ''')
+            
+            # ĐÃ THÊM: Bảng mới để lưu trữ daily tracking tối ưu
+            cursor.execute('''
+            CREATE TABLE IF NOT EXISTS daily_tracking (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                symbol TEXT NOT NULL,
+                date_timestamp DATE NOT NULL,
+                price REAL NOT NULL,
+                total_volume REAL NOT NULL,
+                quote_volume REAL NOT NULL,
+                open_interest REAL NOT NULL,
+                open_interest_value REAL NOT NULL,
+                avg_open_interest REAL,
+                avg_open_interest_value REAL,
+                price_change_1d REAL DEFAULT 0,
+                volume_change_1d REAL DEFAULT 0,
+                oi_change_1d REAL DEFAULT 0,
+                last_update TIMESTAMP NOT NULL,
+                UNIQUE(symbol, date_timestamp)
             )
             ''')
             
@@ -171,39 +196,86 @@ class Database:
             logger.error(f"Lỗi khi lưu dữ liệu klines cho {symbol} - {timeframe}: {str(e)}")
             return 0
     
-    # Sửa hàm save_open_interest để đảm bảo lưu giá trị đúng
+    # ĐÃ SỬA: Cải thiện hàm save_open_interest để lưu đầy đủ dữ liệu
     def save_open_interest(self, symbol, df):
-        """Lưu dữ liệu Open Interest vào cơ sở dữ liệu"""
+        """Lưu dữ liệu Open Interest vào cơ sở dữ liệu - ĐÃ SỬA"""
         try:
             if df is None or df.empty:
                 logger.warning(f"Không có dữ liệu Open Interest để lưu cho {symbol}")
                 return 0
             
+            # Kiểm tra các cột cần thiết
+            required_columns = ['timestamp', 'sumOpenInterest', 'sumOpenInterestValue']
+            for col in required_columns:
+                if col not in df.columns:
+                    logger.warning(f"Thiếu cột {col} trong dữ liệu OI của {symbol}")
+                    return 0
+            
             # Định dạng lại DataFrame
             df_to_save = df[['timestamp', 'sumOpenInterest', 'sumOpenInterestValue']].copy()
-            df_to_save.columns = ['timestamp', 'open_interest', 'open_interest_value']
+            
+            # Thêm các cột trung bình nếu có
+            if 'avgOpenInterest' in df.columns and 'avgOpenInterestValue' in df.columns:
+                df_to_save['avgOpenInterest'] = df['avgOpenInterest']
+                df_to_save['avgOpenInterestValue'] = df['avgOpenInterestValue']
+            else:
+                df_to_save['avgOpenInterest'] = df_to_save['sumOpenInterest']
+                df_to_save['avgOpenInterestValue'] = df_to_save['sumOpenInterestValue']
+            
+            # Đảm bảo timestamp là datetime
+            if not pd.api.types.is_datetime64_any_dtype(df_to_save['timestamp']):
+                df_to_save['timestamp'] = pd.to_datetime(df_to_save['timestamp'])
+            
+            # Thêm cột date_only
+            df_to_save['date_only'] = df_to_save['timestamp'].dt.date
+            
+            # Đổi tên cột
+            df_to_save.columns = ['timestamp', 'open_interest', 'open_interest_value', 
+                                'avg_open_interest', 'avg_open_interest_value', 'date_only']
+            
+            # Thêm cột symbol
             df_to_save['symbol'] = symbol
             
             # Log để debug giá trị
             if not df_to_save.empty:
-                logger.info(f"Debug: First OI record for {symbol}: " + 
-                            f"OI={df_to_save['open_interest'].iloc[0]}, " + 
-                            f"Value={df_to_save['open_interest_value'].iloc[0]}")
+                logger.info(f"Debug: Saving OI record for {symbol}: " + 
+                            f"OI={df_to_save['open_interest'].iloc[-1]:,.2f}, " + 
+                            f"Value={df_to_save['open_interest_value'].iloc[-1]:,.2f} USDT, " +
+                            f"AvgOI={df_to_save['avg_open_interest'].iloc[-1]:,.2f}, " + 
+                            f"AvgValue={df_to_save['avg_open_interest_value'].iloc[-1]:,.2f} USDT")
             
             cursor = self.conn.cursor()
             for _, row in df_to_save.iterrows():
+                timestamp_str = row['timestamp'].strftime('%Y-%m-%d %H:%M:%S') if hasattr(row['timestamp'], 'strftime') else row['timestamp']
+                date_only_str = row['date_only'].strftime('%Y-%m-%d') if hasattr(row['date_only'], 'strftime') else row['date_only']
+                
                 values = (
                     row['symbol'],
-                    row['timestamp'] if isinstance(row['timestamp'], str) else row['timestamp'].strftime('%Y-%m-%d %H:%M:%S'),
+                    timestamp_str,
                     row['open_interest'],
-                    row['open_interest_value']
+                    row['open_interest_value'],
+                    row['avg_open_interest'],
+                    row['avg_open_interest_value'],
+                    date_only_str
                 )
                 
                 cursor.execute('''
                 INSERT OR REPLACE INTO open_interest 
-                (symbol, timestamp, open_interest, open_interest_value)
-                VALUES (?, ?, ?, ?)
+                (symbol, timestamp, open_interest, open_interest_value, 
+                avg_open_interest, avg_open_interest_value, date_only)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 ''', values)
+                
+                # ĐÃ THÊM: Cập nhật daily_tracking table
+                if timeframe_from_timestamp(timestamp_str) == '1d':
+                    self._update_daily_tracking_from_oi(
+                        symbol, 
+                        date_only_str, 
+                        row['open_interest'],
+                        row['open_interest_value'],
+                        row['avg_open_interest'],
+                        row['avg_open_interest_value']
+                    )
             
             self.conn.commit()
             logger.info(f"Đã lưu {len(df_to_save)} mẫu Open Interest cho {symbol}")
@@ -212,6 +284,82 @@ class Database:
             self.conn.rollback()
             logger.error(f"Lỗi khi lưu dữ liệu Open Interest cho {symbol}: {str(e)}")
             return 0
+    
+    # ĐÃ THÊM: Hàm mới để cập nhật daily tracking từ dữ liệu OI
+    def _update_daily_tracking_from_oi(self, symbol, date_str, oi, oi_value, avg_oi, avg_oi_value):
+        """Cập nhật bảng daily_tracking từ dữ liệu OI"""
+        try:
+            cursor = self.conn.cursor()
+            
+            # Kiểm tra xem đã có bản ghi cho ngày này chưa
+            cursor.execute('''
+            SELECT id, price, total_volume, quote_volume FROM daily_tracking
+            WHERE symbol = ? AND date_timestamp = ?
+            ''', (symbol, date_str))
+            
+            existing = cursor.fetchone()
+            
+            if existing:
+                # Cập nhật bản ghi hiện có
+                cursor.execute('''
+                UPDATE daily_tracking SET
+                open_interest = ?,
+                open_interest_value = ?,
+                avg_open_interest = ?,
+                avg_open_interest_value = ?,
+                last_update = ?
+                WHERE id = ?
+                ''', (
+                    oi,
+                    oi_value,
+                    avg_oi,
+                    avg_oi_value,
+                    datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    existing[0]
+                ))
+            else:
+                # Lấy dữ liệu giá từ klines cho ngày này
+                date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+                next_day = (date_obj + timedelta(days=1)).strftime('%Y-%m-%d')
+                
+                cursor.execute('''
+                SELECT close, quote_volume FROM klines
+                WHERE symbol = ? AND timeframe = '1d' AND 
+                open_time >= ? AND open_time < ?
+                LIMIT 1
+                ''', (symbol, date_str, next_day))
+                
+                kline_data = cursor.fetchone()
+                
+                price = kline_data[0] if kline_data else 0
+                quote_volume = kline_data[1] if kline_data else 0
+                
+                # Tạo bản ghi mới
+                cursor.execute('''
+                INSERT INTO daily_tracking
+                (symbol, date_timestamp, price, total_volume, quote_volume, 
+                open_interest, open_interest_value, avg_open_interest, avg_open_interest_value,
+                price_change_1d, volume_change_1d, oi_change_1d, last_update)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, ?)
+                ''', (
+                    symbol,
+                    date_str,
+                    price,
+                    0,  # total_volume (sẽ được cập nhật sau)
+                    quote_volume,
+                    oi,
+                    oi_value,
+                    avg_oi,
+                    avg_oi_value,
+                    datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                ))
+            
+            self.conn.commit()
+            return True
+        except Exception as e:
+            self.conn.rollback()
+            logger.error(f"Lỗi khi cập nhật daily_tracking từ OI: {str(e)}")
+            return False
             
     # Sửa hàm save_hourly_tracking để hiển thị đúng giá trị
     def save_hourly_tracking(self, hour_timestamp):
@@ -270,6 +418,124 @@ class Database:
             logger.error(f"Lỗi khi lưu dữ liệu tracking 24h: {str(e)}")
             return False
     
+    # ĐÃ THÊM: Hàm mới để cập nhật daily tracking
+    def save_daily_tracking(self, date_timestamp=None):
+        """Lưu dữ liệu tracking theo ngày - ĐƯỢC THÊM MỚI"""
+        try:
+            if date_timestamp is None:
+                date_timestamp = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+            
+            date_str = date_timestamp.strftime('%Y-%m-%d')
+            cursor = self.conn.cursor()
+            
+            for symbol in SYMBOLS:
+                try:
+                    # Lấy dữ liệu từ klines
+                    cursor.execute('''
+                    SELECT close, quote_volume FROM klines
+                    WHERE symbol = ? AND timeframe = '1d' AND
+                    date(open_time) = ?
+                    LIMIT 1
+                    ''', (symbol, date_str))
+                    
+                    kline_data = cursor.fetchone()
+                    
+                    if not kline_data:
+                        logger.warning(f"Không có dữ liệu klines cho {symbol} ngày {date_str}")
+                        continue
+                    
+                    price = kline_data[0]
+                    quote_volume = kline_data[1]
+                    
+                    # Lấy dữ liệu OI cho ngày này
+                    cursor.execute('''
+                    SELECT open_interest, open_interest_value, avg_open_interest, avg_open_interest_value
+                    FROM open_interest
+                    WHERE symbol = ? AND date(date_only) = ?
+                    ORDER BY timestamp DESC
+                    LIMIT 1
+                    ''', (symbol, date_str))
+                    
+                    oi_data = cursor.fetchone()
+                    
+                    if not oi_data:
+                        logger.warning(f"Không có dữ liệu OI cho {symbol} ngày {date_str}")
+                        oi = 0
+                        oi_value = 0
+                        avg_oi = 0
+                        avg_oi_value = 0
+                    else:
+                        oi = oi_data[0]
+                        oi_value = oi_data[1]
+                        avg_oi = oi_data[2] if oi_data[2] is not None else oi_data[0]
+                        avg_oi_value = oi_data[3] if oi_data[3] is not None else oi_data[1]
+                    
+                    # Lấy dữ liệu ngày trước
+                    prev_date = date_timestamp - timedelta(days=1)
+                    prev_date_str = prev_date.strftime('%Y-%m-%d')
+                    
+                    cursor.execute('''
+                    SELECT price, quote_volume, open_interest
+                    FROM daily_tracking
+                    WHERE symbol = ? AND date_timestamp = ?
+                    ''', (symbol, prev_date_str))
+                    
+                    prev_data = cursor.fetchone()
+                    
+                    # Tính toán thay đổi
+                    price_change_1d = 0
+                    volume_change_1d = 0
+                    oi_change_1d = 0
+                    
+                    if prev_data:
+                        prev_price = prev_data[0]
+                        prev_volume = prev_data[1]
+                        prev_oi = prev_data[2]
+                        
+                        if prev_price > 0:
+                            price_change_1d = ((price - prev_price) / prev_price) * 100
+                        if prev_volume > 0:
+                            volume_change_1d = ((quote_volume - prev_volume) / prev_volume) * 100
+                        if prev_oi > 0:
+                            oi_change_1d = ((oi - prev_oi) / prev_oi) * 100
+                    
+                    # Lưu dữ liệu
+                    cursor.execute('''
+                    INSERT OR REPLACE INTO daily_tracking
+                    (symbol, date_timestamp, price, total_volume, quote_volume,
+                    open_interest, open_interest_value, avg_open_interest, avg_open_interest_value,
+                    price_change_1d, volume_change_1d, oi_change_1d, last_update)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ''', (
+                        symbol,
+                        date_str,
+                        price,
+                        0,  # total_volume tạm thời để 0
+                        quote_volume,
+                        oi,
+                        oi_value,
+                        avg_oi,
+                        avg_oi_value,
+                        price_change_1d,
+                        volume_change_1d,
+                        oi_change_1d,
+                        datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    ))
+                    
+                    logger.info(f"Đã lưu daily tracking cho {symbol} ngày {date_str}")
+                    
+                except Exception as e:
+                    logger.error(f"Lỗi khi lưu daily tracking cho {symbol}: {str(e)}")
+            
+            self.conn.commit()
+            logger.info(f"Đã lưu dữ liệu tracking ngày {date_str} cho tất cả symbols")
+            return True
+            
+        except Exception as e:
+            self.conn.rollback()
+            logger.error(f"Lỗi khi lưu dữ liệu daily tracking: {str(e)}")
+            return False
+    
     def save_ticker(self, symbol, ticker_data):
         """Lưu dữ liệu ticker (volume realtime) vào cơ sở dữ liệu - ĐÃ SỬA"""
         try:
@@ -323,6 +589,12 @@ class Database:
             open_interest = float(oi_data['openInterest'])
             open_interest_value = float(oi_data.get('openInterestValue', 0))  # SỬA: Lấy giá trị thực tế
             
+            # Tính date_only
+            if isinstance(oi_data['timestamp'], datetime):
+                date_only = oi_data['timestamp'].date().strftime('%Y-%m-%d')
+            else:
+                date_only = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').date().strftime('%Y-%m-%d')
+            
             # Log để debug
             logger.info(f"💾 Saving OI for {symbol}: {open_interest:,.2f} contracts, {open_interest_value:,.2f} USDT")
             
@@ -330,13 +602,17 @@ class Database:
                 symbol,
                 timestamp,
                 open_interest,
-                open_interest_value  # SỬA: Dùng giá trị thực tế
+                open_interest_value,  # SỬA: Dùng giá trị thực tế
+                open_interest,  # avg_open_interest (same as current for realtime)
+                open_interest_value,  # avg_open_interest_value
+                date_only
             )
             
             cursor.execute('''
             INSERT OR REPLACE INTO open_interest 
-            (symbol, timestamp, open_interest, open_interest_value)
-            VALUES (?, ?, ?, ?)
+            (symbol, timestamp, open_interest, open_interest_value, 
+            avg_open_interest, avg_open_interest_value, date_only)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             ''', data)
             
             self.conn.commit()
@@ -345,6 +621,155 @@ class Database:
         except Exception as e:
             self.conn.rollback()
             logger.error(f"Lỗi khi lưu dữ liệu Open Interest realtime cho {symbol}: {str(e)}")
+            return False
+    
+    def initialize_24h_tracking_data(self):
+        """Thu thập và lưu dữ liệu lịch sử 24h khi khởi động hệ thống"""
+        try:
+            # Kiểm tra số lượng dữ liệu tracking hiện có
+            cursor = self.conn.cursor()
+            cursor.execute('SELECT COUNT(DISTINCT hour_timestamp) FROM hourly_tracking')
+            count = cursor.fetchone()[0]
+            
+            if count >= 24:
+                logger.info(f"✅ Đã có đủ dữ liệu tracking 24h: {count} giờ")
+                return True
+            
+            logger.info(f"⏳ Thiếu dữ liệu tracking 24h (có {count}/24 giờ), đang tải dữ liệu lịch sử...")
+            
+            # Import here to avoid circular import
+            from data_collector.historical_data import HistoricalDataCollector
+            
+            # Thu thập dữ liệu 24h từ Binance API
+            collector = HistoricalDataCollector()
+            data_24h = collector.collect_24h_hourly_data()
+            
+            if not data_24h or data_24h['success_count'] == 0:
+                logger.error("❌ Không thể thu thập dữ liệu 24h từ Binance API")
+                return False
+            
+            # Xử lý và lưu dữ liệu cho từng giờ trong 24h qua
+            now = datetime.now().replace(minute=0, second=0, microsecond=0)
+            saved_hours = 0
+            
+            for hour_offset in range(23, -1, -1):
+                hour_time = now - timedelta(hours=hour_offset)
+                
+                # Kiểm tra xem giờ này đã có dữ liệu chưa
+                cursor.execute('''
+                SELECT COUNT(*) FROM hourly_tracking 
+                WHERE hour_timestamp = ?
+                ''', (hour_time.strftime('%Y-%m-%d %H:%M:%S'),))
+                
+                if cursor.fetchone()[0] > 0:
+                    logger.info(f"⏭️ Đã có dữ liệu cho {hour_time.strftime('%Y-%m-%d %H:%M')}, bỏ qua")
+                    continue
+                
+                # Tìm dữ liệu phù hợp nhất cho giờ này từ dữ liệu đã thu thập
+                for symbol in SYMBOLS:
+                    price = None
+                    volume = None
+                    oi = None
+                    
+                    # Lấy dữ liệu klines gần nhất với giờ này
+                    if symbol in data_24h['klines'] and not data_24h['klines'][symbol].empty:
+                        klines_df = data_24h['klines'][symbol]
+                        klines_df['time_diff'] = abs((pd.to_datetime(klines_df['open_time']) - hour_time).dt.total_seconds())
+                        closest_kline = klines_df.loc[klines_df['time_diff'].idxmin()]
+                        
+                        price = closest_kline['close']
+                        volume = closest_kline['quote_volume']
+                    
+                    # Lấy dữ liệu OI gần nhất với giờ này
+                    if symbol in data_24h['open_interest'] and not data_24h['open_interest'][symbol].empty:
+                        oi_df = data_24h['open_interest'][symbol]
+                        oi_df['time_diff'] = abs((pd.to_datetime(oi_df['timestamp']) - hour_time).dt.total_seconds())
+                        closest_oi = oi_df.loc[oi_df['time_diff'].idxmin()]
+                        
+                        oi = closest_oi['sumOpenInterestValue']
+                    
+                    # Nếu không có dữ liệu, sử dụng dữ liệu realtime hiện tại
+                    if price is None:
+                        price = self.get_latest_price(symbol)
+                    if volume is None:
+                        volume = self.get_latest_volume(symbol)
+                    if oi is None:
+                        oi = self.get_latest_oi(symbol)
+                    
+                    # Tính thay đổi so với giờ trước (nếu có)
+                    prev_data = self.get_hourly_data(symbol, hour_time - timedelta(hours=1))
+                    price_change = 0
+                    volume_change = 0
+                    oi_change = 0
+                    
+                    if prev_data:
+                        if prev_data['price'] > 0:
+                            price_change = ((price - prev_data['price']) / prev_data['price']) * 100
+                        if prev_data['volume'] > 0:
+                            volume_change = ((volume - prev_data['volume']) / prev_data['volume']) * 100
+                        if prev_data['open_interest'] > 0:
+                            oi_change = ((oi - prev_data['open_interest']) / prev_data['open_interest']) * 100
+                    
+                    # Lưu vào database
+                    cursor.execute('''
+                    INSERT OR REPLACE INTO hourly_tracking 
+                    (symbol, hour_timestamp, price, volume, open_interest, 
+                    price_change_1h, volume_change_1h, oi_change_1h)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    ''', (
+                        symbol,
+                        hour_time.strftime('%Y-%m-%d %H:%M:%S'),
+                        price,
+                        volume,
+                        oi,
+                        price_change,
+                        volume_change,
+                        oi_change
+                    ))
+                
+                saved_hours += 1
+                logger.info(f"✅ Đã lưu dữ liệu lịch sử cho {hour_time.strftime('%Y-%m-%d %H:%M')}")
+            
+            self.conn.commit()
+            logger.info(f"🎉 Hoàn thành tải dữ liệu lịch sử 24h: đã lưu {saved_hours} giờ")
+            return True
+            
+        except Exception as e:
+            self.conn.rollback()
+            logger.error(f"❌ Lỗi khi khởi tạo dữ liệu tracking 24h: {str(e)}")
+            return False
+    
+    # ĐÃ THÊM: Hàm khởi tạo dữ liệu daily tracking 30 ngày
+    def initialize_30d_tracking_data(self):
+        """Thu thập và lưu dữ liệu daily tracking 30 ngày - ĐƯỢC THÊM MỚI"""
+        try:
+            # Kiểm tra số lượng dữ liệu tracking hiện có
+            cursor = self.conn.cursor()
+            cursor.execute('SELECT COUNT(DISTINCT date_timestamp) FROM daily_tracking')
+            count = cursor.fetchone()[0]
+            
+            if count >= 30:
+                logger.info(f"✅ Đã có đủ dữ liệu tracking 30d: {count} ngày")
+                return True
+            
+            logger.info(f"⏳ Thiếu dữ liệu daily tracking (có {count}/30 ngày), đang tải dữ liệu lịch sử...")
+            
+            # Thu thập dữ liệu 30 ngày
+            self.initialize_30d_data()
+            
+            # Lưu dữ liệu tracking cho 30 ngày
+            now = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+            
+            for day_offset in range(29, -1, -1):
+                day_time = now - timedelta(days=day_offset)
+                self.save_daily_tracking(day_time)
+                logger.info(f"✅ Đã khởi tạo daily tracking cho ngày {day_time.strftime('%Y-%m-%d')}")
+            
+            logger.info("🎉 Hoàn thành khởi tạo daily tracking 30 ngày")
+            return True
+            
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi khởi tạo dữ liệu tracking 30d: {str(e)}")
             return False
     
     def get_latest_price(self, symbol):
@@ -457,6 +882,49 @@ class Database:
             logger.error(f"Lỗi khi lấy dữ liệu tracking 24h: {str(e)}")
             return pd.DataFrame()
     
+    # ĐÃ THÊM: Hàm lấy dữ liệu tracking 30 ngày
+    def get_30d_tracking_data(self, symbol=None):
+        """Lấy dữ liệu tracking 30d - ĐƯỢC THÊM MỚI"""
+        try:
+            # Lấy 30 ngày gần nhất
+            end_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+            start_date = end_date - timedelta(days=29)
+            
+            if symbol:
+                query = '''
+                SELECT symbol, date_timestamp, price, quote_volume, open_interest_value,
+                       avg_open_interest_value, price_change_1d, volume_change_1d, oi_change_1d
+                FROM daily_tracking 
+                WHERE symbol = ? AND date_timestamp >= ? AND date_timestamp <= ?
+                ORDER BY date_timestamp ASC
+                '''
+                df = pd.read_sql_query(query, self.conn, params=(
+                    symbol, 
+                    start_date.strftime('%Y-%m-%d'), 
+                    end_date.strftime('%Y-%m-%d')
+                ))
+            else:
+                query = '''
+                SELECT symbol, date_timestamp, price, quote_volume, open_interest_value,
+                       avg_open_interest_value, price_change_1d, volume_change_1d, oi_change_1d
+                FROM daily_tracking 
+                WHERE date_timestamp >= ? AND date_timestamp <= ?
+                ORDER BY symbol, date_timestamp ASC
+                '''
+                df = pd.read_sql_query(query, self.conn, params=(
+                    start_date.strftime('%Y-%m-%d'), 
+                    end_date.strftime('%Y-%m-%d')
+                ))
+            
+            if not df.empty:
+                df['date_timestamp'] = pd.to_datetime(df['date_timestamp'])
+            
+            logger.info(f"Đã lấy {len(df)} mẫu tracking 30d cho {symbol or 'all symbols'}")
+            return df
+        except Exception as e:
+            logger.error(f"Lỗi khi lấy dữ liệu tracking 30d: {str(e)}")
+            return pd.DataFrame()
+    
     def get_klines(self, symbol, timeframe, limit=100):
         """Lấy dữ liệu nến từ cơ sở dữ liệu"""
         try:
@@ -482,32 +950,53 @@ class Database:
             logger.error(f"Lỗi khi lấy dữ liệu klines: {str(e)}")
             return pd.DataFrame()
 
-    def get_open_interest(self, symbol, limit=100):
-        """Lấy dữ liệu Open Interest từ cơ sở dữ liệu"""
+    # ĐÃ SỬA: Cải thiện hàm lấy Open Interest
+    def get_open_interest(self, symbol, limit=100, period='all'):
+        """Lấy dữ liệu Open Interest từ cơ sở dữ liệu - ĐÃ SỬA"""
         try:
-            query = '''
-            SELECT * FROM open_interest 
-            WHERE symbol = ?
-            ORDER BY timestamp DESC
-            '''
+            # Lọc theo period
+            if period == 'daily':
+                # Lấy dữ liệu theo ngày (unique date_only)
+                query = '''
+                SELECT o1.* FROM open_interest o1
+                JOIN (
+                    SELECT date_only, MAX(timestamp) as max_timestamp
+                    FROM open_interest
+                    WHERE symbol = ?
+                    GROUP BY date_only
+                ) o2 ON o1.timestamp = o2.max_timestamp AND o1.date_only = o2.date_only
+                WHERE o1.symbol = ?
+                ORDER BY o1.date_only DESC
+                '''
+                params = (symbol, symbol)
+            else:
+                # Lấy tất cả dữ liệu
+                query = '''
+                SELECT * FROM open_interest 
+                WHERE symbol = ?
+                ORDER BY timestamp DESC
+                '''
+                params = (symbol,)
             
             if limit:
                 query += f" LIMIT {limit}"
             
-            df = pd.read_sql_query(query, self.conn, params=(symbol,))
+            df = pd.read_sql_query(query, self.conn, params=params)
             
             if not df.empty:
                 df['timestamp'] = pd.to_datetime(df['timestamp'], format='mixed', errors='coerce')
+                df['date_only'] = pd.to_datetime(df['date_only'], format='mixed', errors='coerce').dt.date
                 df = df.sort_values('timestamp').reset_index(drop=True)
             
-            logger.info(f"Đã lấy {len(df)} mẫu Open Interest cho {symbol}")
+            logger.info(f"Đã lấy {len(df)} mẫu Open Interest cho {symbol} (period: {period})")
             return df
         except Exception as e:
             logger.error(f"Lỗi khi lấy dữ liệu Open Interest: {str(e)}")
             return pd.DataFrame()
 
+    # ĐÃ SỬA: Cải thiện hàm xuất dữ liệu JSON cho 30 ngày
     def export_to_json(self, output_dir='./data/json'):
-        """Xuất dữ liệu JSON tối ưu cho giao diện mới"""
+        """Xuất dữ liệu JSON tối ưu cho giao diện mới - ĐÃ SỬA"""
         try:
             os.makedirs(output_dir, exist_ok=True)
             
@@ -572,6 +1061,7 @@ class Database:
             logger.error(f"❌ Lỗi khi xuất dữ liệu JSON: {str(e)}")
             return False
     
+    # ĐÃ SỬA: Cải thiện hàm xuất dữ liệu symbol
     def export_symbol_data(self, symbol):
         """Xuất dữ liệu chi tiết cho một symbol - ĐÃ SỬA"""
         try:
@@ -580,34 +1070,87 @@ class Database:
                 'last_update': datetime.now().isoformat(),
                 'klines': {},
                 'open_interest': [],
-                'tracking_24h': []
+                'tracking_24h': [],
+                'tracking_30d': []  # THÊM trường tracking 30 ngày
             }
             
             # 1. Xuất dữ liệu klines (30 ngày gần nhất cho 1d)
             timeframes = ['1h', '4h', '1d']
             for timeframe in timeframes:
-                klines_df = self.get_klines(symbol, timeframe, limit=30 if timeframe == '1d' else 168)
+                limit = 50 if timeframe == '1d' else 168
+                klines_df = self.get_klines(symbol, timeframe, limit=limit)
                 
                 if not klines_df.empty:
-                    # Chỉ lấy các cột cần thiết
+                    # Chỉ lấy 30 ngày gần nhất cho 1d
+                    if timeframe == '1d' and len(klines_df) > 30:
+                        klines_df = klines_df.tail(30)
+                    
+                    # QUAN TRỌNG: Đảm bảo các cột đúng, không đổi tên
                     klines_clean = klines_df[['open_time', 'open', 'high', 'low', 'close', 'volume', 'quote_volume']].copy()
                     klines_clean['open_time'] = klines_clean['open_time'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+                    
+                    # Log để debug
+                    if len(klines_clean) > 0:
+                        logger.info(f"{symbol} {timeframe}: first={klines_clean['open_time'].iloc[0]}, last={klines_clean['open_time'].iloc[-1]}, count={len(klines_clean)}")
+                    
                     symbol_data['klines'][timeframe] = klines_clean.to_dict(orient='records')
             
-            # 2. Xuất dữ liệu Open Interest (30 ngày gần nhất) - ĐÃ SỬA để lấy cả open_interest_value
-            oi_df = self.get_open_interest(symbol, limit=720)
+            # 2. Xuất dữ liệu Open Interest (30 ngày gần nhất) - ĐÃ SỬA
+            # Sử dụng daily period để lấy dữ liệu OI theo ngày
+            oi_df = self.get_open_interest(symbol, limit=30, period='daily')
+            
             if not oi_df.empty:
-                oi_clean = oi_df[['timestamp', 'open_interest', 'open_interest_value']].copy()
+                # ĐÃ SỬA: Bao gồm cả các trường bổ sung
+                oi_clean = oi_df[['timestamp', 'open_interest', 'open_interest_value', 
+                                'avg_open_interest', 'avg_open_interest_value']].copy()
                 oi_clean['timestamp'] = oi_clean['timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+                
+                # Log để debug
+                if len(oi_clean) > 0:
+                    logger.info(f"{symbol} OI: first={oi_clean['timestamp'].iloc[0]}, last={oi_clean['timestamp'].iloc[-1]}, count={len(oi_clean)}")
+                
                 symbol_data['open_interest'] = oi_clean.to_dict(orient='records')
             
             # 3. Xuất dữ liệu tracking 24h
             tracking_df = self.get_24h_tracking_data(symbol)
+            
+            if tracking_df.empty or len(tracking_df) < 24:
+                # Nếu chưa đủ 24 giờ, tự động khởi tạo dữ liệu lịch sử
+                logger.info(f"Không đủ dữ liệu tracking 24h cho {symbol}, đang khởi tạo dữ liệu lịch sử")
+                self.initialize_24h_tracking_data()
+                tracking_df = self.get_24h_tracking_data(symbol)
+            
             if not tracking_df.empty:
                 tracking_clean = tracking_df[['hour_timestamp', 'price', 'volume', 'open_interest', 
                                             'price_change_1h', 'volume_change_1h', 'oi_change_1h']].copy()
                 tracking_clean['hour_timestamp'] = tracking_clean['hour_timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+                
+                # Log để debug
+                if len(tracking_clean) > 0:
+                    logger.info(f"{symbol} 24h: first={tracking_clean['hour_timestamp'].iloc[0]}, last={tracking_clean['hour_timestamp'].iloc[-1]}, count={len(tracking_clean)}")
+                
                 symbol_data['tracking_24h'] = tracking_clean.to_dict(orient='records')
+            
+            # 4. ĐÃ THÊM: Xuất dữ liệu tracking 30d
+            tracking_30d_df = self.get_30d_tracking_data(symbol)
+            
+            if tracking_30d_df.empty or len(tracking_30d_df) < 20:  # Yêu cầu ít nhất 20 ngày
+                # Nếu chưa đủ dữ liệu, tự động khởi tạo
+                logger.info(f"Không đủ dữ liệu tracking 30d cho {symbol}, đang khởi tạo dữ liệu")
+                self.initialize_30d_tracking_data()
+                tracking_30d_df = self.get_30d_tracking_data(symbol)
+            
+            if not tracking_30d_df.empty:
+                tracking_30d_clean = tracking_30d_df[['date_timestamp', 'price', 'quote_volume', 'open_interest_value',
+                                                'avg_open_interest_value', 'price_change_1d', 'volume_change_1d', 'oi_change_1d']].copy()
+                tracking_30d_clean['date_timestamp'] = tracking_30d_clean['date_timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
+                
+                # Log để debug
+                if len(tracking_30d_clean) > 0:
+                    logger.info(f"{symbol} 30d: first={tracking_30d_clean['date_timestamp'].iloc[0]}, " +
+                             f"last={tracking_30d_clean['date_timestamp'].iloc[-1]}, count={len(tracking_30d_clean)}")
+                
+                symbol_data['tracking_30d'] = tracking_30d_clean.to_dict(orient='records')
             
             return symbol_data
             
@@ -618,9 +1161,54 @@ class Database:
                 'error': str(e),
                 'klines': {},
                 'open_interest': [],
-                'tracking_24h': []
+                'tracking_24h': [],
+                'tracking_30d': []
             }
-    
+
+    def initialize_30d_data(self):
+        """Thu thập và khởi tạo dữ liệu 30 ngày"""
+        try:
+            logger.info("📅 Khởi tạo dữ liệu 30 ngày...")
+            
+            # Import để tránh circular import
+            from data_collector.historical_data import HistoricalDataCollector
+            
+            # Thu thập dữ liệu 30 ngày
+            collector = HistoricalDataCollector()
+            data_30d = collector.collect_30d_daily_data()
+            
+            saved_count = 0
+            if data_30d and data_30d['success_count'] > 0:
+                # Lưu dữ liệu klines
+                for symbol in data_30d['klines']:
+                    df = data_30d['klines'][symbol]
+                    if not df.empty:
+                        # Kiểm tra dữ liệu trước khi lưu
+                        if 'quote_volume' in df.columns:
+                            logger.info(f"📊 {symbol} Kiểm tra Quote Volume trước khi lưu: {df['quote_volume'].iloc[-1]:,.2f} USDT")
+                        
+                        # Lưu dữ liệu
+                        saved = self.save_klines(symbol, '1d', df)
+                        if saved > 0:
+                            saved_count += 1
+                
+                # Lưu dữ liệu Open Interest
+                for symbol in data_30d['open_interest']:
+                    df = data_30d['open_interest'][symbol]
+                    if not df.empty:
+                        # Lưu dữ liệu
+                        self.save_open_interest(symbol, df)
+                
+                logger.info(f"✅ Đã khởi tạo dữ liệu 30 ngày cho {saved_count} symbols")
+                return True
+            else:
+                logger.error("❌ Không thể thu thập dữ liệu 30 ngày")
+                return False
+                
+        except Exception as e:
+            logger.error(f"❌ Lỗi khi khởi tạo dữ liệu 30 ngày: {str(e)}")
+            return False
+
     def get_anomalies(self, limit=20):
         """Lấy danh sách các bất thường đã phát hiện"""
         try:
@@ -672,3 +1260,14 @@ class Database:
             self.conn.rollback()
             logger.error(f"Lỗi khi lưu thông tin bất thường: {str(e)}")
             return False
+
+# Helper function
+def timeframe_from_timestamp(timestamp_str):
+    """Xác định timeframe từ timestamp string"""
+    timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+    if timestamp.hour == 0 and timestamp.minute == 0:
+        return '1d'
+    elif timestamp.minute == 0:
+        return '1h'
+    else:
+        return 'unknown'

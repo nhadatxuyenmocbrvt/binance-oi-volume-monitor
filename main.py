@@ -3,6 +3,7 @@ import time
 import argparse
 import schedule
 import subprocess
+import random
 from datetime import datetime, timedelta
 from config.settings import setup_logging, SYMBOLS, UPDATE_INTERVAL
 from data_collector.historical_data import HistoricalDataCollector
@@ -413,7 +414,7 @@ def initialize_system():
     """Khởi tạo hệ thống tối ưu"""
     logger.info("🔧 Bắt đầu khởi tạo hệ thống OI & Volume Monitor")
     
-    # Đảm bảo các thư mục cần thiết tồn tại
+    # Tạo các thư mục cần thiết
     directories = [
         'data',
         'data/charts', 
@@ -430,6 +431,19 @@ def initialize_system():
     # Khởi tạo cơ sở dữ liệu
     try:
         db = Database()
+        
+        # Khởi tạo dữ liệu tracking 24h từ dữ liệu lịch sử
+        logger.info("🔄 Đang khởi tạo dữ liệu tracking 24h từ Binance API...")
+        db.initialize_24h_tracking_data()
+        
+        # Khởi tạo dữ liệu 30 ngày
+        logger.info("🔄 Đang khởi tạo dữ liệu 30 ngày từ Binance API...")
+        db.initialize_30d_data()
+        
+        # Xuất dữ liệu JSON
+        logger.info("📄 Xuất dữ liệu JSON cho web...")
+        db.export_to_json()
+        
         db.close()
         logger.info("💾 Đã khởi tạo cơ sở dữ liệu thành công")
     except Exception as e:

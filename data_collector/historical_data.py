@@ -37,12 +37,12 @@ class OptimizedHistoricalDataCollector:
         
         # Lấy 24 giờ gần nhất (bao gồm giờ hiện tại)
         start_time = current_hour - timedelta(hours=23)  # 23 giờ trước + giờ hiện tại = 24 điểm
-        end_time = current_hour + timedelta(minutes=30)  # Thêm buffer
+        end_time = current_hour + timedelta(minutes=5)  # Thêm buffer
         
         start_timestamp = int(start_time.timestamp() * 1000)
         end_timestamp = int(end_time.timestamp() * 1000)
         
-        logger.info(f"⏰ 24h range: {start_time.strftime('%Y-%m-%d %H:%M')} → {end_time.strftime('%Y-%m-%d %H:%M')}")
+        logger.info(f"⏰ 24h range: {start_time.strftime('%Y-%m-%d %H:%M')} → {current_hour.strftime('%Y-%m-%d %H:%M')}")
         return start_timestamp, end_timestamp
     
     def _get_30d_time_range(self):
@@ -158,10 +158,7 @@ class OptimizedHistoricalDataCollector:
         return result
     
     def collect_30d_daily_data(self):
-        """
-        Thu thập dữ liệu 30 ngày daily - CORE FUNCTION  
-        Tối ưu cho tracking OI & Volume theo ngày
-        """
+        """Thu thập dữ liệu 30 ngày daily - ĐÃ SỬA"""
         logger.info("📅 Bắt đầu thu thập dữ liệu 30d daily - OI & Volume focus")
         start_time, end_time = self._get_30d_time_range()
         
@@ -180,19 +177,27 @@ class OptimizedHistoricalDataCollector:
             logger.info(f"📊 [{i}/{total_symbols}] Thu thập 30d data cho {symbol}")
             
             try:
-                # Thu thập klines 1d cho 30 ngày
+                # Thu thập klines 1d cho 30 ngày với số lượng dữ liệu lớn hơn
                 logger.info(f"   📈 Collecting daily klines for {symbol}")
                 klines_data = self.api.get_klines(
                     symbol=symbol, 
                     interval='1d', 
                     start_time=start_time, 
                     end_time=end_time, 
-                    limit=31  # 30 + 1 buffer
+                    limit=100  # Tăng limit lên để đảm bảo có đủ dữ liệu
                 )
                 
                 if klines_data is not None and not klines_data.empty:
-                    # Lọc chỉ lấy 30 ngày gần nhất
-                    klines_data = klines_data.tail(30)
+                    # Đảm bảo đúng 30 ngày gần nhất
+                    if len(klines_data) > 30:
+                        klines_data = klines_data.tail(30)
+                    
+                    # Đảm bảo quote_volume được lưu đúng
+                    if 'quote_volume' in klines_data.columns:
+                        # Log để kiểm tra giá trị
+                        logger.info(f"   🔍 Kiểm tra giá trị: Volume ngày gần nhất = {klines_data['volume'].iloc[-1]:,.2f}, " +
+                                f"Quote Volume = {klines_data['quote_volume'].iloc[-1]:,.2f} USDT")
+                    
                     result['klines'][symbol] = klines_data
                     logger.info(f"   ✅ {len(klines_data)} daily klines collected")
                 else:
@@ -200,26 +205,90 @@ class OptimizedHistoricalDataCollector:
                     result['klines'][symbol] = pd.DataFrame()
                 
                 # Rate limiting
-                time.sleep(0.3)
+                time.sleep(0.5)
                 
-                # Thu thập Open Interest (chunked cho 30 ngày)
-                logger.info(f"   📊 Collecting 30d OI for {symbol}")
+                # ----- ĐÃ SỬA: Chiến lược thu thập OI 30 ngày -----
+                # Sử dụng phương pháp 3 bước:
+                # 1. Cố gắng lấy OI theo ngày với chunk nhỏ hơn
+                # 2. Nếu thất bại, lấy dữ liệu 1h cho 7 ngày gần nhất
+                # 3. Lấy dữ liệu 8h hoặc 4h cho phần còn lại (23 ngày)
+                
+                logger.info(f"   📊 Collecting 30d OI for {symbol} (phương pháp mới)")
+                
+                # Bước 1: Thử lấy OI theo ngày với chunk nhỏ hơn
                 oi_data = self.api.get_open_interest_chunked(
                     symbol=symbol, 
-                    period='1h',  # Lấy hourly rồi aggregate về daily
+                    period='1d',
                     start_time=start_time, 
                     end_time=end_time,
-                    days_per_chunk=10  # 10 ngày per chunk để tránh rate limit
+                    days_per_chunk=3  # Giảm kích thước chunk
                 )
                 
-                if oi_data is not None and not oi_data.empty:
-                    # Aggregate hourly OI to daily
-                    oi_daily = self._aggregate_oi_to_daily(oi_data)
-                    result['open_interest'][symbol] = oi_daily
-                    logger.info(f"   ✅ {len(oi_daily)} daily OI points collected")
+                if oi_data is not None and not oi_data.empty and len(oi_data) >= 15:
+                    # Nếu có ít nhất 15 ngày dữ liệu, sử dụng nó
+                    result['open_interest'][symbol] = oi_data
+                    logger.info(f"   ✅ {len(oi_data)} daily OI points collected (phương pháp 1)")
                 else:
-                    logger.warning(f"   ⚠️ No OI data for {symbol}")
-                    result['open_interest'][symbol] = pd.DataFrame()
+                    # Bước 2: Lấy dữ liệu 1h cho 7 ngày gần nhất
+                    logger.info(f"   ⚠️ Không đủ dữ liệu OI theo ngày, chuyển sang phương pháp 2+3")
+                    
+                    # Tính thời gian cho 7 ngày gần nhất
+                    recent_end_time = end_time
+                    recent_start_time = end_time - (7 * 24 * 60 * 60 * 1000)
+                    
+                    # Lấy dữ liệu 1h cho 7 ngày gần nhất
+                    oi_recent = self.api.get_open_interest_chunked(
+                        symbol=symbol, 
+                        period='1h',
+                        start_time=recent_start_time, 
+                        end_time=recent_end_time,
+                        days_per_chunk=1  # Lấy từng ngày một
+                    )
+                    
+                    # Tính thời gian cho 23 ngày còn lại
+                    older_end_time = recent_start_time - 1
+                    older_start_time = start_time
+                    
+                    # Bước 3: Lấy dữ liệu 8h hoặc 4h cho 23 ngày còn lại
+                    oi_older = self.api.get_open_interest_chunked(
+                        symbol=symbol, 
+                        period='8h',  # Sử dụng 8h để giảm số lượng request
+                        start_time=older_start_time, 
+                        end_time=older_end_time,
+                        days_per_chunk=3
+                    )
+                    
+                    # Nếu vẫn không có dữ liệu, thử với 4h
+                    if oi_older is None or oi_older.empty:
+                        oi_older = self.api.get_open_interest_chunked(
+                            symbol=symbol, 
+                            period='4h',
+                            start_time=older_start_time, 
+                            end_time=older_end_time,
+                            days_per_chunk=2
+                        )
+                    
+                    # Tổng hợp dữ liệu
+                    oi_complete = pd.DataFrame()
+                    
+                    # Tổng hợp dữ liệu 7 ngày gần nhất theo ngày
+                    if oi_recent is not None and not oi_recent.empty:
+                        oi_recent_daily = self._aggregate_oi_to_daily(oi_recent)
+                        oi_complete = pd.concat([oi_complete, oi_recent_daily])
+                    
+                    # Tổng hợp dữ liệu 23 ngày còn lại theo ngày
+                    if oi_older is not None and not oi_older.empty:
+                        oi_older_daily = self._aggregate_oi_to_daily(oi_older)
+                        oi_complete = pd.concat([oi_complete, oi_older_daily])
+                    
+                    # Sắp xếp theo thời gian và loại bỏ các mục trùng lặp
+                    if not oi_complete.empty:
+                        oi_complete = oi_complete.sort_values('date').drop_duplicates('date')
+                        result['open_interest'][symbol] = oi_complete
+                        logger.info(f"   ✅ {len(oi_complete)} daily OI points collected (phương pháp tổng hợp)")
+                    else:
+                        logger.warning(f"   ⚠️ Không thể thu thập dữ liệu OI cho {symbol}")
+                        result['open_interest'][symbol] = pd.DataFrame()
                 
                 result['success_count'] += 1
                 logger.info(f"   🎯 {symbol}: Success")
@@ -356,7 +425,7 @@ class OptimizedHistoricalDataCollector:
     
     def collect_open_interest_data(self, custom_days=None):
         """
-        Thu thập dữ liệu Open Interest lịch sử
+        Thu thập dữ liệu Open Interest lịch sử - ĐÃ SỬA
         """
         days = custom_days or min(self.lookback_days, 30)  # Max 30 days
         start_time, end_time = self._get_custom_time_range(days)
@@ -369,18 +438,60 @@ class OptimizedHistoricalDataCollector:
             logger.info(f"📊 [{i}/{len(self.symbols)}] OI for {symbol}")
             
             try:
-                # Sử dụng chunked collection để lấy nhiều dữ liệu
-                df = self.api.get_open_interest_chunked(
+                # ĐÃ SỬA: Cải thiện chiến lược thu thập dữ liệu
+                # Tách thành 2 phần: 7 ngày gần nhất và phần còn lại
+                
+                # Phần 1: 7 ngày gần nhất với period='1h'
+                recent_end_time = end_time
+                recent_start_time = end_time - (7 * 24 * 60 * 60 * 1000)
+                
+                recent_oi = self.api.get_open_interest_chunked(
                     symbol=symbol,
                     period='1h',
-                    start_time=start_time,
-                    end_time=end_time,
-                    days_per_chunk=7  # 7 days per chunk
+                    start_time=recent_start_time,
+                    end_time=recent_end_time,
+                    days_per_chunk=1  # Lấy từng ngày một
                 )
                 
-                if df is not None and not df.empty:
-                    result[symbol] = df
-                    logger.info(f"   ✅ {len(df)} OI points collected")
+                # Phần 2: Phần còn lại với period='4h' hoặc '8h'
+                if days > 7:
+                    older_end_time = recent_start_time - 1
+                    older_start_time = start_time
+                    
+                    older_oi = self.api.get_open_interest_chunked(
+                        symbol=symbol,
+                        period='4h',
+                        start_time=older_start_time,
+                        end_time=older_end_time,
+                        days_per_chunk=2
+                    )
+                    
+                    # Nếu không có dữ liệu, thử với 8h
+                    if older_oi is None or older_oi.empty:
+                        older_oi = self.api.get_open_interest_chunked(
+                            symbol=symbol,
+                            period='8h',
+                            start_time=older_start_time,
+                            end_time=older_end_time,
+                            days_per_chunk=3
+                        )
+                    
+                    # Kết hợp cả hai phần
+                    if recent_oi is not None and not recent_oi.empty:
+                        if older_oi is not None and not older_oi.empty:
+                            combined_oi = pd.concat([older_oi, recent_oi])
+                        else:
+                            combined_oi = recent_oi
+                    else:
+                        combined_oi = older_oi if older_oi is not None else pd.DataFrame()
+                else:
+                    combined_oi = recent_oi if recent_oi is not None else pd.DataFrame()
+                
+                # Sắp xếp và loại bỏ trùng lặp
+                if combined_oi is not None and not combined_oi.empty:
+                    combined_oi = combined_oi.sort_values('timestamp').reset_index(drop=True)
+                    result[symbol] = combined_oi
+                    logger.info(f"   ✅ {len(combined_oi)} OI points collected")
                 else:
                     logger.warning(f"   ⚠️ No OI data for {symbol}")
                     result[symbol] = pd.DataFrame()
@@ -420,35 +531,51 @@ class OptimizedHistoricalDataCollector:
         logger.info("✅ All historical data collection complete")
         return result
     
-    # Helper methods
+    # ĐÃ SỬA: Cải thiện phương thức tổng hợp OI theo ngày
     def _aggregate_oi_to_daily(self, oi_hourly_df):
-        """
-        Aggregate hourly OI data to daily
-        """
+        """Cải thiện phương thức tính OI theo ngày từ dữ liệu theo giờ"""
         if oi_hourly_df.empty:
             return pd.DataFrame()
         
         try:
-            # Tạo date column
+            # Đảm bảo timestamp là datetime
+            if not pd.api.types.is_datetime64_any_dtype(oi_hourly_df['timestamp']):
+                oi_hourly_df['timestamp'] = pd.to_datetime(oi_hourly_df['timestamp'])
+            
+            # Tạo date column (ngày không có giờ)
             oi_hourly_df['date'] = oi_hourly_df['timestamp'].dt.date
             
-            # Group by date và tính average OI cho mỗi ngày
+            # ĐÃ SỬA: Phương pháp tính toán nâng cao
+            # Tính giá trị cho mỗi ngày bằng nhiều chỉ số khác nhau
             daily_oi = oi_hourly_df.groupby('date').agg({
-                'sumOpenInterest': 'mean',  # Average OI trong ngày
-                'sumOpenInterestValue': 'mean',
-                'timestamp': 'first'  # Lấy timestamp đầu tiên của ngày
-            }).reset_index()
-            
-            # Rename columns
-            daily_oi = daily_oi.rename(columns={
-                'sumOpenInterest': 'avg_open_interest',
-                'sumOpenInterestValue': 'avg_open_interest_value'
+                'timestamp': 'last',                  # Timestamp cuối cùng của ngày
+                'sumOpenInterest': ['last', 'mean'],  # Lấy cả cuối ngày và trung bình
+                'sumOpenInterestValue': ['last', 'mean']  # Lấy cả cuối ngày và trung bình theo USDT
             })
+            
+            # Flatten MultiIndex columns
+            daily_oi.columns = ['_'.join(col).strip() for col in daily_oi.columns.values]
+            daily_oi = daily_oi.reset_index()
+            
+            # Đổi tên các cột
+            daily_oi = daily_oi.rename(columns={
+                'sumOpenInterest_last': 'sumOpenInterest',
+                'sumOpenInterest_mean': 'avgOpenInterest',
+                'sumOpenInterestValue_last': 'sumOpenInterestValue',
+                'sumOpenInterestValue_mean': 'avgOpenInterestValue'
+            })
+            
+            # Thêm cột phụ trợ để tracking
+            daily_oi['daily_change'] = daily_oi['sumOpenInterest'].pct_change() * 100
             
             # Sort by date
             daily_oi = daily_oi.sort_values('date').reset_index(drop=True)
             
-            logger.info(f"📊 Aggregated {len(oi_hourly_df)} hourly points to {len(daily_oi)} daily points")
+            # Log để debug
+            if not daily_oi.empty:
+                logger.info(f"   🔍 Kiểm tra giá trị OI đã tổng hợp: ngày gần nhất = {daily_oi['sumOpenInterestValue'].iloc[-1]:,.2f} USDT, " +
+                        f"avg = {daily_oi['avgOpenInterestValue'].iloc[-1]:,.2f} USDT")
+            
             return daily_oi
             
         except Exception as e:
