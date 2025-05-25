@@ -3,6 +3,7 @@
  * Fixed: Smart data path detection for GitHub Pages
  * Fixed: Data display issues, chart scaling, and repeated data
  * Fixed: Đơn vị hiển thị đúng cho dữ liệu từ Binance
+ * Fixed: Điều chỉnh trục y để hiển thị chính xác OI và Volume
  */
 
 class SimpleOIVolumeMonitor {
@@ -639,6 +640,20 @@ class SimpleOIVolumeMonitor {
             return;
         }
         
+        // Tính toán giá trị min và max cho trục y (Open Interest)
+        const oiValues = chartData.map(item => item.oi).filter(v => v !== null && v !== undefined);
+        const minOI = oiValues.length > 0 ? Math.min(...oiValues) * 0.98 : 0; // Giảm 2% để có khoảng cách
+        const maxOI = oiValues.length > 0 ? Math.max(...oiValues) * 1.02 : 0; // Tăng 2% để có khoảng cách
+        
+        // Tính toán giá trị min và max cho trục y1 (Volume)
+        const volumeValues = chartData.map(item => item.volume).filter(v => v !== null && v !== undefined);
+        const minVolume = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.98 : 0;
+        const maxVolume = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.02 : 0;
+        
+        // Log để debug
+        console.log(`${symbol} OI range: ${this.formatNumber(minOI)} - ${this.formatNumber(maxOI)}`);
+        console.log(`${symbol} Volume range: ${this.formatNumber(minVolume)} - ${this.formatNumber(maxVolume)}`);
+        
         // FIX: Cải thiện cấu hình biểu đồ
         this.charts[symbol] = new Chart(ctx, {
             type: 'line',
@@ -714,8 +729,9 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'left',
-                        // FIX: Đảm bảo biểu đồ luôn bắt đầu từ 0
-                        beginAtZero: false,
+                        // FIX: Điều chỉnh giá trị min và max dựa trên dữ liệu thực tế
+                        min: minOI,
+                        max: maxOI,
                         title: {
                             display: true,
                             text: 'Open Interest (USDT)',
@@ -729,8 +745,9 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'right',
-                        // FIX: Đảm bảo biểu đồ luôn bắt đầu từ 0
-                        beginAtZero: false, 
+                        // FIX: Điều chỉnh giá trị min và max dựa trên dữ liệu thực tế
+                        min: minVolume,
+                        max: maxVolume,
                         title: {
                             display: true,
                             text: 'Volume (USDT)',
