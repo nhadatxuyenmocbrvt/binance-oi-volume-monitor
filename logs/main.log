@@ -169,3 +169,78 @@
 2025-05-25 21:24:22,678 - __main__ - INFO - 🚀 Bắt đầu chạy các tác vụ theo lịch trình OI & Volume Tracking
 2025-05-25 21:37:05,871 - __main__ - INFO - ⏹️ Dừng hệ thống theo yêu cầu người dùng
 2025-05-25 21:37:05,872 - __main__ - INFO - 🏁 Kết thúc với mã: 0
+2025-05-26 01:29:26,146 - __main__ - INFO - ============================================================
+2025-05-26 01:29:26,146 - __main__ - INFO - 🚀 BINANCE OI & VOLUME MONITOR - OPTIMIZED VERSION
+2025-05-26 01:29:26,147 - __main__ - INFO - ============================================================
+2025-05-26 01:29:26,147 - __main__ - INFO - ⏰ Khởi động lúc: 2025-05-26 01:29:26
+2025-05-26 01:29:26,148 - __main__ - INFO - 📊 Theo dõi 5 symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 01:29:26,148 - __main__ - INFO - 🎯 Focus: OI & Volume tracking (24h + 30d)
+2025-05-26 01:29:26,149 - __main__ - INFO - 🔧 Bắt đầu khởi tạo hệ thống OI & Volume Monitor
+2025-05-26 01:29:26,150 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: data
+2025-05-26 01:29:26,150 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: data/charts
+2025-05-26 01:29:26,151 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: data/reports
+2025-05-26 01:29:26,152 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: data/json
+2025-05-26 01:29:26,152 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: logs
+2025-05-26 01:29:26,153 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: docs/assets/data
+2025-05-26 01:29:26,160 - __main__ - INFO - 🔄 Đang khởi tạo dữ liệu tracking 24h từ Binance API...
+2025-05-26 01:29:26,162 - __main__ - INFO - 🔄 Đang khởi tạo dữ liệu 30 ngày từ Binance API...
+2025-05-26 01:31:18,805 - __main__ - INFO - 📄 Xuất dữ liệu JSON cho web...
+2025-05-26 01:31:19,179 - __main__ - INFO - 💾 Đã khởi tạo cơ sở dữ liệu thành công
+2025-05-26 01:31:19,179 - __main__ - INFO - ✅ Hoàn thành khởi tạo hệ thống
+2025-05-26 01:31:19,180 - __main__ - INFO - 🎯 CHẾ ĐỘ MẶC ĐỊNH: Setup OI & Volume tracking tối ưu
+2025-05-26 01:31:19,180 - __main__ - INFO - 📋 Quy trình: Thu thập lịch sử → Realtime + Báo cáo + Push → Tracking tối ưu
+2025-05-26 01:31:19,181 - __main__ - INFO - 🔄 Bước 1/3: Thu thập dữ liệu lịch sử...
+2025-05-26 01:31:19,181 - __main__ - INFO - 🔄 Bắt đầu thu thập dữ liệu lịch sử (24h/lần)
+2025-05-26 01:34:32,110 - __main__ - INFO - ✅ Hoàn thành thu thập dữ liệu lịch sử
+2025-05-26 01:34:32,112 - __main__ - INFO - ⚡ Bước 2/3: Cập nhật realtime + tạo báo cáo + push...
+2025-05-26 01:34:32,113 - __main__ - INFO - ⚡ Bắt đầu chu kỳ realtime (30 phút/lần): Update → Reports → Push
+2025-05-26 01:34:33,962 - __main__ - INFO - 📡 Thu thập dữ liệu realtime...
+2025-05-26 01:34:49,400 - __main__ - INFO - 💾 Đã lưu dữ liệu realtime cho 5/5 symbols
+2025-05-26 01:34:49,401 - __main__ - INFO - 📊 Tạo báo cáo tối ưu OI & Volume...
+2025-05-26 01:34:49,554 - __main__ - INFO - ✅ Đã tạo báo cáo tổng hợp
+2025-05-26 01:34:49,609 - __main__ - INFO - 📈 Đã tạo dữ liệu tracking 24h
+2025-05-26 01:34:49,610 - __main__ - INFO - 📁 Xuất dữ liệu JSON tối ưu...
+2025-05-26 01:34:49,992 - __main__ - INFO - ✅ Đã xuất dữ liệu JSON cho web
+2025-05-26 01:34:49,992 - __main__ - INFO - 📤 Đẩy dữ liệu lên GitHub...
+2025-05-26 01:34:49,993 - __main__ - INFO - 📤 Bắt đầu đẩy dữ liệu lên GitHub
+2025-05-26 01:34:53,728 - __main__ - INFO - ✅ Đã đẩy dữ liệu lên GitHub thành công lúc 2025-05-26 01:34:50
+2025-05-26 01:34:53,728 - __main__ - INFO - 🎉 Hoàn thành chu kỳ realtime: cập nhật → báo cáo → push GitHub
+2025-05-26 01:34:53,731 - __main__ - INFO - ⏰ Bước 3/3: Thiết lập tracking tối ưu...
+2025-05-26 01:34:53,732 - __main__ - INFO - ⏰ Thiết lập lịch trình tối ưu OI & Volume Tracking
+2025-05-26 01:34:53,733 - __main__ - INFO - ✅ Lịch thu thập dữ liệu lịch sử: mỗi ngày lúc 00:05
+2025-05-26 01:34:53,735 - __main__ - INFO - ✅ Lịch tracking 24h: mỗi giờ đúng giờ
+2025-05-26 01:34:53,736 - __main__ - INFO - ✅ Lịch realtime + báo cáo + push: mỗi 30 phút
+2025-05-26 01:34:53,736 - __main__ - INFO - ✅ Lịch phát hiện bất thường tối ưu: mỗi 15 phút
+2025-05-26 01:34:53,737 - __main__ - INFO - ✅ Lịch gửi báo cáo Telegram: mỗi ngày lúc 20:00
+2025-05-26 01:34:53,738 - __main__ - INFO - 🎯 Đã thiết lập lịch trình tối ưu:
+2025-05-26 01:34:53,739 - __main__ - INFO -    📊 Dữ liệu lịch sử: 24h/lần
+2025-05-26 01:34:53,739 - __main__ - INFO -    ⏰ Tracking 24h: mỗi giờ đúng
+2025-05-26 01:34:53,740 - __main__ - INFO -    ⚡ Realtime + Reports: 30 phút/lần
+2025-05-26 01:34:53,741 - __main__ - INFO -    🔍 Anomaly detection: 15 phút/lần
+2025-05-26 01:34:53,742 - __main__ - INFO -    📱 Daily Telegram: 1 lần/ngày
+2025-05-26 01:34:53,743 - __main__ - INFO - ✅ Hoàn thành setup - OI & Volume tracking tối ưu đã được kích hoạt!
+2025-05-26 01:34:53,744 - __main__ - INFO - 🔄 Hệ thống sẽ theo dõi OI & Volume từng giờ và cập nhật web...
+2025-05-26 01:34:53,744 - __main__ - INFO - 🚀 Bắt đầu chạy các tác vụ theo lịch trình OI & Volume Tracking
+2025-05-26 01:49:54,412 - __main__ - INFO - 🔍 Bắt đầu phát hiện bất thường tối ưu (15 phút/lần)
+2025-05-26 01:49:54,422 - __main__ - INFO - 🔍 Phân tích BTCUSDT...
+2025-05-26 01:49:54,517 - __main__ - INFO -    🚨 30d_Volume_USDT: moderate (Z: 3.20)
+2025-05-26 01:49:54,517 - __main__ - INFO -    🚨 30d_Volume: moderate (Z: 3.12)
+2025-05-26 01:49:54,518 - __main__ - INFO - 🔍 Phân tích ETHUSDT...
+2025-05-26 01:49:54,591 - __main__ - INFO -    🚨 30d_Volume: moderate (Z: 2.53)
+2025-05-26 01:49:54,592 - __main__ - INFO - 🔍 Phân tích BNBUSDT...
+2025-05-26 01:49:54,671 - __main__ - INFO -    🚨 30d_Volume_USDT: moderate (Z: 3.03)
+2025-05-26 01:49:54,671 - __main__ - INFO -    🚨 30d_Volume: moderate (Z: 2.99)
+2025-05-26 01:49:54,672 - __main__ - INFO - 🔍 Phân tích SOLUSDT...
+2025-05-26 01:49:54,748 - __main__ - INFO -    🚨 30d_OI: moderate (Z: 2.66)
+2025-05-26 01:49:54,748 - __main__ - INFO - 🔍 Phân tích DOGEUSDT...
+2025-05-26 01:49:54,821 - __main__ - INFO -    🚨 30d_Volume_USDT: moderate (Z: 2.59)
+2025-05-26 01:49:54,821 - __main__ - INFO -    🚨 30d_Volume: moderate (Z: 2.58)
+2025-05-26 01:49:54,823 - __main__ - INFO - 📱 Đã gửi cảnh báo qua Telegram
+2025-05-26 01:49:54,824 - __main__ - INFO - ✅ Hoàn thành phát hiện bất thường: 8 anomalies
+2025-05-26 01:49:54,824 - __main__ - INFO -    - BTCUSDT: 2 anomalies
+2025-05-26 01:49:54,824 - __main__ - INFO -    - ETHUSDT: 1 anomalies
+2025-05-26 01:49:54,825 - __main__ - INFO -    - BNBUSDT: 2 anomalies
+2025-05-26 01:49:54,825 - __main__ - INFO -    - SOLUSDT: 1 anomalies
+2025-05-26 01:49:54,826 - __main__ - INFO -    - DOGEUSDT: 2 anomalies
+2025-05-26 01:52:37,121 - __main__ - INFO - ⏹️ Dừng hệ thống theo yêu cầu người dùng
+2025-05-26 01:52:37,122 - __main__ - INFO - 🏁 Kết thúc với mã: 0

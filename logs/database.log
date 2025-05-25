@@ -611,3 +611,407 @@
 2025-05-25 21:24:18,786 - data_storage.database - INFO - Đã lấy 50 mẫu anomalies
 2025-05-25 21:24:18,792 - data_storage.database - INFO - ✅ Đã xuất dữ liệu JSON tối ưu trong thư mục ./data/json và ./docs/assets/data
 2025-05-25 21:24:22,667 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-26 01:29:26,156 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-26 01:29:26,159 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-26 01:29:26,160 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-26 01:29:26,161 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:29:26,162 - data_storage.database - INFO - 📅 Khởi tạo dữ liệu 30 ngày...
+2025-05-26 01:31:18,041 - data_storage.database - INFO - 📊 BTCUSDT Kiểm tra Quote Volume trước khi lưu: 12,466,903,747.52 USDT
+2025-05-26 01:31:18,069 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho BTCUSDT - 1d
+2025-05-26 01:31:18,070 - data_storage.database - INFO - 📊 ETHUSDT Kiểm tra Quote Volume trước khi lưu: 8,181,562,285.71 USDT
+2025-05-26 01:31:18,093 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho ETHUSDT - 1d
+2025-05-26 01:31:18,094 - data_storage.database - INFO - 📊 BNBUSDT Kiểm tra Quote Volume trước khi lưu: 249,637,818.37 USDT
+2025-05-26 01:31:18,110 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho BNBUSDT - 1d
+2025-05-26 01:31:18,111 - data_storage.database - INFO - 📊 SOLUSDT Kiểm tra Quote Volume trước khi lưu: 2,551,865,693.96 USDT
+2025-05-26 01:31:18,126 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho SOLUSDT - 1d
+2025-05-26 01:31:18,127 - data_storage.database - INFO - 📊 DOGEUSDT Kiểm tra Quote Volume trước khi lưu: 749,086,426.11 USDT
+2025-05-26 01:31:18,142 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho DOGEUSDT - 1d
+2025-05-26 01:31:18,147 - data_storage.database - INFO - Debug: Saving OI record for BTCUSDT: OI=86,276.11, Value=9,291,841,820.18 USDT, AvgOI=86,276.11, AvgValue=9,291,841,820.18 USDT
+2025-05-26 01:31:18,273 - data_storage.database - INFO - Đã lưu 29 mẫu Open Interest cho BTCUSDT
+2025-05-26 01:31:18,277 - data_storage.database - INFO - Debug: Saving OI record for ETHUSDT: OI=1,620,116.49, Value=4,096,049,194.84 USDT, AvgOI=1,620,116.49, AvgValue=4,096,049,194.84 USDT
+2025-05-26 01:31:18,404 - data_storage.database - INFO - Đã lưu 29 mẫu Open Interest cho ETHUSDT
+2025-05-26 01:31:18,408 - data_storage.database - INFO - Debug: Saving OI record for BNBUSDT: OI=543,502.97, Value=363,001,547.27 USDT, AvgOI=543,502.97, AvgValue=363,001,547.27 USDT
+2025-05-26 01:31:18,535 - data_storage.database - INFO - Đã lưu 29 mẫu Open Interest cho BNBUSDT
+2025-05-26 01:31:18,540 - data_storage.database - INFO - Debug: Saving OI record for SOLUSDT: OI=7,438,311.93, Value=1,307,675,712.21 USDT, AvgOI=7,438,311.93, AvgValue=1,307,675,712.21 USDT
+2025-05-26 01:31:18,678 - data_storage.database - INFO - Đã lưu 29 mẫu Open Interest cho SOLUSDT
+2025-05-26 01:31:18,682 - data_storage.database - INFO - Debug: Saving OI record for DOGEUSDT: OI=1,844,135,602.00, Value=414,887,726.50 USDT, AvgOI=1,844,135,602.00, AvgValue=414,887,726.50 USDT
+2025-05-26 01:31:18,803 - data_storage.database - INFO - Đã lưu 29 mẫu Open Interest cho DOGEUSDT
+2025-05-26 01:31:18,804 - data_storage.database - INFO - ✅ Đã khởi tạo dữ liệu 30 ngày cho 5 symbols
+2025-05-26 01:31:18,811 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BTCUSDT - 1h
+2025-05-26 01:31:18,815 - data_storage.database - INFO - BTCUSDT 1h: first=2025-05-18T15:00:00, last=2025-05-25T14:00:00, count=168
+2025-05-26 01:31:18,824 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BTCUSDT - 4h
+2025-05-26 01:31:18,827 - data_storage.database - INFO - BTCUSDT 4h: first=2025-04-27T16:00:00, last=2025-05-25T12:00:00, count=168
+2025-05-26 01:31:18,832 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BTCUSDT - 1d
+2025-05-26 01:31:18,834 - data_storage.database - INFO - BTCUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:31:18,840 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BTCUSDT (period: daily)
+2025-05-26 01:31:18,842 - data_storage.database - INFO - BTCUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:06, count=30
+2025-05-26 01:31:18,847 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:31:18,847 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho BTCUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:31:18,848 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:31:18,850 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:31:18,852 - data_storage.database - INFO - BTCUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:31:18,856 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho BTCUSDT
+2025-05-26 01:31:18,858 - data_storage.database - INFO - BTCUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:31:18,858 - data_storage.database - INFO - BTCUSDT 30d OI Value: latest=9,291,841,820.18 USDT
+2025-05-26 01:31:18,884 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho ETHUSDT - 1h
+2025-05-26 01:31:18,887 - data_storage.database - INFO - ETHUSDT 1h: first=2025-05-18T15:00:00, last=2025-05-25T14:00:00, count=168
+2025-05-26 01:31:18,894 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho ETHUSDT - 4h
+2025-05-26 01:31:18,897 - data_storage.database - INFO - ETHUSDT 4h: first=2025-04-27T16:00:00, last=2025-05-25T12:00:00, count=168
+2025-05-26 01:31:18,902 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho ETHUSDT - 1d
+2025-05-26 01:31:18,904 - data_storage.database - INFO - ETHUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:31:18,909 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho ETHUSDT (period: daily)
+2025-05-26 01:31:18,911 - data_storage.database - INFO - ETHUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:09, count=30
+2025-05-26 01:31:18,914 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:31:18,915 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho ETHUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:31:18,916 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:31:18,918 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:31:18,920 - data_storage.database - INFO - ETHUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:31:18,923 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho ETHUSDT
+2025-05-26 01:31:18,925 - data_storage.database - INFO - ETHUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:31:18,926 - data_storage.database - INFO - ETHUSDT 30d OI Value: latest=4,096,049,194.84 USDT
+2025-05-26 01:31:18,952 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BNBUSDT - 1h
+2025-05-26 01:31:18,955 - data_storage.database - INFO - BNBUSDT 1h: first=2025-05-18T15:00:00, last=2025-05-25T14:00:00, count=168
+2025-05-26 01:31:18,961 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BNBUSDT - 4h
+2025-05-26 01:31:18,965 - data_storage.database - INFO - BNBUSDT 4h: first=2025-04-27T16:00:00, last=2025-05-25T12:00:00, count=168
+2025-05-26 01:31:18,970 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BNBUSDT - 1d
+2025-05-26 01:31:18,972 - data_storage.database - INFO - BNBUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:31:18,977 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BNBUSDT (period: daily)
+2025-05-26 01:31:18,980 - data_storage.database - INFO - BNBUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:12, count=30
+2025-05-26 01:31:18,983 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:31:18,983 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho BNBUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:31:18,984 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:31:18,986 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:31:18,988 - data_storage.database - INFO - BNBUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:31:18,992 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho BNBUSDT
+2025-05-26 01:31:18,994 - data_storage.database - INFO - BNBUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:31:18,994 - data_storage.database - INFO - BNBUSDT 30d OI Value: latest=363,001,547.27 USDT
+2025-05-26 01:31:19,019 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho SOLUSDT - 1h
+2025-05-26 01:31:19,026 - data_storage.database - INFO - SOLUSDT 1h: first=2025-05-18T15:00:00, last=2025-05-25T14:00:00, count=168
+2025-05-26 01:31:19,040 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho SOLUSDT - 4h
+2025-05-26 01:31:19,044 - data_storage.database - INFO - SOLUSDT 4h: first=2025-04-27T16:00:00, last=2025-05-25T12:00:00, count=168
+2025-05-26 01:31:19,049 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho SOLUSDT - 1d
+2025-05-26 01:31:19,051 - data_storage.database - INFO - SOLUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:31:19,056 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho SOLUSDT (period: daily)
+2025-05-26 01:31:19,058 - data_storage.database - INFO - SOLUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:15, count=30
+2025-05-26 01:31:19,061 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:31:19,062 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho SOLUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:31:19,063 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:31:19,065 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:31:19,067 - data_storage.database - INFO - SOLUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:31:19,070 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho SOLUSDT
+2025-05-26 01:31:19,072 - data_storage.database - INFO - SOLUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:31:19,073 - data_storage.database - INFO - SOLUSDT 30d OI Value: latest=1,307,675,712.21 USDT
+2025-05-26 01:31:19,098 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho DOGEUSDT - 1h
+2025-05-26 01:31:19,101 - data_storage.database - INFO - DOGEUSDT 1h: first=2025-05-18T15:00:00, last=2025-05-25T14:00:00, count=168
+2025-05-26 01:31:19,108 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho DOGEUSDT - 4h
+2025-05-26 01:31:19,111 - data_storage.database - INFO - DOGEUSDT 4h: first=2025-04-27T16:00:00, last=2025-05-25T12:00:00, count=168
+2025-05-26 01:31:19,116 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho DOGEUSDT - 1d
+2025-05-26 01:31:19,118 - data_storage.database - INFO - DOGEUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:31:19,123 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho DOGEUSDT (period: daily)
+2025-05-26 01:31:19,125 - data_storage.database - INFO - DOGEUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:17, count=30
+2025-05-26 01:31:19,128 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:31:19,129 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho DOGEUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:31:19,130 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:31:19,132 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:31:19,135 - data_storage.database - INFO - DOGEUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:31:19,138 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho DOGEUSDT
+2025-05-26 01:31:19,140 - data_storage.database - INFO - DOGEUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:31:19,141 - data_storage.database - INFO - DOGEUSDT 30d OI Value: latest=414,887,726.50 USDT
+2025-05-26 01:31:19,171 - data_storage.database - INFO - Đã lấy 50 mẫu anomalies
+2025-05-26 01:31:19,177 - data_storage.database - INFO - ✅ Đã xuất dữ liệu JSON tối ưu trong thư mục ./data/json và ./docs/assets/data
+2025-05-26 01:31:19,178 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-26 01:31:20,857 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-26 01:31:20,859 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-26 01:31:20,860 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-26 01:34:30,061 - data_storage.database - INFO - Đã lưu 696 mẫu klines cho BTCUSDT - 1h
+2025-05-26 01:34:30,105 - data_storage.database - INFO - Đã lưu 174 mẫu klines cho BTCUSDT - 4h
+2025-05-26 01:34:30,118 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho BTCUSDT - 1d
+2025-05-26 01:34:30,280 - data_storage.database - INFO - Đã lưu 696 mẫu klines cho ETHUSDT - 1h
+2025-05-26 01:34:30,326 - data_storage.database - INFO - Đã lưu 174 mẫu klines cho ETHUSDT - 4h
+2025-05-26 01:34:30,339 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho ETHUSDT - 1d
+2025-05-26 01:34:30,463 - data_storage.database - INFO - Đã lưu 696 mẫu klines cho BNBUSDT - 1h
+2025-05-26 01:34:30,500 - data_storage.database - INFO - Đã lưu 174 mẫu klines cho BNBUSDT - 4h
+2025-05-26 01:34:30,512 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho BNBUSDT - 1d
+2025-05-26 01:34:30,659 - data_storage.database - INFO - Đã lưu 696 mẫu klines cho SOLUSDT - 1h
+2025-05-26 01:34:30,697 - data_storage.database - INFO - Đã lưu 174 mẫu klines cho SOLUSDT - 4h
+2025-05-26 01:34:30,713 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho SOLUSDT - 1d
+2025-05-26 01:34:30,834 - data_storage.database - INFO - Đã lưu 696 mẫu klines cho DOGEUSDT - 1h
+2025-05-26 01:34:30,873 - data_storage.database - INFO - Đã lưu 174 mẫu klines cho DOGEUSDT - 4h
+2025-05-26 01:34:30,885 - data_storage.database - INFO - Đã lưu 29 mẫu klines cho DOGEUSDT - 1d
+2025-05-26 01:34:30,888 - data_storage.database - INFO - Debug: Saving OI record for BTCUSDT: OI=87,477.88, Value=9,388,388,729.89 USDT, AvgOI=87,477.88, AvgValue=9,388,388,729.89 USDT
+2025-05-26 01:34:31,045 - data_storage.database - INFO - Đã lưu 282 mẫu Open Interest cho BTCUSDT
+2025-05-26 01:34:31,048 - data_storage.database - INFO - Debug: Saving OI record for ETHUSDT: OI=1,600,550.62, Value=4,021,223,385.23 USDT, AvgOI=1,600,550.62, AvgValue=4,021,223,385.23 USDT
+2025-05-26 01:34:31,244 - data_storage.database - INFO - Đã lưu 282 mẫu Open Interest cho ETHUSDT
+2025-05-26 01:34:31,247 - data_storage.database - INFO - Debug: Saving OI record for BNBUSDT: OI=538,019.21, Value=357,707,451.96 USDT, AvgOI=538,019.21, AvgValue=357,707,451.96 USDT
+2025-05-26 01:34:31,425 - data_storage.database - INFO - Đã lưu 282 mẫu Open Interest cho BNBUSDT
+2025-05-26 01:34:31,428 - data_storage.database - INFO - Debug: Saving OI record for SOLUSDT: OI=7,456,691.48, Value=1,274,199,440.10 USDT, AvgOI=7,456,691.48, AvgValue=1,274,199,440.10 USDT
+2025-05-26 01:34:31,591 - data_storage.database - INFO - Đã lưu 282 mẫu Open Interest cho SOLUSDT
+2025-05-26 01:34:31,594 - data_storage.database - INFO - Debug: Saving OI record for DOGEUSDT: OI=1,787,793,375.00, Value=391,383,725.65 USDT, AvgOI=1,787,793,375.00, AvgValue=391,383,725.65 USDT
+2025-05-26 01:34:31,761 - data_storage.database - INFO - Đã lưu 282 mẫu Open Interest cho DOGEUSDT
+2025-05-26 01:34:31,767 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BTCUSDT - 1h
+2025-05-26 01:34:31,770 - data_storage.database - INFO - BTCUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:31,777 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BTCUSDT - 4h
+2025-05-26 01:34:31,780 - data_storage.database - INFO - BTCUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:31,785 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BTCUSDT - 1d
+2025-05-26 01:34:31,787 - data_storage.database - INFO - BTCUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:31,792 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BTCUSDT (period: daily)
+2025-05-26 01:34:31,794 - data_storage.database - INFO - BTCUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:06, count=30
+2025-05-26 01:34:31,797 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:34:31,798 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho BTCUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:31,799 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:31,802 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:34:31,803 - data_storage.database - INFO - BTCUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:31,807 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho BTCUSDT
+2025-05-26 01:34:31,808 - data_storage.database - INFO - BTCUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:31,809 - data_storage.database - INFO - BTCUSDT 30d OI Value: latest=9,291,841,820.18 USDT
+2025-05-26 01:34:31,835 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho ETHUSDT - 1h
+2025-05-26 01:34:31,838 - data_storage.database - INFO - ETHUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:31,844 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho ETHUSDT - 4h
+2025-05-26 01:34:31,848 - data_storage.database - INFO - ETHUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:31,853 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho ETHUSDT - 1d
+2025-05-26 01:34:31,855 - data_storage.database - INFO - ETHUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:31,860 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho ETHUSDT (period: daily)
+2025-05-26 01:34:31,862 - data_storage.database - INFO - ETHUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:09, count=30
+2025-05-26 01:34:31,865 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:34:31,865 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho ETHUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:31,866 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:31,869 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:34:31,871 - data_storage.database - INFO - ETHUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:31,874 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho ETHUSDT
+2025-05-26 01:34:31,876 - data_storage.database - INFO - ETHUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:31,877 - data_storage.database - INFO - ETHUSDT 30d OI Value: latest=4,096,049,194.84 USDT
+2025-05-26 01:34:31,903 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BNBUSDT - 1h
+2025-05-26 01:34:31,907 - data_storage.database - INFO - BNBUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:31,913 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BNBUSDT - 4h
+2025-05-26 01:34:31,916 - data_storage.database - INFO - BNBUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:31,921 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BNBUSDT - 1d
+2025-05-26 01:34:31,923 - data_storage.database - INFO - BNBUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:31,928 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BNBUSDT (period: daily)
+2025-05-26 01:34:31,930 - data_storage.database - INFO - BNBUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:12, count=30
+2025-05-26 01:34:31,933 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:34:31,934 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho BNBUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:31,934 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:31,937 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:34:31,939 - data_storage.database - INFO - BNBUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:31,942 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho BNBUSDT
+2025-05-26 01:34:31,944 - data_storage.database - INFO - BNBUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:31,945 - data_storage.database - INFO - BNBUSDT 30d OI Value: latest=363,001,547.27 USDT
+2025-05-26 01:34:31,970 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho SOLUSDT - 1h
+2025-05-26 01:34:31,974 - data_storage.database - INFO - SOLUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:31,980 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho SOLUSDT - 4h
+2025-05-26 01:34:31,983 - data_storage.database - INFO - SOLUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:31,988 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho SOLUSDT - 1d
+2025-05-26 01:34:31,990 - data_storage.database - INFO - SOLUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:31,995 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho SOLUSDT (period: daily)
+2025-05-26 01:34:31,997 - data_storage.database - INFO - SOLUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:15, count=30
+2025-05-26 01:34:32,000 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:34:32,000 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho SOLUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:32,001 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:32,003 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:34:32,005 - data_storage.database - INFO - SOLUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:32,009 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho SOLUSDT
+2025-05-26 01:34:32,011 - data_storage.database - INFO - SOLUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:32,011 - data_storage.database - INFO - SOLUSDT 30d OI Value: latest=1,307,675,712.21 USDT
+2025-05-26 01:34:32,038 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho DOGEUSDT - 1h
+2025-05-26 01:34:32,042 - data_storage.database - INFO - DOGEUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:32,048 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho DOGEUSDT - 4h
+2025-05-26 01:34:32,052 - data_storage.database - INFO - DOGEUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:32,057 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho DOGEUSDT - 1d
+2025-05-26 01:34:32,059 - data_storage.database - INFO - DOGEUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:32,064 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho DOGEUSDT (period: daily)
+2025-05-26 01:34:32,066 - data_storage.database - INFO - DOGEUSDT OI: first=2025-04-26T20:00:00, last=2025-05-25T21:24:17, count=30
+2025-05-26 01:34:32,069 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:34:32,070 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho DOGEUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:32,071 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:32,073 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:34:32,075 - data_storage.database - INFO - DOGEUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:32,078 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho DOGEUSDT
+2025-05-26 01:34:32,080 - data_storage.database - INFO - DOGEUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:32,080 - data_storage.database - INFO - DOGEUSDT 30d OI Value: latest=414,887,726.50 USDT
+2025-05-26 01:34:32,105 - data_storage.database - INFO - Đã lấy 50 mẫu anomalies
+2025-05-26 01:34:32,110 - data_storage.database - INFO - ✅ Đã xuất dữ liệu JSON tối ưu trong thư mục ./data/json và ./docs/assets/data
+2025-05-26 01:34:32,111 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-26 01:34:33,959 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-26 01:34:33,961 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-26 01:34:33,961 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-26 01:34:49,331 - data_storage.database - INFO - 💾 Saving Volume for BTCUSDT: 155,365.24 contracts, Quote Volume: 16,705,317,115.48 USDT
+2025-05-26 01:34:49,341 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BTCUSDT
+2025-05-26 01:34:49,342 - data_storage.database - INFO - 💾 Saving OI for BTCUSDT: 87,398.79 contracts, 9,388,553,249.07 USDT
+2025-05-26 01:34:49,348 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BTCUSDT
+2025-05-26 01:34:49,349 - data_storage.database - INFO - 💾 Saving Volume for ETHUSDT: 3,858,102.58 contracts, Quote Volume: 9,660,939,382.44 USDT
+2025-05-26 01:34:49,354 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho ETHUSDT
+2025-05-26 01:34:49,355 - data_storage.database - INFO - 💾 Saving OI for ETHUSDT: 1,597,111.41 contracts, 4,018,667,703.47 USDT
+2025-05-26 01:34:49,361 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho ETHUSDT
+2025-05-26 01:34:49,362 - data_storage.database - INFO - 💾 Saving Volume for BNBUSDT: 469,737.24 contracts, Quote Volume: 312,153,601.56 USDT
+2025-05-26 01:34:49,368 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho BNBUSDT
+2025-05-26 01:34:49,369 - data_storage.database - INFO - 💾 Saving OI for BNBUSDT: 538,373.53 contracts, 358,023,781.19 USDT
+2025-05-26 01:34:49,375 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho BNBUSDT
+2025-05-26 01:34:49,376 - data_storage.database - INFO - 💾 Saving Volume for SOLUSDT: 16,679,077.11 contracts, Quote Volume: 2,873,988,256.78 USDT
+2025-05-26 01:34:49,381 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho SOLUSDT
+2025-05-26 01:34:49,382 - data_storage.database - INFO - 💾 Saving OI for SOLUSDT: 7,395,147.57 contracts, 1,268,341,759.73 USDT
+2025-05-26 01:34:49,387 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho SOLUSDT
+2025-05-26 01:34:49,388 - data_storage.database - INFO - 💾 Saving Volume for DOGEUSDT: 3,969,616,732.00 contracts, Quote Volume: 877,149,080.03 USDT
+2025-05-26 01:34:49,393 - data_storage.database - INFO - Đã lưu dữ liệu ticker cho DOGEUSDT
+2025-05-26 01:34:49,394 - data_storage.database - INFO - 💾 Saving OI for DOGEUSDT: 1,786,649,680.00 contracts, 392,080,272.28 USDT
+2025-05-26 01:34:49,399 - data_storage.database - INFO - Đã lưu dữ liệu Open Interest realtime cho DOGEUSDT
+2025-05-26 01:34:49,408 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:34:49,418 - data_storage.database - INFO - Đã lấy 321 mẫu Open Interest cho BTCUSDT (period: all)
+2025-05-26 01:34:49,428 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BTCUSDT - 1d
+2025-05-26 01:34:49,446 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:34:49,455 - data_storage.database - INFO - Đã lấy 321 mẫu Open Interest cho ETHUSDT (period: all)
+2025-05-26 01:34:49,459 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho ETHUSDT - 1d
+2025-05-26 01:34:49,474 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:34:49,483 - data_storage.database - INFO - Đã lấy 321 mẫu Open Interest cho BNBUSDT (period: all)
+2025-05-26 01:34:49,487 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BNBUSDT - 1d
+2025-05-26 01:34:49,498 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:34:49,506 - data_storage.database - INFO - Đã lấy 321 mẫu Open Interest cho SOLUSDT (period: all)
+2025-05-26 01:34:49,511 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho SOLUSDT - 1d
+2025-05-26 01:34:49,522 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:34:49,530 - data_storage.database - INFO - Đã lấy 321 mẫu Open Interest cho DOGEUSDT (period: all)
+2025-05-26 01:34:49,534 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho DOGEUSDT - 1d
+2025-05-26 01:34:49,545 - data_storage.database - INFO - Đã lấy 61 mẫu anomalies
+2025-05-26 01:34:49,557 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:34:49,566 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:34:49,574 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:34:49,582 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:34:49,591 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:34:49,615 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BTCUSDT - 1h
+2025-05-26 01:34:49,622 - data_storage.database - INFO - BTCUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:49,628 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BTCUSDT - 4h
+2025-05-26 01:34:49,631 - data_storage.database - INFO - BTCUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:49,637 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BTCUSDT - 1d
+2025-05-26 01:34:49,639 - data_storage.database - INFO - BTCUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:49,643 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BTCUSDT (period: daily)
+2025-05-26 01:34:49,645 - data_storage.database - INFO - BTCUSDT OI: first=2025-04-27T20:00:00, last=2025-05-26T01:34:36, count=30
+2025-05-26 01:34:49,649 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:34:49,649 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho BTCUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:49,650 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:49,653 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:34:49,655 - data_storage.database - INFO - BTCUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:49,658 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho BTCUSDT
+2025-05-26 01:34:49,660 - data_storage.database - INFO - BTCUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:49,661 - data_storage.database - INFO - BTCUSDT 30d OI Value: latest=9,291,841,820.18 USDT
+2025-05-26 01:34:49,697 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho ETHUSDT - 1h
+2025-05-26 01:34:49,702 - data_storage.database - INFO - ETHUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:49,709 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho ETHUSDT - 4h
+2025-05-26 01:34:49,714 - data_storage.database - INFO - ETHUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:49,720 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho ETHUSDT - 1d
+2025-05-26 01:34:49,723 - data_storage.database - INFO - ETHUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:49,729 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho ETHUSDT (period: daily)
+2025-05-26 01:34:49,731 - data_storage.database - INFO - ETHUSDT OI: first=2025-04-27T20:00:00, last=2025-05-26T01:34:39, count=30
+2025-05-26 01:34:49,735 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:34:49,736 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho ETHUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:49,737 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:49,739 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:34:49,741 - data_storage.database - INFO - ETHUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:49,744 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho ETHUSDT
+2025-05-26 01:34:49,746 - data_storage.database - INFO - ETHUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:49,747 - data_storage.database - INFO - ETHUSDT 30d OI Value: latest=4,096,049,194.84 USDT
+2025-05-26 01:34:49,777 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BNBUSDT - 1h
+2025-05-26 01:34:49,781 - data_storage.database - INFO - BNBUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:49,787 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho BNBUSDT - 4h
+2025-05-26 01:34:49,790 - data_storage.database - INFO - BNBUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:49,795 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BNBUSDT - 1d
+2025-05-26 01:34:49,797 - data_storage.database - INFO - BNBUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:49,802 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BNBUSDT (period: daily)
+2025-05-26 01:34:49,804 - data_storage.database - INFO - BNBUSDT OI: first=2025-04-27T20:00:00, last=2025-05-26T01:34:42, count=30
+2025-05-26 01:34:49,807 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:34:49,808 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho BNBUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:49,809 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:49,811 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:34:49,813 - data_storage.database - INFO - BNBUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:49,816 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho BNBUSDT
+2025-05-26 01:34:49,818 - data_storage.database - INFO - BNBUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:49,819 - data_storage.database - INFO - BNBUSDT 30d OI Value: latest=363,001,547.27 USDT
+2025-05-26 01:34:49,848 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho SOLUSDT - 1h
+2025-05-26 01:34:49,852 - data_storage.database - INFO - SOLUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:49,859 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho SOLUSDT - 4h
+2025-05-26 01:34:49,863 - data_storage.database - INFO - SOLUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:49,868 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho SOLUSDT - 1d
+2025-05-26 01:34:49,870 - data_storage.database - INFO - SOLUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:49,875 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho SOLUSDT (period: daily)
+2025-05-26 01:34:49,877 - data_storage.database - INFO - SOLUSDT OI: first=2025-04-27T20:00:00, last=2025-05-26T01:34:45, count=30
+2025-05-26 01:34:49,880 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:34:49,881 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho SOLUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:49,882 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:49,885 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:34:49,887 - data_storage.database - INFO - SOLUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:49,890 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho SOLUSDT
+2025-05-26 01:34:49,892 - data_storage.database - INFO - SOLUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:49,893 - data_storage.database - INFO - SOLUSDT 30d OI Value: latest=1,307,675,712.21 USDT
+2025-05-26 01:34:49,919 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho DOGEUSDT - 1h
+2025-05-26 01:34:49,922 - data_storage.database - INFO - DOGEUSDT 1h: first=2025-05-18T19:00:00, last=2025-05-25T18:00:00, count=168
+2025-05-26 01:34:49,928 - data_storage.database - INFO - Đã lấy 168 mẫu klines cho DOGEUSDT - 4h
+2025-05-26 01:34:49,932 - data_storage.database - INFO - DOGEUSDT 4h: first=2025-04-27T20:00:00, last=2025-05-25T16:00:00, count=168
+2025-05-26 01:34:49,937 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho DOGEUSDT - 1d
+2025-05-26 01:34:49,939 - data_storage.database - INFO - DOGEUSDT 1d: first=2025-04-26T00:00:00, last=2025-05-25T00:00:00, count=30
+2025-05-26 01:34:49,944 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho DOGEUSDT (period: daily)
+2025-05-26 01:34:49,946 - data_storage.database - INFO - DOGEUSDT OI: first=2025-04-27T20:00:00, last=2025-05-26T01:34:49, count=30
+2025-05-26 01:34:49,949 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:34:49,950 - data_storage.database - INFO - Không đủ dữ liệu tracking 24h cho DOGEUSDT, đang khởi tạo dữ liệu lịch sử
+2025-05-26 01:34:49,950 - data_storage.database - INFO - ✅ Đã có đủ dữ liệu tracking 24h: 29 giờ
+2025-05-26 01:34:49,953 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:34:49,955 - data_storage.database - INFO - DOGEUSDT 24h: first=2025-05-25T02:00:00, last=2025-05-25T21:00:00, count=17
+2025-05-26 01:34:49,958 - data_storage.database - INFO - Đã lấy 29 mẫu tracking 30d cho DOGEUSDT
+2025-05-26 01:34:49,960 - data_storage.database - INFO - DOGEUSDT 30d: first=2025-04-27T00:00:00, last=2025-05-25T00:00:00, count=29
+2025-05-26 01:34:49,961 - data_storage.database - INFO - DOGEUSDT 30d OI Value: latest=414,887,726.50 USDT
+2025-05-26 01:34:49,985 - data_storage.database - INFO - Đã lấy 50 mẫu anomalies
+2025-05-26 01:34:49,991 - data_storage.database - INFO - ✅ Đã xuất dữ liệu JSON tối ưu trong thư mục ./data/json và ./docs/assets/data
+2025-05-26 01:34:53,730 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu
+2025-05-26 01:49:54,416 - data_storage.database - INFO - Đã kết nối đến cơ sở dữ liệu
+2025-05-26 01:49:54,419 - data_storage.database - INFO - Đã tạo các bảng cần thiết
+2025-05-26 01:49:54,420 - data_storage.database - INFO - Đã khởi tạo cơ sở dữ liệu tại ./data/market_data.db
+2025-05-26 01:49:54,429 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:49:54,437 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:49:54,444 - data_storage.database - INFO - Đã lấy 7 mẫu klines cho BTCUSDT - 1d
+2025-05-26 01:49:54,453 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:49:54,459 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BTCUSDT
+2025-05-26 01:49:54,467 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BTCUSDT (period: all)
+2025-05-26 01:49:54,473 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BTCUSDT - 1d
+2025-05-26 01:49:54,487 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BTCUSDT (period: all)
+2025-05-26 01:49:54,491 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BTCUSDT - 1d
+2025-05-26 01:49:54,510 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - 30d_Volume_USDT
+2025-05-26 01:49:54,514 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BTCUSDT - 30d_Volume
+2025-05-26 01:49:54,522 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:49:54,529 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:49:54,535 - data_storage.database - INFO - Đã lấy 7 mẫu klines cho ETHUSDT - 1d
+2025-05-26 01:49:54,543 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:49:54,549 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho ETHUSDT
+2025-05-26 01:49:54,556 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho ETHUSDT (period: all)
+2025-05-26 01:49:54,560 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho ETHUSDT - 1d
+2025-05-26 01:49:54,573 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho ETHUSDT (period: all)
+2025-05-26 01:49:54,577 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho ETHUSDT - 1d
+2025-05-26 01:49:54,590 - data_storage.database - INFO - Đã lưu thông tin bất thường cho ETHUSDT - 30d_Volume
+2025-05-26 01:49:54,596 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:49:54,602 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:49:54,608 - data_storage.database - INFO - Đã lấy 7 mẫu klines cho BNBUSDT - 1d
+2025-05-26 01:49:54,616 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:49:54,621 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho BNBUSDT
+2025-05-26 01:49:54,628 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BNBUSDT (period: all)
+2025-05-26 01:49:54,633 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BNBUSDT - 1d
+2025-05-26 01:49:54,647 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho BNBUSDT (period: all)
+2025-05-26 01:49:54,652 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho BNBUSDT - 1d
+2025-05-26 01:49:54,665 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - 30d_Volume_USDT
+2025-05-26 01:49:54,668 - data_storage.database - INFO - Đã lưu thông tin bất thường cho BNBUSDT - 30d_Volume
+2025-05-26 01:49:54,676 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:49:54,682 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:49:54,688 - data_storage.database - INFO - Đã lấy 7 mẫu klines cho SOLUSDT - 1d
+2025-05-26 01:49:54,696 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:49:54,702 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho SOLUSDT
+2025-05-26 01:49:54,708 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho SOLUSDT (period: all)
+2025-05-26 01:49:54,713 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho SOLUSDT - 1d
+2025-05-26 01:49:54,728 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho SOLUSDT (period: all)
+2025-05-26 01:49:54,733 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho SOLUSDT - 1d
+2025-05-26 01:49:54,746 - data_storage.database - INFO - Đã lưu thông tin bất thường cho SOLUSDT - 30d_OI
+2025-05-26 01:49:54,752 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:49:54,758 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:49:54,763 - data_storage.database - INFO - Đã lấy 7 mẫu klines cho DOGEUSDT - 1d
+2025-05-26 01:49:54,772 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:49:54,776 - data_storage.database - INFO - Đã lấy 17 mẫu tracking 24h cho DOGEUSDT
+2025-05-26 01:49:54,783 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho DOGEUSDT (period: all)
+2025-05-26 01:49:54,787 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho DOGEUSDT - 1d
+2025-05-26 01:49:54,800 - data_storage.database - INFO - Đã lấy 30 mẫu Open Interest cho DOGEUSDT (period: all)
+2025-05-26 01:49:54,804 - data_storage.database - INFO - Đã lấy 30 mẫu klines cho DOGEUSDT - 1d
+2025-05-26 01:49:54,815 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - 30d_Volume_USDT
+2025-05-26 01:49:54,819 - data_storage.database - INFO - Đã lưu thông tin bất thường cho DOGEUSDT - 30d_Volume
+2025-05-26 01:49:54,826 - data_storage.database - INFO - Đã đóng kết nối cơ sở dữ liệu

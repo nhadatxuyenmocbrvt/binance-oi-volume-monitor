@@ -3,7 +3,8 @@
  * Fixed: Smart data path detection for GitHub Pages
  * Fixed: Data display issues, chart scaling, and repeated data
  * Fixed: Đơn vị hiển thị đúng cho dữ liệu từ Binance
- * Fixed: Điều chỉnh trục y để hiển thị chính xác OI và Volume
+ * Fixed: Vấn đề hiển thị trục y trên biểu đồ OI
+ * Fixed: Cải thiện phát hiện nguồn dữ liệu
  */
 
 class SimpleOIVolumeMonitor {
@@ -19,6 +20,9 @@ class SimpleOIVolumeMonitor {
     }
     
     init() {
+        // Debug data availability
+        this.debugDataAvailability();
+        
         // Khởi tạo event listeners
         this.setupEventListeners();
         
@@ -27,6 +31,46 @@ class SimpleOIVolumeMonitor {
         
         // Setup auto refresh (30 phút)
         this.startAutoRefresh();
+    }
+    
+    async debugDataAvailability() {
+        console.group('🔍 Kiểm tra khả năng truy cập dữ liệu');
+        
+        const paths = [
+            './assets/data/symbols.json',
+            '/binance-oi-volume-monitor/assets/data/symbols.json',
+            'https://nhadatxuyenmocbrvt.github.io/binance-oi-volume-monitor/assets/data/symbols.json',
+            './data/json/symbols.json',
+            '/binance-oi-volume-monitor/data/json/symbols.json',
+            'https://nhadatxuyenmocbrvt.github.io/binance-oi-volume-monitor/data/json/symbols.json',
+            'https://raw.githubusercontent.com/nhadatxuyenmocbrvt/binance-oi-volume-monitor/main/docs/assets/data/symbols.json',
+            'https://raw.githubusercontent.com/nhadatxuyenmocbrvt/binance-oi-volume-monitor/main/data/json/symbols.json'
+        ];
+        
+        console.log('🌐 Current URL:', window.location.href);
+        console.log('🌐 Base URL:', window.location.origin + window.location.pathname);
+        
+        for (const path of paths) {
+            try {
+                console.log(`🔍 Trying: ${path}`);
+                const response = await fetch(path);
+                if (response.ok) {
+                    const contentType = response.headers.get('content-type');
+                    console.log(`✅ Success! Content-Type: ${contentType}`);
+                    
+                    if (contentType && contentType.includes('application/json')) {
+                        const data = await response.json();
+                        console.log(`📋 Data: ${JSON.stringify(data)}`);
+                    }
+                } else {
+                    console.log(`❌ Failed with status: ${response.status}`);
+                }
+            } catch (e) {
+                console.log(`❌ Error: ${e.message}`);
+            }
+        }
+        
+        console.groupEnd();
     }
     
     setupEventListeners() {
@@ -111,14 +155,31 @@ class SimpleOIVolumeMonitor {
     async detectDataSource() {
         // Thử các nguồn dữ liệu có thể có theo thứ tự ưu tiên
         const possibleSources = [
-            './assets/data/',        // GitHub Pages main path
-            './data/json/',          // Relative path
-            '../data/json/',         // Parent directory
-            'assets/data/',          // Without leading ./
-            'data/json/',            // Direct path
-            '/binance-oi-volume-monitor/assets/data/',  // Full GitHub Pages path
-            '/binance-oi-volume-monitor/data/json/',    // Full GitHub Pages path alt
+            // Đường dẫn GitHub Pages từ /docs
+            './assets/data/',                                      // Tương đối từ trang hiện tại (trong /docs)
+            '/binance-oi-volume-monitor/assets/data/',             // Tuyệt đối từ root domain
+            'https://nhadatxuyenmocbrvt.github.io/binance-oi-volume-monitor/assets/data/',  // URL đầy đủ
+            
+            // Đường dẫn từ /data/json
+            './data/json/',                                        // Tương đối
+            '../data/json/',                                       // Lên một cấp
+            '/binance-oi-volume-monitor/data/json/',               // Tuyệt đối
+            'https://nhadatxuyenmocbrvt.github.io/binance-oi-volume-monitor/data/json/',  // URL đầy đủ
+            
+            // Đường dẫn từ /docs/assets/data (raw GitHub URLs)
+            'https://raw.githubusercontent.com/nhadatxuyenmocbrvt/binance-oi-volume-monitor/main/docs/assets/data/',
+            
+            // Đường dẫn từ /data/json (raw GitHub URLs)
+            'https://raw.githubusercontent.com/nhadatxuyenmocbrvt/binance-oi-volume-monitor/main/data/json/',
+            
+            // Các đường dẫn khác
+            'assets/data/',                                        // Không có ./
+            'data/json/',                                          // Không có ./
         ];
+        
+        // Log vị trí hiện tại để debug
+        console.log('Current URL:', window.location.href);
+        console.log('Base URL:', window.location.origin + window.location.pathname);
         
         for (const source of possibleSources) {
             try {
@@ -286,73 +347,116 @@ class SimpleOIVolumeMonitor {
     }
     
     generateSampleData(symbol) {
+        console.log(`⚠️ Sử dụng dữ liệu mẫu cho ${symbol} vì không tải được dữ liệu thực`);
+        
         // Tạo dữ liệu mẫu khi không load được từ API
         const now = new Date();
         const sampleData = {
+            symbol: symbol,
             klines: { '1d': [] },
             open_interest: [],
             tracking_24h: [],
             tracking_30d: [] 
         };
         
-        // Các giá trị lớn hơn để phù hợp với giá trị thực tế từ Binance
-        const baseOIValue = 5000000000 + Math.random() * 5000000000;  // ~ 5-10B
-        const baseVolumeValue = 1000000000 + Math.random() * 2000000000;  // ~ 1-3B
-        const price = symbol === 'BTCUSDT' ? 107000 : (symbol === 'ETHUSDT' ? 2500 : 500);
+        // Các giá trị cơ sở tùy thuộc vào loại tiền
+        let basePrice, baseOIValue, baseVolumeValue;
         
-        // Generate 30 days of sample data
+        switch(symbol) {
+            case 'BTCUSDT':
+                basePrice = 107000;
+                baseOIValue = 9270000000; // 9.27B
+                baseVolumeValue = 16790000000; // 16.79B
+                break;
+            case 'ETHUSDT':
+                basePrice = 2500;
+                baseOIValue = 4040000000; // 4.04B
+                baseVolumeValue = 8700000000; // 8.7B
+                break;
+            case 'BNBUSDT':
+                basePrice = 650;
+                baseOIValue = 1200000000; // 1.2B
+                baseVolumeValue = 2500000000; // 2.5B
+                break;
+            case 'SOLUSDT':
+                basePrice = 180;
+                baseOIValue = 850000000; // 850M
+                baseVolumeValue = 1800000000; // 1.8B
+                break;
+            case 'DOGEUSDT':
+                basePrice = 0.15;
+                baseOIValue = 450000000; // 450M
+                baseVolumeValue = 1200000000; // 1.2B
+                break;
+            default:
+                basePrice = 500;
+                baseOIValue = 1000000000; // 1B
+                baseVolumeValue = 2000000000; // 2B
+        }
+        
+        // Generate 30 days of sample data with realistic fluctuations
         for (let i = 29; i >= 0; i--) {
             const date = new Date(now);
             date.setDate(date.getDate() - i);
             
-            const oiValue = baseOIValue * (0.9 + Math.random() * 0.2);
-            const volumeValue = baseVolumeValue * (0.8 + Math.random() * 0.4);
-            const currentPrice = price * (0.9 + Math.random() * 0.2);
+            // Create realistic daily changes (range of ±3% from base with some randomness)
+            const dailyFactor = 0.97 + (Math.random() * 0.06); // 0.97 to 1.03
+            const currentPrice = basePrice * dailyFactor;
+            const oiValue = baseOIValue * (0.95 + (Math.random() * 0.1)); // ±5%
+            const volumeValue = baseVolumeValue * (0.9 + (Math.random() * 0.2)); // ±10%
             
+            // Add to open_interest array
             sampleData.open_interest.push({
                 timestamp: date.toISOString(),
                 open_interest: oiValue / currentPrice,  // Contracts
                 open_interest_value: oiValue  // USDT value
             });
             
+            // Add to klines
             sampleData.klines['1d'].push({
                 open_time: date.toISOString(),
+                open: currentPrice * 0.99,
+                high: currentPrice * 1.02,
+                low: currentPrice * 0.98,
+                close: currentPrice,
                 volume: volumeValue / currentPrice,  // Contracts
                 quote_volume: volumeValue,  // USDT value
-                close: currentPrice
+                count: Math.floor(5000 + Math.random() * 15000) // Number of trades
             });
             
-            // Generate tracking_30d data with realistic values
+            // Add to tracking_30d
             sampleData.tracking_30d.push({
                 date_timestamp: date.toISOString(),
                 price: currentPrice,
                 quote_volume: volumeValue,
                 open_interest_value: oiValue,
                 avg_open_interest_value: oiValue * 0.98,
-                price_change_1d: (Math.random() * 8) - 4,
-                volume_change_1d: (Math.random() * 20) - 10,
-                oi_change_1d: (Math.random() * 12) - 6,
+                price_change_1d: (Math.random() * 6) - 3, // -3% to +3%
+                volume_change_1d: (Math.random() * 20) - 10, // -10% to +10%
+                oi_change_1d: (Math.random() * 10) - 5, // -5% to +5%
                 is_actual_data: 0
             });
         }
         
-        // Generate 24 hours of sample data with realistic values
+        // Generate 24 hours of sample data
         for (let i = 23; i >= 0; i--) {
             const date = new Date(now);
             date.setHours(date.getHours() - i, 0, 0, 0);
             
-            const hourlyOI = baseOIValue * (0.95 + Math.random() * 0.1);
-            const hourlyVolume = baseVolumeValue / 24 * (0.8 + Math.random() * 0.4);
-            const hourlyPrice = price * (0.99 + Math.random() * 0.02);
+            // Create hourly fluctuations
+            const hourlyFactor = 0.99 + (Math.random() * 0.02); // 0.99 to 1.01
+            const hourlyPrice = basePrice * hourlyFactor;
+            const hourlyOI = baseOIValue * (0.98 + (Math.random() * 0.04)); // ±2%
+            const hourlyVolume = baseVolumeValue / 24 * (0.8 + (Math.random() * 0.4)); // ±20%
             
             sampleData.tracking_24h.push({
                 hour_timestamp: date.toISOString(),
                 open_interest: hourlyOI,
                 volume: hourlyVolume,
                 price: hourlyPrice,
-                price_change_1h: (Math.random() * 2) - 1,
-                volume_change_1h: (Math.random() * 10) - 5,
-                oi_change_1h: (Math.random() * 4) - 2,
+                price_change_1h: (Math.random() * 2) - 1, // -1% to +1%
+                volume_change_1h: (Math.random() * 14) - 7, // -7% to +7%
+                oi_change_1h: (Math.random() * 4) - 2, // -2% to +2%
                 is_actual_data: 0
             });
         }
@@ -654,7 +758,7 @@ class SimpleOIVolumeMonitor {
         console.log(`${symbol} OI range: ${this.formatNumber(minOI)} - ${this.formatNumber(maxOI)}`);
         console.log(`${symbol} Volume range: ${this.formatNumber(minVolume)} - ${this.formatNumber(maxVolume)}`);
         
-        // FIX: Cải thiện cấu hình biểu đồ
+        // FIX: Cải thiện cấu hình biểu đồ với min/max đã tính toán
         this.charts[symbol] = new Chart(ctx, {
             type: 'line',
             data: {
@@ -729,7 +833,7 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'left',
-                        // FIX: Điều chỉnh giá trị min và max dựa trên dữ liệu thực tế
+                        // FIX: Đặt min và max dựa trên dữ liệu thực tế
                         min: minOI,
                         max: maxOI,
                         title: {
@@ -745,7 +849,7 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'right',
-                        // FIX: Điều chỉnh giá trị min và max dựa trên dữ liệu thực tế
+                        // FIX: Đặt min và max dựa trên dữ liệu thực tế
                         min: minVolume,
                         max: maxVolume,
                         title: {
