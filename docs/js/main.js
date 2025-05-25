@@ -2,7 +2,7 @@
  * Simple OI & Volume Monitor JavaScript
  * Fixed: Smart data path detection for GitHub Pages
  * Fixed: Data display issues, chart scaling, and repeated data
- * Fixed: Cấu trúc dữ liệu 30 ngày đã được sửa
+ * Fixed: Đơn vị hiển thị đúng cho dữ liệu từ Binance
  */
 
 class SimpleOIVolumeMonitor {
@@ -201,10 +201,20 @@ class SimpleOIVolumeMonitor {
         // Sort data by timestamp
         if (processed.open_interest.length > 0) {
             processed.open_interest.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-            // Log để debug
-            console.log(`📊 ${rawData.symbol} OI data: ${processed.open_interest.length} records`);
+            
+            // QUAN TRỌNG: Đảm bảo giá trị open_interest_value là số
+            processed.open_interest = processed.open_interest.map(item => {
+                return {
+                    ...item,
+                    open_interest: parseFloat(item.open_interest),
+                    open_interest_value: parseFloat(item.open_interest_value)
+                };
+            });
+            
+            // Debug để kiểm tra giá trị OI
             if (processed.open_interest.length > 0) {
-                console.log(`   Last OI value: ${processed.open_interest[processed.open_interest.length-1].open_interest_value}`);
+                const lastOI = processed.open_interest[processed.open_interest.length-1];
+                console.log(`DEBUG OI: ${rawData.symbol} latest OI value=${lastOI.open_interest_value.toLocaleString()} USDT`);
             }
         }
         
@@ -212,28 +222,24 @@ class SimpleOIVolumeMonitor {
         if (processed.tracking_30d && processed.tracking_30d.length > 0) {
             processed.tracking_30d.sort((a, b) => new Date(a.date_timestamp) - new Date(b.date_timestamp));
             
-            // Log để debug
-            console.log(`📊 ${rawData.symbol} 30d tracking data: ${processed.tracking_30d.length} records`);
+            // QUAN TRỌNG: Đảm bảo giá trị số trong trạng thái số (không phải chuỗi)
+            processed.tracking_30d = processed.tracking_30d.map(item => {
+                return {
+                    ...item,
+                    price: parseFloat(item.price),
+                    quote_volume: parseFloat(item.quote_volume),
+                    open_interest_value: parseFloat(item.open_interest_value),
+                    avg_open_interest_value: parseFloat(item.avg_open_interest_value),
+                    price_change_1d: parseFloat(item.price_change_1d),
+                    volume_change_1d: parseFloat(item.volume_change_1d),
+                    oi_change_1d: parseFloat(item.oi_change_1d)
+                };
+            });
+            
+            // Debug để kiểm tra giá trị OI và Volume trong dữ liệu 30 ngày
             if (processed.tracking_30d.length > 0) {
                 const lastRecord = processed.tracking_30d[processed.tracking_30d.length-1];
-                console.log(`   Last 30d record: date=${lastRecord.date_timestamp}, OI=${lastRecord.open_interest_value}, volume=${lastRecord.quote_volume}`);
-            }
-            
-            // Kiểm tra các trường dữ liệu quan trọng
-            const checkFields = ['open_interest_value', 'quote_volume'];
-            const missingFields = [];
-            
-            if (processed.tracking_30d.length > 0) {
-                const sampleRecord = processed.tracking_30d[0];
-                checkFields.forEach(field => {
-                    if (sampleRecord[field] === undefined) {
-                        missingFields.push(field);
-                    }
-                });
-            }
-            
-            if (missingFields.length > 0) {
-                console.warn(`⚠️ Missing fields in 30d tracking data: ${missingFields.join(', ')}`);
+                console.log(`DEBUG 30d: ${rawData.symbol} latest values: OI=${lastRecord.open_interest_value.toLocaleString()}, Volume=${lastRecord.quote_volume.toLocaleString()}`);
             }
         }
         
@@ -241,38 +247,37 @@ class SimpleOIVolumeMonitor {
         if (processed.tracking_24h.length > 0) {
             processed.tracking_24h.sort((a, b) => new Date(a.hour_timestamp) - new Date(b.hour_timestamp));
             
-            // Kiểm tra và xử lý dữ liệu trùng lặp
-            const uniqueValues = new Set();
-            const uniqueData = [];
-            
-            for (const item of processed.tracking_24h) {
-                // Tạo khóa để kiểm tra trùng lặp (giá trị OI + Volume)
-                const key = `${item.open_interest}-${item.volume}`;
-                
-                // Nếu đã thấy khóa này trong một mẫu gần đây (5 mẫu), có thể là dữ liệu sao chép
-                if (!uniqueValues.has(key)) {
-                    uniqueValues.add(key);
-                    uniqueData.push(item);
-                } else {
-                    // Nếu cần loại bỏ dữ liệu trùng lặp, bỏ qua item này
-                    console.log(`🔄 Detected duplicated data at ${item.hour_timestamp}`);
-                }
-                
-                // Giữ kích thước của Set trong giới hạn (chỉ kiểm tra trùng lặp trong 5 mẫu gần nhất)
-                if (uniqueValues.size > 5) {
-                    const oldestKey = Array.from(uniqueValues)[0];
-                    uniqueValues.delete(oldestKey);
-                }
-            }
-            
-            // Nếu phát hiện dữ liệu trùng lặp, hãy xem xét cách xử lý
-            // Ở đây, chúng ta vẫn giữ dữ liệu gốc nhưng đã đánh dấu để debug
+            // QUAN TRỌNG: Đảm bảo giá trị số trong trạng thái số
+            processed.tracking_24h = processed.tracking_24h.map(item => {
+                return {
+                    ...item,
+                    price: parseFloat(item.price),
+                    volume: parseFloat(item.volume),
+                    open_interest: parseFloat(item.open_interest),
+                    price_change_1h: parseFloat(item.price_change_1h),
+                    volume_change_1h: parseFloat(item.volume_change_1h),
+                    oi_change_1h: parseFloat(item.oi_change_1h)
+                };
+            });
         }
         
         // Process klines data
         Object.keys(processed.klines).forEach(timeframe => {
             if (processed.klines[timeframe] && processed.klines[timeframe].length > 0) {
                 processed.klines[timeframe].sort((a, b) => new Date(a.open_time) - new Date(b.open_time));
+                
+                // Đảm bảo giá trị số
+                processed.klines[timeframe] = processed.klines[timeframe].map(item => {
+                    return {
+                        ...item,
+                        open: parseFloat(item.open),
+                        high: parseFloat(item.high),
+                        low: parseFloat(item.low),
+                        close: parseFloat(item.close),
+                        volume: parseFloat(item.volume),
+                        quote_volume: parseFloat(item.quote_volume)
+                    };
+                });
             }
         });
         
@@ -286,36 +291,43 @@ class SimpleOIVolumeMonitor {
             klines: { '1d': [] },
             open_interest: [],
             tracking_24h: [],
-            tracking_30d: [] // Thêm mảng tracking_30d
+            tracking_30d: [] 
         };
+        
+        // Các giá trị lớn hơn để phù hợp với giá trị thực tế từ Binance
+        const baseOIValue = 5000000000 + Math.random() * 5000000000;  // ~ 5-10B
+        const baseVolumeValue = 1000000000 + Math.random() * 2000000000;  // ~ 1-3B
+        const price = symbol === 'BTCUSDT' ? 107000 : (symbol === 'ETHUSDT' ? 2500 : 500);
         
         // Generate 30 days of sample data
         for (let i = 29; i >= 0; i--) {
             const date = new Date(now);
             date.setDate(date.getDate() - i);
             
-            const baseValue = Math.random() * 1000000 + 500000;
+            const oiValue = baseOIValue * (0.9 + Math.random() * 0.2);
+            const volumeValue = baseVolumeValue * (0.8 + Math.random() * 0.4);
+            const currentPrice = price * (0.9 + Math.random() * 0.2);
             
             sampleData.open_interest.push({
                 timestamp: date.toISOString(),
-                open_interest: baseValue * (0.8 + Math.random() * 0.4),
-                open_interest_value: baseValue * (0.8 + Math.random() * 0.4) // Added for consistency
+                open_interest: oiValue / currentPrice,  // Contracts
+                open_interest_value: oiValue  // USDT value
             });
             
             sampleData.klines['1d'].push({
                 open_time: date.toISOString(),
-                volume: baseValue * (0.5 + Math.random() * 1.5),
-                quote_volume: baseValue * (0.5 + Math.random() * 1.5), // Added for consistency
-                close: 50000 * (0.8 + Math.random() * 0.4)
+                volume: volumeValue / currentPrice,  // Contracts
+                quote_volume: volumeValue,  // USDT value
+                close: currentPrice
             });
             
-            // Generate tracking_30d data
+            // Generate tracking_30d data with realistic values
             sampleData.tracking_30d.push({
                 date_timestamp: date.toISOString(),
-                price: 50000 * (0.8 + Math.random() * 0.4),
-                quote_volume: baseValue * (0.5 + Math.random() * 1.5),
-                open_interest_value: baseValue * (0.8 + Math.random() * 0.4),
-                avg_open_interest_value: baseValue * (0.8 + Math.random() * 0.4),
+                price: currentPrice,
+                quote_volume: volumeValue,
+                open_interest_value: oiValue,
+                avg_open_interest_value: oiValue * 0.98,
                 price_change_1d: (Math.random() * 8) - 4,
                 volume_change_1d: (Math.random() * 20) - 10,
                 oi_change_1d: (Math.random() * 12) - 6,
@@ -323,21 +335,24 @@ class SimpleOIVolumeMonitor {
             });
         }
         
-        // Generate 24 hours of sample data
+        // Generate 24 hours of sample data with realistic values
         for (let i = 23; i >= 0; i--) {
             const date = new Date(now);
             date.setHours(date.getHours() - i, 0, 0, 0);
             
-            const baseValue = Math.random() * 1000000 + 500000;
-            
-            // FIX: Ensure we don't generate duplicated data
-            const randomFactor = 0.8 + Math.random() * 0.4;
+            const hourlyOI = baseOIValue * (0.95 + Math.random() * 0.1);
+            const hourlyVolume = baseVolumeValue / 24 * (0.8 + Math.random() * 0.4);
+            const hourlyPrice = price * (0.99 + Math.random() * 0.02);
             
             sampleData.tracking_24h.push({
                 hour_timestamp: date.toISOString(),
-                open_interest: baseValue * randomFactor,
-                volume: baseValue * randomFactor * (0.5 + Math.random() * 0.5),
-                price: 50000 * randomFactor
+                open_interest: hourlyOI,
+                volume: hourlyVolume,
+                price: hourlyPrice,
+                price_change_1h: (Math.random() * 2) - 1,
+                volume_change_1h: (Math.random() * 10) - 5,
+                oi_change_1h: (Math.random() * 4) - 2,
+                is_actual_data: 0
             });
         }
         
@@ -422,7 +437,9 @@ class SimpleOIVolumeMonitor {
             typeof item.open_interest === 'number' && 
             typeof item.volume === 'number' &&
             !isNaN(item.open_interest) &&
-            !isNaN(item.volume)
+            !isNaN(item.volume) &&
+            item.open_interest > 0 &&
+            item.volume > 0
         );
         
         if (validData.length === 0) {
@@ -469,9 +486,6 @@ class SimpleOIVolumeMonitor {
     generateDailyMetrics(symbol, data) {
         // FIX: Ưu tiên sử dụng tracking_30d nếu có
         if (data.tracking_30d && data.tracking_30d.length > 0) {
-            // Debug thông tin dữ liệu
-            console.log(`DEBUG: Processing 30d data for ${symbol}`, data.tracking_30d.length, 'records');
-            
             // Lọc các dữ liệu có giá trị hợp lệ
             const validData = data.tracking_30d.filter(item => 
                 item && 
@@ -483,15 +497,15 @@ class SimpleOIVolumeMonitor {
                 item.quote_volume > 0
             );
             
-            console.log(`   After filtering: ${validData.length} valid records`);
+            console.log(`DEBUG: ${symbol} 30d data - ${validData.length} valid records`);
             
             if (validData.length > 0) {
                 const latest = validData[validData.length - 1];
                 const previous = validData.length > 1 ? validData[validData.length - 2] : latest;
                 
-                console.log(`   Latest data for ${symbol}: OI=${latest.open_interest_value}, Volume=${latest.quote_volume}`);
+                // QUAN TRỌNG: Log để debug giá trị thực tế
+                console.log(`${symbol} latest OI = ${latest.open_interest_value.toLocaleString()}, Volume = ${latest.quote_volume.toLocaleString()}`);
                 
-                // FIX: Đảm bảo sử dụng đúng trường dữ liệu
                 const oiChange = this.calculateChange(latest.open_interest_value, previous.open_interest_value);
                 const volumeChange = this.calculateChange(latest.quote_volume, previous.quote_volume);
                 
@@ -546,6 +560,9 @@ class SimpleOIVolumeMonitor {
             const oiValue = latestOI.open_interest_value || latestOI.open_interest;
             const prevOiValue = previousOI.open_interest_value || previousOI.open_interest;
             
+            // Debug để kiểm tra giá trị thực tế
+            console.log(`${symbol} OI value from open_interest: ${oiValue.toLocaleString()}`);
+            
             const oiChange = this.calculateChange(oiValue, prevOiValue);
             
             oiMetric = `
@@ -572,6 +589,9 @@ class SimpleOIVolumeMonitor {
             
             const volumeValue = latestVolume.quote_volume || latestVolume.volume;
             const prevVolumeValue = previousVolume.quote_volume || previousVolume.volume;
+            
+            // Debug để kiểm tra giá trị thực tế
+            console.log(`${symbol} Volume value from klines: ${volumeValue.toLocaleString()}`);
             
             const volumeChange = this.calculateChange(volumeValue, prevVolumeValue);
             
@@ -740,13 +760,20 @@ class SimpleOIVolumeMonitor {
                     typeof item.open_interest === 'number' && 
                     typeof item.volume === 'number' &&
                     !isNaN(item.open_interest) &&
-                    !isNaN(item.volume)
+                    !isNaN(item.volume) &&
+                    item.open_interest > 0 &&
+                    item.volume > 0
                 )
                 .map(item => ({
                     x: item.hour_timestamp,
                     oi: item.open_interest || 0,
                     volume: item.volume || 0
                 }));
+                
+            // Log dữ liệu biểu đồ để debug
+            if (chartData.length > 0) {
+                console.log(`${symbol} 24h chart data: ${chartData.length} points, OI range: ${Math.min(...chartData.map(item => item.oi)).toLocaleString()} - ${Math.max(...chartData.map(item => item.oi)).toLocaleString()}`);
+            }
                 
             // FIX: Phát hiện dữ liệu trùng lặp
             if (chartData.length > 1) {
@@ -780,27 +807,26 @@ class SimpleOIVolumeMonitor {
         } else {
             // FIX: Ưu tiên sử dụng tracking_30d nếu có
             if (data.tracking_30d && data.tracking_30d.length > 0) {
-                // Debug dữ liệu trước khi xử lý
-                console.log(`DEBUG ${symbol} raw data sample:`, data.tracking_30d[0]);
-                
                 chartData = data.tracking_30d
                     .filter(item => 
                         item && 
                         item.date_timestamp && 
-                        item.open_interest_value !== undefined && 
-                        item.quote_volume !== undefined &&
-                        parseFloat(item.open_interest_value) > 0 &&
-                        parseFloat(item.quote_volume) > 0
+                        typeof item.open_interest_value === 'number' && 
+                        typeof item.quote_volume === 'number' &&
+                        !isNaN(item.open_interest_value) &&
+                        !isNaN(item.quote_volume) &&
+                        item.open_interest_value > 0 &&
+                        item.quote_volume > 0
                     )
                     .map(item => ({
                         x: item.date_timestamp,
-                        oi: parseFloat(item.open_interest_value) || 0,
-                        volume: parseFloat(item.quote_volume) || 0
+                        oi: item.open_interest_value || 0,
+                        volume: item.quote_volume || 0
                     }));
                 
-                // Log mẫu dữ liệu đã xử lý
+                // Log dữ liệu biểu đồ để debug
                 if (chartData.length > 0) {
-                    console.log(`Sample processed data (${chartData.length} points):`, chartData[0]);
+                    console.log(`${symbol} 30d chart data: ${chartData.length} points, OI range: ${Math.min(...chartData.map(item => item.oi)).toLocaleString()} - ${Math.max(...chartData.map(item => item.oi)).toLocaleString()}`);
                 }
                 
                 console.log(`📊 Using tracking_30d for daily chart with ${chartData.length} points`);
@@ -841,7 +867,8 @@ class SimpleOIVolumeMonitor {
                         x: mergedData[date].timestamp,
                         oi: mergedData[date].oi || 0,
                         volume: mergedData[date].volume || 0
-                    }));
+                    }))
+                    .filter(item => item.oi > 0 && item.volume > 0); // Lọc các điểm có giá trị hợp lệ
             }
         }
         
@@ -854,7 +881,7 @@ class SimpleOIVolumeMonitor {
         return ((current - previous) / previous) * 100;
     }
     
-    // FIX: Cải thiện định dạng số
+    // FIX: Cải thiện định dạng số - QUAN TRỌNG
     formatNumber(num) {
         if (!num || isNaN(num)) return '0';
         
