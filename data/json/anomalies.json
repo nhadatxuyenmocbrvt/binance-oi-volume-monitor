@@ -220,6 +220,26 @@
     "notified": 0
   },
   {
+    "id": 275,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-25T00:00:00",
+    "data_type": "30d_OI_Value",
+    "value": 1307675712.214568,
+    "z_score": 2.6157485843221817,
+    "message": "Bất thường OI_Value 30d cho SOLUSDT: 1307675712.21 (Z-score: 2.62)",
+    "notified": 0
+  },
+  {
+    "id": 277,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-25T00:00:00",
+    "data_type": "30d_Avg_OI_Value",
+    "value": 1307675712.214568,
+    "z_score": 2.6157485843221817,
+    "message": "Bất thường Avg_OI_Value 30d cho SOLUSDT: 1307675712.21 (Z-score: 2.62)",
+    "notified": 0
+  },
+  {
     "id": 12,
     "symbol": "BTCUSDT",
     "timestamp": "2025-05-24T23:00:00",
@@ -230,23 +250,23 @@
     "notified": 0
   },
   {
-    "id": 264,
+    "id": 274,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-24T23:00:00",
     "data_type": "30d_OI_Value",
     "value": 1316217351.106419,
-    "z_score": 2.6695460197549017,
-    "message": "Bất thường OI_Value 30d cho SOLUSDT: 1316217351.11 (Z-score: 2.67)",
+    "z_score": 3.3741798249505504,
+    "message": "Bất thường OI_Value 30d cho SOLUSDT: 1316217351.11 (Z-score: 3.37)",
     "notified": 0
   },
   {
-    "id": 266,
+    "id": 276,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-24T23:00:00",
     "data_type": "30d_Avg_OI_Value",
     "value": 1316217351.106419,
-    "z_score": 2.6695460197549017,
-    "message": "Bất thường Avg_OI_Value 30d cho SOLUSDT: 1316217351.11 (Z-score: 2.67)",
+    "z_score": 3.3741798249505504,
+    "message": "Bất thường Avg_OI_Value 30d cho SOLUSDT: 1316217351.11 (Z-score: 3.37)",
     "notified": 0
   },
   {
@@ -477,26 +497,6 @@
     "value": 528210.9,
     "z_score": 2.8887472047334413,
     "message": "Bất thường OI 30d cho BNBUSDT: 528210.90 (Z-score: 2.89)",
-    "notified": 0
-  },
-  {
-    "id": 80,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-05-24T06:00:00",
-    "data_type": "30d_Avg_OI_Value",
-    "value": 353019190.797,
-    "z_score": 2.8211596371371654,
-    "message": "Bất thường Avg_OI_Value 30d cho BNBUSDT: 353019190.80 (Z-score: 2.82)",
-    "notified": 0
-  },
-  {
-    "id": 85,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-05-24T06:00:00",
-    "data_type": "30d_OI",
-    "value": 7576488.28,
-    "z_score": 2.6419283725182336,
-    "message": "Bất thường OI 30d cho SOLUSDT: 7576488.28 (Z-score: 2.64)",
     "notified": 0
   }
 ]

@@ -1,17 +1,8 @@
 {
   "symbol": "BNBUSDT",
-  "last_update": "2025-05-25T20:59:38.448961",
+  "last_update": "2025-05-25T21:24:18.573859",
   "klines": {
     "1h": [
-      {
-        "open_time": "2025-05-18T14:00:00",
-        "open": 648.79,
-        "high": 652.25,
-        "low": 647.72,
-        "close": 651.08,
-        "volume": 32968.36,
-        "quote_volume": 21429636.7406
-      },
       {
         "open_time": "2025-05-18T15:00:00",
         "open": 651.08,
@@ -1509,11 +1500,20 @@
       {
         "open_time": "2025-05-25T13:00:00",
         "open": 664.05,
-        "high": 666.0,
+        "high": 667.09,
         "low": 663.89,
-        "close": 665.87,
-        "volume": 11163.28,
-        "quote_volume": 7425089.0938
+        "close": 666.33,
+        "volume": 20062.62,
+        "quote_volume": 13356246.1277
+      },
+      {
+        "open_time": "2025-05-25T14:00:00",
+        "open": 666.34,
+        "high": 667.95,
+        "low": 664.93,
+        "close": 665.52,
+        "volume": 9332.27,
+        "quote_volume": 6219198.653
       }
     ],
     "4h": [
@@ -3023,11 +3023,11 @@
       {
         "open_time": "2025-05-25T12:00:00",
         "open": 661.52,
-        "high": 666.0,
+        "high": 667.95,
         "low": 661.36,
-        "close": 665.86,
-        "volume": 33987.74,
-        "quote_volume": 22557224.3153
+        "close": 665.59,
+        "volume": 52235.34,
+        "quote_volume": 34718222.0575
       }
     ],
     "1d": [
@@ -3297,9 +3297,9 @@
         "open": 667.89,
         "high": 668.33,
         "low": 656.49,
-        "close": 665.87,
-        "volume": 287750.69,
-        "quote_volume": 190579927.4229
+        "close": 665.58,
+        "volume": 305998.43,
+        "quote_volume": 202741018.3882
       }
     ]
   },
@@ -3508,24 +3508,14 @@
       "avg_open_interest_value": 361863313.4634509
     },
     {
-      "timestamp": "2025-05-25T20:59:31",
-      "open_interest": 535110.28,
-      "open_interest_value": 356570735.078,
-      "avg_open_interest": 535110.28,
-      "avg_open_interest_value": 356570735.078
+      "timestamp": "2025-05-25T21:24:12",
+      "open_interest": 535706.59,
+      "open_interest_value": 356641305.2266,
+      "avg_open_interest": 535706.59,
+      "avg_open_interest_value": 356641305.2266
     }
   ],
   "tracking_24h": [
-    {
-      "hour_timestamp": "2025-05-24T21:00:00",
-      "price": 671.65,
-      "volume": 12971732.2921,
-      "open_interest": 366931943.6074516,
-      "price_change_1h": -0.14124293785311412,
-      "volume_change_1h": -8.652771951346443,
-      "oi_change_1h": -0.5509663007118459,
-      "is_actual_data": 1
-    },
     {
       "hour_timestamp": "2025-05-24T22:00:00",
       "price": 669.44,
@@ -3533,8 +3523,7 @@
       "open_interest": 363559297.54221725,
       "price_change_1h": -0.32904042283926493,
       "volume_change_1h": -19.84336888271758,
-      "oi_change_1h": -0.9191475759991238,
-      "is_actual_data": 1
+      "oi_change_1h": -0.9191475759991238
     },
     {
       "hour_timestamp": "2025-05-24T23:00:00",
@@ -3543,8 +3532,7 @@
       "open_interest": 361863313.4634509,
       "price_change_1h": -0.23153680688337538,
       "volume_change_1h": 58.34340161714208,
-      "oi_change_1h": -0.46649448665782084,
-      "is_actual_data": 1
+      "oi_change_1h": -0.46649448665782084
     },
     {
       "hour_timestamp": "2025-05-25T00:00:00",
@@ -3553,8 +3541,7 @@
       "open_interest": 363001547.26526475,
       "price_change_1h": -0.7396427555435686,
       "volume_change_1h": 61.09618764026686,
-      "oi_change_1h": 0.3145479962916454,
-      "is_actual_data": 1
+      "oi_change_1h": 0.3145479962916454
     },
     {
       "hour_timestamp": "2025-05-25T01:00:00",
@@ -3563,8 +3550,7 @@
       "open_interest": 361735575.60509807,
       "price_change_1h": 0.07692887849762288,
       "volume_change_1h": -12.134034190163751,
-      "oi_change_1h": -0.3487510369319631,
-      "is_actual_data": 1
+      "oi_change_1h": -0.3487510369319631
     },
     {
       "hour_timestamp": "2025-05-25T02:00:00",
@@ -3573,8 +3559,7 @@
       "open_interest": 364438053.15336895,
       "price_change_1h": 0.3768124679709402,
       "volume_change_1h": -57.59526752720197,
-      "oi_change_1h": 0.7470864715891643,
-      "is_actual_data": 1
+      "oi_change_1h": 0.7470864715891643
     },
     {
       "hour_timestamp": "2025-05-25T03:00:00",
@@ -3583,8 +3568,7 @@
       "open_interest": 366229907.16261995,
       "price_change_1h": -0.05255570905159811,
       "volume_change_1h": -24.108515946063022,
-      "oi_change_1h": 0.49167588119479955,
-      "is_actual_data": 1
+      "oi_change_1h": 0.49167588119479955
     },
     {
       "hour_timestamp": "2025-05-25T04:00:00",
@@ -3593,8 +3577,7 @@
       "open_interest": 365610242.6426,
       "price_change_1h": 0.05859286969847003,
       "volume_change_1h": -23.92897123250913,
-      "oi_change_1h": -0.16920096035324442,
-      "is_actual_data": 1
+      "oi_change_1h": -0.16920096035324442
     },
     {
       "hour_timestamp": "2025-05-25T05:00:00",
@@ -3603,8 +3586,7 @@
       "open_interest": 365693735.02832353,
       "price_change_1h": -0.24924924924924446,
       "volume_change_1h": 11.90264771645351,
-      "oi_change_1h": 0.022836446025159284,
-      "is_actual_data": 1
+      "oi_change_1h": 0.022836446025159284
     },
     {
       "hour_timestamp": "2025-05-25T06:00:00",
@@ -3613,8 +3595,7 @@
       "open_interest": 364277704.9982,
       "price_change_1h": -0.100851973387132,
       "volume_change_1h": -89.00646454406981,
-      "oi_change_1h": -0.3872174703823838,
-      "is_actual_data": 1
+      "oi_change_1h": -0.3872174703823838
     },
     {
       "hour_timestamp": "2025-05-25T07:00:00",
@@ -3623,8 +3604,7 @@
       "open_interest": 0.0,
       "price_change_1h": -100.0,
       "volume_change_1h": -100.0,
-      "oi_change_1h": -100.0,
-      "is_actual_data": 0
+      "oi_change_1h": -100.0
     },
     {
       "hour_timestamp": "2025-05-25T08:00:00",
@@ -3633,8 +3613,7 @@
       "open_interest": 0.0,
       "price_change_1h": 0.0,
       "volume_change_1h": 0.0,
-      "oi_change_1h": 0.0,
-      "is_actual_data": 0
+      "oi_change_1h": 0.0
     },
     {
       "hour_timestamp": "2025-05-25T09:00:00",
@@ -3643,8 +3622,7 @@
       "open_interest": 0.0,
       "price_change_1h": 0.0,
       "volume_change_1h": 0.0,
-      "oi_change_1h": 0.0,
-      "is_actual_data": 0
+      "oi_change_1h": 0.0
     },
     {
       "hour_timestamp": "2025-05-25T10:00:00",
@@ -3653,8 +3631,7 @@
       "open_interest": 0.0,
       "price_change_1h": 0.0,
       "volume_change_1h": 0.0,
-      "oi_change_1h": 0.0,
-      "is_actual_data": 0
+      "oi_change_1h": 0.0
     },
     {
       "hour_timestamp": "2025-05-25T11:00:00",
@@ -3663,8 +3640,7 @@
       "open_interest": 0.0,
       "price_change_1h": 0.0,
       "volume_change_1h": 0.0,
-      "oi_change_1h": 0.0,
-      "is_actual_data": 0
+      "oi_change_1h": 0.0
     },
     {
       "hour_timestamp": "2025-05-25T12:00:00",
@@ -3673,8 +3649,7 @@
       "open_interest": 0.0,
       "price_change_1h": 0.0,
       "volume_change_1h": 0.0,
-      "oi_change_1h": 0.0,
-      "is_actual_data": 0
+      "oi_change_1h": 0.0
     },
     {
       "hour_timestamp": "2025-05-25T13:00:00",
@@ -3683,8 +3658,7 @@
       "open_interest": 0.0,
       "price_change_1h": 0.0,
       "volume_change_1h": 0.0,
-      "oi_change_1h": 0.0,
-      "is_actual_data": 0
+      "oi_change_1h": 0.0
     },
     {
       "hour_timestamp": "2025-05-25T14:00:00",
@@ -3693,8 +3667,7 @@
       "open_interest": 363196535.2048,
       "price_change_1h": 0.0,
       "volume_change_1h": 0.0,
-      "oi_change_1h": 0.0,
-      "is_actual_data": 1
+      "oi_change_1h": 0.0
     },
     {
       "hour_timestamp": "2025-05-25T15:00:00",
@@ -3703,8 +3676,7 @@
       "open_interest": 363601645.671,
       "price_change_1h": -0.1373439787494275,
       "volume_change_1h": 0.4343336273723362,
-      "oi_change_1h": 0.1115402893289055,
-      "is_actual_data": 1
+      "oi_change_1h": 0.1115402893289055
     },
     {
       "hour_timestamp": "2025-05-25T16:00:00",
@@ -3713,8 +3685,7 @@
       "open_interest": 358798116.6,
       "price_change_1h": -0.5002569295408436,
       "volume_change_1h": 1.2080332887152578,
-      "oi_change_1h": -1.3210966254389256,
-      "is_actual_data": 1
+      "oi_change_1h": -1.3210966254389256
     },
     {
       "hour_timestamp": "2025-05-25T17:00:00",
@@ -3723,8 +3694,16 @@
       "open_interest": 354689412.66780007,
       "price_change_1h": 0.22328548644338533,
       "volume_change_1h": 2.9213211132484966,
-      "oi_change_1h": -1.145129737896722,
-      "is_actual_data": 1
+      "oi_change_1h": -1.145129737896722
+    },
+    {
+      "hour_timestamp": "2025-05-25T21:00:00",
+      "price": 666.35,
+      "volume": 289363852.488,
+      "open_interest": 356555435.682,
+      "price_change_1h": 0.0,
+      "volume_change_1h": 0.0,
+      "oi_change_1h": 0.0
     }
   ],
   "tracking_30d": [
@@ -3736,8 +3715,7 @@
       "avg_open_interest_value": 284176737.41209245,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-04-27T00:00:00",
@@ -3747,8 +3725,7 @@
       "avg_open_interest_value": 293808182.94181174,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-04-28T00:00:00",
@@ -3758,8 +3735,7 @@
       "avg_open_interest_value": 290814757.78634673,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-04-29T00:00:00",
@@ -3769,8 +3745,7 @@
       "avg_open_interest_value": 282786421.2404,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-04-30T00:00:00",
@@ -3780,8 +3755,7 @@
       "avg_open_interest_value": 288470043.24296844,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-01T00:00:00",
@@ -3791,8 +3765,7 @@
       "avg_open_interest_value": 281989759.6063467,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-02T00:00:00",
@@ -3802,8 +3775,7 @@
       "avg_open_interest_value": 284302849.432,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-03T00:00:00",
@@ -3813,8 +3785,7 @@
       "avg_open_interest_value": 277160018.8871605,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-04T00:00:00",
@@ -3824,8 +3795,7 @@
       "avg_open_interest_value": 274130458.06153566,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-05T00:00:00",
@@ -3835,8 +3805,7 @@
       "avg_open_interest_value": 293624265.8375,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-06T00:00:00",
@@ -3846,8 +3815,7 @@
       "avg_open_interest_value": 272269431.544,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-07T00:00:00",
@@ -3857,8 +3825,7 @@
       "avg_open_interest_value": 283537952.89042586,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-08T00:00:00",
@@ -3868,8 +3835,7 @@
       "avg_open_interest_value": 288703517.7051,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-09T00:00:00",
@@ -3879,8 +3845,7 @@
       "avg_open_interest_value": 322300496.7842,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-10T00:00:00",
@@ -3890,8 +3855,7 @@
       "avg_open_interest_value": 342512251.1604,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-11T00:00:00",
@@ -3901,8 +3865,7 @@
       "avg_open_interest_value": 345115453.671,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-12T00:00:00",
@@ -3912,8 +3875,7 @@
       "avg_open_interest_value": 329086162.9314,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-13T00:00:00",
@@ -3923,8 +3885,7 @@
       "avg_open_interest_value": 338103510.02,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-14T00:00:00",
@@ -3934,8 +3895,7 @@
       "avg_open_interest_value": 341571706.70595115,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-15T00:00:00",
@@ -3945,8 +3905,7 @@
       "avg_open_interest_value": 329978078.720162,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-16T00:00:00",
@@ -3956,8 +3915,7 @@
       "avg_open_interest_value": 333893091.3567876,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-17T00:00:00",
@@ -3967,8 +3925,7 @@
       "avg_open_interest_value": 331713924.18934566,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-18T00:00:00",
@@ -3978,8 +3935,7 @@
       "avg_open_interest_value": 321375906.5028,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-19T00:00:00",
@@ -3989,8 +3945,7 @@
       "avg_open_interest_value": 326572803.0430402,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-20T00:00:00",
@@ -4000,8 +3955,7 @@
       "avg_open_interest_value": 324908412.0128389,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-21T00:00:00",
@@ -4011,8 +3965,7 @@
       "avg_open_interest_value": 324477073.66895807,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-22T00:00:00",
@@ -4022,8 +3975,7 @@
       "avg_open_interest_value": 350513067.968,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-23T00:00:00",
@@ -4033,8 +3985,7 @@
       "avg_open_interest_value": 362596116.4374283,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-24T00:00:00",
@@ -4044,8 +3995,7 @@
       "avg_open_interest_value": 348720187.0875,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     },
     {
       "date_timestamp": "2025-05-25T00:00:00",
@@ -4055,8 +4005,7 @@
       "avg_open_interest_value": 363001547.26526475,
       "price_change_1d": 0.0,
       "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0,
-      "is_actual_data": 1
+      "oi_change_1d": 0.0
     }
   ]
 }

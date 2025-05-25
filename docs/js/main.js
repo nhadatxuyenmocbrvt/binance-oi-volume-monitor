@@ -509,12 +509,15 @@ class SimpleOIVolumeMonitor {
                 const oiChange = this.calculateChange(latest.open_interest_value, previous.open_interest_value);
                 const volumeChange = this.calculateChange(latest.quote_volume, previous.quote_volume);
                 
+                // FIX: Đảm bảo sử dụng avg_open_interest_value nếu có, nếu không thì dùng open_interest_value
+                const oiValueToDisplay = latest.avg_open_interest_value || latest.open_interest_value;
+                
                 return `
                     <div class="metric-box oi">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <small>Open Interest (30 ngày)</small>
-                                <div class="fw-bold">${this.formatNumber(latest.open_interest_value)} USDT</div>
+                                <div class="fw-bold">${this.formatNumber(oiValueToDisplay)} USDT</div>
                             </div>
                             <div class="text-end">
                                 <span class="badge ${oiChange >= 0 ? 'bg-success' : 'bg-danger'}">
@@ -556,9 +559,9 @@ class SimpleOIVolumeMonitor {
             const latestOI = dailyOI[dailyOI.length - 1];
             const previousOI = dailyOI.length > 1 ? dailyOI[dailyOI.length - 2] : latestOI;
             
-            // FIX: Kiểm tra xem có open_interest_value không
-            const oiValue = latestOI.open_interest_value || latestOI.open_interest;
-            const prevOiValue = previousOI.open_interest_value || previousOI.open_interest;
+            // FIX: Đảm bảo sử dụng open_interest_value để hiển thị giá trị USDT
+            const oiValue = latestOI.open_interest_value || 0;
+            const prevOiValue = previousOI.open_interest_value || 0;
             
             // Debug để kiểm tra giá trị thực tế
             console.log(`${symbol} OI value from open_interest: ${oiValue.toLocaleString()}`);
