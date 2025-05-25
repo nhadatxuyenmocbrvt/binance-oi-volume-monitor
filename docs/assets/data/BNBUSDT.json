@@ -1,6 +1,6 @@
 {
   "symbol": "BNBUSDT",
-  "last_update": "2025-05-25T06:48:48.624221",
+  "last_update": "2025-05-25T07:19:09.083218",
   "klines": {
     "1h": [
       {
@@ -3296,16 +3296,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-24T09:00:00",
-      "open_interest": 537196.28,
-      "open_interest_value": 360799408.99566245
-    },
-    {
-      "timestamp": "2025-05-24T10:00:00",
-      "open_interest": 539728.5,
-      "open_interest_value": 362493077.2826582
-    },
-    {
       "timestamp": "2025-05-24T11:00:00",
       "open_interest": 545038.88,
       "open_interest_value": 368711637.27158594
@@ -3444,18 +3434,19 @@
       "timestamp": "2025-05-25T06:48:41",
       "open_interest": 543434.49,
       "open_interest_value": 362601229.1076
+    },
+    {
+      "timestamp": "2025-05-25T07:00:00",
+      "open_interest": 543507.41,
+      "open_interest_value": 363003164.06490004
+    },
+    {
+      "timestamp": "2025-05-25T07:19:02",
+      "open_interest": 544204.83,
+      "open_interest_value": 362162872.3167
     }
   ],
   "tracking_24h": [
-    {
-      "hour_timestamp": "2025-05-24T07:00:00",
-      "price": 668.34,
-      "volume": 18288748.5731,
-      "open_interest": 354795903.5985,
-      "price_change_1h": -0.07475629447999521,
-      "volume_change_1h": -2.028965830530067,
-      "oi_change_1h": 0.5032907127481641
-    },
     {
       "hour_timestamp": "2025-05-24T08:00:00",
       "price": 671.64,
@@ -3662,6 +3653,15 @@
       "price_change_1h": -0.32904042283926493,
       "volume_change_1h": -1.1616440817296507,
       "oi_change_1h": -0.44495427267650517
+    },
+    {
+      "hour_timestamp": "2025-05-25T07:00:00",
+      "price": 667.89,
+      "volume": 302803858.364,
+      "open_interest": 363003164.06490004,
+      "price_change_1h": -0.23153680688337538,
+      "volume_change_1h": -3.1899569795937603,
+      "oi_change_1h": 0.28976482166321244
     }
   ]
 }

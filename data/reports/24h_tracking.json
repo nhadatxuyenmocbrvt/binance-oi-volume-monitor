@@ -1,45 +1,35 @@
 {
-  "timestamp": "2025-05-25T06:48:48.432246",
+  "timestamp": "2025-05-25T07:19:08.889277",
   "data_type": "24h_hourly_tracking",
   "symbols": {
     "BTCUSDT": {
       "oi_metrics": {
-        "current_oi": 9301691648.042099,
-        "previous_oi": 9089705642.854568,
-        "oi_change_24h": 2.3321547860482483,
+        "current_oi": 9291630503.43,
+        "previous_oi": 9057092941.571575,
+        "oi_change_24h": 2.5895457115374207,
         "max_oi": 9301691648.042099,
         "min_oi": 9057092941.571575,
-        "avg_oi": 9242091966.999063,
-        "volatility": 0.8191172021097956,
+        "avg_oi": 9250505502.856375,
+        "volatility": 0.7453745563211603,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 17054370666.62,
-        "previous_volume": 627926345.0365,
-        "volume_change_24h": 2615.9826628437872,
+        "current_volume": 17919834522.51,
+        "previous_volume": 690047617.6054,
+        "volume_change_24h": 2496.8982524271764,
         "max_volume": 18645947196.08,
         "min_volume": 199747786.6771,
-        "avg_volume": 4803477472.503441,
-        "volatility": 156.23830920236347,
+        "avg_volume": 5523973646.564837,
+        "volatility": 143.11986715502113,
         "data_points": 24
       },
       "correlation": {
-        "correlation": 0.3064,
+        "correlation": 0.3088,
         "correlation_strength": "weak_positive",
         "sample_size": 24,
         "interpretation": "Tương quan yếu - Mối liên hệ không rõ ràng"
       },
       "chart_data": [
-        {
-          "timestamp": "2025-05-24T07:00:00",
-          "hour": "07:00",
-          "oi": 9089705642.854568,
-          "volume": 627926345.0365,
-          "price": 107550.6,
-          "oi_change_1h": -0.03213676355500604,
-          "volume_change_1h": -22.403942519090272,
-          "price_change_1h": -0.33933548807970315
-        },
         {
           "timestamp": "2025-05-24T08:00:00",
           "hour": "08:00",
@@ -269,49 +259,49 @@
           "oi_change_1h": 0.43947842522189173,
           "volume_change_1h": 1.4499952535712057,
           "price_change_1h": -0.7140381537420556
+        },
+        {
+          "timestamp": "2025-05-25T07:00:00",
+          "hour": "07:00",
+          "oi": 9291630503.43,
+          "volume": 17919834522.51,
+          "price": 107698.8,
+          "oi_change_1h": -0.10816467576858937,
+          "volume_change_1h": 5.074733467497241,
+          "price_change_1h": -0.2779655367179299
         }
       ],
       "data_points": 24,
-      "last_update": "2025-05-25T06:00:00"
+      "last_update": "2025-05-25T07:00:00"
     },
     "ETHUSDT": {
       "oi_metrics": {
-        "current_oi": 4102680808.0665603,
-        "previous_oi": 4168346598.27932,
-        "oi_change_24h": -1.5753438123371537,
+        "current_oi": 4097973375.6025605,
+        "previous_oi": 4172799951.5093994,
+        "oi_change_24h": -1.7931982548018477,
         "max_oi": 4258918732.88752,
-        "min_oi": 4102680808.0665603,
-        "avg_oi": 4205555384.7898126,
-        "volatility": 0.8800756325843614,
+        "min_oi": 4097973375.6025605,
+        "avg_oi": 4202623167.1782813,
+        "volatility": 1.0106259139216363,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 7544344395.18,
-        "previous_volume": 348697041.1909,
-        "volume_change_24h": 2063.581419966716,
+        "current_volume": 7010188013.22,
+        "previous_volume": 283440276.24306,
+        "volume_change_24h": 2373.2504872414524,
         "max_volume": 8883356766.16,
         "min_volume": 53436014.11685,
-        "avg_volume": 2182052720.6418724,
-        "volatility": 161.58941067724695,
+        "avg_volume": 2459614844.4764185,
+        "volatility": 147.8220350310025,
         "data_points": 24
       },
       "correlation": {
-        "correlation": -0.5267,
+        "correlation": -0.6051,
         "correlation_strength": "moderate_negative",
         "sample_size": 24,
         "interpretation": "Tương quan trung bình - Có mối liên hệ đáng chú ý"
       },
       "chart_data": [
-        {
-          "timestamp": "2025-05-24T07:00:00",
-          "hour": "07:00",
-          "oi": 4168346598.27932,
-          "volume": 348697041.1909,
-          "price": 2545.79,
-          "oi_change_1h": -0.24818839359890552,
-          "volume_change_1h": 17.066789080540783,
-          "price_change_1h": -0.0219922634358963
-        },
         {
           "timestamp": "2025-05-24T08:00:00",
           "hour": "08:00",
@@ -541,49 +531,49 @@
           "oi_change_1h": -0.4228887859434506,
           "volume_change_1h": -3.907271637457906,
           "price_change_1h": -0.5695222865965168
+        },
+        {
+          "timestamp": "2025-05-25T07:00:00",
+          "hour": "07:00",
+          "oi": 4097973375.6025605,
+          "volume": 7010188013.22,
+          "price": 2529.44,
+          "oi_change_1h": -0.11474040229364528,
+          "volume_change_1h": -7.08022266721104,
+          "price_change_1h": 0.19528542172539762
         }
       ],
       "data_points": 24,
-      "last_update": "2025-05-25T06:00:00"
+      "last_update": "2025-05-25T07:00:00"
     },
     "BNBUSDT": {
       "oi_metrics": {
-        "current_oi": 361954347.69479996,
-        "previous_oi": 354795903.5985,
-        "oi_change_24h": 2.0176230964607482,
+        "current_oi": 363003164.06490004,
+        "previous_oi": 356903090.5284,
+        "oi_change_24h": 1.7091680342327082,
         "max_oi": 368998574.688,
-        "min_oi": 354795903.5985,
-        "avg_oi": 365654650.590437,
-        "volatility": 1.0214251678228246,
+        "min_oi": 356903090.5284,
+        "avg_oi": 365996619.776537,
+        "volatility": 0.8199714968169912,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 312781452.127,
-        "previous_volume": 18288748.5731,
-        "volume_change_24h": 1610.2397732508307,
+        "current_volume": 302803858.364,
+        "previous_volume": 16198002.9042,
+        "volume_change_24h": 1769.3900733002438,
         "max_volume": 329193804.288,
         "min_volume": 1311893.5735,
-        "avg_volume": 85828590.95547916,
-        "volatility": 160.69379556032155,
+        "avg_volume": 97683387.19676667,
+        "volatility": 147.37296484033007,
         "data_points": 24
       },
       "correlation": {
-        "correlation": 0.0639,
-        "correlation_strength": "negligible_positive",
+        "correlation": -0.0653,
+        "correlation_strength": "negligible_negative",
         "sample_size": 24,
         "interpretation": "Không có tương quan - OI và Volume di chuyển độc lập"
       },
       "chart_data": [
-        {
-          "timestamp": "2025-05-24T07:00:00",
-          "hour": "07:00",
-          "oi": 354795903.5985,
-          "volume": 18288748.5731,
-          "price": 668.34,
-          "oi_change_1h": 0.5032907127481641,
-          "volume_change_1h": -2.028965830530067,
-          "price_change_1h": -0.07475629447999521
-        },
         {
           "timestamp": "2025-05-24T08:00:00",
           "hour": "08:00",
@@ -813,49 +803,49 @@
           "oi_change_1h": -0.44495427267650517,
           "volume_change_1h": -1.1616440817296507,
           "price_change_1h": -0.32904042283926493
+        },
+        {
+          "timestamp": "2025-05-25T07:00:00",
+          "hour": "07:00",
+          "oi": 363003164.06490004,
+          "volume": 302803858.364,
+          "price": 667.89,
+          "oi_change_1h": 0.28976482166321244,
+          "volume_change_1h": -3.1899569795937603,
+          "price_change_1h": -0.23153680688337538
         }
       ],
       "data_points": 24,
-      "last_update": "2025-05-25T06:00:00"
+      "last_update": "2025-05-25T07:00:00"
     },
     "SOLUSDT": {
       "oi_metrics": {
-        "current_oi": 1316437929.3468,
-        "previous_oi": 1312129893.2755,
-        "oi_change_24h": 0.32832390248695426,
+        "current_oi": 1307491183.4688,
+        "previous_oi": 1300432710.508,
+        "oi_change_24h": 0.5427787923023603,
         "max_oi": 1330273415.6952,
         "min_oi": 1300432710.508,
-        "avg_oi": 1316442203.730489,
-        "volatility": 0.5821071351072569,
+        "avg_oi": 1316248924.1552098,
+        "volatility": 0.5951161149830434,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 2665668911.2365,
-        "previous_volume": 121915546.0759,
-        "volume_change_24h": 2086.488103475299,
+        "current_volume": 2504363832.6915,
+        "previous_volume": 103649346.91,
+        "volume_change_24h": 2316.188724147071,
         "max_volume": 3092166104.829,
         "min_volume": 26918543.73046,
-        "avg_volume": 775361935.6265583,
-        "volatility": 160.1227227599709,
+        "avg_volume": 874630614.2355417,
+        "volatility": 146.53168622194627,
         "data_points": 24
       },
       "correlation": {
-        "correlation": 0.5185,
+        "correlation": 0.4141,
         "correlation_strength": "moderate_positive",
         "sample_size": 24,
         "interpretation": "Tương quan trung bình - Có mối liên hệ đáng chú ý"
       },
       "chart_data": [
-        {
-          "timestamp": "2025-05-24T07:00:00",
-          "hour": "07:00",
-          "oi": 1312129893.2755,
-          "volume": 121915546.0759,
-          "price": 173.85,
-          "oi_change_1h": -1.07703103882317,
-          "volume_change_1h": 12.355432410979013,
-          "price_change_1h": -0.372492836676221
-        },
         {
           "timestamp": "2025-05-24T08:00:00",
           "hour": "08:00",
@@ -1085,49 +1075,49 @@
           "oi_change_1h": -0.3091248807004539,
           "volume_change_1h": -3.1232526528875404,
           "price_change_1h": -0.6713302493512342
+        },
+        {
+          "timestamp": "2025-05-25T07:00:00",
+          "hour": "07:00",
+          "oi": 1307491183.4688,
+          "volume": 2504363832.6915,
+          "price": 175.82,
+          "oi_change_1h": -0.6796177532228416,
+          "volume_change_1h": -6.051204553763448,
+          "price_change_1h": -0.14198898165502358
         }
       ],
       "data_points": 24,
-      "last_update": "2025-05-25T06:00:00"
+      "last_update": "2025-05-25T07:00:00"
     },
     "DOGEUSDT": {
       "oi_metrics": {
-        "current_oi": 415920731.20848,
-        "previous_oi": 430831623.67225,
-        "oi_change_24h": -3.460955891927111,
-        "max_oi": 430831623.67225,
-        "min_oi": 415707856.06806,
-        "avg_oi": 420535731.879096,
-        "volatility": 1.1920345559775507,
+        "current_oi": 414804264.07452,
+        "previous_oi": 428751852.67686,
+        "oi_change_24h": -3.2530678328874645,
+        "max_oi": 429085643.9588421,
+        "min_oi": 414804264.07452,
+        "avg_oi": 419867925.2291905,
+        "volatility": 1.1039241732684884,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 825741223.42339,
-        "previous_volume": 28372101.33492,
-        "volume_change_24h": 2810.3985414259,
+        "current_volume": 749491019.78292,
+        "previous_volume": 41822824.70145,
+        "volume_change_24h": 1692.0621697198162,
         "max_volume": 959151925.73189,
         "min_volume": 5207914.75463,
-        "avg_volume": 236481840.77971086,
-        "volatility": 162.148686440253,
+        "avg_volume": 266528462.38171086,
+        "volatility": 148.02505149546968,
         "data_points": 24
       },
       "correlation": {
-        "correlation": -0.3229,
+        "correlation": -0.3469,
         "correlation_strength": "weak_negative",
         "sample_size": 24,
         "interpretation": "Tương quan yếu - Mối liên hệ không rõ ràng"
       },
       "chart_data": [
-        {
-          "timestamp": "2025-05-24T07:00:00",
-          "hour": "07:00",
-          "oi": 430831623.67225,
-          "volume": 28372101.33492,
-          "price": 0.22722,
-          "oi_change_1h": -0.12108144900336616,
-          "volume_change_1h": -12.900280265969949,
-          "price_change_1h": -0.1845018450184518
-        },
         {
           "timestamp": "2025-05-24T08:00:00",
           "hour": "08:00",
@@ -1357,10 +1347,20 @@
           "oi_change_1h": -0.4368014559490741,
           "volume_change_1h": -2.2335771719666884,
           "price_change_1h": -0.574002119392439
+        },
+        {
+          "timestamp": "2025-05-25T07:00:00",
+          "hour": "07:00",
+          "oi": 414804264.07452,
+          "volume": 749491019.78292,
+          "price": 0.22489,
+          "oi_change_1h": -0.2684326724267996,
+          "volume_change_1h": -9.234152477497608,
+          "price_change_1h": -0.12878586020072152
         }
       ],
       "data_points": 24,
-      "last_update": "2025-05-25T06:00:00"
+      "last_update": "2025-05-25T07:00:00"
     }
   }
 }
