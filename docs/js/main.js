@@ -668,6 +668,31 @@ class SimpleOIVolumeMonitor {
             volume: item.volume
         })));
         
+        // Tính toán phạm vi biểu đồ phù hợp
+        let oiValues = chartData.map(item => item.oi).filter(val => val > 0);
+        let volumeValues = chartData.map(item => item.volume).filter(val => val > 0);
+        
+        // Tìm min/max cho OI và Volume
+        const minOI = Math.min(...oiValues);
+        const maxOI = Math.max(...oiValues);
+        const minVolume = Math.min(...volumeValues);
+        const maxVolume = Math.max(...volumeValues);
+        
+        // Tính toán phạm vi phù hợp (mở rộng 15% so với min/max)
+        const oiPadding = (maxOI - minOI) * 0.15;
+        const volumePadding = (maxVolume - minVolume) * 0.15;
+        
+        // Đảm bảo phạm vi tối thiểu 10% để tránh biểu đồ quá phẳng
+        const minOIRange = minOI * 0.1;
+        const minVolumeRange = minVolume * 0.1;
+        
+        const oiMin = Math.max(0, minOI - Math.max(oiPadding, minOIRange));
+        const oiMax = maxOI + Math.max(oiPadding, minOIRange);
+        const volumeMin = Math.max(0, minVolume - Math.max(volumePadding, minVolumeRange));
+        const volumeMax = maxVolume + Math.max(volumePadding, minVolumeRange);
+        
+        console.log(`${symbol} chart range - OI: ${this.formatNumber(oiMin)} to ${this.formatNumber(oiMax)}, Volume: ${this.formatNumber(volumeMin)} to ${this.formatNumber(volumeMax)}`);
+        
         // FIX: Cải thiện cấu hình biểu đồ
         this.charts[symbol] = new Chart(ctx, {
             type: 'line',
@@ -764,8 +789,9 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'left',
-                        // FIX: Đảm bảo biểu đồ luôn có giá trị hợp lý
-                        beginAtZero: false,
+                        // FIX: Đặt phạm vi cố định cho trục OI để hiển thị chính xác biến động
+                        min: oiMin,
+                        max: oiMax,
                         title: {
                             display: true,
                             text: 'Open Interest (USDT)',
@@ -779,8 +805,9 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'right',
-                        // FIX: Đảm bảo biểu đồ luôn có giá trị hợp lý
-                        beginAtZero: false, 
+                        // FIX: Đặt phạm vi cố định cho trục Volume để hiển thị chính xác biến động
+                        min: volumeMin,
+                        max: volumeMax,
                         title: {
                             display: true,
                             text: 'Volume (USDT)',
