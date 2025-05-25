@@ -3,6 +3,7 @@
  * Fixed: Smart data path detection for GitHub Pages
  * Fixed: Data display issues, chart scaling, and repeated data
  * Fixed: Đơn vị hiển thị đúng cho dữ liệu từ Binance
+ * Fixed: Sửa lỗi hiển thị biểu đồ theo thời gian và dữ liệu sai lệch
  */
 
 class SimpleOIVolumeMonitor {
@@ -13,6 +14,7 @@ class SimpleOIVolumeMonitor {
         this.symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
         this.updateInterval = null;
         this.dataSource = null; // Will be detected
+        this.timezone = 'Asia/Ho_Chi_Minh'; // Mặc định sử dụng múi giờ Việt Nam
         
         this.init();
     }
@@ -189,6 +191,15 @@ class SimpleOIVolumeMonitor {
         }
     }
     
+    // Chuẩn hóa timestamp để đảm bảo tính nhất quán
+    normalizeTimestamp(timestamp) {
+        if (!timestamp) return null;
+        const date = new Date(timestamp);
+        // Kiểm tra timestamp hợp lệ
+        if (isNaN(date.getTime())) return null;
+        return date.toISOString();
+    }
+    
     processSymbolData(rawData) {
         // Xử lý và làm sạch dữ liệu
         const processed = {
@@ -206,10 +217,11 @@ class SimpleOIVolumeMonitor {
             processed.open_interest = processed.open_interest.map(item => {
                 return {
                     ...item,
+                    timestamp: this.normalizeTimestamp(item.timestamp),
                     open_interest: parseFloat(item.open_interest),
                     open_interest_value: parseFloat(item.open_interest_value)
                 };
-            });
+            }).filter(item => item.timestamp && !isNaN(item.open_interest_value));
             
             // Debug để kiểm tra giá trị OI
             if (processed.open_interest.length > 0) {
@@ -226,6 +238,7 @@ class SimpleOIVolumeMonitor {
             processed.tracking_30d = processed.tracking_30d.map(item => {
                 return {
                     ...item,
+                    date_timestamp: this.normalizeTimestamp(item.date_timestamp),
                     price: parseFloat(item.price),
                     quote_volume: parseFloat(item.quote_volume),
                     open_interest_value: parseFloat(item.open_interest_value),
@@ -234,7 +247,7 @@ class SimpleOIVolumeMonitor {
                     volume_change_1d: parseFloat(item.volume_change_1d),
                     oi_change_1d: parseFloat(item.oi_change_1d)
                 };
-            });
+            }).filter(item => item.date_timestamp && !isNaN(item.open_interest_value) && !isNaN(item.quote_volume));
             
             // Debug để kiểm tra giá trị OI và Volume trong dữ liệu 30 ngày
             if (processed.tracking_30d.length > 0) {
@@ -243,7 +256,7 @@ class SimpleOIVolumeMonitor {
             }
         }
         
-        // FIX: Xử lý dữ liệu trùng lặp trong 24h tracking
+        // Xử lý dữ liệu 24h tracking - ĐÃ SỬA: Xử lý dữ liệu trùng lặp
         if (processed.tracking_24h.length > 0) {
             processed.tracking_24h.sort((a, b) => new Date(a.hour_timestamp) - new Date(b.hour_timestamp));
             
@@ -251,6 +264,7 @@ class SimpleOIVolumeMonitor {
             processed.tracking_24h = processed.tracking_24h.map(item => {
                 return {
                     ...item,
+                    hour_timestamp: this.normalizeTimestamp(item.hour_timestamp),
                     price: parseFloat(item.price),
                     volume: parseFloat(item.volume),
                     open_interest: parseFloat(item.open_interest),
@@ -258,7 +272,14 @@ class SimpleOIVolumeMonitor {
                     volume_change_1h: parseFloat(item.volume_change_1h),
                     oi_change_1h: parseFloat(item.oi_change_1h)
                 };
-            });
+            }).filter(item => item.hour_timestamp && !isNaN(item.open_interest) && !isNaN(item.volume));
+            
+            // ĐÃ SỬA: Xử lý dữ liệu trùng lặp thông minh hơn
+            if (processed.tracking_24h.length > 0) {
+                // Thay vì đánh dấu các điểm trùng lặp là null, chúng ta sẽ giữ lại tất cả dữ liệu
+                // và kiểm tra tính hợp lệ của timestamp
+                console.log(`${rawData.symbol} 24h data: ${processed.tracking_24h.length} valid points after processing`);
+            }
         }
         
         // Process klines data
@@ -270,6 +291,7 @@ class SimpleOIVolumeMonitor {
                 processed.klines[timeframe] = processed.klines[timeframe].map(item => {
                     return {
                         ...item,
+                        open_time: this.normalizeTimestamp(item.open_time),
                         open: parseFloat(item.open),
                         high: parseFloat(item.high),
                         low: parseFloat(item.low),
@@ -277,7 +299,7 @@ class SimpleOIVolumeMonitor {
                         volume: parseFloat(item.volume),
                         quote_volume: parseFloat(item.quote_volume)
                     };
-                });
+                }).filter(item => item.open_time && !isNaN(item.quote_volume));
             }
         });
         
@@ -639,6 +661,13 @@ class SimpleOIVolumeMonitor {
             return;
         }
         
+        // Log dữ liệu biểu đồ để debug
+        console.log(`Chart data for ${symbol}:`, chartData.slice(0, 3).map(item => ({
+            time: new Date(item.x).toLocaleString(),
+            oi: item.oi,
+            volume: item.volume
+        })));
+        
         // FIX: Cải thiện cấu hình biểu đồ
         this.charts[symbol] = new Chart(ctx, {
             type: 'line',
@@ -653,8 +682,8 @@ class SimpleOIVolumeMonitor {
                         tension: 0.4,
                         pointRadius: 2,
                         pointHoverRadius: 4,
-                        // FIX: Xử lý dữ liệu bị thiếu
-                        spanGaps: false
+                        // FIX: Xử lý dữ liệu bị thiếu - Đã sửa, cho phép kết nối các điểm dữ liệu
+                        spanGaps: true
                     },
                     {
                         label: 'Volume',
@@ -665,8 +694,8 @@ class SimpleOIVolumeMonitor {
                         tension: 0.4,
                         pointRadius: 2,
                         pointHoverRadius: 4,
-                        // FIX: Xử lý dữ liệu bị thiếu
-                        spanGaps: false
+                        // FIX: Xử lý dữ liệu bị thiếu - Đã sửa
+                        spanGaps: true
                     }
                 ]
             },
@@ -692,7 +721,21 @@ class SimpleOIVolumeMonitor {
                                 const label = context.dataset.label || '';
                                 const value = context.parsed.y;
                                 return `${label}: ${this.formatNumber ? this.formatNumber(value) : value} USDT`;
-                            }.bind(this)
+                            }.bind(this),
+                            // Thêm định dạng thời gian tốt hơn
+                            title: function(context) {
+                                if (context[0]) {
+                                    const date = new Date(context[0].parsed.x);
+                                    return date.toLocaleString('vi-VN', {
+                                        year: 'numeric',
+                                        month: '2-digit',
+                                        day: '2-digit',
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                    });
+                                }
+                                return '';
+                            }
                         }
                     }
                 },
@@ -703,18 +746,25 @@ class SimpleOIVolumeMonitor {
                             unit: this.currentView === 'hourly' ? 'hour' : 'day',
                             displayFormats: {
                                 hour: 'HH:mm',
-                                day: 'MM/dd'
-                            }
+                                day: 'dd/MM'
+                            },
+                            // FIX: Thêm cấu hình múi giờ
+                            tooltipFormat: 'dd/MM/yyyy HH:mm'
                         },
                         grid: {
                             display: false
+                        },
+                        ticks: {
+                            maxRotation: 0,
+                            autoSkip: true,
+                            maxTicksLimit: 6
                         }
                     },
                     y: {
                         type: 'linear',
                         display: true,
                         position: 'left',
-                        // FIX: Đảm bảo biểu đồ luôn bắt đầu từ 0
+                        // FIX: Đảm bảo biểu đồ luôn có giá trị hợp lý
                         beginAtZero: false,
                         title: {
                             display: true,
@@ -729,7 +779,7 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'right',
-                        // FIX: Đảm bảo biểu đồ luôn bắt đầu từ 0
+                        // FIX: Đảm bảo biểu đồ luôn có giá trị hợp lý
                         beginAtZero: false, 
                         title: {
                             display: true,
@@ -768,7 +818,7 @@ class SimpleOIVolumeMonitor {
                     item.volume > 0
                 )
                 .map(item => ({
-                    x: item.hour_timestamp,
+                    x: new Date(item.hour_timestamp).toISOString(),
                     oi: item.open_interest || 0,
                     volume: item.volume || 0
                 }));
@@ -778,34 +828,33 @@ class SimpleOIVolumeMonitor {
                 console.log(`${symbol} 24h chart data: ${chartData.length} points, OI range: ${Math.min(...chartData.map(item => item.oi)).toLocaleString()} - ${Math.max(...chartData.map(item => item.oi)).toLocaleString()}`);
             }
                 
-            // FIX: Phát hiện dữ liệu trùng lặp
+            // FIX: Cải thiện việc xử lý dữ liệu trùng lặp
             if (chartData.length > 1) {
+                const uniqueTimeMap = new Map();
                 const uniqueData = [];
-                let lastOI = null;
-                let lastVolume = null;
-                let duplicateCount = 0;
                 
+                // Sắp xếp theo thời gian
+                chartData.sort((a, b) => new Date(a.x) - new Date(b.x));
+                
+                // Lọc dữ liệu trùng lặp dựa trên timestamp
                 for (const item of chartData) {
-                    // Nếu 3 điểm dữ liệu liên tiếp hoàn toàn giống nhau, có thể là dữ liệu sao chép
-                    if (lastOI === item.oi && lastVolume === item.volume) {
-                        duplicateCount++;
-                        if (duplicateCount > 3) {
-                            // FIX: Đánh dấu điểm dữ liệu này là null để Chart.js hiển thị khoảng trống
-                            item.oi = null;
-                            item.volume = null;
-                            console.log(`🔄 Marking duplicated data point as null`);
-                            continue;
-                        }
-                    } else {
-                        duplicateCount = 0;
-                    }
+                    // Làm tròn thời gian đến 5 phút để tránh các điểm dữ liệu quá gần nhau
+                    const time = new Date(item.x);
+                    const roundedMinutes = Math.floor(time.getMinutes() / 5) * 5;
+                    time.setMinutes(roundedMinutes, 0, 0);
+                    const timeKey = time.toISOString();
                     
-                    lastOI = item.oi;
-                    lastVolume = item.volume;
-                    uniqueData.push(item);
+                    // Nếu chưa có mốc thời gian này hoặc giá trị thay đổi đáng kể so với điểm trước
+                    if (!uniqueTimeMap.has(timeKey)) {
+                        uniqueTimeMap.set(timeKey, item);
+                        uniqueData.push(item);
+                    }
                 }
                 
-                // Không cần thay thế chartData vì chúng ta đã đánh dấu các điểm trùng lặp là null
+                if (uniqueData.length < chartData.length) {
+                    console.log(`${symbol}: Removed ${chartData.length - uniqueData.length} duplicate data points`);
+                    chartData = uniqueData;
+                }
             }
         } else {
             // FIX: Ưu tiên sử dụng tracking_30d nếu có
@@ -822,7 +871,7 @@ class SimpleOIVolumeMonitor {
                         item.quote_volume > 0
                     )
                     .map(item => ({
-                        x: item.date_timestamp,
+                        x: new Date(item.date_timestamp).toISOString(),
                         oi: item.open_interest_value || 0,
                         volume: item.quote_volume || 0
                     }));
@@ -867,7 +916,7 @@ class SimpleOIVolumeMonitor {
                     .sort()
                     .slice(-30) // Lấy 30 ngày gần nhất
                     .map(date => ({
-                        x: mergedData[date].timestamp,
+                        x: new Date(mergedData[date].timestamp).toISOString(),
                         oi: mergedData[date].oi || 0,
                         volume: mergedData[date].volume || 0
                     }))
@@ -875,7 +924,8 @@ class SimpleOIVolumeMonitor {
             }
         }
         
-        return chartData;
+        // FIX: Đảm bảo dữ liệu được sắp xếp theo thời gian
+        return chartData.sort((a, b) => new Date(a.x) - new Date(b.x));
     }
     
     // Utility functions
