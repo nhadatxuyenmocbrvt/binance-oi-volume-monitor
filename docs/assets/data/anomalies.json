@@ -1,22 +1,42 @@
 [
   {
-    "id": 334,
+    "id": 348,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-25T10:06:01",
+    "data_type": "correlation_24h",
+    "value": -0.7187,
+    "z_score": 2.1561,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.719 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 346,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-25T10:00:00",
+    "data_type": "24h_OI",
+    "value": 9344659025.7282,
+    "z_score": 2.571105610930189,
+    "message": "Bất thường OI 24h cho BTCUSDT: 9344659025.73 (Z-score: 2.57)",
+    "notified": 0
+  },
+  {
+    "id": 350,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-25T09:00:00",
     "data_type": "24h_OI",
     "value": 1267023059.8311,
-    "z_score": 3.213532013233192,
-    "message": "Bất thường OI 24h cho SOLUSDT: 1267023059.83 (Z-score: 3.21)",
+    "z_score": 2.8319947519406092,
+    "message": "Bất thường OI 24h cho SOLUSDT: 1267023059.83 (Z-score: 2.83)",
     "notified": 0
   },
   {
-    "id": 335,
+    "id": 351,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-25T08:50:11",
     "data_type": "30d_OI",
     "value": 7374036.21,
-    "z_score": 2.6972325055327215,
-    "message": "Bất thường OI 30d cho SOLUSDT: 7374036.21 (Z-score: 2.70)",
+    "z_score": 2.551266195270392,
+    "message": "Bất thường OI 30d cho SOLUSDT: 7374036.21 (Z-score: 2.55)",
     "notified": 0
   },
   {
@@ -50,7 +70,7 @@
     "notified": 0
   },
   {
-    "id": 332,
+    "id": 340,
     "symbol": "ETHUSDT",
     "timestamp": "2025-05-25T08:00:00",
     "data_type": "24h_OI",
@@ -60,13 +80,13 @@
     "notified": 0
   },
   {
-    "id": 336,
+    "id": 352,
     "symbol": "DOGEUSDT",
     "timestamp": "2025-05-25T08:00:00",
     "data_type": "24h_OI",
     "value": 403731781.07686996,
-    "z_score": 2.573288573913017,
-    "message": "Bất thường OI 24h cho DOGEUSDT: 403731781.08 (Z-score: 2.57)",
+    "z_score": 2.562037068246422,
+    "message": "Bất thường OI 24h cho DOGEUSDT: 403731781.08 (Z-score: 2.56)",
     "notified": 0
   },
   {
@@ -300,7 +320,7 @@
     "notified": 0
   },
   {
-    "id": 330,
+    "id": 338,
     "symbol": "BTCUSDT",
     "timestamp": "2025-05-24T10:00:00",
     "data_type": "24h_OI",
@@ -477,26 +497,6 @@
     "value": 7666760.07,
     "z_score": 3.355951488973162,
     "message": "Bất thường OI 30d cho SOLUSDT: 7666760.07 (Z-score: 3.36)",
-    "notified": 0
-  },
-  {
-    "id": 32,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-24T02:00:00",
-    "data_type": "24h_OI",
-    "value": 4129090417.94768,
-    "z_score": 2.5535196055715614,
-    "message": "Bất thường OI 24h cho ETHUSDT: 4129090417.95 (Z-score: 2.55)",
-    "notified": 0
-  },
-  {
-    "id": 176,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-05-24T02:00:00",
-    "data_type": "30d_OI",
-    "value": 7683479.37,
-    "z_score": 2.9665233417582995,
-    "message": "Bất thường OI 30d cho SOLUSDT: 7683479.37 (Z-score: 2.97)",
     "notified": 0
   }
 ]
