@@ -1,0 +1,54 @@
+2025-05-25 11:45:05,081 - __main__ - INFO - ============================================================
+2025-05-25 11:45:05,082 - __main__ - INFO - 🚀 BINANCE OI & VOLUME MONITOR - OPTIMIZED VERSION
+2025-05-25 11:45:05,083 - __main__ - INFO - ============================================================
+2025-05-25 11:45:05,083 - __main__ - INFO - ⏰ Khởi động lúc: 2025-05-25 11:45:05
+2025-05-25 11:45:05,084 - __main__ - INFO - 📊 Theo dõi 5 symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-25 11:45:05,084 - __main__ - INFO - 🎯 Focus: OI & Volume tracking (24h + 30d)
+2025-05-25 11:45:05,085 - __main__ - INFO - 🔧 Bắt đầu khởi tạo hệ thống OI & Volume Monitor
+2025-05-25 11:45:05,085 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: data
+2025-05-25 11:45:05,087 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: data/charts
+2025-05-25 11:45:05,088 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: data/reports
+2025-05-25 11:45:05,088 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: data/json
+2025-05-25 11:45:05,089 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: logs
+2025-05-25 11:45:05,090 - __main__ - INFO - 📁 Đã tạo/kiểm tra thư mục: docs/assets/data
+2025-05-25 11:45:05,117 - __main__ - INFO - 🔄 Đang khởi tạo dữ liệu tracking 24h từ Binance API...
+2025-05-25 11:45:23,555 - __main__ - INFO - 🔄 Đang khởi tạo dữ liệu 30 ngày từ Binance API...
+2025-05-25 11:47:15,090 - __main__ - INFO - 📄 Xuất dữ liệu JSON cho web...
+2025-05-25 11:47:15,276 - __main__ - INFO - 💾 Đã khởi tạo cơ sở dữ liệu thành công
+2025-05-25 11:47:15,277 - __main__ - INFO - ✅ Hoàn thành khởi tạo hệ thống
+2025-05-25 11:47:15,277 - __main__ - INFO - 🎯 CHẾ ĐỘ MẶC ĐỊNH: Setup OI & Volume tracking tối ưu
+2025-05-25 11:47:15,278 - __main__ - INFO - 📋 Quy trình: Thu thập lịch sử → Realtime + Báo cáo + Push → Tracking tối ưu
+2025-05-25 11:47:15,278 - __main__ - INFO - 🔄 Bước 1/3: Thu thập dữ liệu lịch sử...
+2025-05-25 11:47:15,279 - __main__ - INFO - 🔄 Bắt đầu thu thập dữ liệu lịch sử (24h/lần)
+2025-05-25 11:50:29,323 - __main__ - INFO - ✅ Hoàn thành thu thập dữ liệu lịch sử
+2025-05-25 11:50:29,325 - __main__ - INFO - ⚡ Bước 2/3: Cập nhật realtime + tạo báo cáo + push...
+2025-05-25 11:50:29,326 - __main__ - INFO - ⚡ Bắt đầu chu kỳ realtime (30 phút/lần): Update → Reports → Push
+2025-05-25 11:50:31,147 - __main__ - INFO - 📡 Thu thập dữ liệu realtime...
+2025-05-25 11:50:48,559 - __main__ - INFO - 💾 Đã lưu dữ liệu realtime cho 5/5 symbols
+2025-05-25 11:50:48,560 - __main__ - INFO - 📊 Tạo báo cáo tối ưu OI & Volume...
+2025-05-25 11:50:48,714 - __main__ - INFO - ✅ Đã tạo báo cáo tổng hợp
+2025-05-25 11:50:48,786 - __main__ - INFO - 📈 Đã tạo dữ liệu tracking 24h
+2025-05-25 11:50:48,786 - __main__ - INFO - 📁 Xuất dữ liệu JSON tối ưu...
+2025-05-25 11:50:49,169 - __main__ - INFO - ✅ Đã xuất dữ liệu JSON cho web
+2025-05-25 11:50:49,170 - __main__ - INFO - 📤 Đẩy dữ liệu lên GitHub...
+2025-05-25 11:50:49,170 - __main__ - INFO - 📤 Bắt đầu đẩy dữ liệu lên GitHub
+2025-05-25 11:50:53,304 - __main__ - INFO - ✅ Đã đẩy dữ liệu lên GitHub thành công lúc 2025-05-25 11:50:49
+2025-05-25 11:50:53,305 - __main__ - INFO - 🎉 Hoàn thành chu kỳ realtime: cập nhật → báo cáo → push GitHub
+2025-05-25 11:50:53,307 - __main__ - INFO - ⏰ Bước 3/3: Thiết lập tracking tối ưu...
+2025-05-25 11:50:53,308 - __main__ - INFO - ⏰ Thiết lập lịch trình tối ưu OI & Volume Tracking
+2025-05-25 11:50:53,310 - __main__ - INFO - ✅ Lịch thu thập dữ liệu lịch sử: mỗi ngày lúc 00:05
+2025-05-25 11:50:53,311 - __main__ - INFO - ✅ Lịch tracking 24h: mỗi giờ đúng giờ
+2025-05-25 11:50:53,312 - __main__ - INFO - ✅ Lịch realtime + báo cáo + push: mỗi 30 phút
+2025-05-25 11:50:53,313 - __main__ - INFO - ✅ Lịch phát hiện bất thường tối ưu: mỗi 15 phút
+2025-05-25 11:50:53,314 - __main__ - INFO - ✅ Lịch gửi báo cáo Telegram: mỗi ngày lúc 20:00
+2025-05-25 11:50:53,315 - __main__ - INFO - 🎯 Đã thiết lập lịch trình tối ưu:
+2025-05-25 11:50:53,316 - __main__ - INFO -    📊 Dữ liệu lịch sử: 24h/lần
+2025-05-25 11:50:53,316 - __main__ - INFO -    ⏰ Tracking 24h: mỗi giờ đúng
+2025-05-25 11:50:53,317 - __main__ - INFO -    ⚡ Realtime + Reports: 30 phút/lần
+2025-05-25 11:50:53,318 - __main__ - INFO -    🔍 Anomaly detection: 15 phút/lần
+2025-05-25 11:50:53,319 - __main__ - INFO -    📱 Daily Telegram: 1 lần/ngày
+2025-05-25 11:50:53,320 - __main__ - INFO - ✅ Hoàn thành setup - OI & Volume tracking tối ưu đã được kích hoạt!
+2025-05-25 11:50:53,321 - __main__ - INFO - 🔄 Hệ thống sẽ theo dõi OI & Volume từng giờ và cập nhật web...
+2025-05-25 11:50:53,322 - __main__ - INFO - 🚀 Bắt đầu chạy các tác vụ theo lịch trình OI & Volume Tracking
+2025-05-25 11:52:42,586 - __main__ - INFO - ⏹️ Dừng hệ thống theo yêu cầu người dùng
+2025-05-25 11:52:42,586 - __main__ - INFO - 🏁 Kết thúc với mã: 0
