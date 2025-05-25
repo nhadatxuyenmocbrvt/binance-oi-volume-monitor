@@ -1,154 +1,276 @@
-2025-05-25 11:45:06,763 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
-2025-05-25 11:45:06,764 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
-2025-05-25 11:45:06,765 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
-2025-05-25 11:45:06,765 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
-2025-05-25 11:45:06,766 - data_collector.historical_data - INFO - 🕒 Bắt đầu thu thập dữ liệu 24h hourly - OI & Volume focus
-2025-05-25 11:45:06,766 - data_collector.historical_data - INFO - ⏰ 24h range: 2025-05-24 12:00 → 2025-05-25 11:00
-2025-05-25 11:45:06,767 - data_collector.historical_data - INFO - 📊 [1/5] Thu thập 24h data cho BTCUSDT
-2025-05-25 11:45:06,768 - data_collector.historical_data - INFO -    📈 Collecting 1h klines for BTCUSDT
-2025-05-25 11:45:08,365 - data_collector.historical_data - INFO -    ✅ 24 klines collected
-2025-05-25 11:45:08,674 - data_collector.historical_data - INFO -    📊 Collecting 1h OI for BTCUSDT
-2025-05-25 11:45:09,476 - data_collector.historical_data - INFO -    ✅ 24 OI points collected
-2025-05-25 11:45:09,477 - data_collector.historical_data - INFO -    🎯 BTCUSDT: Success
-2025-05-25 11:45:09,983 - data_collector.historical_data - INFO - 📊 [2/5] Thu thập 24h data cho ETHUSDT
-2025-05-25 11:45:09,984 - data_collector.historical_data - INFO -    📈 Collecting 1h klines for ETHUSDT
-2025-05-25 11:45:11,625 - data_collector.historical_data - INFO -    ✅ 24 klines collected
-2025-05-25 11:45:11,939 - data_collector.historical_data - INFO -    📊 Collecting 1h OI for ETHUSDT
-2025-05-25 11:45:12,800 - data_collector.historical_data - INFO -    ✅ 24 OI points collected
-2025-05-25 11:45:12,801 - data_collector.historical_data - INFO -    🎯 ETHUSDT: Success
-2025-05-25 11:45:13,303 - data_collector.historical_data - INFO - 📊 [3/5] Thu thập 24h data cho BNBUSDT
-2025-05-25 11:45:13,304 - data_collector.historical_data - INFO -    📈 Collecting 1h klines for BNBUSDT
-2025-05-25 11:45:15,140 - data_collector.historical_data - INFO -    ✅ 24 klines collected
-2025-05-25 11:45:15,456 - data_collector.historical_data - INFO -    📊 Collecting 1h OI for BNBUSDT
-2025-05-25 11:45:16,268 - data_collector.historical_data - INFO -    ✅ 24 OI points collected
-2025-05-25 11:45:16,269 - data_collector.historical_data - INFO -    🎯 BNBUSDT: Success
-2025-05-25 11:45:16,776 - data_collector.historical_data - INFO - 📊 [4/5] Thu thập 24h data cho SOLUSDT
-2025-05-25 11:45:16,777 - data_collector.historical_data - INFO -    📈 Collecting 1h klines for SOLUSDT
-2025-05-25 11:45:18,362 - data_collector.historical_data - INFO -    ✅ 24 klines collected
-2025-05-25 11:45:18,676 - data_collector.historical_data - INFO -    📊 Collecting 1h OI for SOLUSDT
-2025-05-25 11:45:19,482 - data_collector.historical_data - INFO -    ✅ 24 OI points collected
-2025-05-25 11:45:19,483 - data_collector.historical_data - INFO -    🎯 SOLUSDT: Success
-2025-05-25 11:45:19,984 - data_collector.historical_data - INFO - 📊 [5/5] Thu thập 24h data cho DOGEUSDT
-2025-05-25 11:45:19,985 - data_collector.historical_data - INFO -    📈 Collecting 1h klines for DOGEUSDT
-2025-05-25 11:45:21,553 - data_collector.historical_data - INFO -    ✅ 24 klines collected
-2025-05-25 11:45:21,867 - data_collector.historical_data - INFO -    📊 Collecting 1h OI for DOGEUSDT
-2025-05-25 11:45:22,690 - data_collector.historical_data - INFO -    ✅ 24 OI points collected
-2025-05-25 11:45:22,691 - data_collector.historical_data - INFO -    🎯 DOGEUSDT: Success
-2025-05-25 11:45:23,206 - data_collector.historical_data - INFO - ✅ 24h collection complete: 5/5 success, 0 errors
-2025-05-25 11:45:25,186 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
-2025-05-25 11:45:25,187 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
-2025-05-25 11:45:25,188 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
-2025-05-25 11:45:25,188 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
-2025-05-25 11:45:25,189 - data_collector.historical_data - INFO - 📅 Bắt đầu thu thập dữ liệu 30d daily - OI & Volume focus
-2025-05-25 11:45:25,190 - data_collector.historical_data - INFO - 📅 30d range: 2025-04-26 → 2025-05-26
-2025-05-25 11:45:25,191 - data_collector.historical_data - INFO - 📊 [1/5] Thu thập 30d data cho BTCUSDT
-2025-05-25 11:45:25,192 - data_collector.historical_data - INFO -    📈 Collecting daily klines for BTCUSDT
-2025-05-25 11:45:26,827 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 27,327.78, Quote Volume = 2,944,041,454.71 USDT
-2025-05-25 11:45:26,828 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
-2025-05-25 11:45:27,333 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for BTCUSDT (phương pháp mới)
-2025-05-25 11:45:45,545 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
-2025-05-25 11:45:45,546 - data_collector.historical_data - INFO -    🎯 BTCUSDT: Success
-2025-05-25 11:45:46,556 - data_collector.historical_data - INFO - 📊 [2/5] Thu thập 30d data cho ETHUSDT
-2025-05-25 11:45:46,557 - data_collector.historical_data - INFO -    📈 Collecting daily klines for ETHUSDT
-2025-05-25 11:45:48,236 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 1,037,143.06, Quote Volume = 2,593,502,897.50 USDT
-2025-05-25 11:45:48,237 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
-2025-05-25 11:45:48,742 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for ETHUSDT (phương pháp mới)
-2025-05-25 11:46:07,139 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
-2025-05-25 11:46:07,139 - data_collector.historical_data - INFO -    🎯 ETHUSDT: Success
-2025-05-25 11:46:08,142 - data_collector.historical_data - INFO - 📊 [3/5] Thu thập 30d data cho BNBUSDT
-2025-05-25 11:46:08,143 - data_collector.historical_data - INFO -    📈 Collecting daily klines for BNBUSDT
-2025-05-25 11:46:10,013 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 108,616.52, Quote Volume = 72,140,898.21 USDT
-2025-05-25 11:46:10,013 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
-2025-05-25 11:46:10,526 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for BNBUSDT (phương pháp mới)
-2025-05-25 11:46:29,233 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
-2025-05-25 11:46:29,234 - data_collector.historical_data - INFO -    🎯 BNBUSDT: Success
-2025-05-25 11:46:30,243 - data_collector.historical_data - INFO - 📊 [4/5] Thu thập 30d data cho SOLUSDT
-2025-05-25 11:46:30,244 - data_collector.historical_data - INFO -    📈 Collecting daily klines for SOLUSDT
-2025-05-25 11:46:32,090 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 5,429,379.68, Quote Volume = 937,432,293.90 USDT
-2025-05-25 11:46:32,091 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
-2025-05-25 11:46:32,603 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for SOLUSDT (phương pháp mới)
-2025-05-25 11:46:51,433 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
-2025-05-25 11:46:51,433 - data_collector.historical_data - INFO -    🎯 SOLUSDT: Success
-2025-05-25 11:46:52,441 - data_collector.historical_data - INFO - 📊 [5/5] Thu thập 30d data cho DOGEUSDT
-2025-05-25 11:46:52,442 - data_collector.historical_data - INFO -    📈 Collecting daily klines for DOGEUSDT
-2025-05-25 11:46:54,144 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 1,012,569,891.00, Quote Volume = 225,049,972.34 USDT
-2025-05-25 11:46:54,145 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
-2025-05-25 11:46:54,648 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for DOGEUSDT (phương pháp mới)
-2025-05-25 11:47:13,349 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
-2025-05-25 11:47:13,349 - data_collector.historical_data - INFO -    🎯 DOGEUSDT: Success
-2025-05-25 11:47:14,351 - data_collector.historical_data - INFO - ✅ 30d collection complete: 5/5 success, 0 errors
-2025-05-25 11:47:17,023 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
-2025-05-25 11:47:17,024 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
-2025-05-25 11:47:17,024 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
-2025-05-25 11:47:17,025 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
-2025-05-25 11:47:17,031 - data_collector.historical_data - INFO - 📚 Bắt đầu thu thập dữ liệu lịch sử - mode: full
-2025-05-25 11:47:17,031 - data_collector.historical_data - INFO - 📈 Collecting klines data...
-2025-05-25 11:47:17,032 - data_collector.historical_data - INFO - 📊 Custom range (29d): 2025-04-26 11:47 → 2025-05-25 11:47
-2025-05-25 11:47:17,033 - data_collector.historical_data - INFO - 📈 Thu thập klines data cho 3 timeframes
-2025-05-25 11:47:17,033 - data_collector.historical_data - INFO - 📊 [1/15] BTCUSDT - 1h
-2025-05-25 11:47:18,824 - data_collector.historical_data - INFO -    ✅ 696 candles collected
-2025-05-25 11:47:19,227 - data_collector.historical_data - INFO - 📊 [2/15] BTCUSDT - 4h
-2025-05-25 11:47:20,125 - data_collector.historical_data - INFO -    ✅ 174 candles collected
-2025-05-25 11:47:20,536 - data_collector.historical_data - INFO - 📊 [3/15] BTCUSDT - 1d
-2025-05-25 11:47:21,425 - data_collector.historical_data - INFO -    ✅ 29 candles collected
-2025-05-25 11:47:21,837 - data_collector.historical_data - INFO - 📊 [4/15] ETHUSDT - 1h
-2025-05-25 11:47:23,626 - data_collector.historical_data - INFO -    ✅ 696 candles collected
-2025-05-25 11:47:24,037 - data_collector.historical_data - INFO - 📊 [5/15] ETHUSDT - 4h
-2025-05-25 11:47:24,887 - data_collector.historical_data - INFO -    ✅ 174 candles collected
-2025-05-25 11:47:25,287 - data_collector.historical_data - INFO - 📊 [6/15] ETHUSDT - 1d
-2025-05-25 11:47:26,251 - data_collector.historical_data - INFO -    ✅ 29 candles collected
-2025-05-25 11:47:26,656 - data_collector.historical_data - INFO - 📊 [7/15] BNBUSDT - 1h
-2025-05-25 11:47:28,413 - data_collector.historical_data - INFO -    ✅ 696 candles collected
-2025-05-25 11:47:28,819 - data_collector.historical_data - INFO - 📊 [8/15] BNBUSDT - 4h
-2025-05-25 11:47:29,682 - data_collector.historical_data - INFO -    ✅ 174 candles collected
-2025-05-25 11:47:30,087 - data_collector.historical_data - INFO - 📊 [9/15] BNBUSDT - 1d
-2025-05-25 11:47:30,946 - data_collector.historical_data - INFO -    ✅ 29 candles collected
-2025-05-25 11:47:31,352 - data_collector.historical_data - INFO - 📊 [10/15] SOLUSDT - 1h
-2025-05-25 11:47:33,107 - data_collector.historical_data - INFO -    ✅ 696 candles collected
-2025-05-25 11:47:33,521 - data_collector.historical_data - INFO - 📊 [11/15] SOLUSDT - 4h
-2025-05-25 11:47:34,328 - data_collector.historical_data - INFO -    ✅ 174 candles collected
-2025-05-25 11:47:34,738 - data_collector.historical_data - INFO - 📊 [12/15] SOLUSDT - 1d
-2025-05-25 11:47:35,621 - data_collector.historical_data - INFO -    ✅ 29 candles collected
-2025-05-25 11:47:36,027 - data_collector.historical_data - INFO - 📊 [13/15] DOGEUSDT - 1h
-2025-05-25 11:47:37,656 - data_collector.historical_data - INFO -    ✅ 696 candles collected
-2025-05-25 11:47:38,058 - data_collector.historical_data - INFO - 📊 [14/15] DOGEUSDT - 4h
-2025-05-25 11:47:38,971 - data_collector.historical_data - INFO -    ✅ 174 candles collected
-2025-05-25 11:47:39,382 - data_collector.historical_data - INFO - 📊 [15/15] DOGEUSDT - 1d
-2025-05-25 11:47:40,259 - data_collector.historical_data - INFO -    ✅ 29 candles collected
-2025-05-25 11:47:40,660 - data_collector.historical_data - INFO - ✅ Klines collection complete
-2025-05-25 11:47:40,661 - data_collector.historical_data - INFO - 📊 Collecting OI data...
-2025-05-25 11:47:40,662 - data_collector.historical_data - INFO - 📊 Custom range (29d): 2025-04-26 11:47 → 2025-05-25 11:47
-2025-05-25 11:47:40,663 - data_collector.historical_data - INFO - 📊 Thu thập OI data cho 29 ngày
-2025-05-25 11:47:40,664 - data_collector.historical_data - INFO - 📊 [1/5] OI for BTCUSDT
-2025-05-25 11:48:12,876 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
-2025-05-25 11:48:13,881 - data_collector.historical_data - INFO - 📊 [2/5] OI for ETHUSDT
-2025-05-25 11:48:46,177 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
-2025-05-25 11:48:47,180 - data_collector.historical_data - INFO - 📊 [3/5] OI for BNBUSDT
-2025-05-25 11:49:19,531 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
-2025-05-25 11:49:20,542 - data_collector.historical_data - INFO - 📊 [4/5] OI for SOLUSDT
-2025-05-25 11:49:52,753 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
-2025-05-25 11:49:53,767 - data_collector.historical_data - INFO - 📊 [5/5] OI for DOGEUSDT
-2025-05-25 11:50:26,116 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
-2025-05-25 11:50:27,117 - data_collector.historical_data - INFO - ✅ OI collection complete
-2025-05-25 11:50:27,118 - data_collector.historical_data - INFO - ✅ All historical data collection complete
-2025-05-25 11:50:31,138 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
-2025-05-25 11:50:31,139 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
-2025-05-25 11:50:31,139 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
-2025-05-25 11:50:31,140 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
-2025-05-25 11:50:31,147 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
-2025-05-25 11:50:31,148 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
-2025-05-25 11:50:32,012 - data_collector.historical_data - INFO -    📈 Ticker: 108119.60 (-0.348%), Volume: 17901184925.89 USDT
-2025-05-25 11:50:33,994 - data_collector.historical_data - INFO -    📊 OI: 86757.393 contracts, Value: 9380174628.2028 USDT
-2025-05-25 11:50:34,298 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
-2025-05-25 11:50:35,315 - data_collector.historical_data - INFO -    📈 Ticker: 2512.58 (-1.731%), Volume: 8086093567.68 USDT
-2025-05-25 11:50:37,547 - data_collector.historical_data - INFO -    📊 OI: 1635686.376 contracts, Value: 4109792874.61008 USDT
-2025-05-25 11:50:37,853 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
-2025-05-25 11:50:38,839 - data_collector.historical_data - INFO -    📈 Ticker: 665.090 (-0.337%), Volume: 311033950.844 USDT
-2025-05-25 11:50:41,095 - data_collector.historical_data - INFO -    📊 OI: 549110.66 contracts, Value: 365208008.85940003 USDT
-2025-05-25 11:50:41,401 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
-2025-05-25 11:50:42,402 - data_collector.historical_data - INFO -    📈 Ticker: 173.2800 (-1.316%), Volume: 2757207014.1733 USDT
-2025-05-25 11:50:44,672 - data_collector.historical_data - INFO -    📊 OI: 7388961.77 contracts, Value: 1280359295.5056 USDT
-2025-05-25 11:50:44,979 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
-2025-05-25 11:50:46,023 - data_collector.historical_data - INFO -    📈 Ticker: 0.223540 (-2.779%), Volume: 777101432.469890 USDT
-2025-05-25 11:50:48,178 - data_collector.historical_data - INFO -    📊 OI: 1844262213 contracts, Value: 412247932.47189003 USDT
-2025-05-25 11:50:48,491 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-25 20:23:53,111 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-25 20:23:53,111 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-25 20:23:53,112 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-25 20:23:53,113 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-25 20:23:53,113 - data_collector.historical_data - INFO - 📅 Bắt đầu thu thập dữ liệu 30d daily - OI & Volume focus
+2025-05-25 20:23:53,114 - data_collector.historical_data - INFO - 📅 30d range: 2025-04-26 → 2025-05-26
+2025-05-25 20:23:53,114 - data_collector.historical_data - INFO - 📊 [1/5] Thu thập 30d data cho BTCUSDT
+2025-05-25 20:23:53,115 - data_collector.historical_data - INFO -    📈 Collecting daily klines for BTCUSDT
+2025-05-25 20:23:54,853 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 81,397.50, Quote Volume = 8,744,769,843.83 USDT
+2025-05-25 20:23:54,854 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 20:23:55,364 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for BTCUSDT (phương pháp mới)
+2025-05-25 20:24:14,351 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 20:24:14,352 - data_collector.historical_data - INFO -    🎯 BTCUSDT: Success
+2025-05-25 20:24:15,365 - data_collector.historical_data - INFO - 📊 [2/5] Thu thập 30d data cho ETHUSDT
+2025-05-25 20:24:15,366 - data_collector.historical_data - INFO -    📈 Collecting daily klines for ETHUSDT
+2025-05-25 20:24:17,234 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 2,402,301.17, Quote Volume = 5,997,053,209.60 USDT
+2025-05-25 20:24:17,235 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 20:24:17,748 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for ETHUSDT (phương pháp mới)
+2025-05-25 20:24:37,790 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 20:24:37,791 - data_collector.historical_data - INFO -    🎯 ETHUSDT: Success
+2025-05-25 20:24:38,807 - data_collector.historical_data - INFO - 📊 [3/5] Thu thập 30d data cho BNBUSDT
+2025-05-25 20:24:38,808 - data_collector.historical_data - INFO -    📈 Collecting daily klines for BNBUSDT
+2025-05-25 20:24:40,576 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 287,245.26, Quote Volume = 190,243,511.21 USDT
+2025-05-25 20:24:40,577 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 20:24:41,079 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for BNBUSDT (phương pháp mới)
+2025-05-25 20:25:00,168 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 20:25:00,168 - data_collector.historical_data - INFO -    🎯 BNBUSDT: Success
+2025-05-25 20:25:01,181 - data_collector.historical_data - INFO - 📊 [4/5] Thu thập 30d data cho SOLUSDT
+2025-05-25 20:25:01,181 - data_collector.historical_data - INFO -    📈 Collecting daily klines for SOLUSDT
+2025-05-25 20:25:02,981 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 10,680,996.76, Quote Volume = 1,840,294,671.29 USDT
+2025-05-25 20:25:02,982 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 20:25:03,490 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for SOLUSDT (phương pháp mới)
+2025-05-25 20:25:22,463 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 20:25:22,463 - data_collector.historical_data - INFO -    🎯 SOLUSDT: Success
+2025-05-25 20:25:23,470 - data_collector.historical_data - INFO - 📊 [5/5] Thu thập 30d data cho DOGEUSDT
+2025-05-25 20:25:23,470 - data_collector.historical_data - INFO -    📈 Collecting daily klines for DOGEUSDT
+2025-05-25 20:25:25,204 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 2,557,713,920.00, Quote Volume = 564,788,160.87 USDT
+2025-05-25 20:25:25,205 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 20:25:25,718 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for DOGEUSDT (phương pháp mới)
+2025-05-25 20:25:44,639 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 20:25:44,640 - data_collector.historical_data - INFO -    🎯 DOGEUSDT: Success
+2025-05-25 20:25:45,651 - data_collector.historical_data - INFO - ✅ 30d collection complete: 5/5 success, 0 errors
+2025-05-25 20:25:48,605 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-25 20:25:48,606 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-25 20:25:48,607 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-25 20:25:48,608 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-25 20:25:48,616 - data_collector.historical_data - INFO - 📚 Bắt đầu thu thập dữ liệu lịch sử - mode: full
+2025-05-25 20:25:48,617 - data_collector.historical_data - INFO - 📈 Collecting klines data...
+2025-05-25 20:25:48,618 - data_collector.historical_data - INFO - 📊 Custom range (29d): 2025-04-26 20:25 → 2025-05-25 20:25
+2025-05-25 20:25:48,618 - data_collector.historical_data - INFO - 📈 Thu thập klines data cho 3 timeframes
+2025-05-25 20:25:48,619 - data_collector.historical_data - INFO - 📊 [1/15] BTCUSDT - 1h
+2025-05-25 20:25:50,596 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 20:25:51,009 - data_collector.historical_data - INFO - 📊 [2/15] BTCUSDT - 4h
+2025-05-25 20:25:51,859 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 20:25:52,261 - data_collector.historical_data - INFO - 📊 [3/15] BTCUSDT - 1d
+2025-05-25 20:25:53,133 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 20:25:53,545 - data_collector.historical_data - INFO - 📊 [4/15] ETHUSDT - 1h
+2025-05-25 20:25:55,320 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 20:25:55,730 - data_collector.historical_data - INFO - 📊 [5/15] ETHUSDT - 4h
+2025-05-25 20:25:56,651 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 20:25:57,055 - data_collector.historical_data - INFO - 📊 [6/15] ETHUSDT - 1d
+2025-05-25 20:25:57,902 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 20:25:58,306 - data_collector.historical_data - INFO - 📊 [7/15] BNBUSDT - 1h
+2025-05-25 20:26:00,139 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 20:26:00,541 - data_collector.historical_data - INFO - 📊 [8/15] BNBUSDT - 4h
+2025-05-25 20:26:01,401 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 20:26:01,813 - data_collector.historical_data - INFO - 📊 [9/15] BNBUSDT - 1d
+2025-05-25 20:26:02,618 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 20:26:03,026 - data_collector.historical_data - INFO - 📊 [10/15] SOLUSDT - 1h
+2025-05-25 20:26:04,744 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 20:26:05,146 - data_collector.historical_data - INFO - 📊 [11/15] SOLUSDT - 4h
+2025-05-25 20:26:05,975 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 20:26:06,386 - data_collector.historical_data - INFO - 📊 [12/15] SOLUSDT - 1d
+2025-05-25 20:26:07,216 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 20:26:07,629 - data_collector.historical_data - INFO - 📊 [13/15] DOGEUSDT - 1h
+2025-05-25 20:26:09,416 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 20:26:09,828 - data_collector.historical_data - INFO - 📊 [14/15] DOGEUSDT - 4h
+2025-05-25 20:26:10,656 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 20:26:11,064 - data_collector.historical_data - INFO - 📊 [15/15] DOGEUSDT - 1d
+2025-05-25 20:26:11,870 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 20:26:12,275 - data_collector.historical_data - INFO - ✅ Klines collection complete
+2025-05-25 20:26:12,276 - data_collector.historical_data - INFO - 📊 Collecting OI data...
+2025-05-25 20:26:12,277 - data_collector.historical_data - INFO - 📊 Custom range (29d): 2025-04-26 20:26 → 2025-05-25 20:26
+2025-05-25 20:26:12,278 - data_collector.historical_data - INFO - 📊 Thu thập OI data cho 29 ngày
+2025-05-25 20:26:12,279 - data_collector.historical_data - INFO - 📊 [1/5] OI for BTCUSDT
+2025-05-25 20:26:44,184 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 20:26:45,192 - data_collector.historical_data - INFO - 📊 [2/5] OI for ETHUSDT
+2025-05-25 20:27:17,746 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 20:27:18,747 - data_collector.historical_data - INFO - 📊 [3/5] OI for BNBUSDT
+2025-05-25 20:27:51,035 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 20:27:52,043 - data_collector.historical_data - INFO - 📊 [4/5] OI for SOLUSDT
+2025-05-25 20:28:24,102 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 20:28:25,108 - data_collector.historical_data - INFO - 📊 [5/5] OI for DOGEUSDT
+2025-05-25 20:28:56,689 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 20:28:57,698 - data_collector.historical_data - INFO - ✅ OI collection complete
+2025-05-25 20:28:57,699 - data_collector.historical_data - INFO - ✅ All historical data collection complete
+2025-05-25 20:29:01,421 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-25 20:29:01,422 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-25 20:29:01,423 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-25 20:29:01,424 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-25 20:29:01,430 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-25 20:29:01,431 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-25 20:29:02,226 - data_collector.historical_data - INFO -    📈 Ticker: 107440.00 (-1.240%), Volume: 16705823009.49 USDT
+2025-05-25 20:29:04,189 - data_collector.historical_data - INFO -    📊 OI: 86388.959 contracts, Value: 9281629754.960001 USDT
+2025-05-25 20:29:04,494 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-25 20:29:05,327 - data_collector.historical_data - INFO -    📈 Ticker: 2516.42 (-1.557%), Volume: 8660444327.86 USDT
+2025-05-25 20:29:06,964 - data_collector.historical_data - INFO -    📊 OI: 1611241.714 contracts, Value: 4054609211.1952996 USDT
+2025-05-25 20:29:07,276 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-25 20:29:08,076 - data_collector.historical_data - INFO -    📈 Ticker: 666.100 (-1.168%), Volume: 290166608.732 USDT
+2025-05-25 20:29:09,801 - data_collector.historical_data - INFO -    📊 OI: 534762.17 contracts, Value: 356205081.43700004 USDT
+2025-05-25 20:29:10,109 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-25 20:29:10,933 - data_collector.historical_data - INFO -    📈 Ticker: 171.7400 (-2.636%), Volume: 2574713266.9706 USDT
+2025-05-25 20:29:12,713 - data_collector.historical_data - INFO -    📊 OI: 7391877.29 contracts, Value: 1269481005.7846 USDT
+2025-05-25 20:29:13,023 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-25 20:29:13,814 - data_collector.historical_data - INFO -    📈 Ticker: 0.219940 (-3.611%), Volume: 811846622.511610 USDT
+2025-05-25 20:29:15,618 - data_collector.historical_data - INFO -    📊 OI: 1802326633 contracts, Value: 396421742.92835003 USDT
+2025-05-25 20:29:15,929 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-25 20:59:22,591 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-25 20:59:22,591 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-25 20:59:22,592 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-25 20:59:22,592 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-25 20:59:22,598 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-25 20:59:22,598 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-25 20:59:23,579 - data_collector.historical_data - INFO -    📈 Ticker: 107529.80 (-0.953%), Volume: 16780808028.73 USDT
+2025-05-25 20:59:25,455 - data_collector.historical_data - INFO -    📊 OI: 86231.646 contracts, Value: 9272471648.0508 USDT
+2025-05-25 20:59:25,759 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-25 20:59:26,645 - data_collector.historical_data - INFO -    📈 Ticker: 2514.30 (-1.232%), Volume: 8696768376.33 USDT
+2025-05-25 20:59:28,604 - data_collector.historical_data - INFO -    📊 OI: 1606090.749 contracts, Value: 4038049422.04329 USDT
+2025-05-25 20:59:28,904 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-25 20:59:29,720 - data_collector.historical_data - INFO -    📈 Ticker: 666.240 (-0.897%), Volume: 289283699.231 USDT
+2025-05-25 20:59:31,634 - data_collector.historical_data - INFO -    📊 OI: 535110.28 contracts, Value: 356570735.078 USDT
+2025-05-25 20:59:31,939 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-25 20:59:32,830 - data_collector.historical_data - INFO -    📈 Ticker: 172.1300 (-1.808%), Volume: 2563239131.9449 USDT
+2025-05-25 20:59:34,635 - data_collector.historical_data - INFO -    📊 OI: 7370436.07 contracts, Value: 1268746865.0898 USDT
+2025-05-25 20:59:34,945 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-25 20:59:35,739 - data_collector.historical_data - INFO -    📈 Ticker: 0.219980 (-3.148%), Volume: 812212272.637720 USDT
+2025-05-25 20:59:37,641 - data_collector.historical_data - INFO -    📊 OI: 1804245385 contracts, Value: 396897899.79230005 USDT
+2025-05-25 20:59:37,943 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-25 21:00:02,379 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-25 21:00:02,380 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-25 21:00:02,381 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-25 21:00:02,382 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-25 21:00:02,391 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-25 21:00:02,392 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-25 21:00:03,208 - data_collector.historical_data - INFO -    📈 Ticker: 107474.70 (-1.004%), Volume: 16787893123.59 USDT
+2025-05-25 21:00:05,734 - data_collector.historical_data - INFO -    📊 OI: 86225.928 contracts, Value: 9267105744.021599 USDT
+2025-05-25 21:00:06,045 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-25 21:00:07,057 - data_collector.historical_data - INFO -    📈 Ticker: 2512.44 (-1.305%), Volume: 8703046568.54 USDT
+2025-05-25 21:00:09,289 - data_collector.historical_data - INFO -    📊 OI: 1605852.270 contracts, Value: 4035603105.6462 USDT
+2025-05-25 21:00:09,598 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-25 21:00:10,415 - data_collector.historical_data - INFO -    📈 Ticker: 666.350 (-0.867%), Volume: 289363852.488 USDT
+2025-05-25 21:00:12,271 - data_collector.historical_data - INFO -    📊 OI: 535087.32 contracts, Value: 356555435.682 USDT
+2025-05-25 21:00:12,579 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-25 21:00:13,453 - data_collector.historical_data - INFO -    📈 Ticker: 171.9000 (-1.940%), Volume: 2568201866.2174 USDT
+2025-05-25 21:00:15,349 - data_collector.historical_data - INFO -    📊 OI: 7367423.64 contracts, Value: 1266165426.7704 USDT
+2025-05-25 21:00:15,656 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-25 21:00:16,542 - data_collector.historical_data - INFO -    📈 Ticker: 0.219800 (-3.159%), Volume: 812256866.745470 USDT
+2025-05-25 21:00:18,461 - data_collector.historical_data - INFO -    📊 OI: 1804251285 contracts, Value: 396592474.95585 USDT
+2025-05-25 21:00:18,766 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-25 21:19:11,516 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-25 21:19:11,517 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-25 21:19:11,517 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-25 21:19:11,518 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-25 21:19:11,518 - data_collector.historical_data - INFO - 📅 Bắt đầu thu thập dữ liệu 30d daily - OI & Volume focus
+2025-05-25 21:19:11,519 - data_collector.historical_data - INFO - 📅 30d range: 2025-04-26 → 2025-05-26
+2025-05-25 21:19:11,519 - data_collector.historical_data - INFO - 📊 [1/5] Thu thập 30d data cho BTCUSDT
+2025-05-25 21:19:11,520 - data_collector.historical_data - INFO -    📈 Collecting daily klines for BTCUSDT
+2025-05-25 21:19:13,625 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 85,216.26, Quote Volume = 9,155,448,287.71 USDT
+2025-05-25 21:19:13,626 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 21:19:14,141 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for BTCUSDT (phương pháp mới)
+2025-05-25 21:19:33,290 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 21:19:33,291 - data_collector.historical_data - INFO -    🎯 BTCUSDT: Success
+2025-05-25 21:19:34,300 - data_collector.historical_data - INFO - 📊 [2/5] Thu thập 30d data cho ETHUSDT
+2025-05-25 21:19:34,301 - data_collector.historical_data - INFO -    📈 Collecting daily klines for ETHUSDT
+2025-05-25 21:19:35,918 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 2,546,951.44, Quote Volume = 6,361,014,660.45 USDT
+2025-05-25 21:19:35,919 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 21:19:36,420 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for ETHUSDT (phương pháp mới)
+2025-05-25 21:19:54,435 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 21:19:54,435 - data_collector.historical_data - INFO -    🎯 ETHUSDT: Success
+2025-05-25 21:19:55,451 - data_collector.historical_data - INFO - 📊 [3/5] Thu thập 30d data cho BNBUSDT
+2025-05-25 21:19:55,452 - data_collector.historical_data - INFO -    📈 Collecting daily klines for BNBUSDT
+2025-05-25 21:19:57,076 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 305,821.67, Quote Volume = 202,623,383.25 USDT
+2025-05-25 21:19:57,077 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 21:19:57,590 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for BNBUSDT (phương pháp mới)
+2025-05-25 21:20:15,581 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 21:20:15,582 - data_collector.historical_data - INFO -    🎯 BNBUSDT: Success
+2025-05-25 21:20:16,586 - data_collector.historical_data - INFO - 📊 [4/5] Thu thập 30d data cho SOLUSDT
+2025-05-25 21:20:16,586 - data_collector.historical_data - INFO -    📈 Collecting daily klines for SOLUSDT
+2025-05-25 21:20:18,143 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 11,276,970.87, Quote Volume = 1,942,788,782.47 USDT
+2025-05-25 21:20:18,144 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 21:20:18,659 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for SOLUSDT (phương pháp mới)
+2025-05-25 21:20:36,609 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 21:20:36,610 - data_collector.historical_data - INFO -    🎯 SOLUSDT: Success
+2025-05-25 21:20:37,611 - data_collector.historical_data - INFO - 📊 [5/5] Thu thập 30d data cho DOGEUSDT
+2025-05-25 21:20:37,612 - data_collector.historical_data - INFO -    📈 Collecting daily klines for DOGEUSDT
+2025-05-25 21:20:39,251 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 2,663,778,004.00, Quote Volume = 588,134,430.82 USDT
+2025-05-25 21:20:39,252 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-05-25 21:20:39,758 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for DOGEUSDT (phương pháp mới)
+2025-05-25 21:20:57,538 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-05-25 21:20:57,539 - data_collector.historical_data - INFO -    🎯 DOGEUSDT: Success
+2025-05-25 21:20:58,554 - data_collector.historical_data - INFO - ✅ 30d collection complete: 5/5 success, 0 errors
+2025-05-25 21:21:01,234 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-25 21:21:01,235 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-25 21:21:01,235 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-25 21:21:01,236 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-25 21:21:01,240 - data_collector.historical_data - INFO - 📚 Bắt đầu thu thập dữ liệu lịch sử - mode: full
+2025-05-25 21:21:01,240 - data_collector.historical_data - INFO - 📈 Collecting klines data...
+2025-05-25 21:21:01,241 - data_collector.historical_data - INFO - 📊 Custom range (29d): 2025-04-26 21:21 → 2025-05-25 21:21
+2025-05-25 21:21:01,241 - data_collector.historical_data - INFO - 📈 Thu thập klines data cho 3 timeframes
+2025-05-25 21:21:01,242 - data_collector.historical_data - INFO - 📊 [1/15] BTCUSDT - 1h
+2025-05-25 21:21:02,843 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 21:21:03,252 - data_collector.historical_data - INFO - 📊 [2/15] BTCUSDT - 4h
+2025-05-25 21:21:04,028 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 21:21:04,435 - data_collector.historical_data - INFO - 📊 [3/15] BTCUSDT - 1d
+2025-05-25 21:21:05,179 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 21:21:05,586 - data_collector.historical_data - INFO - 📊 [4/15] ETHUSDT - 1h
+2025-05-25 21:21:07,169 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 21:21:07,576 - data_collector.historical_data - INFO - 📊 [5/15] ETHUSDT - 4h
+2025-05-25 21:21:08,381 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 21:21:08,792 - data_collector.historical_data - INFO - 📊 [6/15] ETHUSDT - 1d
+2025-05-25 21:21:09,526 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 21:21:09,935 - data_collector.historical_data - INFO - 📊 [7/15] BNBUSDT - 1h
+2025-05-25 21:21:11,833 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 21:21:12,238 - data_collector.historical_data - INFO - 📊 [8/15] BNBUSDT - 4h
+2025-05-25 21:21:13,039 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 21:21:13,454 - data_collector.historical_data - INFO - 📊 [9/15] BNBUSDT - 1d
+2025-05-25 21:21:14,195 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 21:21:14,608 - data_collector.historical_data - INFO - 📊 [10/15] SOLUSDT - 1h
+2025-05-25 21:21:16,194 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 21:21:16,608 - data_collector.historical_data - INFO - 📊 [11/15] SOLUSDT - 4h
+2025-05-25 21:21:17,336 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 21:21:17,749 - data_collector.historical_data - INFO - 📊 [12/15] SOLUSDT - 1d
+2025-05-25 21:21:18,500 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 21:21:18,910 - data_collector.historical_data - INFO - 📊 [13/15] DOGEUSDT - 1h
+2025-05-25 21:21:20,533 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-25 21:21:20,942 - data_collector.historical_data - INFO - 📊 [14/15] DOGEUSDT - 4h
+2025-05-25 21:21:21,682 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-25 21:21:22,082 - data_collector.historical_data - INFO - 📊 [15/15] DOGEUSDT - 1d
+2025-05-25 21:21:22,819 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-25 21:21:23,228 - data_collector.historical_data - INFO - ✅ Klines collection complete
+2025-05-25 21:21:23,229 - data_collector.historical_data - INFO - 📊 Collecting OI data...
+2025-05-25 21:21:23,230 - data_collector.historical_data - INFO - 📊 Custom range (29d): 2025-04-26 21:21 → 2025-05-25 21:21
+2025-05-25 21:21:23,231 - data_collector.historical_data - INFO - 📊 Thu thập OI data cho 29 ngày
+2025-05-25 21:21:23,232 - data_collector.historical_data - INFO - 📊 [1/5] OI for BTCUSDT
+2025-05-25 21:21:53,771 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 21:21:54,776 - data_collector.historical_data - INFO - 📊 [2/5] OI for ETHUSDT
+2025-05-25 21:22:25,202 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 21:22:26,203 - data_collector.historical_data - INFO - 📊 [3/5] OI for BNBUSDT
+2025-05-25 21:22:56,387 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 21:22:57,391 - data_collector.historical_data - INFO - 📊 [4/5] OI for SOLUSDT
+2025-05-25 21:23:27,727 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 21:23:28,735 - data_collector.historical_data - INFO - 📊 [5/5] OI for DOGEUSDT
+2025-05-25 21:23:59,134 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-25 21:24:00,139 - data_collector.historical_data - INFO - ✅ OI collection complete
+2025-05-25 21:24:00,140 - data_collector.historical_data - INFO - ✅ All historical data collection complete
+2025-05-25 21:24:04,100 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-25 21:24:04,101 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-25 21:24:04,101 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-25 21:24:04,102 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-25 21:24:04,107 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-25 21:24:04,108 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-25 21:24:04,819 - data_collector.historical_data - INFO -    📈 Ticker: 107435.20 (-1.246%), Volume: 16752791389.09 USDT
+2025-05-25 21:24:06,611 - data_collector.historical_data - INFO -    📊 OI: 86379.096 contracts, Value: 9280146816.669601 USDT
+2025-05-25 21:24:06,919 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-25 21:24:07,660 - data_collector.historical_data - INFO -    📈 Ticker: 2511.50 (-1.608%), Volume: 8703892634.01 USDT
+2025-05-25 21:24:09,361 - data_collector.historical_data - INFO -    📊 OI: 1602722.705 contracts, Value: 4025238073.6075 USDT
+2025-05-25 21:24:09,664 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-25 21:24:10,433 - data_collector.historical_data - INFO -    📈 Ticker: 665.740 (-1.142%), Volume: 292562770.242 USDT
+2025-05-25 21:24:12,166 - data_collector.historical_data - INFO -    📊 OI: 535706.59 contracts, Value: 356641305.2266 USDT
+2025-05-25 21:24:12,474 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-25 21:24:13,269 - data_collector.historical_data - INFO -    📈 Ticker: 171.6600 (-2.549%), Volume: 2562365658.0951 USDT
+2025-05-25 21:24:15,014 - data_collector.historical_data - INFO -    📊 OI: 7358770.74 contracts, Value: 1262765058.984 USDT
+2025-05-25 21:24:15,323 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-25 21:24:16,088 - data_collector.historical_data - INFO -    📈 Ticker: 0.219280 (-3.647%), Volume: 812098465.913210 USDT
+2025-05-25 21:24:17,814 - data_collector.historical_data - INFO -    📊 OI: 1803613373 contracts, Value: 395406159.76279 USDT
+2025-05-25 21:24:18,119 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success

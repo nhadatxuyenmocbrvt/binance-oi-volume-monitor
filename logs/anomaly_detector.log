@@ -1,0 +1,165 @@
+2025-05-25 20:44:20,739 - data_analyzer.anomaly_detector - INFO - 🔧 Khởi tạo OptimizedAnomalyDetector với ngưỡng 2.5
+2025-05-25 20:44:20,740 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho BTCUSDT
+2025-05-25 20:44:20,740 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho BTCUSDT
+2025-05-25 20:44:20,749 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho BTCUSDT
+2025-05-25 20:44:20,750 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho BTCUSDT
+2025-05-25 20:44:20,767 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho BTCUSDT
+2025-05-25 20:44:20,768 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho BTCUSDT
+2025-05-25 20:44:20,777 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho BTCUSDT: 0 anomalies
+2025-05-25 20:44:20,778 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho BTCUSDT
+2025-05-25 20:44:20,785 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h BTCUSDT: 0.384
+2025-05-25 20:44:20,785 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho BTCUSDT
+2025-05-25 20:44:20,805 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:44:20,805 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:44:20,806 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 3 anomalies 30d cho BTCUSDT
+2025-05-25 20:44:20,806 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho BTCUSDT
+2025-05-25 20:44:20,837 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 3 anomalies cho BTCUSDT
+2025-05-25 20:44:20,838 - data_analyzer.anomaly_detector - INFO -    - 30d_OI: 1
+2025-05-25 20:44:20,838 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume_USDT: 1
+2025-05-25 20:44:20,838 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume: 1
+2025-05-25 20:44:20,841 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho ETHUSDT
+2025-05-25 20:44:20,841 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho ETHUSDT
+2025-05-25 20:44:20,848 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho ETHUSDT
+2025-05-25 20:44:20,848 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho ETHUSDT
+2025-05-25 20:44:20,859 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho ETHUSDT
+2025-05-25 20:44:20,860 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho ETHUSDT
+2025-05-25 20:44:20,864 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho ETHUSDT: 0 anomalies
+2025-05-25 20:44:20,865 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho ETHUSDT
+2025-05-25 20:44:20,869 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h ETHUSDT: 0.387
+2025-05-25 20:44:20,870 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho ETHUSDT
+2025-05-25 20:44:20,883 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:44:20,884 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 1 anomalies 30d cho ETHUSDT
+2025-05-25 20:44:20,884 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho ETHUSDT
+2025-05-25 20:44:20,904 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 1 anomalies cho ETHUSDT
+2025-05-25 20:44:20,904 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume: 1
+2025-05-25 20:44:20,906 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho BNBUSDT
+2025-05-25 20:44:20,906 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho BNBUSDT
+2025-05-25 20:44:20,913 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho BNBUSDT
+2025-05-25 20:44:20,913 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho BNBUSDT
+2025-05-25 20:44:20,926 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho BNBUSDT
+2025-05-25 20:44:20,926 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho BNBUSDT
+2025-05-25 20:44:20,932 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho BNBUSDT: 0 anomalies
+2025-05-25 20:44:20,932 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho BNBUSDT
+2025-05-25 20:44:20,938 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h BNBUSDT: 0.377
+2025-05-25 20:44:20,938 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho BNBUSDT
+2025-05-25 20:44:20,953 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:44:20,953 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:44:20,954 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies 30d cho BNBUSDT
+2025-05-25 20:44:20,954 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho BNBUSDT
+2025-05-25 20:44:20,976 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies cho BNBUSDT
+2025-05-25 20:44:20,977 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume_USDT: 1
+2025-05-25 20:44:20,977 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume: 1
+2025-05-25 20:44:20,978 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho SOLUSDT
+2025-05-25 20:44:20,979 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho SOLUSDT
+2025-05-25 20:44:20,985 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho SOLUSDT
+2025-05-25 20:44:20,985 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho SOLUSDT
+2025-05-25 20:44:20,997 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho SOLUSDT
+2025-05-25 20:44:20,998 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho SOLUSDT
+2025-05-25 20:44:21,002 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho SOLUSDT: 0 anomalies
+2025-05-25 20:44:21,003 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho SOLUSDT
+2025-05-25 20:44:21,008 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h SOLUSDT: 0.381
+2025-05-25 20:44:21,008 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho SOLUSDT
+2025-05-25 20:44:21,024 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 4 anomalies 30d cho SOLUSDT
+2025-05-25 20:44:21,024 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho SOLUSDT
+2025-05-25 20:44:21,055 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 4 anomalies cho SOLUSDT
+2025-05-25 20:44:21,055 - data_analyzer.anomaly_detector - INFO -    - 30d_OI_Value: 2
+2025-05-25 20:44:21,056 - data_analyzer.anomaly_detector - INFO -    - 30d_Avg_OI_Value: 2
+2025-05-25 20:44:21,058 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho DOGEUSDT
+2025-05-25 20:44:21,059 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho DOGEUSDT
+2025-05-25 20:44:21,066 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho DOGEUSDT
+2025-05-25 20:44:21,066 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho DOGEUSDT
+2025-05-25 20:44:21,081 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho DOGEUSDT
+2025-05-25 20:44:21,082 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho DOGEUSDT
+2025-05-25 20:44:21,089 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho DOGEUSDT: 0 anomalies
+2025-05-25 20:44:21,089 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho DOGEUSDT
+2025-05-25 20:44:21,095 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h DOGEUSDT: 0.370
+2025-05-25 20:44:21,096 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho DOGEUSDT
+2025-05-25 20:44:21,110 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:44:21,110 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:44:21,111 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies 30d cho DOGEUSDT
+2025-05-25 20:44:21,111 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho DOGEUSDT
+2025-05-25 20:44:21,133 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies cho DOGEUSDT
+2025-05-25 20:44:21,134 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume_USDT: 1
+2025-05-25 20:44:21,134 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume: 1
+2025-05-25 20:59:42,876 - data_analyzer.anomaly_detector - INFO - 🔧 Khởi tạo OptimizedAnomalyDetector với ngưỡng 2.5
+2025-05-25 20:59:42,877 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho BTCUSDT
+2025-05-25 20:59:42,878 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho BTCUSDT
+2025-05-25 20:59:42,890 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho BTCUSDT
+2025-05-25 20:59:42,890 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho BTCUSDT
+2025-05-25 20:59:42,913 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho BTCUSDT
+2025-05-25 20:59:42,914 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho BTCUSDT
+2025-05-25 20:59:42,924 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho BTCUSDT: 0 anomalies
+2025-05-25 20:59:42,925 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho BTCUSDT
+2025-05-25 20:59:42,936 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h BTCUSDT: 0.384
+2025-05-25 20:59:42,937 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho BTCUSDT
+2025-05-25 20:59:42,957 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:59:42,958 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:59:42,958 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies 30d cho BTCUSDT
+2025-05-25 20:59:42,959 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho BTCUSDT
+2025-05-25 20:59:42,990 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies cho BTCUSDT
+2025-05-25 20:59:42,991 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume_USDT: 1
+2025-05-25 20:59:42,991 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume: 1
+2025-05-25 20:59:42,995 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho ETHUSDT
+2025-05-25 20:59:42,996 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho ETHUSDT
+2025-05-25 20:59:43,007 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho ETHUSDT
+2025-05-25 20:59:43,008 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho ETHUSDT
+2025-05-25 20:59:43,022 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho ETHUSDT
+2025-05-25 20:59:43,022 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho ETHUSDT
+2025-05-25 20:59:43,028 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho ETHUSDT: 0 anomalies
+2025-05-25 20:59:43,028 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho ETHUSDT
+2025-05-25 20:59:43,034 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h ETHUSDT: 0.387
+2025-05-25 20:59:43,035 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho ETHUSDT
+2025-05-25 20:59:43,050 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:59:43,051 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 1 anomalies 30d cho ETHUSDT
+2025-05-25 20:59:43,051 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho ETHUSDT
+2025-05-25 20:59:43,073 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 1 anomalies cho ETHUSDT
+2025-05-25 20:59:43,073 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume: 1
+2025-05-25 20:59:43,075 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho BNBUSDT
+2025-05-25 20:59:43,075 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho BNBUSDT
+2025-05-25 20:59:43,083 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho BNBUSDT
+2025-05-25 20:59:43,083 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho BNBUSDT
+2025-05-25 20:59:43,097 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho BNBUSDT
+2025-05-25 20:59:43,098 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho BNBUSDT
+2025-05-25 20:59:43,103 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho BNBUSDT: 0 anomalies
+2025-05-25 20:59:43,104 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho BNBUSDT
+2025-05-25 20:59:43,110 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h BNBUSDT: 0.377
+2025-05-25 20:59:43,110 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho BNBUSDT
+2025-05-25 20:59:43,127 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:59:43,127 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:59:43,128 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies 30d cho BNBUSDT
+2025-05-25 20:59:43,128 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho BNBUSDT
+2025-05-25 20:59:43,154 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies cho BNBUSDT
+2025-05-25 20:59:43,155 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume_USDT: 1
+2025-05-25 20:59:43,156 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume: 1
+2025-05-25 20:59:43,159 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho SOLUSDT
+2025-05-25 20:59:43,159 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho SOLUSDT
+2025-05-25 20:59:43,172 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho SOLUSDT
+2025-05-25 20:59:43,172 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho SOLUSDT
+2025-05-25 20:59:43,192 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho SOLUSDT
+2025-05-25 20:59:43,192 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho SOLUSDT
+2025-05-25 20:59:43,197 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho SOLUSDT: 0 anomalies
+2025-05-25 20:59:43,198 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho SOLUSDT
+2025-05-25 20:59:43,204 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h SOLUSDT: 0.381
+2025-05-25 20:59:43,204 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho SOLUSDT
+2025-05-25 20:59:43,220 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 4 anomalies 30d cho SOLUSDT
+2025-05-25 20:59:43,221 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho SOLUSDT
+2025-05-25 20:59:43,257 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 4 anomalies cho SOLUSDT
+2025-05-25 20:59:43,257 - data_analyzer.anomaly_detector - INFO -    - 30d_OI_Value: 2
+2025-05-25 20:59:43,258 - data_analyzer.anomaly_detector - INFO -    - 30d_Avg_OI_Value: 2
+2025-05-25 20:59:43,262 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện tất cả anomalies cho DOGEUSDT
+2025-05-25 20:59:43,262 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 24h cho DOGEUSDT
+2025-05-25 20:59:43,275 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 anomalies 24h cho DOGEUSDT
+2025-05-25 20:59:43,276 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện volume spikes cho DOGEUSDT
+2025-05-25 20:59:43,289 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 0 volume spikes cho DOGEUSDT
+2025-05-25 20:59:43,290 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện OI-Price divergence cho DOGEUSDT
+2025-05-25 20:59:43,296 - data_analyzer.anomaly_detector - INFO - ✅ Kiểm tra OI divergence cho DOGEUSDT: 0 anomalies
+2025-05-25 20:59:43,296 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 24h cho DOGEUSDT
+2025-05-25 20:59:43,302 - data_analyzer.anomaly_detector - INFO - ✅ Correlation 24h DOGEUSDT: 0.370
+2025-05-25 20:59:43,302 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies 30d cho DOGEUSDT
+2025-05-25 20:59:43,318 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:59:43,319 - data_analyzer.anomaly_detector - ERROR - ❌ Lỗi khi kiểm tra recent anomaly: '>=' not supported between instances of 'int' and 'datetime.datetime'
+2025-05-25 20:59:43,319 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies 30d cho DOGEUSDT
+2025-05-25 20:59:43,320 - data_analyzer.anomaly_detector - INFO - 🔍 Phát hiện anomalies correlation 30d cho DOGEUSDT
+2025-05-25 20:59:43,351 - data_analyzer.anomaly_detector - INFO - ✅ Phát hiện 2 anomalies cho DOGEUSDT
+2025-05-25 20:59:43,352 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume_USDT: 1
+2025-05-25 20:59:43,353 - data_analyzer.anomaly_detector - INFO -    - 30d_Volume: 1

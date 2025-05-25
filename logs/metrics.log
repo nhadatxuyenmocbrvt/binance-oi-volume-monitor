@@ -1,51 +1,275 @@
-2025-05-25 11:50:48,561 - data_analyzer.metrics - INFO - 🔧 Khởi tạo OptimizedOIVolumeMetrics - Focus OI & Volume
-2025-05-25 11:50:48,570 - data_analyzer.metrics - INFO - OI Data: current=9,360,282,659.28, previous=9,245,896,500.51, change=1.24%
-2025-05-25 11:50:48,572 - data_analyzer.metrics - INFO - Volume Data: current=257,207,659.80, previous=1,022,416,889.58, change=-74.84%
-2025-05-25 11:50:48,588 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
-2025-05-25 11:50:48,594 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bullish 2.90%, giá trị hiện tại = 9,380,174,628.20 USDT
-2025-05-25 11:50:48,594 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
-2025-05-25 11:50:48,599 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: increasing -56.94%, giá trị hiện tại = 2,949,253,593.60 USDT
-2025-05-25 11:50:48,605 - data_analyzer.metrics - INFO - OI Data: current=4,092,712,509.21, previous=4,258,918,732.89, change=-3.90%
-2025-05-25 11:50:48,606 - data_analyzer.metrics - INFO - Volume Data: current=158,265,195.20, previous=383,076,232.13, change=-58.69%
-2025-05-25 11:50:48,619 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
-2025-05-25 11:50:48,623 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -0.95%, giá trị hiện tại = 4,109,792,874.61 USDT
-2025-05-25 11:50:48,624 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
-2025-05-25 11:50:48,627 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -63.68%, giá trị hiện tại = 2,597,223,633.44 USDT
-2025-05-25 11:50:48,632 - data_analyzer.metrics - INFO - OI Data: current=365,610,242.64, previous=366,207,563.37, change=-0.16%
-2025-05-25 11:50:48,633 - data_analyzer.metrics - INFO - Volume Data: current=4,876,801.58, previous=11,019,714.47, change=-55.74%
-2025-05-25 11:50:48,645 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
-2025-05-25 11:50:48,649 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bullish 3.89%, giá trị hiện tại = 365,208,008.86 USDT
-2025-05-25 11:50:48,650 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
-2025-05-25 11:50:48,653 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -66.86%, giá trị hiện tại = 72,167,439.46 USDT
-2025-05-25 11:50:48,657 - data_analyzer.metrics - INFO - OI Data: current=1,281,038,976.78, previous=1,328,494,880.76, change=-3.57%
-2025-05-25 11:50:48,658 - data_analyzer.metrics - INFO - Volume Data: current=71,531,588.89, previous=124,890,651.31, change=-42.72%
-2025-05-25 11:50:48,670 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
-2025-05-25 11:50:48,674 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -5.24%, giá trị hiện tại = 1,280,359,295.51 USDT
-2025-05-25 11:50:48,675 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
-2025-05-25 11:50:48,678 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: increasing -48.15%, giá trị hiện tại = 938,352,461.55 USDT
-2025-05-25 11:50:48,682 - data_analyzer.metrics - INFO - OI Data: current=411,614,150.22, previous=424,972,226.88, change=-3.14%
-2025-05-25 11:50:48,683 - data_analyzer.metrics - INFO - Volume Data: current=15,164,857.88, previous=35,039,802.27, change=-56.72%
-2025-05-25 11:50:48,695 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
-2025-05-25 11:50:48,699 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -6.21%, giá trị hiện tại = 412,247,932.47 USDT
-2025-05-25 11:50:48,700 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
-2025-05-25 11:50:48,704 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -75.90%, giá trị hiện tại = 225,173,509.86 USDT
-2025-05-25 11:50:48,719 - data_analyzer.metrics - INFO - OI Data: current=9,360,282,659.28, previous=9,245,896,500.51, change=1.24%
-2025-05-25 11:50:48,720 - data_analyzer.metrics - INFO - Volume Data: current=257,207,659.80, previous=1,022,416,889.58, change=-74.84%
-2025-05-25 11:50:48,720 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
-2025-05-25 11:50:48,722 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): -0.456 (moderate)
-2025-05-25 11:50:48,730 - data_analyzer.metrics - INFO - OI Data: current=4,092,712,509.21, previous=4,258,918,732.89, change=-3.90%
-2025-05-25 11:50:48,731 - data_analyzer.metrics - INFO - Volume Data: current=158,265,195.20, previous=383,076,232.13, change=-58.69%
-2025-05-25 11:50:48,731 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
-2025-05-25 11:50:48,732 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): -0.178 (negligible)
-2025-05-25 11:50:48,740 - data_analyzer.metrics - INFO - OI Data: current=365,610,242.64, previous=366,207,563.37, change=-0.16%
-2025-05-25 11:50:48,741 - data_analyzer.metrics - INFO - Volume Data: current=4,876,801.58, previous=11,019,714.47, change=-55.74%
-2025-05-25 11:50:48,741 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
-2025-05-25 11:50:48,742 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): -0.532 (moderate)
-2025-05-25 11:50:48,750 - data_analyzer.metrics - INFO - OI Data: current=1,281,038,976.78, previous=1,328,494,880.76, change=-3.57%
-2025-05-25 11:50:48,751 - data_analyzer.metrics - INFO - Volume Data: current=71,531,588.89, previous=124,890,651.31, change=-42.72%
-2025-05-25 11:50:48,752 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
-2025-05-25 11:50:48,753 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): -0.195 (negligible)
-2025-05-25 11:50:48,760 - data_analyzer.metrics - INFO - OI Data: current=411,614,150.22, previous=424,972,226.88, change=-3.14%
-2025-05-25 11:50:48,761 - data_analyzer.metrics - INFO - Volume Data: current=15,164,857.88, previous=35,039,802.27, change=-56.72%
-2025-05-25 11:50:48,762 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
-2025-05-25 11:50:48,762 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): -0.121 (negligible)
+2025-05-25 20:29:15,993 - data_analyzer.metrics - INFO - 🔧 Khởi tạo OptimizedOIVolumeMetrics - Focus OI & Volume
+2025-05-25 20:29:16,001 - data_analyzer.metrics - INFO - OI Data: current=9,333,706,402.47, previous=9,279,557,533.08, change=0.58%
+2025-05-25 20:29:16,003 - data_analyzer.metrics - INFO - Volume Data: current=18,243,174,577.51, previous=203,113,489.42, change=8881.76%
+2025-05-25 20:29:16,019 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:29:16,024 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish 0.23%, giá trị hiện tại = 9,281,629,754.96 USDT
+2025-05-25 20:29:16,025 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:29:16,029 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: increasing 27.73%, giá trị hiện tại = 8,747,874,624.83 USDT
+2025-05-25 20:29:16,035 - data_analyzer.metrics - INFO - OI Data: current=4,049,289,634.68, previous=4,187,336,145.89, change=-3.30%
+2025-05-25 20:29:16,036 - data_analyzer.metrics - INFO - Volume Data: current=8,688,788,181.20, previous=450,819,835.86, change=1827.33%
+2025-05-25 20:29:16,048 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:29:16,052 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -1.58%, giá trị hiện tại = 4,054,609,211.20 USDT
+2025-05-25 20:29:16,052 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:29:16,055 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -16.07%, giá trị hiện tại = 6,001,667,214.86 USDT
+2025-05-25 20:29:16,060 - data_analyzer.metrics - INFO - OI Data: current=354,689,412.67, previous=366,931,943.61, change=-3.34%
+2025-05-25 20:29:16,061 - data_analyzer.metrics - INFO - Volume Data: current=303,436,603.21, previous=12,971,732.29, change=2239.21%
+2025-05-25 20:29:16,073 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:29:16,077 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -2.02%, giá trị hiện tại = 356,205,081.44 USDT
+2025-05-25 20:29:16,077 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:29:16,080 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -12.50%, giá trị hiện tại = 190,579,927.42 USDT
+2025-05-25 20:29:16,085 - data_analyzer.metrics - INFO - OI Data: current=1,273,674,517.36, previous=1,330,064,797.87, change=-4.24%
+2025-05-25 20:29:16,086 - data_analyzer.metrics - INFO - Volume Data: current=2,791,943,060.37, previous=48,326,629.03, change=5677.24%
+2025-05-25 20:29:16,098 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:29:16,102 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -3.92%, giá trị hiện tại = 1,269,481,005.78 USDT
+2025-05-25 20:29:16,102 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:29:16,106 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: increasing 2.19%, giá trị hiện tại = 1,849,398,901.78 USDT
+2025-05-25 20:29:16,111 - data_analyzer.metrics - INFO - OI Data: current=400,153,254.89, previous=419,428,620.70, change=-4.60%
+2025-05-25 20:29:16,111 - data_analyzer.metrics - INFO - Volume Data: current=834,420,793.92, previous=14,784,841.74, change=5543.76%
+2025-05-25 20:29:16,124 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:29:16,127 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -5.20%, giá trị hiện tại = 396,421,742.93 USDT
+2025-05-25 20:29:16,128 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:29:16,131 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -39.53%, giá trị hiện tại = 565,036,330.21 USDT
+2025-05-25 20:29:16,150 - data_analyzer.metrics - INFO - OI Data: current=9,333,706,402.47, previous=9,279,557,533.08, change=0.58%
+2025-05-25 20:29:16,151 - data_analyzer.metrics - INFO - Volume Data: current=18,243,174,577.51, previous=203,113,489.42, change=8881.76%
+2025-05-25 20:29:16,152 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:29:16,154 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.384 (weak)
+2025-05-25 20:29:16,162 - data_analyzer.metrics - INFO - OI Data: current=4,049,289,634.68, previous=4,187,336,145.89, change=-3.30%
+2025-05-25 20:29:16,163 - data_analyzer.metrics - INFO - Volume Data: current=8,688,788,181.20, previous=450,819,835.86, change=1827.33%
+2025-05-25 20:29:16,163 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:29:16,164 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.387 (weak)
+2025-05-25 20:29:16,171 - data_analyzer.metrics - INFO - OI Data: current=354,689,412.67, previous=366,931,943.61, change=-3.34%
+2025-05-25 20:29:16,172 - data_analyzer.metrics - INFO - Volume Data: current=303,436,603.21, previous=12,971,732.29, change=2239.21%
+2025-05-25 20:29:16,173 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:29:16,174 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.377 (weak)
+2025-05-25 20:29:16,181 - data_analyzer.metrics - INFO - OI Data: current=1,273,674,517.36, previous=1,330,064,797.87, change=-4.24%
+2025-05-25 20:29:16,182 - data_analyzer.metrics - INFO - Volume Data: current=2,791,943,060.37, previous=48,326,629.03, change=5677.24%
+2025-05-25 20:29:16,183 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:29:16,183 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.381 (weak)
+2025-05-25 20:29:16,191 - data_analyzer.metrics - INFO - OI Data: current=400,153,254.89, previous=419,428,620.70, change=-4.60%
+2025-05-25 20:29:16,192 - data_analyzer.metrics - INFO - Volume Data: current=834,420,793.92, previous=14,784,841.74, change=5543.76%
+2025-05-25 20:29:16,192 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:29:16,193 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.370 (weak)
+2025-05-25 20:44:20,738 - data_analyzer.metrics - INFO - 🔧 Khởi tạo OptimizedOIVolumeMetrics - Focus OI & Volume
+2025-05-25 20:44:20,746 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:44:20,748 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:44:20,754 - data_analyzer.metrics - INFO - Volume Data: current=18,243,174,577.51, previous=203,113,489.42, change=8881.76%
+2025-05-25 20:44:20,759 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:44:20,766 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -67.41%, giá trị hiện tại = 8,747,874,624.83 USDT
+2025-05-25 20:44:20,776 - data_analyzer.metrics - INFO - OI Data: current=9,333,706,402.47, previous=9,279,557,533.08, change=0.58%
+2025-05-25 20:44:20,783 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:44:20,784 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.384 (weak)
+2025-05-25 20:44:20,796 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:44:20,800 - data_analyzer.metrics - INFO - 🚨 Phát hiện 1 anomalies với threshold 2.5
+2025-05-25 20:44:20,801 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:44:20,804 - data_analyzer.metrics - INFO - 🚨 Phát hiện 2 anomalies với threshold 2.5
+2025-05-25 20:44:20,845 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:44:20,847 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:44:20,852 - data_analyzer.metrics - INFO - Volume Data: current=8,688,788,181.20, previous=450,819,835.86, change=1827.33%
+2025-05-25 20:44:20,856 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:44:20,859 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -72.32%, giá trị hiện tại = 6,001,667,214.86 USDT
+2025-05-25 20:44:20,864 - data_analyzer.metrics - INFO - OI Data: current=4,049,289,634.68, previous=4,187,336,145.89, change=-3.30%
+2025-05-25 20:44:20,868 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:44:20,869 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.387 (weak)
+2025-05-25 20:44:20,878 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:44:20,880 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:44:20,881 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:44:20,883 - data_analyzer.metrics - INFO - 🚨 Phát hiện 1 anomalies với threshold 2.5
+2025-05-25 20:44:20,911 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:44:20,912 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:44:20,918 - data_analyzer.metrics - INFO - Volume Data: current=303,436,603.21, previous=12,971,732.29, change=2239.21%
+2025-05-25 20:44:20,922 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:44:20,925 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -43.25%, giá trị hiện tại = 190,579,927.42 USDT
+2025-05-25 20:44:20,931 - data_analyzer.metrics - INFO - OI Data: current=354,689,412.67, previous=366,931,943.61, change=-3.34%
+2025-05-25 20:44:20,936 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:44:20,937 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.377 (weak)
+2025-05-25 20:44:20,947 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:44:20,949 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:44:20,950 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:44:20,952 - data_analyzer.metrics - INFO - 🚨 Phát hiện 2 anomalies với threshold 2.5
+2025-05-25 20:44:20,983 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:44:20,985 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:44:20,989 - data_analyzer.metrics - INFO - Volume Data: current=2,791,943,060.37, previous=48,326,629.03, change=5677.24%
+2025-05-25 20:44:20,994 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:44:20,997 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -58.70%, giá trị hiện tại = 1,849,398,901.78 USDT
+2025-05-25 20:44:21,002 - data_analyzer.metrics - INFO - OI Data: current=1,273,674,517.36, previous=1,330,064,797.87, change=-4.24%
+2025-05-25 20:44:21,006 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:44:21,007 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.381 (weak)
+2025-05-25 20:44:21,018 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:44:21,021 - data_analyzer.metrics - INFO - 🚨 Phát hiện 4 anomalies với threshold 2.5
+2025-05-25 20:44:21,021 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:44:21,023 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:44:21,064 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:44:21,065 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:44:21,070 - data_analyzer.metrics - INFO - Volume Data: current=834,420,793.92, previous=14,784,841.74, change=5543.76%
+2025-05-25 20:44:21,075 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:44:21,080 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -63.39%, giá trị hiện tại = 565,036,330.21 USDT
+2025-05-25 20:44:21,088 - data_analyzer.metrics - INFO - OI Data: current=400,153,254.89, previous=419,428,620.70, change=-4.60%
+2025-05-25 20:44:21,094 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:44:21,095 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.370 (weak)
+2025-05-25 20:44:21,104 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:44:21,106 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:44:21,107 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:44:21,109 - data_analyzer.metrics - INFO - 🚨 Phát hiện 2 anomalies với threshold 2.5
+2025-05-25 20:59:38,002 - data_analyzer.metrics - INFO - 🔧 Khởi tạo OptimizedOIVolumeMetrics - Focus OI & Volume
+2025-05-25 20:59:38,014 - data_analyzer.metrics - INFO - OI Data: current=9,333,706,402.47, previous=9,279,557,533.08, change=0.58%
+2025-05-25 20:59:38,016 - data_analyzer.metrics - INFO - Volume Data: current=18,243,174,577.51, previous=203,113,489.42, change=8881.76%
+2025-05-25 20:59:38,034 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:59:38,038 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -0.29%, giá trị hiện tại = 9,272,471,648.05 USDT
+2025-05-25 20:59:38,038 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:38,041 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: increasing 27.73%, giá trị hiện tại = 8,747,874,624.83 USDT
+2025-05-25 20:59:38,047 - data_analyzer.metrics - INFO - OI Data: current=4,049,289,634.68, previous=4,187,336,145.89, change=-3.30%
+2025-05-25 20:59:38,047 - data_analyzer.metrics - INFO - Volume Data: current=8,688,788,181.20, previous=450,819,835.86, change=1827.33%
+2025-05-25 20:59:38,060 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:59:38,063 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -1.55%, giá trị hiện tại = 4,038,049,422.04 USDT
+2025-05-25 20:59:38,064 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:38,067 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -16.07%, giá trị hiện tại = 6,001,667,214.86 USDT
+2025-05-25 20:59:38,072 - data_analyzer.metrics - INFO - OI Data: current=354,689,412.67, previous=366,931,943.61, change=-3.34%
+2025-05-25 20:59:38,073 - data_analyzer.metrics - INFO - Volume Data: current=303,436,603.21, previous=12,971,732.29, change=2239.21%
+2025-05-25 20:59:38,088 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:59:38,092 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -1.46%, giá trị hiện tại = 356,570,735.08 USDT
+2025-05-25 20:59:38,092 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:38,095 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -12.50%, giá trị hiện tại = 190,579,927.42 USDT
+2025-05-25 20:59:38,101 - data_analyzer.metrics - INFO - OI Data: current=1,273,674,517.36, previous=1,330,064,797.87, change=-4.24%
+2025-05-25 20:59:38,102 - data_analyzer.metrics - INFO - Volume Data: current=2,791,943,060.37, previous=48,326,629.03, change=5677.24%
+2025-05-25 20:59:38,114 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:59:38,118 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -3.61%, giá trị hiện tại = 1,268,746,865.09 USDT
+2025-05-25 20:59:38,119 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:38,122 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: increasing 2.19%, giá trị hiện tại = 1,849,398,901.78 USDT
+2025-05-25 20:59:38,128 - data_analyzer.metrics - INFO - OI Data: current=400,153,254.89, previous=419,428,620.70, change=-4.60%
+2025-05-25 20:59:38,130 - data_analyzer.metrics - INFO - Volume Data: current=834,420,793.92, previous=14,784,841.74, change=5543.76%
+2025-05-25 20:59:38,150 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 20:59:38,154 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -4.54%, giá trị hiện tại = 396,897,899.79 USDT
+2025-05-25 20:59:38,154 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:38,158 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -39.53%, giá trị hiện tại = 565,036,330.21 USDT
+2025-05-25 20:59:38,178 - data_analyzer.metrics - INFO - OI Data: current=9,333,706,402.47, previous=9,279,557,533.08, change=0.58%
+2025-05-25 20:59:38,179 - data_analyzer.metrics - INFO - Volume Data: current=18,243,174,577.51, previous=203,113,489.42, change=8881.76%
+2025-05-25 20:59:38,179 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:38,180 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.384 (weak)
+2025-05-25 20:59:38,189 - data_analyzer.metrics - INFO - OI Data: current=4,049,289,634.68, previous=4,187,336,145.89, change=-3.30%
+2025-05-25 20:59:38,190 - data_analyzer.metrics - INFO - Volume Data: current=8,688,788,181.20, previous=450,819,835.86, change=1827.33%
+2025-05-25 20:59:38,191 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:38,192 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.387 (weak)
+2025-05-25 20:59:38,201 - data_analyzer.metrics - INFO - OI Data: current=354,689,412.67, previous=366,931,943.61, change=-3.34%
+2025-05-25 20:59:38,202 - data_analyzer.metrics - INFO - Volume Data: current=303,436,603.21, previous=12,971,732.29, change=2239.21%
+2025-05-25 20:59:38,202 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:38,203 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.377 (weak)
+2025-05-25 20:59:38,212 - data_analyzer.metrics - INFO - OI Data: current=1,273,674,517.36, previous=1,330,064,797.87, change=-4.24%
+2025-05-25 20:59:38,213 - data_analyzer.metrics - INFO - Volume Data: current=2,791,943,060.37, previous=48,326,629.03, change=5677.24%
+2025-05-25 20:59:38,214 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:38,215 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.381 (weak)
+2025-05-25 20:59:38,224 - data_analyzer.metrics - INFO - OI Data: current=400,153,254.89, previous=419,428,620.70, change=-4.60%
+2025-05-25 20:59:38,225 - data_analyzer.metrics - INFO - Volume Data: current=834,420,793.92, previous=14,784,841.74, change=5543.76%
+2025-05-25 20:59:38,225 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:38,226 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.370 (weak)
+2025-05-25 20:59:42,875 - data_analyzer.metrics - INFO - 🔧 Khởi tạo OptimizedOIVolumeMetrics - Focus OI & Volume
+2025-05-25 20:59:42,887 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:59:42,889 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:42,896 - data_analyzer.metrics - INFO - Volume Data: current=18,243,174,577.51, previous=203,113,489.42, change=8881.76%
+2025-05-25 20:59:42,906 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:42,912 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -67.41%, giá trị hiện tại = 8,747,874,624.83 USDT
+2025-05-25 20:59:42,923 - data_analyzer.metrics - INFO - OI Data: current=9,333,706,402.47, previous=9,279,557,533.08, change=0.58%
+2025-05-25 20:59:42,933 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:42,935 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.384 (weak)
+2025-05-25 20:59:42,950 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:59:42,953 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:42,954 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:59:42,956 - data_analyzer.metrics - INFO - 🚨 Phát hiện 2 anomalies với threshold 2.5
+2025-05-25 20:59:43,004 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:59:43,007 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:43,013 - data_analyzer.metrics - INFO - Volume Data: current=8,688,788,181.20, previous=450,819,835.86, change=1827.33%
+2025-05-25 20:59:43,018 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:43,021 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -72.32%, giá trị hiện tại = 6,001,667,214.86 USDT
+2025-05-25 20:59:43,027 - data_analyzer.metrics - INFO - OI Data: current=4,049,289,634.68, previous=4,187,336,145.89, change=-3.30%
+2025-05-25 20:59:43,033 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:43,034 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.387 (weak)
+2025-05-25 20:59:43,044 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:59:43,047 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:43,047 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:59:43,050 - data_analyzer.metrics - INFO - 🚨 Phát hiện 1 anomalies với threshold 2.5
+2025-05-25 20:59:43,080 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:59:43,082 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:43,088 - data_analyzer.metrics - INFO - Volume Data: current=303,436,603.21, previous=12,971,732.29, change=2239.21%
+2025-05-25 20:59:43,093 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:43,097 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -43.25%, giá trị hiện tại = 190,579,927.42 USDT
+2025-05-25 20:59:43,103 - data_analyzer.metrics - INFO - OI Data: current=354,689,412.67, previous=366,931,943.61, change=-3.34%
+2025-05-25 20:59:43,108 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:43,109 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.377 (weak)
+2025-05-25 20:59:43,120 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:59:43,123 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:43,123 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:59:43,126 - data_analyzer.metrics - INFO - 🚨 Phát hiện 2 anomalies với threshold 2.5
+2025-05-25 20:59:43,168 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:59:43,171 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:43,181 - data_analyzer.metrics - INFO - Volume Data: current=2,791,943,060.37, previous=48,326,629.03, change=5677.24%
+2025-05-25 20:59:43,188 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:43,191 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -58.70%, giá trị hiện tại = 1,849,398,901.78 USDT
+2025-05-25 20:59:43,197 - data_analyzer.metrics - INFO - OI Data: current=1,273,674,517.36, previous=1,330,064,797.87, change=-4.24%
+2025-05-25 20:59:43,202 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:43,203 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.381 (weak)
+2025-05-25 20:59:43,213 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:59:43,217 - data_analyzer.metrics - INFO - 🚨 Phát hiện 4 anomalies với threshold 2.5
+2025-05-25 20:59:43,218 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:59:43,220 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:43,270 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI, Volume
+2025-05-25 20:59:43,274 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:43,281 - data_analyzer.metrics - INFO - Volume Data: current=834,420,793.92, previous=14,784,841.74, change=5543.76%
+2025-05-25 20:59:43,286 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 20:59:43,289 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -63.39%, giá trị hiện tại = 565,036,330.21 USDT
+2025-05-25 20:59:43,295 - data_analyzer.metrics - INFO - OI Data: current=400,153,254.89, previous=419,428,620.70, change=-4.60%
+2025-05-25 20:59:43,300 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 20:59:43,301 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.370 (weak)
+2025-05-25 20:59:43,312 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: OI_Value, OI, Avg_OI_Value
+2025-05-25 20:59:43,314 - data_analyzer.metrics - INFO - 🚨 Phát hiện 0 anomalies với threshold 2.5
+2025-05-25 20:59:43,315 - data_analyzer.metrics - INFO - 🔍 Kiểm tra bất thường cho các chỉ số: Volume_USDT, Volume
+2025-05-25 20:59:43,318 - data_analyzer.metrics - INFO - 🚨 Phát hiện 2 anomalies với threshold 2.5
+2025-05-25 21:24:18,179 - data_analyzer.metrics - INFO - 🔧 Khởi tạo OptimizedOIVolumeMetrics - Focus OI & Volume
+2025-05-25 21:24:18,185 - data_analyzer.metrics - INFO - OI Data: current=9,267,105,744.02, previous=9,260,597,793.72, change=0.07%
+2025-05-25 21:24:18,186 - data_analyzer.metrics - INFO - Volume Data: current=16,787,893,123.59, previous=1,040,948,097.05, change=1512.75%
+2025-05-25 21:24:18,204 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 21:24:18,207 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -0.18%, giá trị hiện tại = 9,280,146,816.67 USDT
+2025-05-25 21:24:18,208 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 21:24:18,211 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: increasing 33.83%, giá trị hiện tại = 9,165,269,535.03 USDT
+2025-05-25 21:24:18,215 - data_analyzer.metrics - INFO - OI Data: current=4,035,603,105.65, previous=4,119,737,335.31, change=-2.04%
+2025-05-25 21:24:18,216 - data_analyzer.metrics - INFO - Volume Data: current=8,703,046,568.54, previous=263,590,536.13, change=3201.73%
+2025-05-25 21:24:18,226 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 21:24:18,229 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -0.17%, giá trị hiện tại = 4,025,238,073.61 USDT
+2025-05-25 21:24:18,230 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 21:24:18,233 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -10.98%, giá trị hiện tại = 6,365,438,575.81 USDT
+2025-05-25 21:24:18,236 - data_analyzer.metrics - INFO - OI Data: current=356,555,435.68, previous=363,559,297.54, change=-1.93%
+2025-05-25 21:24:18,237 - data_analyzer.metrics - INFO - Volume Data: current=289,363,852.49, previous=10,397,703.60, change=2682.96%
+2025-05-25 21:24:18,249 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 21:24:18,252 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -1.41%, giá trị hiện tại = 356,641,305.23 USDT
+2025-05-25 21:24:18,253 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 21:24:18,257 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -6.91%, giá trị hiện tại = 202,741,018.39 USDT
+2025-05-25 21:24:18,261 - data_analyzer.metrics - INFO - OI Data: current=1,266,165,426.77, previous=1,321,238,596.78, change=-4.17%
+2025-05-25 21:24:18,262 - data_analyzer.metrics - INFO - Volume Data: current=2,568,201,866.22, previous=68,974,345.87, change=3623.42%
+2025-05-25 21:24:18,274 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 21:24:18,278 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -1.54%, giá trị hiện tại = 1,262,765,058.98 USDT
+2025-05-25 21:24:18,279 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 21:24:18,282 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: increasing 7.52%, giá trị hiện tại = 1,945,844,857.73 USDT
+2025-05-25 21:24:18,287 - data_analyzer.metrics - INFO - OI Data: current=396,592,474.96, previous=418,145,802.52, change=-5.15%
+2025-05-25 21:24:18,288 - data_analyzer.metrics - INFO - Volume Data: current=812,256,866.75, previous=24,017,017.28, change=3282.01%
+2025-05-25 21:24:18,311 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu OI: sử dụng cột open_interest_value và avg_open_interest_value
+2025-05-25 21:24:18,317 - data_analyzer.metrics - INFO - ✅ Tính toán OI metrics 30d: bearish -2.29%, giá trị hiện tại = 395,406,159.76 USDT
+2025-05-25 21:24:18,318 - data_analyzer.metrics - INFO - 🔍 Cấu trúc dữ liệu Volume: sử dụng cột quote_volume
+2025-05-25 21:24:18,322 - data_analyzer.metrics - INFO - ✅ Tính toán Volume metrics 30d: decreasing -37.04%, giá trị hiện tại = 588,328,864.80 USDT
+2025-05-25 21:24:18,340 - data_analyzer.metrics - INFO - OI Data: current=9,267,105,744.02, previous=9,260,597,793.72, change=0.07%
+2025-05-25 21:24:18,341 - data_analyzer.metrics - INFO - Volume Data: current=16,787,893,123.59, previous=1,040,948,097.05, change=1512.75%
+2025-05-25 21:24:18,341 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 21:24:18,342 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.433 (moderate)
+2025-05-25 21:24:18,350 - data_analyzer.metrics - INFO - OI Data: current=4,035,603,105.65, previous=4,119,737,335.31, change=-2.04%
+2025-05-25 21:24:18,351 - data_analyzer.metrics - INFO - Volume Data: current=8,703,046,568.54, previous=263,590,536.13, change=3201.73%
+2025-05-25 21:24:18,352 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 21:24:18,353 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.432 (moderate)
+2025-05-25 21:24:18,360 - data_analyzer.metrics - INFO - OI Data: current=356,555,435.68, previous=363,559,297.54, change=-1.93%
+2025-05-25 21:24:18,361 - data_analyzer.metrics - INFO - Volume Data: current=289,363,852.49, previous=10,397,703.60, change=2682.96%
+2025-05-25 21:24:18,362 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 21:24:18,363 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.423 (moderate)
+2025-05-25 21:24:18,369 - data_analyzer.metrics - INFO - OI Data: current=1,266,165,426.77, previous=1,321,238,596.78, change=-4.17%
+2025-05-25 21:24:18,371 - data_analyzer.metrics - INFO - Volume Data: current=2,568,201,866.22, previous=68,974,345.87, change=3623.42%
+2025-05-25 21:24:18,372 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 21:24:18,373 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.432 (moderate)
+2025-05-25 21:24:18,382 - data_analyzer.metrics - INFO - OI Data: current=396,592,474.96, previous=418,145,802.52, change=-5.15%
+2025-05-25 21:24:18,383 - data_analyzer.metrics - INFO - Volume Data: current=812,256,866.75, previous=24,017,017.28, change=3282.01%
+2025-05-25 21:24:18,383 - data_analyzer.metrics - INFO - 📊 Tính correlation giữa open_interest và volume cho period 24h
+2025-05-25 21:24:18,384 - data_analyzer.metrics - INFO - 📊 OI-Volume correlation (24h): 0.417 (moderate)

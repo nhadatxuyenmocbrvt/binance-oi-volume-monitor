@@ -475,7 +475,7 @@ class Database:
                     prev_date_str = prev_date.strftime('%Y-%m-%d')
                     
                     cursor.execute('''
-                    SELECT price, quote_volume, open_interest
+                    SELECT price, quote_volume, open_interest_value
                     FROM daily_tracking
                     WHERE symbol = ? AND date_timestamp = ?
                     ''', (symbol, prev_date_str))
@@ -497,7 +497,7 @@ class Database:
                         if prev_volume > 0:
                             volume_change_1d = ((quote_volume - prev_volume) / prev_volume) * 100
                         if prev_oi > 0:
-                            oi_change_1d = ((oi - prev_oi) / prev_oi) * 100
+                            oi_change_1d = ((oi_value - prev_oi) / prev_oi) * 100
                     
                     # Lưu dữ liệu
                     cursor.execute('''
@@ -1145,10 +1145,14 @@ class Database:
                                                 'avg_open_interest_value', 'price_change_1d', 'volume_change_1d', 'oi_change_1d']].copy()
                 tracking_30d_clean['date_timestamp'] = tracking_30d_clean['date_timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
                 
+                # FIX: Đảm bảo sử dụng open_interest_value thay vì open_interest
                 # Log để debug
                 if len(tracking_30d_clean) > 0:
                     logger.info(f"{symbol} 30d: first={tracking_30d_clean['date_timestamp'].iloc[0]}, " +
                              f"last={tracking_30d_clean['date_timestamp'].iloc[-1]}, count={len(tracking_30d_clean)}")
+                    
+                    # Log giá trị OI để kiểm tra
+                    logger.info(f"{symbol} 30d OI Value: latest={tracking_30d_clean['open_interest_value'].iloc[-1]:,.2f} USDT")
                 
                 symbol_data['tracking_30d'] = tracking_30d_clean.to_dict(orient='records')
             
