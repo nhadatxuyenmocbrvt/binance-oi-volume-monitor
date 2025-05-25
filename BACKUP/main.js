@@ -3,9 +3,6 @@
  * Fixed: Smart data path detection for GitHub Pages
  * Fixed: Data display issues, chart scaling, and repeated data
  * Fixed: Đơn vị hiển thị đúng cho dữ liệu từ Binance
- * Fixed: Thời gian hiển thị nhất quán giữa tooltip và trục x
- * Fixed: Cải thiện hiển thị dữ liệu trùng lặp
- * Fixed: Quản lý tốt hơn dữ liệu thiếu hoặc không hợp lệ
  */
 
 class SimpleOIVolumeMonitor {
@@ -16,8 +13,6 @@ class SimpleOIVolumeMonitor {
         this.symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
         this.updateInterval = null;
         this.dataSource = null; // Will be detected
-        this.lastUpdateTime = '';
-        this.isUsingSampleData = false;
         
         this.init();
     }
@@ -74,7 +69,6 @@ class SimpleOIVolumeMonitor {
     
     async loadAllData() {
         this.showLoading();
-        this.isUsingSampleData = false;
         
         try {
             // Detect data source first
@@ -184,7 +178,6 @@ class SimpleOIVolumeMonitor {
             
             const data = await response.json();
             this.coinsData[symbol] = this.processSymbolData(data);
-            this.coinsData[symbol].isActualData = true;
             
             console.log(`✅ Loaded data for ${symbol}`);
             
@@ -193,26 +186,16 @@ class SimpleOIVolumeMonitor {
             
             // Tạo dữ liệu mẫu nếu không load được
             this.coinsData[symbol] = this.generateSampleData(symbol);
-            this.coinsData[symbol].isActualData = false;
-            this.isUsingSampleData = true;
         }
     }
     
     processSymbolData(rawData) {
         // Xử lý và làm sạch dữ liệu
         const processed = {
-            symbol: rawData.symbol || '',
             klines: rawData.klines || {},
             open_interest: rawData.open_interest || [],
             tracking_24h: rawData.tracking_24h || [],
             tracking_30d: rawData.tracking_30d || []
-        };
-        
-        // Xác định nguồn dữ liệu đang sử dụng
-        processed.dataSource = {
-            hourly: processed.tracking_24h.length > 0 ? 'tracking_24h' : 'generated',
-            daily: processed.tracking_30d.length > 0 ? 'tracking_30d' : 
-                   (processed.open_interest.length > 0 ? 'open_interest+klines' : 'generated')
         };
         
         // Sort data by timestamp
@@ -223,8 +206,8 @@ class SimpleOIVolumeMonitor {
             processed.open_interest = processed.open_interest.map(item => {
                 return {
                     ...item,
-                    open_interest: parseFloat(item.open_interest || 0),
-                    open_interest_value: parseFloat(item.open_interest_value || 0)
+                    open_interest: parseFloat(item.open_interest),
+                    open_interest_value: parseFloat(item.open_interest_value)
                 };
             });
             
@@ -243,13 +226,13 @@ class SimpleOIVolumeMonitor {
             processed.tracking_30d = processed.tracking_30d.map(item => {
                 return {
                     ...item,
-                    price: parseFloat(item.price || 0),
-                    quote_volume: parseFloat(item.quote_volume || 0),
-                    open_interest_value: parseFloat(item.open_interest_value || 0),
-                    avg_open_interest_value: parseFloat(item.avg_open_interest_value || 0),
-                    price_change_1d: parseFloat(item.price_change_1d || 0),
-                    volume_change_1d: parseFloat(item.volume_change_1d || 0),
-                    oi_change_1d: parseFloat(item.oi_change_1d || 0)
+                    price: parseFloat(item.price),
+                    quote_volume: parseFloat(item.quote_volume),
+                    open_interest_value: parseFloat(item.open_interest_value),
+                    avg_open_interest_value: parseFloat(item.avg_open_interest_value),
+                    price_change_1d: parseFloat(item.price_change_1d),
+                    volume_change_1d: parseFloat(item.volume_change_1d),
+                    oi_change_1d: parseFloat(item.oi_change_1d)
                 };
             });
             
@@ -268,14 +251,12 @@ class SimpleOIVolumeMonitor {
             processed.tracking_24h = processed.tracking_24h.map(item => {
                 return {
                     ...item,
-                    price: parseFloat(item.price || 0),
-                    volume: parseFloat(item.volume || 0),
-                    quote_volume: parseFloat(item.quote_volume || 0),
-                    open_interest: parseFloat(item.open_interest || 0),
-                    open_interest_value: parseFloat(item.open_interest_value || 0),
-                    price_change_1h: parseFloat(item.price_change_1h || 0),
-                    volume_change_1h: parseFloat(item.volume_change_1h || 0),
-                    oi_change_1h: parseFloat(item.oi_change_1h || 0)
+                    price: parseFloat(item.price),
+                    volume: parseFloat(item.volume),
+                    open_interest: parseFloat(item.open_interest),
+                    price_change_1h: parseFloat(item.price_change_1h),
+                    volume_change_1h: parseFloat(item.volume_change_1h),
+                    oi_change_1h: parseFloat(item.oi_change_1h)
                 };
             });
         }
@@ -289,12 +270,12 @@ class SimpleOIVolumeMonitor {
                 processed.klines[timeframe] = processed.klines[timeframe].map(item => {
                     return {
                         ...item,
-                        open: parseFloat(item.open || 0),
-                        high: parseFloat(item.high || 0),
-                        low: parseFloat(item.low || 0),
-                        close: parseFloat(item.close || 0),
-                        volume: parseFloat(item.volume || 0),
-                        quote_volume: parseFloat(item.quote_volume || 0)
+                        open: parseFloat(item.open),
+                        high: parseFloat(item.high),
+                        low: parseFloat(item.low),
+                        close: parseFloat(item.close),
+                        volume: parseFloat(item.volume),
+                        quote_volume: parseFloat(item.quote_volume)
                     };
                 });
             }
@@ -307,27 +288,16 @@ class SimpleOIVolumeMonitor {
         // Tạo dữ liệu mẫu khi không load được từ API
         const now = new Date();
         const sampleData = {
-            symbol: symbol,
             klines: { '1d': [] },
             open_interest: [],
             tracking_24h: [],
-            tracking_30d: [],
-            isSampleData: true
-        };
-        
-        // Đánh dấu đây là dữ liệu mẫu
-        sampleData.dataSource = {
-            hourly: 'generated',
-            daily: 'generated'
+            tracking_30d: [] 
         };
         
         // Các giá trị lớn hơn để phù hợp với giá trị thực tế từ Binance
         const baseOIValue = 5000000000 + Math.random() * 5000000000;  // ~ 5-10B
         const baseVolumeValue = 1000000000 + Math.random() * 2000000000;  // ~ 1-3B
-        const price = symbol === 'BTCUSDT' ? 107000 : 
-                    (symbol === 'ETHUSDT' ? 2500 : 
-                    (symbol === 'BNBUSDT' ? 500 :
-                    (symbol === 'SOLUSDT' ? 180 : 100)));
+        const price = symbol === 'BTCUSDT' ? 107000 : (symbol === 'ETHUSDT' ? 2500 : 500);
         
         // Generate 30 days of sample data
         for (let i = 29; i >= 0; i--) {
@@ -377,9 +347,7 @@ class SimpleOIVolumeMonitor {
             sampleData.tracking_24h.push({
                 hour_timestamp: date.toISOString(),
                 open_interest: hourlyOI,
-                open_interest_value: hourlyOI,
                 volume: hourlyVolume,
-                quote_volume: hourlyVolume,
                 price: hourlyPrice,
                 price_change_1h: (Math.random() * 2) - 1,
                 volume_change_1h: (Math.random() * 10) - 5,
@@ -416,24 +384,6 @@ class SimpleOIVolumeMonitor {
                 }
             });
         }, 100);
-        
-        // Hiển thị nguồn dữ liệu và trạng thái
-        this.updateDataSourceInfo();
-    }
-    
-    updateDataSourceInfo() {
-        const statusBar = document.getElementById('dataSourceInfo');
-        if (!statusBar) return;
-        
-        if (this.isUsingSampleData) {
-            statusBar.innerHTML = `<div class="alert alert-warning py-1">
-                <i class="bi bi-exclamation-triangle"></i> 
-                Một số dữ liệu mẫu đang được hiển thị do không thể tải dữ liệu thực
-            </div>`;
-            statusBar.classList.remove('d-none');
-        } else {
-            statusBar.classList.add('d-none');
-        }
     }
     
     createCoinCard(symbol, data) {
@@ -446,12 +396,9 @@ class SimpleOIVolumeMonitor {
         col.innerHTML = `
             <div class="card coin-card h-100">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0 d-flex justify-content-between align-items-center">
-                        <span>
-                            <i class="bi bi-currency-bitcoin me-2"></i>
-                            ${cleanSymbol}
-                        </span>
-                        ${!data.isActualData ? '<small class="badge bg-warning text-dark">Dữ liệu mẫu</small>' : ''}
+                    <h5 class="mb-0">
+                        <i class="bi bi-currency-bitcoin me-2"></i>
+                        ${cleanSymbol}
                     </h5>
                     <small class="opacity-75">${this.currentView === 'hourly' ? '24 giờ qua' : '30 ngày qua'}</small>
                 </div>
@@ -487,12 +434,12 @@ class SimpleOIVolumeMonitor {
         // FIX: Kiểm tra dữ liệu hợp lệ trước khi hiển thị
         const validData = hourlyData.filter(item => 
             item && 
-            (typeof item.open_interest === 'number' || typeof item.open_interest_value === 'number') && 
-            (typeof item.volume === 'number' || typeof item.quote_volume === 'number') &&
-            !isNaN(this.getConsistentValue(item, 'openInterest')) &&
-            !isNaN(this.getConsistentValue(item, 'volume')) &&
-            this.getConsistentValue(item, 'openInterest') > 0 &&
-            this.getConsistentValue(item, 'volume') > 0
+            typeof item.open_interest === 'number' && 
+            typeof item.volume === 'number' &&
+            !isNaN(item.open_interest) &&
+            !isNaN(item.volume) &&
+            item.open_interest > 0 &&
+            item.volume > 0
         );
         
         if (validData.length === 0) {
@@ -502,13 +449,8 @@ class SimpleOIVolumeMonitor {
         const latest = validData[validData.length - 1];
         const previous = validData.length > 1 ? validData[validData.length - 2] : latest;
         
-        const latestOI = this.getConsistentValue(latest, 'openInterest');
-        const previousOI = this.getConsistentValue(previous, 'openInterest');
-        const latestVolume = this.getConsistentValue(latest, 'volume');
-        const previousVolume = this.getConsistentValue(previous, 'volume');
-        
-        const oiChange = this.calculateChange(latestOI, previousOI);
-        const volumeChange = this.calculateChange(latestVolume, previousVolume);
+        const oiChange = this.calculateChange(latest.open_interest, previous.open_interest);
+        const volumeChange = this.calculateChange(latest.volume, previous.volume);
         
         // FIX: Hiển thị đơn vị tiền tệ USDT để rõ ràng hơn
         return `
@@ -516,7 +458,7 @@ class SimpleOIVolumeMonitor {
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <small>Open Interest</small>
-                        <div class="fw-bold">${this.formatNumber(latestOI)} USDT</div>
+                        <div class="fw-bold">${this.formatNumber(latest.open_interest)} USDT</div>
                     </div>
                     <div class="text-end">
                         <span class="badge ${oiChange >= 0 ? 'bg-success' : 'bg-danger'}">
@@ -529,7 +471,7 @@ class SimpleOIVolumeMonitor {
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <small>Volume</small>
-                        <div class="fw-bold">${this.formatNumber(latestVolume)} USDT</div>
+                        <div class="fw-bold">${this.formatNumber(latest.volume)} USDT</div>
                     </div>
                     <div class="text-end">
                         <span class="badge ${volumeChange >= 0 ? 'bg-success' : 'bg-danger'}">
@@ -547,31 +489,35 @@ class SimpleOIVolumeMonitor {
             // Lọc các dữ liệu có giá trị hợp lệ
             const validData = data.tracking_30d.filter(item => 
                 item && 
-                (typeof item.open_interest_value === 'number' || typeof item.avg_open_interest_value === 'number') && 
+                typeof item.open_interest_value === 'number' && 
                 typeof item.quote_volume === 'number' &&
-                !isNaN(this.getConsistentValue(item, 'openInterest')) &&
+                !isNaN(item.open_interest_value) &&
                 !isNaN(item.quote_volume) &&
-                this.getConsistentValue(item, 'openInterest') > 0 &&
+                item.open_interest_value > 0 &&
                 item.quote_volume > 0
             );
+            
+            console.log(`DEBUG: ${symbol} 30d data - ${validData.length} valid records`);
             
             if (validData.length > 0) {
                 const latest = validData[validData.length - 1];
                 const previous = validData.length > 1 ? validData[validData.length - 2] : latest;
                 
-                // FIX: Đảm bảo sử dụng avg_open_interest_value nếu có, nếu không thì dùng open_interest_value
-                const latestOI = this.getConsistentValue(latest, 'openInterest');
-                const previousOI = this.getConsistentValue(previous, 'openInterest');
+                // QUAN TRỌNG: Log để debug giá trị thực tế
+                console.log(`${symbol} latest OI = ${latest.open_interest_value.toLocaleString()}, Volume = ${latest.quote_volume.toLocaleString()}`);
                 
-                const oiChange = this.calculateChange(latestOI, previousOI);
+                const oiChange = this.calculateChange(latest.open_interest_value, previous.open_interest_value);
                 const volumeChange = this.calculateChange(latest.quote_volume, previous.quote_volume);
+                
+                // FIX: Đảm bảo sử dụng avg_open_interest_value nếu có, nếu không thì dùng open_interest_value
+                const oiValueToDisplay = latest.avg_open_interest_value || latest.open_interest_value;
                 
                 return `
                     <div class="metric-box oi">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <small>Open Interest (30 ngày)</small>
-                                <div class="fw-bold">${this.formatNumber(latestOI)} USDT</div>
+                                <div class="fw-bold">${this.formatNumber(oiValueToDisplay)} USDT</div>
                             </div>
                             <div class="text-end">
                                 <span class="badge ${oiChange >= 0 ? 'bg-success' : 'bg-danger'}">
@@ -599,7 +545,7 @@ class SimpleOIVolumeMonitor {
         
         // Fallback: Sử dụng open_interest và klines
         const dailyOI = data.open_interest || [];
-        const dailyKlines = data.klines && data.klines['1d'] ? data.klines['1d'] : [];
+        const dailyKlines = data.klines['1d'] || [];
         
         if (dailyOI.length === 0 && dailyKlines.length === 0) {
             return '<div class="text-muted text-center">Không có dữ liệu</div>';
@@ -616,6 +562,9 @@ class SimpleOIVolumeMonitor {
             // FIX: Đảm bảo sử dụng open_interest_value để hiển thị giá trị USDT
             const oiValue = latestOI.open_interest_value || 0;
             const prevOiValue = previousOI.open_interest_value || 0;
+            
+            // Debug để kiểm tra giá trị thực tế
+            console.log(`${symbol} OI value from open_interest: ${oiValue.toLocaleString()}`);
             
             const oiChange = this.calculateChange(oiValue, prevOiValue);
             
@@ -643,6 +592,9 @@ class SimpleOIVolumeMonitor {
             
             const volumeValue = latestVolume.quote_volume || latestVolume.volume;
             const prevVolumeValue = previousVolume.quote_volume || previousVolume.volume;
+            
+            // Debug để kiểm tra giá trị thực tế
+            console.log(`${symbol} Volume value from klines: ${volumeValue.toLocaleString()}`);
             
             const volumeChange = this.calculateChange(volumeValue, prevVolumeValue);
             
@@ -683,27 +635,9 @@ class SimpleOIVolumeMonitor {
             ctx.fillStyle = '#6c757d';
             ctx.font = '16px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText('Không có dữ liệu hợp lệ', canvas.width / 2, canvas.height / 2 - 10);
-            
-            // Nếu đang sử dụng dữ liệu mẫu
-            if (!data.isActualData) {
-                ctx.font = '14px Arial';
-                ctx.fillText('Đang hiển thị dữ liệu mẫu tạm thời', canvas.width / 2, canvas.height / 2 + 20);
-            }
+            ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
             return;
         }
-        
-        // Phát hiện và xử lý dữ liệu trùng lặp
-        const cleanedData = this.detectAndCleanDuplicates(chartData);
-        
-        // Tính toán giá trị min/max cho các trục
-        const oiValues = cleanedData.filter(item => item.oi !== null).map(item => item.oi);
-        const volumeValues = cleanedData.filter(item => item.volume !== null).map(item => item.volume);
-        
-        const oiMin = oiValues.length > 0 ? Math.min(...oiValues) * 0.95 : 0;
-        const oiMax = oiValues.length > 0 ? Math.max(...oiValues) * 1.05 : 1000;
-        const volumeMin = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.95 : 0;
-        const volumeMax = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.05 : 1000;
         
         // FIX: Cải thiện cấu hình biểu đồ
         this.charts[symbol] = new Chart(ctx, {
@@ -712,7 +646,7 @@ class SimpleOIVolumeMonitor {
                 datasets: [
                     {
                         label: 'Open Interest',
-                        data: cleanedData.map(item => ({ x: item.x, y: item.oi })),
+                        data: chartData.map(item => ({ x: item.x, y: item.oi })),
                         borderColor: '#f5576c',
                         backgroundColor: 'rgba(245, 87, 108, 0.1)',
                         yAxisID: 'y',
@@ -720,11 +654,11 @@ class SimpleOIVolumeMonitor {
                         pointRadius: 2,
                         pointHoverRadius: 4,
                         // FIX: Xử lý dữ liệu bị thiếu
-                        spanGaps: true
+                        spanGaps: false
                     },
                     {
                         label: 'Volume',
-                        data: cleanedData.map(item => ({ x: item.x, y: item.volume })),
+                        data: chartData.map(item => ({ x: item.x, y: item.volume })),
                         borderColor: '#00f2fe',
                         backgroundColor: 'rgba(0, 242, 254, 0.1)',
                         yAxisID: 'y1',
@@ -732,7 +666,7 @@ class SimpleOIVolumeMonitor {
                         pointRadius: 2,
                         pointHoverRadius: 4,
                         // FIX: Xử lý dữ liệu bị thiếu
-                        spanGaps: true
+                        spanGaps: false
                     }
                 ]
             },
@@ -754,27 +688,11 @@ class SimpleOIVolumeMonitor {
                     },
                     tooltip: {
                         callbacks: {
-                            title: (tooltipItems) => {
-                                const date = new Date(tooltipItems[0].parsed.x);
-                                return this.currentView === 'hourly' 
-                                    ? date.toLocaleString('vi-VN', { 
-                                          hour: '2-digit', 
-                                          minute: '2-digit', 
-                                          day: '2-digit', 
-                                          month: '2-digit',
-                                          year: 'numeric'
-                                      })
-                                    : date.toLocaleString('vi-VN', { 
-                                          day: '2-digit', 
-                                          month: '2-digit', 
-                                          year: 'numeric' 
-                                      });
-                            },
-                            label: (context) => {
+                            label: function(context) {
                                 const label = context.dataset.label || '';
                                 const value = context.parsed.y;
-                                return `${label}: ${this.formatNumber(value)} USDT`;
-                            }
+                                return `${label}: ${this.formatNumber ? this.formatNumber(value) : value} USDT`;
+                            }.bind(this)
                         }
                     }
                 },
@@ -785,9 +703,8 @@ class SimpleOIVolumeMonitor {
                             unit: this.currentView === 'hourly' ? 'hour' : 'day',
                             displayFormats: {
                                 hour: 'HH:mm',
-                                day: 'dd/MM'
-                            },
-                            tooltipFormat: this.currentView === 'hourly' ? 'HH:mm dd/MM/yyyy' : 'dd/MM/yyyy'
+                                day: 'MM/dd'
+                            }
                         },
                         grid: {
                             display: false
@@ -797,9 +714,8 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'left',
-                        // FIX: Đảm bảo phạm vi biểu đồ phù hợp
-                        suggestedMin: oiMin,
-                        suggestedMax: oiMax,
+                        // FIX: Đảm bảo biểu đồ luôn bắt đầu từ 0
+                        beginAtZero: false,
                         title: {
                             display: true,
                             text: 'Open Interest (USDT)',
@@ -813,9 +729,8 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'right',
-                        // FIX: Đảm bảo phạm vi biểu đồ phù hợp
-                        suggestedMin: volumeMin,
-                        suggestedMax: volumeMax,
+                        // FIX: Đảm bảo biểu đồ luôn bắt đầu từ 0
+                        beginAtZero: false, 
                         title: {
                             display: true,
                             text: 'Volume (USDT)',
@@ -845,18 +760,53 @@ class SimpleOIVolumeMonitor {
                 .filter(item => 
                     item && 
                     item.hour_timestamp && 
-                    (typeof item.open_interest === 'number' || typeof item.open_interest_value === 'number') && 
-                    (typeof item.volume === 'number' || typeof item.quote_volume === 'number') &&
-                    !isNaN(this.getConsistentValue(item, 'openInterest')) &&
-                    !isNaN(this.getConsistentValue(item, 'volume')) &&
-                    this.getConsistentValue(item, 'openInterest') > 0 &&
-                    this.getConsistentValue(item, 'volume') > 0
+                    typeof item.open_interest === 'number' && 
+                    typeof item.volume === 'number' &&
+                    !isNaN(item.open_interest) &&
+                    !isNaN(item.volume) &&
+                    item.open_interest > 0 &&
+                    item.volume > 0
                 )
                 .map(item => ({
-                    x: new Date(item.hour_timestamp),
-                    oi: this.getConsistentValue(item, 'openInterest'),
-                    volume: this.getConsistentValue(item, 'volume')
+                    x: item.hour_timestamp,
+                    oi: item.open_interest || 0,
+                    volume: item.volume || 0
                 }));
+                
+            // Log dữ liệu biểu đồ để debug
+            if (chartData.length > 0) {
+                console.log(`${symbol} 24h chart data: ${chartData.length} points, OI range: ${Math.min(...chartData.map(item => item.oi)).toLocaleString()} - ${Math.max(...chartData.map(item => item.oi)).toLocaleString()}`);
+            }
+                
+            // FIX: Phát hiện dữ liệu trùng lặp
+            if (chartData.length > 1) {
+                const uniqueData = [];
+                let lastOI = null;
+                let lastVolume = null;
+                let duplicateCount = 0;
+                
+                for (const item of chartData) {
+                    // Nếu 3 điểm dữ liệu liên tiếp hoàn toàn giống nhau, có thể là dữ liệu sao chép
+                    if (lastOI === item.oi && lastVolume === item.volume) {
+                        duplicateCount++;
+                        if (duplicateCount > 3) {
+                            // FIX: Đánh dấu điểm dữ liệu này là null để Chart.js hiển thị khoảng trống
+                            item.oi = null;
+                            item.volume = null;
+                            console.log(`🔄 Marking duplicated data point as null`);
+                            continue;
+                        }
+                    } else {
+                        duplicateCount = 0;
+                    }
+                    
+                    lastOI = item.oi;
+                    lastVolume = item.volume;
+                    uniqueData.push(item);
+                }
+                
+                // Không cần thay thế chartData vì chúng ta đã đánh dấu các điểm trùng lặp là null
+            }
         } else {
             // FIX: Ưu tiên sử dụng tracking_30d nếu có
             if (data.tracking_30d && data.tracking_30d.length > 0) {
@@ -864,18 +814,25 @@ class SimpleOIVolumeMonitor {
                     .filter(item => 
                         item && 
                         item.date_timestamp && 
-                        (typeof item.open_interest_value === 'number' || typeof item.avg_open_interest_value === 'number') && 
+                        typeof item.open_interest_value === 'number' && 
                         typeof item.quote_volume === 'number' &&
-                        !isNaN(this.getConsistentValue(item, 'openInterest')) &&
+                        !isNaN(item.open_interest_value) &&
                         !isNaN(item.quote_volume) &&
-                        this.getConsistentValue(item, 'openInterest') > 0 &&
+                        item.open_interest_value > 0 &&
                         item.quote_volume > 0
                     )
                     .map(item => ({
-                        x: new Date(item.date_timestamp),
-                        oi: this.getConsistentValue(item, 'openInterest'),
-                        volume: item.quote_volume
+                        x: item.date_timestamp,
+                        oi: item.open_interest_value || 0,
+                        volume: item.quote_volume || 0
                     }));
+                
+                // Log dữ liệu biểu đồ để debug
+                if (chartData.length > 0) {
+                    console.log(`${symbol} 30d chart data: ${chartData.length} points, OI range: ${Math.min(...chartData.map(item => item.oi)).toLocaleString()} - ${Math.max(...chartData.map(item => item.oi)).toLocaleString()}`);
+                }
+                
+                console.log(`📊 Using tracking_30d for daily chart with ${chartData.length} points`);
             } else {
                 // Fallback: Data cho view theo ngày (30 ngày) từ open_interest và klines
                 const dailyOI = data.open_interest || [];
@@ -910,7 +867,7 @@ class SimpleOIVolumeMonitor {
                     .sort()
                     .slice(-30) // Lấy 30 ngày gần nhất
                     .map(date => ({
-                        x: new Date(mergedData[date].timestamp),
+                        x: mergedData[date].timestamp,
                         oi: mergedData[date].oi || 0,
                         volume: mergedData[date].volume || 0
                     }))
@@ -919,64 +876,6 @@ class SimpleOIVolumeMonitor {
         }
         
         return chartData;
-    }
-    
-    // Hàm phát hiện và loại bỏ dữ liệu trùng lặp
-    detectAndCleanDuplicates(chartData) {
-        if (chartData.length <= 1) return chartData;
-        
-        const threshold = 0.001; // 0.1% sai số cho phép
-        const cleanedData = [];
-        let lastOI = null;
-        let lastVolume = null;
-        let duplicateCount = 0;
-        
-        for (let i = 0; i < chartData.length; i++) {
-            const item = chartData[i];
-            
-            // So sánh với giá trị trước đó, cho phép sai số nhỏ
-            const isOISimilar = lastOI !== null && 
-                              Math.abs(item.oi - lastOI) / lastOI < threshold;
-            const isVolumeSimilar = lastVolume !== null && 
-                                  Math.abs(item.volume - lastVolume) / lastVolume < threshold;
-            
-            if (isOISimilar && isVolumeSimilar) {
-                duplicateCount++;
-                if (duplicateCount > 1) {
-                    // Bỏ qua điểm dữ liệu này để biểu đồ không bị bậc thang
-                    continue;
-                }
-            } else {
-                duplicateCount = 0;
-            }
-            
-            lastOI = item.oi;
-            lastVolume = item.volume;
-            cleanedData.push(item);
-        }
-        
-        return cleanedData;
-    }
-    
-    // Lấy giá trị nhất quán từ các trường dữ liệu theo thứ tự ưu tiên
-    getConsistentValue(item, fieldName) {
-        // Xác định trường ưu tiên theo thứ tự
-        const priorityFields = {
-            openInterest: ['open_interest_value', 'avg_open_interest_value', 'open_interest'],
-            volume: ['quote_volume', 'volume']
-        };
-        
-        const fields = priorityFields[fieldName];
-        if (!fields) return 0;
-        
-        // Lấy giá trị đầu tiên có sẵn
-        for (const field of fields) {
-            if (item[field] && !isNaN(parseFloat(item[field]))) {
-                return parseFloat(item[field]);
-            }
-        }
-        
-        return 0;
     }
     
     // Utility functions
@@ -991,17 +890,16 @@ class SimpleOIVolumeMonitor {
         
         const absNum = Math.abs(num);
         
-        // Định dạng tốt hơn với dấu phân cách hàng nghìn
-        if (absNum >= 1e9) return (num / 1e9).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'B';
-        if (absNum >= 1e6) return (num / 1e6).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'M';
-        if (absNum >= 1e3) return (num / 1e3).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'K';
+        if (absNum >= 1e9) return (num / 1e9).toFixed(2) + 'B';
+        if (absNum >= 1e6) return (num / 1e6).toFixed(2) + 'M';
+        if (absNum >= 1e3) return (num / 1e3).toFixed(2) + 'K';
         
-        return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return num.toFixed(2);
     }
     
     updateLastUpdateTime() {
         const now = new Date();
-        this.lastUpdateTime = now.toLocaleString('vi-VN', {
+        const timeString = now.toLocaleString('vi-VN', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit',
@@ -1014,7 +912,7 @@ class SimpleOIVolumeMonitor {
         if (element) {
             element.innerHTML = `
                 <i class="bi bi-clock"></i>
-                Cập nhật lần cuối: ${this.lastUpdateTime}
+                Cập nhật lần cuối: ${timeString}
             `;
         }
     }
