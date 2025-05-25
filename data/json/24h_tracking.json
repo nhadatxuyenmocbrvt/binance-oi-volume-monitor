@@ -1,33 +1,33 @@
 {
-  "timestamp": "2025-05-25T10:21:16.720868",
+  "timestamp": "2025-05-25T10:57:32.690210",
   "data_type": "24h_hourly_tracking",
   "symbols": {
     "BTCUSDT": {
       "oi_metrics": {
-        "current_oi": 9344659025.7282,
+        "current_oi": 9344885816.1344,
         "previous_oi": 9233319644.947,
-        "oi_change_24h": 1.205843456769437,
-        "max_oi": 9344659025.7282,
+        "oi_change_24h": 1.2082996741963146,
+        "max_oi": 9344885816.1344,
         "min_oi": 9233319644.947,
-        "avg_oi": 9281638703.915041,
-        "volatility": 0.2640803222827256,
+        "avg_oi": 9300124352.023664,
+        "volatility": 0.4095334394498702,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 18190784740.0,
+        "current_volume": 399155719.5644,
         "previous_volume": 1023889402.0101,
-        "volume_change_24h": 1676.6357093146823,
-        "max_volume": 18645947196.08,
-        "min_volume": 199747786.6771,
-        "avg_volume": 7676517381.157628,
-        "volatility": 113.24825304073418,
+        "volume_change_24h": -61.01573873303333,
+        "max_volume": 2501894094.2673,
+        "min_volume": 177890847.2597,
+        "avg_volume": 652930475.6663333,
+        "volatility": 77.55727289364482,
         "data_points": 24
       },
       "correlation": {
-        "correlation": 0.5558,
-        "correlation_strength": "moderate_positive",
+        "correlation": -0.3783,
+        "correlation_strength": "weak_negative",
         "sample_size": 24,
-        "interpretation": "Tương quan trung bình - Có mối liên hệ đáng chú ý"
+        "interpretation": "Tương quan yếu - Mối liên hệ không rõ ràng"
       },
       "chart_data": [
         {
@@ -36,9 +36,9 @@
           "oi": 9233319644.947,
           "volume": 1023889402.0101,
           "price": 109152.2,
-          "oi_change_1h": 1.6103377174577684,
-          "volume_change_1h": -32.38640639878554,
-          "price_change_1h": 0.09968498810107626
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-24T12:00:00",
@@ -94,181 +94,181 @@
           "timestamp": "2025-05-24T17:00:00",
           "hour": "17:00",
           "oi": 9281096245.5828,
-          "volume": 199747786.6771,
-          "price": 109002.9,
+          "volume": 587450639.2149,
+          "price": 108876.3,
           "oi_change_1h": 0.24597640546008687,
-          "volume_change_1h": -81.84872996061804,
-          "price_change_1h": 0.0396476862546401
+          "volume_change_1h": -46.617805560797976,
+          "price_change_1h": -0.0765420609638189
         },
         {
           "timestamp": "2025-05-24T18:00:00",
           "hour": "18:00",
-          "oi": 9281096245.5828,
-          "volume": 199747786.6771,
-          "price": 109002.9,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 9285571062.8342,
+          "volume": 177890847.2597,
+          "price": 108780.7,
+          "oi_change_1h": 0.04821431793178222,
+          "volume_change_1h": -69.7181626191704,
+          "price_change_1h": -0.08780606982420032
         },
         {
           "timestamp": "2025-05-24T19:00:00",
           "hour": "19:00",
-          "oi": 9281096245.5828,
-          "volume": 199747786.6771,
-          "price": 109002.9,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 9283089539.85173,
+          "volume": 198124188.7456,
+          "price": 108912.7,
+          "oi_change_1h": -0.026724505856208832,
+          "volume_change_1h": 11.374020528645666,
+          "price_change_1h": 0.12134505477534158
         },
         {
           "timestamp": "2025-05-24T20:00:00",
           "hour": "20:00",
-          "oi": 9281096245.5828,
-          "volume": 199747786.6771,
-          "price": 109002.9,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 9295265790.932407,
+          "volume": 191145093.7094,
+          "price": 108817.1,
+          "oi_change_1h": 0.1311659338025895,
+          "volume_change_1h": -3.522586050894293,
+          "price_change_1h": -0.0877767239265864
         },
         {
           "timestamp": "2025-05-24T21:00:00",
           "hour": "21:00",
-          "oi": 9281096245.5828,
-          "volume": 199747786.6771,
-          "price": 109002.9,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 9279557533.0808,
+          "volume": 203113489.4228,
+          "price": 108788.4,
+          "oi_change_1h": -0.16899202459527068,
+          "volume_change_1h": 6.261419260698206,
+          "price_change_1h": -0.026374531208800494
         },
         {
           "timestamp": "2025-05-24T22:00:00",
           "hour": "22:00",
-          "oi": 9281096245.5828,
-          "volume": 199747786.6771,
-          "price": 109002.9,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 9260597793.715471,
+          "volume": 1040948097.0513,
+          "price": 108052.8,
+          "oi_change_1h": -0.20431727803548871,
+          "volume_change_1h": 412.4957973049578,
+          "price_change_1h": -0.6761750333675202
         },
         {
           "timestamp": "2025-05-24T23:00:00",
           "hour": "23:00",
-          "oi": 9281096245.5828,
-          "volume": 199747786.6771,
-          "price": 109002.9,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 9299105103.8367,
+          "volume": 2501894094.2673,
+          "price": 107698.9,
+          "oi_change_1h": 0.4158188378223426,
+          "volume_change_1h": 140.3476312944354,
+          "price_change_1h": -0.327525061821636
         },
         {
           "timestamp": "2025-05-25T00:00:00",
           "hour": "00:00",
-          "oi": 9281096245.5828,
-          "volume": 199747786.6771,
-          "price": 109002.9,
+          "oi": 9291841820.1823,
+          "volume": 1010326127.2439,
+          "price": 107392.5,
+          "oi_change_1h": -0.07810734015043154,
+          "volume_change_1h": -59.61755017692777,
+          "price_change_1h": -0.2844968704415683
+        },
+        {
+          "timestamp": "2025-05-25T01:00:00",
+          "hour": "01:00",
+          "oi": 9296987518.6875,
+          "volume": 790198446.5163,
+          "price": 107602.3,
+          "oi_change_1h": 0.055378670932847165,
+          "volume_change_1h": -21.787784636243458,
+          "price_change_1h": 0.19535814884652364
+        },
+        {
+          "timestamp": "2025-05-25T02:00:00",
+          "hour": "02:00",
+          "oi": 9334920747.6016,
+          "volume": 449493659.2493,
+          "price": 107877.3,
+          "oi_change_1h": 0.4080163476379052,
+          "volume_change_1h": -43.116357513615036,
+          "price_change_1h": 0.2555707452349996
+        },
+        {
+          "timestamp": "2025-05-25T03:00:00",
+          "hour": "03:00",
+          "oi": 9344885816.1344,
+          "volume": 399155719.5644,
+          "price": 108143.2,
+          "oi_change_1h": 0.10675043529811508,
+          "volume_change_1h": -11.198809738266263,
+          "price_change_1h": 0.24648373661557543
+        },
+        {
+          "timestamp": "2025-05-25T04:00:00",
+          "hour": "04:00",
+          "oi": 9344885816.1344,
+          "volume": 399155719.5644,
+          "price": 108143.2,
           "oi_change_1h": 0.0,
           "volume_change_1h": 0.0,
           "price_change_1h": 0.0
         },
         {
-          "timestamp": "2025-05-25T01:00:00",
-          "hour": "01:00",
-          "oi": 9285396098.7808,
-          "volume": 18645947196.08,
-          "price": 108876.2,
-          "oi_change_1h": 0.04632915211978763,
-          "volume_change_1h": 9234.745333735233,
-          "price_change_1h": -0.11623543960756742
-        },
-        {
-          "timestamp": "2025-05-25T02:00:00",
-          "hour": "02:00",
-          "oi": 9282331319.437399,
-          "volume": 17880106751.69,
-          "price": 108780.7,
-          "oi_change_1h": -0.03300644701418144,
-          "volume_change_1h": -4.107275625831486,
-          "price_change_1h": -0.08771430303408827
-        },
-        {
-          "timestamp": "2025-05-25T03:00:00",
-          "hour": "03:00",
-          "oi": 9294691393.612299,
-          "volume": 17499909473.37,
-          "price": 108912.7,
-          "oi_change_1h": 0.13315700279969317,
-          "volume_change_1h": -2.1263702929741406,
-          "price_change_1h": 0.12134505477534158
-        },
-        {
-          "timestamp": "2025-05-25T04:00:00",
-          "hour": "04:00",
-          "oi": 9279337504.9046,
-          "volume": 17123427694.27,
-          "price": 108817.1,
-          "oi_change_1h": -0.16518987083584785,
-          "volume_change_1h": -2.1513355807519985,
-          "price_change_1h": -0.0877767239265864
-        },
-        {
           "timestamp": "2025-05-25T05:00:00",
           "hour": "05:00",
-          "oi": 9260991588.051,
-          "volume": 16810617510.62,
-          "price": 108775.7,
-          "oi_change_1h": -0.19770718377150093,
-          "volume_change_1h": -1.826796534169821,
-          "price_change_1h": -0.038045491011990513
+          "oi": 9344885816.1344,
+          "volume": 399155719.5644,
+          "price": 108143.2,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T06:00:00",
           "hour": "06:00",
-          "oi": 9301691648.042099,
-          "volume": 17054370666.62,
-          "price": 107999.0,
-          "oi_change_1h": 0.43947842522189173,
-          "volume_change_1h": 1.4499952535712057,
-          "price_change_1h": -0.7140381537420556
+          "oi": 9344885816.1344,
+          "volume": 399155719.5644,
+          "price": 108143.2,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T07:00:00",
           "hour": "07:00",
-          "oi": 9291630503.43,
-          "volume": 17919834522.51,
-          "price": 107698.8,
-          "oi_change_1h": -0.10816467576858937,
-          "volume_change_1h": 5.074733467497241,
-          "price_change_1h": -0.2779655367179299
+          "oi": 9344885816.1344,
+          "volume": 399155719.5644,
+          "price": 108143.2,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T08:00:00",
           "hour": "08:00",
-          "oi": 9297013507.6725,
-          "volume": 17964235803.59,
-          "price": 107392.5,
-          "oi_change_1h": 0.057933903425380205,
-          "volume_change_1h": 0.2477772940605404,
-          "price_change_1h": -0.2844042830560813
+          "oi": 9344885816.1344,
+          "volume": 399155719.5644,
+          "price": 108143.2,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T09:00:00",
           "hour": "09:00",
-          "oi": 9336951576.4525,
-          "volume": 18222699518.82,
-          "price": 107602.4,
-          "oi_change_1h": 0.42957954989566577,
-          "volume_change_1h": 1.4387682173396308,
-          "price_change_1h": 0.19545126521870165
+          "oi": 9344885816.1344,
+          "volume": 399155719.5644,
+          "price": 108143.2,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T10:00:00",
           "hour": "10:00",
-          "oi": 9344659025.7282,
-          "volume": 18190784740.0,
-          "price": 107877.3,
-          "oi_change_1h": 0.08254781244811711,
-          "volume_change_1h": -0.17513749149536717,
-          "price_change_1h": 0.25547757299094515
+          "oi": 9344885816.1344,
+          "volume": 399155719.5644,
+          "price": 108143.2,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         }
       ],
       "data_points": 24,
@@ -276,30 +276,30 @@
     },
     "ETHUSDT": {
       "oi_metrics": {
-        "current_oi": 4097385021.8539195,
+        "current_oi": 4098069205.4214,
         "previous_oi": 4243813800.0506706,
-        "oi_change_24h": -3.4504053451874532,
+        "oi_change_24h": -3.4342834416422887,
         "max_oi": 4258918732.88752,
-        "min_oi": 4031100813.5605307,
-        "avg_oi": 4187640100.060295,
-        "volatility": 1.5616881458821612,
+        "min_oi": 4032215180.6345263,
+        "avg_oi": 4150833270.171482,
+        "volatility": 1.6919241738155824,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 8049723998.27,
+        "current_volume": 324171515.09364,
         "previous_volume": 291803403.27212,
-        "volume_change_24h": 2658.6121025337275,
-        "max_volume": 8883356766.16,
-        "min_volume": 53436014.11685,
-        "avg_volume": 3394914644.9847703,
-        "volatility": 115.81222559241742,
+        "volume_change_24h": 11.092438079392545,
+        "max_volume": 1059568563.56307,
+        "min_volume": 92077779.70521,
+        "avg_volume": 339377578.99771124,
+        "volatility": 54.13245416814232,
         "data_points": 24
       },
       "correlation": {
-        "correlation": -0.7187,
-        "correlation_strength": "strong_negative",
+        "correlation": -0.4386,
+        "correlation_strength": "moderate_negative",
         "sample_size": 24,
-        "interpretation": "Tương quan mạnh - OI và Volume di chuyển cùng hướng rõ rệt"
+        "interpretation": "Tương quan trung bình - Có mối liên hệ đáng chú ý"
       },
       "chart_data": [
         {
@@ -308,9 +308,9 @@
           "oi": 4243813800.0506706,
           "volume": 291803403.27212,
           "price": 2562.14,
-          "oi_change_1h": 1.4196455569077113,
-          "volume_change_1h": -42.871516081244295,
-          "price_change_1h": -0.2518872074779844
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-24T12:00:00",
@@ -366,181 +366,181 @@
           "timestamp": "2025-05-24T17:00:00",
           "hour": "17:00",
           "oi": 4223930827.17178,
-          "volume": 53436014.11685,
-          "price": 2560.36,
+          "volume": 184909973.58485,
+          "price": 2556.53,
           "oi_change_1h": -0.07512917650057753,
-          "volume_change_1h": -78.20107506246829,
-          "price_change_1h": 0.15412177967626817
+          "volume_change_1h": -24.567004088988178,
+          "price_change_1h": 0.004302892325992103
         },
         {
           "timestamp": "2025-05-24T18:00:00",
           "hour": "18:00",
-          "oi": 4223930827.17178,
-          "volume": 53436014.11685,
-          "price": 2560.36,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 4222132981.533496,
+          "volume": 222053532.09184,
+          "price": 2548.22,
+          "oi_change_1h": -0.04256333050529596,
+          "volume_change_1h": 20.087374297279776,
+          "price_change_1h": -0.32504997007664294
         },
         {
           "timestamp": "2025-05-24T19:00:00",
           "hour": "19:00",
-          "oi": 4223930827.17178,
-          "volume": 53436014.11685,
-          "price": 2560.36,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 4193647274.8529367,
+          "volume": 138375033.75894,
+          "price": 2553.33,
+          "oi_change_1h": -0.6746757339275713,
+          "volume_change_1h": -37.68393033184947,
+          "price_change_1h": 0.2005321361577936
         },
         {
           "timestamp": "2025-05-24T20:00:00",
           "hour": "20:00",
-          "oi": 4223930827.17178,
-          "volume": 53436014.11685,
-          "price": 2560.36,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 4198982690.5388703,
+          "volume": 92077779.70521,
+          "price": 2551.15,
+          "oi_change_1h": 0.12722614316962774,
+          "volume_change_1h": -33.45780867839455,
+          "price_change_1h": -0.08537870153876845
         },
         {
           "timestamp": "2025-05-24T21:00:00",
           "hour": "21:00",
-          "oi": 4223930827.17178,
-          "volume": 53436014.11685,
-          "price": 2560.36,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 4187336145.886628,
+          "volume": 450819835.85835,
+          "price": 2539.19,
+          "oi_change_1h": -0.2773658647958737,
+          "volume_change_1h": 389.60763096337064,
+          "price_change_1h": -0.46880818454422657
         },
         {
           "timestamp": "2025-05-24T22:00:00",
           "hour": "22:00",
-          "oi": 4223930827.17178,
-          "volume": 53436014.11685,
-          "price": 2560.36,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 4119737335.30849,
+          "volume": 263590536.13175,
+          "price": 2524.29,
+          "oi_change_1h": -1.6143631230691406,
+          "volume_change_1h": -41.530847765409426,
+          "price_change_1h": -0.586801302777661
         },
         {
           "timestamp": "2025-05-24T23:00:00",
           "hour": "23:00",
-          "oi": 4223930827.17178,
-          "volume": 53436014.11685,
-          "price": 2560.36,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 4101651556.8518095,
+          "volume": 375433212.56083,
+          "price": 2529.27,
+          "oi_change_1h": -0.4390031932782437,
+          "volume_change_1h": 42.43045978448099,
+          "price_change_1h": 0.1972831964631646
         },
         {
           "timestamp": "2025-05-25T00:00:00",
           "hour": "00:00",
-          "oi": 4223930827.17178,
-          "volume": 53436014.11685,
-          "price": 2560.36,
+          "oi": 4096049194.842659,
+          "volume": 1059568563.56307,
+          "price": 2485.58,
+          "oi_change_1h": -0.13658795564415407,
+          "volume_change_1h": 182.22558050625108,
+          "price_change_1h": -1.7273758831599655
+        },
+        {
+          "timestamp": "2025-05-25T01:00:00",
+          "hour": "01:00",
+          "oi": 4032215180.6345263,
+          "volume": 548525323.68694,
+          "price": 2494.5,
+          "oi_change_1h": -1.558428895055905,
+          "volume_change_1h": -48.23125727301843,
+          "price_change_1h": 0.35886996194047555
+        },
+        {
+          "timestamp": "2025-05-25T02:00:00",
+          "hour": "02:00",
+          "oi": 4047665970.5403295,
+          "volume": 478139502.47449,
+          "price": 2506.88,
+          "oi_change_1h": 0.38318366489984307,
+          "volume_change_1h": -12.831827114078928,
+          "price_change_1h": 0.4962918420525199
+        },
+        {
+          "timestamp": "2025-05-25T03:00:00",
+          "hour": "03:00",
+          "oi": 4098069205.4214,
+          "volume": 324171515.09364,
+          "price": 2515.36,
+          "oi_change_1h": 1.2452419554359175,
+          "volume_change_1h": -32.20147814268171,
+          "price_change_1h": 0.33826908348225754
+        },
+        {
+          "timestamp": "2025-05-25T04:00:00",
+          "hour": "04:00",
+          "oi": 4098069205.4214,
+          "volume": 324171515.09364,
+          "price": 2515.36,
           "oi_change_1h": 0.0,
           "volume_change_1h": 0.0,
           "price_change_1h": 0.0
         },
         {
-          "timestamp": "2025-05-25T01:00:00",
-          "hour": "01:00",
-          "oi": 4221007352.47744,
-          "volume": 8883356766.16,
-          "price": 2556.16,
-          "oi_change_1h": -0.06921218206354249,
-          "volume_change_1h": 16524.28778227081,
-          "price_change_1h": -0.16403943195489198
-        },
-        {
-          "timestamp": "2025-05-25T02:00:00",
-          "hour": "02:00",
-          "oi": 4193573006.20536,
-          "volume": 8512497774.25,
-          "price": 2548.22,
-          "oi_change_1h": -0.6499478437529344,
-          "volume_change_1h": -4.174761879684257,
-          "price_change_1h": -0.31062218327491453
-        },
-        {
-          "timestamp": "2025-05-25T03:00:00",
-          "hour": "03:00",
-          "oi": 4199252548.6197295,
-          "volume": 8298024375.28,
-          "price": 2553.49,
-          "oi_change_1h": 0.1354344470923813,
-          "volume_change_1h": -2.519511953574597,
-          "price_change_1h": 0.20681102887505717
-        },
-        {
-          "timestamp": "2025-05-25T04:00:00",
-          "hour": "04:00",
-          "oi": 4187396520.1621003,
-          "volume": 7770377514.77,
-          "price": 2551.15,
-          "oi_change_1h": -0.28233663777917367,
-          "volume_change_1h": -6.358704634344906,
-          "price_change_1h": -0.09163928584015175
-        },
-        {
           "timestamp": "2025-05-25T05:00:00",
           "hour": "05:00",
-          "oi": 4120104266.9807997,
-          "volume": 7851108532.08,
-          "price": 2538.97,
-          "oi_change_1h": -1.607018892461984,
-          "volume_change_1h": 1.0389587527317077,
-          "price_change_1h": -0.47743174646729086
+          "oi": 4098069205.4214,
+          "volume": 324171515.09364,
+          "price": 2515.36,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T06:00:00",
           "hour": "06:00",
-          "oi": 4102680808.0665603,
-          "volume": 7544344395.18,
-          "price": 2524.51,
-          "oi_change_1h": -0.4228887859434506,
-          "volume_change_1h": -3.907271637457906,
-          "price_change_1h": -0.5695222865965168
+          "oi": 4098069205.4214,
+          "volume": 324171515.09364,
+          "price": 2515.36,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T07:00:00",
           "hour": "07:00",
-          "oi": 4097973375.6025605,
-          "volume": 7010188013.22,
-          "price": 2529.44,
-          "oi_change_1h": -0.11474040229364528,
-          "volume_change_1h": -7.08022266721104,
-          "price_change_1h": 0.19528542172539762
+          "oi": 4098069205.4214,
+          "volume": 324171515.09364,
+          "price": 2515.36,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T08:00:00",
           "hour": "08:00",
-          "oi": 4031100813.5605307,
-          "volume": 7568613099.5,
-          "price": 2485.09,
-          "oi_change_1h": -1.6318447171999257,
-          "volume_change_1h": 7.965907408287863,
-          "price_change_1h": -1.7533525207160443
+          "oi": 4098069205.4214,
+          "volume": 324171515.09364,
+          "price": 2515.36,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T09:00:00",
           "hour": "09:00",
-          "oi": 4049346387.961,
-          "volume": 7824032416.21,
-          "price": 2494.5,
-          "oi_change_1h": 0.4526201463156567,
-          "volume_change_1h": 3.3747175784011687,
-          "price_change_1h": 0.3786583182097974
+          "oi": 4098069205.4214,
+          "volume": 324171515.09364,
+          "price": 2515.36,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T10:00:00",
           "hour": "10:00",
-          "oi": 4097385021.8539195,
-          "volume": 8049723998.27,
-          "price": 2506.89,
-          "oi_change_1h": 1.1863305652423777,
-          "volume_change_1h": 2.884594158792181,
-          "price_change_1h": 0.4966927239927791
+          "oi": 4098069205.4214,
+          "volume": 324171515.09364,
+          "price": 2515.36,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         }
       ],
       "data_points": 24,
@@ -548,27 +548,27 @@
     },
     "BNBUSDT": {
       "oi_metrics": {
-        "current_oi": 366100489.848,
+        "current_oi": 366229907.16261995,
         "previous_oi": 368711637.27158594,
-        "oi_change_24h": -0.7081814512034591,
-        "max_oi": 368998574.688,
-        "min_oi": 361488931.375,
-        "avg_oi": 366488545.7343903,
-        "volatility": 0.5751804189352051,
+        "oi_change_24h": -0.6730815786912627,
+        "max_oi": 368964815.4017992,
+        "min_oi": 361735575.60509807,
+        "avg_oi": 366060572.8482561,
+        "volatility": 0.5264856790855333,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 325978638.323,
+        "current_volume": 6779473.9275,
         "previous_volume": 11933857.6211,
-        "volume_change_24h": 2631.544557282501,
-        "max_volume": 329193804.288,
-        "min_volume": 1311893.5735,
-        "avg_volume": 135377883.04597917,
-        "volatility": 116.74132853313768,
+        "volume_change_24h": -43.19126184718882,
+        "max_volume": 26523001.3033,
+        "min_volume": 5666431.4974,
+        "avg_volume": 10063956.689475,
+        "volatility": 54.2855449436399,
         "data_points": 24
       },
       "correlation": {
-        "correlation": -0.4981,
+        "correlation": -0.5962,
         "correlation_strength": "moderate_negative",
         "sample_size": 24,
         "interpretation": "Tương quan trung bình - Có mối liên hệ đáng chú ý"
@@ -580,9 +580,9 @@
           "oi": 368711637.27158594,
           "volume": 11933857.6211,
           "price": 674.66,
-          "oi_change_1h": 1.715497585648712,
-          "volume_change_1h": -59.18013075089238,
-          "price_change_1h": -0.2719881744272035
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-24T12:00:00",
@@ -638,181 +638,181 @@
           "timestamp": "2025-05-24T17:00:00",
           "hour": "17:00",
           "oi": 367768374.22869027,
-          "volume": 1311893.5735,
-          "price": 674.91,
+          "volume": 6036739.8765,
+          "price": 675.68,
           "oi_change_1h": 0.3116722832157701,
-          "volume_change_1h": -79.88627529353413,
-          "price_change_1h": -0.06663113006397262
+          "volume_change_1h": -7.445751352736692,
+          "price_change_1h": 0.04738213693436631
         },
         {
           "timestamp": "2025-05-24T18:00:00",
           "hour": "18:00",
-          "oi": 367768374.22869027,
-          "volume": 1311893.5735,
-          "price": 674.91,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 368094274.7072,
+          "volume": 6395805.8538,
+          "price": 675.45,
+          "oi_change_1h": 0.08861568893552242,
+          "volume_change_1h": 5.948011420829678,
+          "price_change_1h": -0.03403978214538014
         },
         {
           "timestamp": "2025-05-24T19:00:00",
           "hour": "19:00",
-          "oi": 367768374.22869027,
-          "volume": 1311893.5735,
-          "price": 674.91,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 368078853.0832,
+          "volume": 5666431.4974,
+          "price": 676.74,
+          "oi_change_1h": -0.0041895854023483465,
+          "volume_change_1h": -11.40394772875493,
+          "price_change_1h": 0.19098378858538212
         },
         {
           "timestamp": "2025-05-24T20:00:00",
           "hour": "20:00",
-          "oi": 367768374.22869027,
-          "volume": 1311893.5735,
-          "price": 674.91,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 368964815.4017992,
+          "volume": 14200466.253,
+          "price": 672.6,
+          "oi_change_1h": 0.24069905434066394,
+          "volume_change_1h": 150.60686358805856,
+          "price_change_1h": -0.6117563613795529
         },
         {
           "timestamp": "2025-05-24T21:00:00",
           "hour": "21:00",
-          "oi": 367768374.22869027,
-          "volume": 1311893.5735,
-          "price": 674.91,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 366931943.6074516,
+          "volume": 12971732.2921,
+          "price": 671.65,
+          "oi_change_1h": -0.5509663007118459,
+          "volume_change_1h": -8.652771951346443,
+          "price_change_1h": -0.14124293785311412
         },
         {
           "timestamp": "2025-05-24T22:00:00",
           "hour": "22:00",
-          "oi": 367768374.22869027,
-          "volume": 1311893.5735,
-          "price": 674.91,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 363559297.54221725,
+          "volume": 10397703.6029,
+          "price": 669.44,
+          "oi_change_1h": -0.9191475759991238,
+          "volume_change_1h": -19.84336888271758,
+          "price_change_1h": -0.32904042283926493
         },
         {
           "timestamp": "2025-05-24T23:00:00",
           "hour": "23:00",
-          "oi": 367768374.22869027,
-          "volume": 1311893.5735,
-          "price": 674.91,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 361863313.4634509,
+          "volume": 16464077.5749,
+          "price": 667.89,
+          "oi_change_1h": -0.46649448665782084,
+          "volume_change_1h": 58.34340161714208,
+          "price_change_1h": -0.23153680688337538
         },
         {
           "timestamp": "2025-05-25T00:00:00",
           "hour": "00:00",
-          "oi": 367768374.22869027,
-          "volume": 1311893.5735,
-          "price": 674.91,
+          "oi": 363001547.26526475,
+          "volume": 26523001.3033,
+          "price": 662.95,
+          "oi_change_1h": 0.3145479962916454,
+          "volume_change_1h": 61.09618764026686,
+          "price_change_1h": -0.7396427555435686
+        },
+        {
+          "timestamp": "2025-05-25T01:00:00",
+          "hour": "01:00",
+          "oi": 361735575.60509807,
+          "volume": 23304691.2569,
+          "price": 663.46,
+          "oi_change_1h": -0.3487510369319631,
+          "volume_change_1h": -12.134034190163751,
+          "price_change_1h": 0.07692887849762288
+        },
+        {
+          "timestamp": "2025-05-25T02:00:00",
+          "hour": "02:00",
+          "oi": 364438053.15336895,
+          "volume": 9882291.9811,
+          "price": 665.96,
+          "oi_change_1h": 0.7470864715891643,
+          "volume_change_1h": -57.59526752720197,
+          "price_change_1h": 0.3768124679709402
+        },
+        {
+          "timestamp": "2025-05-25T03:00:00",
+          "hour": "03:00",
+          "oi": 366229907.16261995,
+          "volume": 6779473.9275,
+          "price": 666.16,
+          "oi_change_1h": 0.49167588119479955,
+          "volume_change_1h": -31.397757317170715,
+          "price_change_1h": 0.03003183374375815
+        },
+        {
+          "timestamp": "2025-05-25T04:00:00",
+          "hour": "04:00",
+          "oi": 366229907.16261995,
+          "volume": 6779473.9275,
+          "price": 666.16,
           "oi_change_1h": 0.0,
           "volume_change_1h": 0.0,
           "price_change_1h": 0.0
         },
         {
-          "timestamp": "2025-05-25T01:00:00",
-          "hour": "01:00",
-          "oi": 368027328.21680003,
-          "volume": 329193804.288,
-          "price": 675.61,
-          "oi_change_1h": 0.07041225027923186,
-          "volume_change_1h": 24993.026670581523,
-          "price_change_1h": 0.10371753270807152
-        },
-        {
-          "timestamp": "2025-05-25T02:00:00",
-          "hour": "02:00",
-          "oi": 368026052.927,
-          "volume": 322006681.548,
-          "price": 675.44,
-          "oi_change_1h": -0.00034652040820637594,
-          "volume_change_1h": -2.183249698621986,
-          "price_change_1h": -0.0251624457897247
-        },
-        {
-          "timestamp": "2025-05-25T03:00:00",
-          "hour": "03:00",
-          "oi": 368998574.688,
-          "volume": 318137382.017,
-          "price": 676.74,
-          "oi_change_1h": 0.264253509572308,
-          "volume_change_1h": -1.201620883268281,
-          "price_change_1h": 0.19246713253582176
-        },
-        {
-          "timestamp": "2025-05-25T04:00:00",
-          "hour": "04:00",
-          "oi": 366816316.22319996,
-          "volume": 317574298.364,
-          "price": 672.53,
-          "oi_change_1h": -0.5914002423031657,
-          "volume_change_1h": -0.17699386643280673,
-          "price_change_1h": -0.6221000679729344
-        },
-        {
           "timestamp": "2025-05-25T05:00:00",
           "hour": "05:00",
-          "oi": 363572077.1865,
-          "volume": 316457562.675,
-          "price": 671.65,
-          "oi_change_1h": -0.8844314969691532,
-          "volume_change_1h": -0.35164548729318795,
-          "price_change_1h": -0.130849181449154
+          "oi": 366229907.16261995,
+          "volume": 6779473.9275,
+          "price": 666.16,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T06:00:00",
           "hour": "06:00",
-          "oi": 361954347.69479996,
-          "volume": 312781452.127,
-          "price": 669.44,
-          "oi_change_1h": -0.44495427267650517,
-          "volume_change_1h": -1.1616440817296507,
-          "price_change_1h": -0.32904042283926493
+          "oi": 366229907.16261995,
+          "volume": 6779473.9275,
+          "price": 666.16,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T07:00:00",
           "hour": "07:00",
-          "oi": 363003164.06490004,
-          "volume": 302803858.364,
-          "price": 667.89,
-          "oi_change_1h": 0.28976482166321244,
-          "volume_change_1h": -3.1899569795937603,
-          "price_change_1h": -0.23153680688337538
+          "oi": 366229907.16261995,
+          "volume": 6779473.9275,
+          "price": 666.16,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T08:00:00",
           "hour": "08:00",
-          "oi": 361488931.375,
-          "volume": 312874129.711,
-          "price": 662.96,
-          "oi_change_1h": -0.41714035573235836,
-          "volume_change_1h": 3.325674712801891,
-          "price_change_1h": -0.7381455030019839
+          "oi": 366229907.16261995,
+          "volume": 6779473.9275,
+          "price": 666.16,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T09:00:00",
           "hour": "09:00",
-          "oi": 364412378.5722,
-          "volume": 325310009.463,
-          "price": 663.56,
-          "oi_change_1h": 0.8087238483568632,
-          "volume_change_1h": 3.9747229224375062,
-          "price_change_1h": 0.09050319777964116
+          "oi": 366229907.16261995,
+          "volume": 6779473.9275,
+          "price": 666.16,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T10:00:00",
           "hour": "10:00",
-          "oi": 366100489.848,
-          "volume": 325978638.323,
-          "price": 665.8,
-          "oi_change_1h": 0.46324202334019476,
-          "volume_change_1h": 0.20553590130956687,
-          "price_change_1h": 0.3375730906022077
+          "oi": 366229907.16261995,
+          "volume": 6779473.9275,
+          "price": 666.16,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         }
       ],
       "data_points": 24,
@@ -820,27 +820,27 @@
     },
     "SOLUSDT": {
       "oi_metrics": {
-        "current_oi": 1278104291.518,
+        "current_oi": 1278176087.7513,
         "previous_oi": 1324009359.9951131,
-        "oi_change_24h": -3.46712567630811,
-        "max_oi": 1330273415.6952,
-        "min_oi": 1267023059.8311,
-        "avg_oi": 1312588056.2697783,
-        "volatility": 1.225774121550722,
+        "oi_change_24h": -3.4617030384122214,
+        "max_oi": 1330064797.8684,
+        "min_oi": 1266711589.2384,
+        "avg_oi": 1302613398.6151178,
+        "volatility": 1.7213820882150528,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 2781703610.3192,
+        "current_volume": 96202371.66542,
         "previous_volume": 181957575.92636,
-        "volume_change_24h": 1428.7649311425112,
-        "max_volume": 3092166104.829,
-        "min_volume": 26918543.73046,
-        "avg_volume": 1195256467.867246,
-        "volatility": 115.15804835198684,
+        "volume_change_24h": -47.12922989018384,
+        "max_volume": 310103829.14757,
+        "min_volume": 43469663.4741,
+        "avg_volume": 108116141.36759876,
+        "volatility": 61.01854907987553,
         "data_points": 24
       },
       "correlation": {
-        "correlation": -0.2631,
+        "correlation": -0.2507,
         "correlation_strength": "weak_negative",
         "sample_size": 24,
         "interpretation": "Tương quan yếu - Mối liên hệ không rõ ràng"
@@ -852,9 +852,9 @@
           "oi": 1324009359.9951131,
           "volume": 181957575.92636,
           "price": 176.8,
-          "oi_change_1h": 1.6281544432305648,
-          "volume_change_1h": -1.5963818904125868,
-          "price_change_1h": -0.2651322840864212
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-24T12:00:00",
@@ -910,181 +910,181 @@
           "timestamp": "2025-05-24T17:00:00",
           "hour": "17:00",
           "oi": 1313186607.544,
-          "volume": 26918543.73046,
-          "price": 177.1,
+          "volume": 72829884.37346,
+          "price": 176.73,
           "oi_change_1h": -0.14712672051378753,
-          "volume_change_1h": -53.95062272183716,
-          "price_change_1h": 0.45377197958025123
+          "volume_change_1h": 24.58960842088334,
+          "price_change_1h": 0.24390243902437797
         },
         {
           "timestamp": "2025-05-24T18:00:00",
           "hour": "18:00",
-          "oi": 1313186607.544,
-          "volume": 26918543.73046,
-          "price": 177.1,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 1319142755.4912,
+          "volume": 58052142.2818,
+          "price": 176.69,
+          "oi_change_1h": 0.4535644753748748,
+          "volume_change_1h": -20.29076692732628,
+          "price_change_1h": -0.022633395575166665
         },
         {
           "timestamp": "2025-05-24T19:00:00",
           "hour": "19:00",
-          "oi": 1313186607.544,
-          "volume": 26918543.73046,
-          "price": 177.1,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 1326350152.9137712,
+          "volume": 44290139.3114,
+          "price": 177.05,
+          "oi_change_1h": 0.5463697839046551,
+          "volume_change_1h": -23.706279268034088,
+          "price_change_1h": 0.20374667496746487
         },
         {
           "timestamp": "2025-05-24T20:00:00",
           "hour": "20:00",
-          "oi": 1313186607.544,
-          "volume": 26918543.73046,
-          "price": 177.1,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 1326373256.8160892,
+          "volume": 43469663.4741,
+          "price": 177.68,
+          "oi_change_1h": 0.001741915757859669,
+          "volume_change_1h": -1.852502272642005,
+          "price_change_1h": 0.3558316859644142
         },
         {
           "timestamp": "2025-05-24T21:00:00",
           "hour": "21:00",
-          "oi": 1313186607.544,
-          "volume": 26918543.73046,
-          "price": 177.1,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 1330064797.8684,
+          "volume": 48326629.0275,
+          "price": 177.28,
+          "oi_change_1h": 0.27831841703234833,
+          "volume_change_1h": 11.173230168422787,
+          "price_change_1h": -0.22512381809995816
         },
         {
           "timestamp": "2025-05-24T22:00:00",
           "hour": "22:00",
-          "oi": 1313186607.544,
-          "volume": 26918543.73046,
-          "price": 177.1,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 1321238596.784933,
+          "volume": 68974345.8659,
+          "price": 176.06,
+          "oi_change_1h": -0.6635918112870989,
+          "volume_change_1h": 42.72534057082798,
+          "price_change_1h": -0.6881768953068585
         },
         {
           "timestamp": "2025-05-24T23:00:00",
           "hour": "23:00",
-          "oi": 1313186607.544,
-          "volume": 26918543.73046,
-          "price": 177.1,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 1316217351.106419,
+          "volume": 97810155.0186,
+          "price": 175.81,
+          "oi_change_1h": -0.3800407958662856,
+          "volume_change_1h": 41.80657140085478,
+          "price_change_1h": -0.1419970464614336
         },
         {
           "timestamp": "2025-05-25T00:00:00",
           "hour": "00:00",
-          "oi": 1313186607.544,
-          "volume": 26918543.73046,
-          "price": 177.1,
+          "oi": 1307675712.214568,
+          "volume": 310103829.14757,
+          "price": 172.22,
+          "oi_change_1h": -0.6489535246341375,
+          "volume_change_1h": 217.04665950953594,
+          "price_change_1h": -2.0419771344064634
+        },
+        {
+          "timestamp": "2025-05-25T01:00:00",
+          "hour": "01:00",
+          "oi": 1282493114.4251652,
+          "volume": 269302535.06946,
+          "price": 171.43,
+          "oi_change_1h": -1.9257525053176696,
+          "volume_change_1h": -13.157300956349626,
+          "price_change_1h": -0.4587155963302706
+        },
+        {
+          "timestamp": "2025-05-25T02:00:00",
+          "hour": "02:00",
+          "oi": 1266711589.2384,
+          "volume": 177379301.964,
+          "price": 172.28,
+          "oi_change_1h": -1.2305348862507333,
+          "volume_change_1h": -34.13381648329105,
+          "price_change_1h": 0.4958292014233181
+        },
+        {
+          "timestamp": "2025-05-25T03:00:00",
+          "hour": "03:00",
+          "oi": 1278176087.7513,
+          "volume": 96202371.66542,
+          "price": 173.6,
+          "oi_change_1h": 0.9050598897412039,
+          "volume_change_1h": -45.76460128085026,
+          "price_change_1h": 0.7661945669839756
+        },
+        {
+          "timestamp": "2025-05-25T04:00:00",
+          "hour": "04:00",
+          "oi": 1278176087.7513,
+          "volume": 96202371.66542,
+          "price": 173.6,
           "oi_change_1h": 0.0,
           "volume_change_1h": 0.0,
           "price_change_1h": 0.0
         },
         {
-          "timestamp": "2025-05-25T01:00:00",
-          "hour": "01:00",
-          "oi": 1318809816.0776,
-          "volume": 3092166104.829,
-          "price": 176.73,
-          "oi_change_1h": 0.42821092610112377,
-          "volume_change_1h": 11387.122541959885,
-          "price_change_1h": -0.20892151326934194
-        },
-        {
-          "timestamp": "2025-05-25T02:00:00",
-          "hour": "02:00",
-          "oi": 1325541007.2492,
-          "volume": 2980310289.2146,
-          "price": 176.62,
-          "oi_change_1h": 0.5103989286051867,
-          "volume_change_1h": -3.617393497707513,
-          "price_change_1h": -0.06224183783171234
-        },
-        {
-          "timestamp": "2025-05-25T03:00:00",
-          "hour": "03:00",
-          "oi": 1327003612.9733999,
-          "volume": 2927369176.839,
-          "price": 177.16,
-          "oi_change_1h": 0.11034028492524818,
-          "volume_change_1h": -1.7763624333743924,
-          "price_change_1h": 0.30574113916883255
-        },
-        {
-          "timestamp": "2025-05-25T04:00:00",
-          "hour": "04:00",
-          "oi": 1330273415.6952,
-          "volume": 2835171233.3021,
-          "price": 177.69,
-          "oi_change_1h": 0.2464049600041016,
-          "volume_change_1h": -3.149515416994867,
-          "price_change_1h": 0.299164596974487
-        },
-        {
           "timestamp": "2025-05-25T05:00:00",
           "hour": "05:00",
-          "oi": 1320519985.1755998,
-          "volume": 2751608599.8277,
-          "price": 177.26,
-          "oi_change_1h": -0.7331899145336989,
-          "volume_change_1h": -2.9473575526186244,
-          "price_change_1h": -0.24199448477686242
+          "oi": 1278176087.7513,
+          "volume": 96202371.66542,
+          "price": 173.6,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T06:00:00",
           "hour": "06:00",
-          "oi": 1316437929.3468,
-          "volume": 2665668911.2365,
-          "price": 176.07,
-          "oi_change_1h": -0.3091248807004539,
-          "volume_change_1h": -3.1232526528875404,
-          "price_change_1h": -0.6713302493512342
+          "oi": 1278176087.7513,
+          "volume": 96202371.66542,
+          "price": 173.6,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T07:00:00",
           "hour": "07:00",
-          "oi": 1307491183.4688,
-          "volume": 2504363832.6915,
-          "price": 175.82,
-          "oi_change_1h": -0.6796177532228416,
-          "volume_change_1h": -6.051204553763448,
-          "price_change_1h": -0.14198898165502358
+          "oi": 1278176087.7513,
+          "volume": 96202371.66542,
+          "price": 173.6,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T08:00:00",
           "hour": "08:00",
-          "oi": 1277557258.4375,
-          "volume": 2586966025.7312,
-          "price": 171.45,
-          "oi_change_1h": -2.2894169696720073,
-          "volume_change_1h": 3.2983303768177112,
-          "price_change_1h": -2.485496530542603
+          "oi": 1278176087.7513,
+          "volume": 96202371.66542,
+          "price": 173.6,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T09:00:00",
           "hour": "09:00",
-          "oi": 1267023059.8311,
-          "volume": 2710849301.0142,
-          "price": 171.47,
-          "oi_change_1h": -0.8245578455938427,
-          "volume_change_1h": 4.78874767008139,
-          "price_change_1h": 0.011665208515608184
+          "oi": 1278176087.7513,
+          "volume": 96202371.66542,
+          "price": 173.6,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T10:00:00",
           "hour": "10:00",
-          "oi": 1278104291.518,
-          "volume": 2781703610.3192,
-          "price": 172.32,
-          "oi_change_1h": 0.8745880038187371,
-          "volume_change_1h": 2.6137310280763804,
-          "price_change_1h": 0.4957135358954886
+          "oi": 1278176087.7513,
+          "volume": 96202371.66542,
+          "price": 173.6,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         }
       ],
       "data_points": 24,
@@ -1092,30 +1092,30 @@
     },
     "DOGEUSDT": {
       "oi_metrics": {
-        "current_oi": 409672836.38886,
+        "current_oi": 409596937.2519872,
         "previous_oi": 429085643.9588421,
-        "oi_change_24h": -4.524226769946232,
+        "oi_change_24h": -4.541915345162244,
         "max_oi": 429085643.9588421,
-        "min_oi": 403731781.07686996,
-        "avg_oi": 417051680.4766777,
-        "volatility": 1.2465958028864133,
+        "min_oi": 404654997.7172,
+        "avg_oi": 414941161.73604995,
+        "volatility": 1.4900791437822654,
         "data_points": 24
       },
       "volume_metrics": {
-        "current_volume": 788048867.49092,
+        "current_volume": 25308509.24321,
         "previous_volume": 42221465.22924,
-        "volume_change_24h": 1766.4649917103436,
-        "max_volume": 959151925.73189,
-        "min_volume": 5207914.75463,
-        "avg_volume": 359040335.56638163,
-        "volatility": 116.21897967281456,
+        "volume_change_24h": -40.057719205626064,
+        "max_volume": 83461413.18228,
+        "min_volume": 14784841.73734,
+        "avg_volume": 30056884.805869166,
+        "volatility": 51.10099888726693,
         "data_points": 24
       },
       "correlation": {
-        "correlation": -0.4564,
-        "correlation_strength": "moderate_negative",
+        "correlation": -0.1156,
+        "correlation_strength": "negligible_negative",
         "sample_size": 24,
-        "interpretation": "Tương quan trung bình - Có mối liên hệ đáng chú ý"
+        "interpretation": "Không có tương quan - OI và Volume di chuyển độc lập"
       },
       "chart_data": [
         {
@@ -1124,9 +1124,9 @@
           "oi": 429085643.9588421,
           "volume": 42221465.22924,
           "price": 0.22894,
-          "oi_change_1h": 0.03808937623124302,
-          "volume_change_1h": -8.860714195421389,
-          "price_change_1h": -0.28311337601811226
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-24T12:00:00",
@@ -1182,181 +1182,181 @@
           "timestamp": "2025-05-24T17:00:00",
           "hour": "17:00",
           "oi": 417073013.86576,
-          "volume": 5207914.75463,
-          "price": 0.22812,
+          "volume": 20643854.59084,
+          "price": 0.22747,
           "oi_change_1h": -0.5138028513727748,
-          "volume_change_1h": -81.49700857106109,
-          "price_change_1h": 0.24608894357531075
+          "volume_change_1h": -26.655277102032464,
+          "price_change_1h": -0.0395500087888938
         },
         {
           "timestamp": "2025-05-24T18:00:00",
           "hour": "18:00",
-          "oi": 417073013.86576,
-          "volume": 5207914.75463,
-          "price": 0.22812,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 416023695.1563653,
+          "volume": 26252832.21528,
+          "price": 0.22663,
+          "oi_change_1h": -0.25159113021215246,
+          "volume_change_1h": 27.17020505913072,
+          "price_change_1h": -0.36927946542401524
         },
         {
           "timestamp": "2025-05-24T19:00:00",
           "hour": "19:00",
-          "oi": 417073013.86576,
-          "volume": 5207914.75463,
-          "price": 0.22812,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 417380704.4768,
+          "volume": 16304029.16022,
+          "price": 0.22711,
+          "oi_change_1h": 0.3261855841948397,
+          "volume_change_1h": -37.896113354464944,
+          "price_change_1h": 0.21179896748003715
         },
         {
           "timestamp": "2025-05-24T20:00:00",
           "hour": "20:00",
-          "oi": 417073013.86576,
-          "volume": 5207914.75463,
-          "price": 0.22812,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 419323068.6735,
+          "volume": 15308606.23751,
+          "price": 0.22731,
+          "oi_change_1h": 0.46536990710550274,
+          "volume_change_1h": -6.105379921294066,
+          "price_change_1h": 0.08806305314605509
         },
         {
           "timestamp": "2025-05-24T21:00:00",
           "hour": "21:00",
-          "oi": 417073013.86576,
-          "volume": 5207914.75463,
-          "price": 0.22812,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 419428620.69651,
+          "volume": 14784841.73734,
+          "price": 0.22676,
+          "oi_change_1h": 0.02517200480858879,
+          "volume_change_1h": -3.4213728672871797,
+          "price_change_1h": -0.24196031850777472
         },
         {
           "timestamp": "2025-05-24T22:00:00",
           "hour": "22:00",
-          "oi": 417073013.86576,
-          "volume": 5207914.75463,
-          "price": 0.22812,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 418145802.5215,
+          "volume": 24017017.28166,
+          "price": 0.22511,
+          "oi_change_1h": -0.30584898400108146,
+          "volume_change_1h": 62.443519574535536,
+          "price_change_1h": -0.7276415593579048
         },
         {
           "timestamp": "2025-05-24T23:00:00",
           "hour": "23:00",
-          "oi": 417073013.86576,
-          "volume": 5207914.75463,
-          "price": 0.22812,
-          "oi_change_1h": 0.0,
-          "volume_change_1h": 0.0,
-          "price_change_1h": 0.0
+          "oi": 415777923.9012,
+          "volume": 39704702.07888,
+          "price": 0.22501,
+          "oi_change_1h": -0.5662806145658354,
+          "volume_change_1h": 65.31903863515768,
+          "price_change_1h": -0.04442272666697025
         },
         {
           "timestamp": "2025-05-25T00:00:00",
           "hour": "00:00",
-          "oi": 417073013.86576,
-          "volume": 5207914.75463,
-          "price": 0.22812,
+          "oi": 414887726.5040336,
+          "volume": 83461413.18228,
+          "price": 0.22138,
+          "oi_change_1h": -0.21410405555296058,
+          "volume_change_1h": 110.20536312417109,
+          "price_change_1h": -1.613261632816317
+        },
+        {
+          "timestamp": "2025-05-25T01:00:00",
+          "hour": "01:00",
+          "oi": 404654997.7172,
+          "volume": 65293326.5299,
+          "price": 0.22174,
+          "oi_change_1h": -2.466385032176689,
+          "volume_change_1h": -21.768247097255404,
+          "price_change_1h": 0.16261631583702196
+        },
+        {
+          "timestamp": "2025-05-25T02:00:00",
+          "hour": "02:00",
+          "oi": 405826106.3469,
+          "volume": 33212077.77634,
+          "price": 0.22239,
+          "oi_change_1h": 0.28940915997742206,
+          "volume_change_1h": -49.13403935526079,
+          "price_change_1h": 0.29313610534861173
+        },
+        {
+          "timestamp": "2025-05-25T03:00:00",
+          "hour": "03:00",
+          "oi": 409596937.2519872,
+          "volume": 25308509.24321,
+          "price": 0.22393,
+          "oi_change_1h": 0.9291740590645806,
+          "volume_change_1h": -23.797272144052474,
+          "price_change_1h": 0.692477179729298
+        },
+        {
+          "timestamp": "2025-05-25T04:00:00",
+          "hour": "04:00",
+          "oi": 409596937.2519872,
+          "volume": 25308509.24321,
+          "price": 0.22393,
           "oi_change_1h": 0.0,
           "volume_change_1h": 0.0,
           "price_change_1h": 0.0
         },
         {
-          "timestamp": "2025-05-25T01:00:00",
-          "hour": "01:00",
-          "oi": 415707856.06806,
-          "volume": 959151925.73189,
-          "price": 0.22734,
-          "oi_change_1h": -0.3273186593989128,
-          "volume_change_1h": 18317.19711097755,
-          "price_change_1h": -0.34192530247238423
-        },
-        {
-          "timestamp": "2025-05-25T02:00:00",
-          "hour": "02:00",
-          "oi": 417218867.17824,
-          "volume": 915687310.69787,
-          "price": 0.22656,
-          "oi_change_1h": 0.3634790846802367,
-          "volume_change_1h": -4.531567301066914,
-          "price_change_1h": -0.34309844286090224
-        },
-        {
-          "timestamp": "2025-05-25T03:00:00",
-          "hour": "03:00",
-          "oi": 419413075.9268,
-          "volume": 898639964.43846,
-          "price": 0.22717,
-          "oi_change_1h": 0.5259131168731696,
-          "volume_change_1h": -1.8616995190659333,
-          "price_change_1h": 0.2692443502824856
-        },
-        {
-          "timestamp": "2025-05-25T04:00:00",
-          "hour": "04:00",
-          "oi": 419397601.56888,
-          "volume": 866874269.31037,
-          "price": 0.22733,
-          "oi_change_1h": -0.0036895268193049254,
-          "volume_change_1h": -3.5348633919191097,
-          "price_change_1h": 0.07043183518950279
-        },
-        {
           "timestamp": "2025-05-25T05:00:00",
           "hour": "05:00",
-          "oi": 417745449.41367996,
-          "volume": 844606153.66467,
-          "price": 0.22648,
-          "oi_change_1h": -0.39393457402228893,
-          "volume_change_1h": -2.5687826290443567,
-          "price_change_1h": -0.37390577574452005
+          "oi": 409596937.2519872,
+          "volume": 25308509.24321,
+          "price": 0.22393,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T06:00:00",
           "hour": "06:00",
-          "oi": 415920731.20848,
-          "volume": 825741223.42339,
-          "price": 0.22518,
-          "oi_change_1h": -0.4368014559490741,
-          "volume_change_1h": -2.2335771719666884,
-          "price_change_1h": -0.574002119392439
+          "oi": 409596937.2519872,
+          "volume": 25308509.24321,
+          "price": 0.22393,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T07:00:00",
           "hour": "07:00",
-          "oi": 414804264.07452,
-          "volume": 749491019.78292,
-          "price": 0.22489,
-          "oi_change_1h": -0.2684326724267996,
-          "volume_change_1h": -9.234152477497608,
-          "price_change_1h": -0.12878586020072152
+          "oi": 409596937.2519872,
+          "volume": 25308509.24321,
+          "price": 0.22393,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T08:00:00",
           "hour": "08:00",
-          "oi": 403731781.07686996,
-          "volume": 760134061.17217,
-          "price": 0.22093,
-          "oi_change_1h": -2.669327187933836,
-          "volume_change_1h": 1.420035878793138,
-          "price_change_1h": -1.7608608653119386
+          "oi": 409596937.2519872,
+          "volume": 25308509.24321,
+          "price": 0.22393,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T09:00:00",
           "hour": "09:00",
-          "oi": 405753033.82026,
-          "volume": 787015479.23853,
-          "price": 0.22169,
-          "oi_change_1h": 0.5006424656485441,
-          "volume_change_1h": 3.5364048842788756,
-          "price_change_1h": 0.3440003621056492
+          "oi": 409596937.2519872,
+          "volume": 25308509.24321,
+          "price": 0.22393,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         },
         {
           "timestamp": "2025-05-25T10:00:00",
           "hour": "10:00",
-          "oi": 409672836.38886,
-          "volume": 788048867.49092,
-          "price": 0.22248,
-          "oi_change_1h": 0.9660562563621862,
-          "volume_change_1h": 0.13130469217578206,
-          "price_change_1h": 0.3563534665523988
+          "oi": 409596937.2519872,
+          "volume": 25308509.24321,
+          "price": 0.22393,
+          "oi_change_1h": 0.0,
+          "volume_change_1h": 0.0,
+          "price_change_1h": 0.0
         }
       ],
       "data_points": 24,
