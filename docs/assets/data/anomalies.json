@@ -1,26 +1,46 @@
 [
   {
-    "id": 298,
+    "id": 318,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-25T09:00:00",
+    "data_type": "24h_OI",
+    "value": 1267023059.8311,
+    "z_score": 3.213532013233192,
+    "message": "Bất thường OI 24h cho SOLUSDT: 1267023059.83 (Z-score: 3.21)",
+    "notified": 0
+  },
+  {
+    "id": 319,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-25T08:50:11",
+    "data_type": "30d_OI",
+    "value": 7374036.21,
+    "z_score": 2.7781413390437133,
+    "message": "Bất thường OI 30d cho SOLUSDT: 7374036.21 (Z-score: 2.78)",
+    "notified": 0
+  },
+  {
+    "id": 308,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-25T08:50:08",
+    "data_type": "30d_OI",
+    "value": 550004.06,
+    "z_score": 2.7045955125099095,
+    "message": "Bất thường OI 30d cho BNBUSDT: 550004.06 (Z-score: 2.70)",
+    "notified": 0
+  },
+  {
+    "id": 307,
     "symbol": "BNBUSDT",
     "timestamp": "2025-05-25T08:19:47",
     "data_type": "30d_OI",
     "value": 549699.02,
-    "z_score": 3.0914232809145776,
-    "message": "Bất thường OI 30d cho BNBUSDT: 549699.02 (Z-score: 3.09)",
+    "z_score": 2.5597662904396525,
+    "message": "Bất thường OI 30d cho BNBUSDT: 549699.02 (Z-score: 2.56)",
     "notified": 0
   },
   {
-    "id": 297,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-25T08:00:00",
-    "data_type": "24h_OI",
-    "value": 4031100813.5605307,
-    "z_score": 3.0197272826336357,
-    "message": "Bất thường OI 24h cho ETHUSDT: 4031100813.56 (Z-score: 3.02)",
-    "notified": 0
-  },
-  {
-    "id": 300,
+    "id": 310,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-25T08:00:00",
     "data_type": "24h_OI",
@@ -30,13 +50,23 @@
     "notified": 0
   },
   {
-    "id": 301,
+    "id": 316,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-25T08:00:00",
+    "data_type": "24h_OI",
+    "value": 4031100813.5605307,
+    "z_score": 2.5615983987581687,
+    "message": "Bất thường OI 24h cho ETHUSDT: 4031100813.56 (Z-score: 2.56)",
+    "notified": 0
+  },
+  {
+    "id": 320,
     "symbol": "DOGEUSDT",
     "timestamp": "2025-05-25T08:00:00",
     "data_type": "24h_OI",
     "value": 403731781.07686996,
-    "z_score": 2.840356267452832,
-    "message": "Bất thường OI 24h cho DOGEUSDT: 403731781.08 (Z-score: 2.84)",
+    "z_score": 2.573288573913017,
+    "message": "Bất thường OI 24h cho DOGEUSDT: 403731781.08 (Z-score: 2.57)",
     "notified": 0
   },
   {
@@ -270,13 +300,13 @@
     "notified": 0
   },
   {
-    "id": 295,
+    "id": 314,
     "symbol": "BTCUSDT",
     "timestamp": "2025-05-24T10:00:00",
     "data_type": "24h_OI",
     "value": 9086988442.6736,
-    "z_score": 3.1076197641625845,
-    "message": "Bất thường OI 24h cho BTCUSDT: 9086988442.67 (Z-score: 3.11)",
+    "z_score": 4.159323406090504,
+    "message": "Bất thường OI 24h cho BTCUSDT: 9086988442.67 (Z-score: 4.16)",
     "notified": 0
   },
   {
@@ -310,7 +340,7 @@
     "notified": 0
   },
   {
-    "id": 294,
+    "id": 303,
     "symbol": "BTCUSDT",
     "timestamp": "2025-05-24T09:00:00",
     "data_type": "24h_OI",
@@ -467,36 +497,6 @@
     "value": 7683479.37,
     "z_score": 2.9665233417582995,
     "message": "Bất thường OI 30d cho SOLUSDT: 7683479.37 (Z-score: 2.97)",
-    "notified": 0
-  },
-  {
-    "id": 3,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-24T01:00:00",
-    "data_type": "24h_OI",
-    "value": 4099620745.9292,
-    "z_score": 2.7330477324404208,
-    "message": "Bất thường OI 24h cho ETHUSDT: 4099620745.93 (Z-score: 2.73)",
-    "notified": 0
-  },
-  {
-    "id": 153,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-24T00:00:00",
-    "data_type": "30d_OI",
-    "value": 1615463.677,
-    "z_score": 3.157122842553571,
-    "message": "Bất thường OI 30d cho ETHUSDT: 1615463.68 (Z-score: 3.16)",
-    "notified": 0
-  },
-  {
-    "id": 102,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-23T22:00:00",
-    "data_type": "30d_OI",
-    "value": 1610509.719,
-    "z_score": 2.909153340025072,
-    "message": "Bất thường OI 30d cho ETHUSDT: 1610509.72 (Z-score: 2.91)",
     "notified": 0
   }
 ]
