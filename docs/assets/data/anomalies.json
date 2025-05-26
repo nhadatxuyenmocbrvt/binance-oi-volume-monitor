@@ -170,6 +170,16 @@
     "notified": 0
   },
   {
+    "id": 463,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-25T15:18:03",
+    "data_type": "30d_OI",
+    "value": 548769.36,
+    "z_score": 2.7523108327992407,
+    "message": "Bất thường OI 30d cho BNBUSDT: 548769.36 (Z-score: 2.75)",
+    "notified": 0
+  },
+  {
     "id": 229,
     "symbol": "BTCUSDT",
     "timestamp": "2025-05-25T15:00:00",
@@ -217,6 +227,26 @@
     "value": 777420202.71407,
     "z_score": 2.5983392352136137,
     "message": "Bất thường Volume 24h cho DOGEUSDT: 777420202.71 (Z-score: 2.60)",
+    "notified": 0
+  },
+  {
+    "id": 466,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-25T14:47:49",
+    "data_type": "30d_OI_Value",
+    "value": 405908561.97368,
+    "z_score": 2.8753738345966924,
+    "message": "Bất thường OI_Value 30d cho DOGEUSDT: 405908561.97 (Z-score: 2.88)",
+    "notified": 0
+  },
+  {
+    "id": 467,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-25T14:47:49",
+    "data_type": "30d_Avg_OI_Value",
+    "value": 405908561.97368,
+    "z_score": 2.8753738345966924,
+    "message": "Bất thường Avg_OI_Value 30d cho DOGEUSDT: 405908561.97 (Z-score: 2.88)",
     "notified": 0
   },
   {
@@ -467,36 +497,6 @@
     "value": 1321238596.784933,
     "z_score": 3.0393124534124545,
     "message": "Bất thường Avg_OI_Value 30d cho SOLUSDT: 1321238596.78 (Z-score: 3.04)",
-    "notified": 0
-  },
-  {
-    "id": 248,
-    "symbol": "DOGEUSDT",
-    "timestamp": "2025-05-24T11:00:00",
-    "data_type": "30d_OI",
-    "value": 1868761288.0,
-    "z_score": 2.7167720133828515,
-    "message": "Bất thường OI 30d cho DOGEUSDT: 1868761288.00 (Z-score: 2.72)",
-    "notified": 0
-  },
-  {
-    "id": 209,
-    "symbol": "BTCUSDT",
-    "timestamp": "2025-05-24T10:00:00",
-    "data_type": "30d_OI_Value",
-    "value": 9086988442.6736,
-    "z_score": 3.956938158251053,
-    "message": "Bất thường OI_Value 30d cho BTCUSDT: 9086988442.67 (Z-score: 3.96)",
-    "notified": 0
-  },
-  {
-    "id": 210,
-    "symbol": "BTCUSDT",
-    "timestamp": "2025-05-24T10:00:00",
-    "data_type": "30d_Avg_OI_Value",
-    "value": 9086988442.6736,
-    "z_score": 3.956938158251053,
-    "message": "Bất thường Avg_OI_Value 30d cho BTCUSDT: 9086988442.67 (Z-score: 3.96)",
     "notified": 0
   }
 ]
