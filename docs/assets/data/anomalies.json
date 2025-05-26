@@ -1,5 +1,15 @@
 [
   {
+    "id": 76,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-27T06:02:18",
+    "data_type": "correlation_24h",
+    "value": -0.7615,
+    "z_score": 2.2845,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho DOGEUSDT: -0.761 (strong_negative)",
+    "notified": 0
+  },
+  {
     "id": 73,
     "symbol": "DOGEUSDT",
     "timestamp": "2025-05-27T05:31:57",
@@ -90,6 +100,16 @@
     "notified": 0
   },
   {
+    "id": 75,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-26T23:27:33",
+    "data_type": "30d_OI",
+    "value": 533406.11,
+    "z_score": 2.8490337197665356,
+    "message": "Bất thường OI 30d cho BNBUSDT: 533406.11 (Z-score: 2.85)",
+    "notified": 0
+  },
+  {
     "id": 49,
     "symbol": "BNBUSDT",
     "timestamp": "2025-05-26T23:00:00",
@@ -97,6 +117,16 @@
     "value": 361036560.225,
     "z_score": 2.503992560848145,
     "message": "Bất thường OI 24h cho BNBUSDT: 361036560.23 (Z-score: 2.50)",
+    "notified": 0
+  },
+  {
+    "id": 74,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-26T23:00:00",
+    "data_type": "24h_OI",
+    "value": 10067348786.6514,
+    "z_score": 2.6432425423134176,
+    "message": "Bất thường OI 24h cho BTCUSDT: 10067348786.65 (Z-score: 2.64)",
     "notified": 0
   },
   {
@@ -467,36 +497,6 @@
     "value": 1286213200.346956,
     "z_score": 2.801731501584762,
     "message": "Bất thường OI_Value 30d cho SOLUSDT: 1286213200.35 (Z-score: 2.80)",
-    "notified": 0
-  },
-  {
-    "id": 41,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-05-25T23:00:00",
-    "data_type": "30d_Avg_OI_Value",
-    "value": 1286213200.346956,
-    "z_score": 2.801731501584762,
-    "message": "Bất thường Avg_OI_Value 30d cho SOLUSDT: 1286213200.35 (Z-score: 2.80)",
-    "notified": 0
-  },
-  {
-    "id": 26,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-25T22:00:00",
-    "data_type": "24h_OI",
-    "value": 3980763037.10302,
-    "z_score": 2.5413326585317972,
-    "message": "Bất thường OI 24h cho ETHUSDT: 3980763037.10 (Z-score: 2.54)",
-    "notified": 0
-  },
-  {
-    "id": 27,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-05-25T22:00:00",
-    "data_type": "24h_OI",
-    "value": 1254614633.6856,
-    "z_score": 2.7264033928543547,
-    "message": "Bất thường OI 24h cho SOLUSDT: 1254614633.69 (Z-score: 2.73)",
     "notified": 0
   }
 ]
