@@ -391,3 +391,708 @@
 2025-05-26 01:34:47,001 - data_collector.historical_data - INFO -    📈 Ticker: 0.219480 (-3.589%), Volume: 877149080.030210 USDT
 2025-05-26 01:34:49,018 - data_collector.historical_data - INFO -    📊 OI: 1786649680 contracts, Value: 392080272.276 USDT
 2025-05-26 01:34:49,330 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 02:06:09,912 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 02:06:09,912 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 02:06:09,913 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 02:06:09,914 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 02:06:09,914 - data_collector.historical_data - INFO - 📅 Bắt đầu thu thập dữ liệu 30d daily - OI & Volume focus
+2025-05-26 02:06:09,915 - data_collector.historical_data - INFO - 📅 30d range: 2025-04-27 → 2025-05-27
+2025-05-26 02:06:09,915 - data_collector.historical_data - INFO - 📊 [1/5] Thu thập 30d data cho BTCUSDT
+2025-05-26 02:06:09,916 - data_collector.historical_data - INFO -    📈 Collecting daily klines for BTCUSDT
+2025-05-26 02:06:11,634 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 116,972.64, Quote Volume = 12,553,822,021.38 USDT
+2025-05-26 02:06:11,634 - data_collector.historical_data - INFO -    ✅ 29 daily klines collected
+2025-05-26 02:06:12,147 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for BTCUSDT (phương pháp mới)
+2025-05-26 02:06:30,895 - data_collector.historical_data - INFO -    ✅ 29 daily OI points collected (phương pháp 1)
+2025-05-26 02:06:30,896 - data_collector.historical_data - INFO -    🎯 BTCUSDT: Success
+2025-05-26 02:06:31,911 - data_collector.historical_data - INFO - 📊 [2/5] Thu thập 30d data cho ETHUSDT
+2025-05-26 02:06:31,912 - data_collector.historical_data - INFO -    📈 Collecting daily klines for ETHUSDT
+2025-05-26 02:06:33,634 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 3,309,788.78, Quote Volume = 8,270,574,326.67 USDT
+2025-05-26 02:06:33,635 - data_collector.historical_data - INFO -    ✅ 29 daily klines collected
+2025-05-26 02:06:34,137 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for ETHUSDT (phương pháp mới)
+2025-05-26 02:06:52,749 - data_collector.historical_data - INFO -    ✅ 29 daily OI points collected (phương pháp 1)
+2025-05-26 02:06:52,749 - data_collector.historical_data - INFO -    🎯 ETHUSDT: Success
+2025-05-26 02:06:53,752 - data_collector.historical_data - INFO - 📊 [3/5] Thu thập 30d data cho BNBUSDT
+2025-05-26 02:06:53,753 - data_collector.historical_data - INFO -    📈 Collecting daily klines for BNBUSDT
+2025-05-26 02:06:55,541 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 380,812.51, Quote Volume = 252,431,962.27 USDT
+2025-05-26 02:06:55,542 - data_collector.historical_data - INFO -    ✅ 29 daily klines collected
+2025-05-26 02:06:56,057 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for BNBUSDT (phương pháp mới)
+2025-05-26 02:07:14,816 - data_collector.historical_data - INFO -    ✅ 29 daily OI points collected (phương pháp 1)
+2025-05-26 02:07:14,817 - data_collector.historical_data - INFO -    🎯 BNBUSDT: Success
+2025-05-26 02:07:15,829 - data_collector.historical_data - INFO - 📊 [4/5] Thu thập 30d data cho SOLUSDT
+2025-05-26 02:07:15,830 - data_collector.historical_data - INFO -    📈 Collecting daily klines for SOLUSDT
+2025-05-26 02:07:17,618 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 14,999,688.52, Quote Volume = 2,576,918,215.26 USDT
+2025-05-26 02:07:17,619 - data_collector.historical_data - INFO -    ✅ 29 daily klines collected
+2025-05-26 02:07:18,123 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for SOLUSDT (phương pháp mới)
+2025-05-26 02:07:36,931 - data_collector.historical_data - INFO -    ✅ 29 daily OI points collected (phương pháp 1)
+2025-05-26 02:07:36,932 - data_collector.historical_data - INFO -    🎯 SOLUSDT: Success
+2025-05-26 02:07:37,936 - data_collector.historical_data - INFO - 📊 [5/5] Thu thập 30d data cho DOGEUSDT
+2025-05-26 02:07:37,937 - data_collector.historical_data - INFO -    📈 Collecting daily klines for DOGEUSDT
+2025-05-26 02:07:39,917 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 3,435,728,043.00, Quote Volume = 756,327,475.59 USDT
+2025-05-26 02:07:39,918 - data_collector.historical_data - INFO -    ✅ 29 daily klines collected
+2025-05-26 02:07:40,420 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for DOGEUSDT (phương pháp mới)
+2025-05-26 02:07:59,190 - data_collector.historical_data - INFO -    ✅ 29 daily OI points collected (phương pháp 1)
+2025-05-26 02:07:59,191 - data_collector.historical_data - INFO -    🎯 DOGEUSDT: Success
+2025-05-26 02:08:00,203 - data_collector.historical_data - INFO - ✅ 30d collection complete: 5/5 success, 0 errors
+2025-05-26 02:08:03,021 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 02:08:03,022 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 02:08:03,023 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 02:08:03,024 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 02:08:03,032 - data_collector.historical_data - INFO - 📚 Bắt đầu thu thập dữ liệu lịch sử - mode: full
+2025-05-26 02:08:03,032 - data_collector.historical_data - INFO - 📈 Collecting klines data...
+2025-05-26 02:08:03,033 - data_collector.historical_data - INFO - 📊 Custom range (29d): 2025-04-27 02:08 → 2025-05-26 02:08
+2025-05-26 02:08:03,034 - data_collector.historical_data - INFO - 📈 Thu thập klines data cho 3 timeframes
+2025-05-26 02:08:03,035 - data_collector.historical_data - INFO - 📊 [1/15] BTCUSDT - 1h
+2025-05-26 02:08:04,810 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-26 02:08:05,217 - data_collector.historical_data - INFO - 📊 [2/15] BTCUSDT - 4h
+2025-05-26 02:08:06,055 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-26 02:08:06,465 - data_collector.historical_data - INFO - 📊 [3/15] BTCUSDT - 1d
+2025-05-26 02:08:07,330 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-26 02:08:07,731 - data_collector.historical_data - INFO - 📊 [4/15] ETHUSDT - 1h
+2025-05-26 02:08:09,727 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-26 02:08:10,137 - data_collector.historical_data - INFO - 📊 [5/15] ETHUSDT - 4h
+2025-05-26 02:08:10,914 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-26 02:08:11,323 - data_collector.historical_data - INFO - 📊 [6/15] ETHUSDT - 1d
+2025-05-26 02:08:12,232 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-26 02:08:12,647 - data_collector.historical_data - INFO - 📊 [7/15] BNBUSDT - 1h
+2025-05-26 02:08:14,470 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-26 02:08:14,885 - data_collector.historical_data - INFO - 📊 [8/15] BNBUSDT - 4h
+2025-05-26 02:08:15,784 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-26 02:08:16,198 - data_collector.historical_data - INFO - 📊 [9/15] BNBUSDT - 1d
+2025-05-26 02:08:17,004 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-26 02:08:17,415 - data_collector.historical_data - INFO - 📊 [10/15] SOLUSDT - 1h
+2025-05-26 02:08:19,145 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-26 02:08:19,554 - data_collector.historical_data - INFO - 📊 [11/15] SOLUSDT - 4h
+2025-05-26 02:08:20,359 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-26 02:08:20,765 - data_collector.historical_data - INFO - 📊 [12/15] SOLUSDT - 1d
+2025-05-26 02:08:21,632 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-26 02:08:22,033 - data_collector.historical_data - INFO - 📊 [13/15] DOGEUSDT - 1h
+2025-05-26 02:08:23,617 - data_collector.historical_data - INFO -    ✅ 696 candles collected
+2025-05-26 02:08:24,027 - data_collector.historical_data - INFO - 📊 [14/15] DOGEUSDT - 4h
+2025-05-26 02:08:24,785 - data_collector.historical_data - INFO -    ✅ 174 candles collected
+2025-05-26 02:08:25,197 - data_collector.historical_data - INFO - 📊 [15/15] DOGEUSDT - 1d
+2025-05-26 02:08:26,095 - data_collector.historical_data - INFO -    ✅ 29 candles collected
+2025-05-26 02:08:26,507 - data_collector.historical_data - INFO - ✅ Klines collection complete
+2025-05-26 02:08:26,508 - data_collector.historical_data - INFO - 📊 Collecting OI data...
+2025-05-26 02:08:26,508 - data_collector.historical_data - INFO - 📊 Custom range (29d): 2025-04-27 02:08 → 2025-05-26 02:08
+2025-05-26 02:08:26,509 - data_collector.historical_data - INFO - 📊 Thu thập OI data cho 29 ngày
+2025-05-26 02:08:26,509 - data_collector.historical_data - INFO - 📊 [1/5] OI for BTCUSDT
+2025-05-26 02:08:58,356 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-26 02:08:59,356 - data_collector.historical_data - INFO - 📊 [2/5] OI for ETHUSDT
+2025-05-26 02:09:31,041 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-26 02:09:32,052 - data_collector.historical_data - INFO - 📊 [3/5] OI for BNBUSDT
+2025-05-26 02:10:04,079 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-26 02:10:05,093 - data_collector.historical_data - INFO - 📊 [4/5] OI for SOLUSDT
+2025-05-26 02:10:36,658 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-26 02:10:37,668 - data_collector.historical_data - INFO - 📊 [5/5] OI for DOGEUSDT
+2025-05-26 02:11:09,078 - data_collector.historical_data - INFO -    ✅ 282 OI points collected
+2025-05-26 02:11:10,093 - data_collector.historical_data - INFO - ✅ OI collection complete
+2025-05-26 02:11:10,094 - data_collector.historical_data - INFO - ✅ All historical data collection complete
+2025-05-26 02:11:14,060 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 02:11:14,061 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 02:11:14,062 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 02:11:14,063 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 02:11:14,073 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 02:11:14,074 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 02:11:14,859 - data_collector.historical_data - INFO -    📈 Ticker: 107393.50 (-1.345%), Volume: 16655254030.54 USDT
+2025-05-26 02:11:16,786 - data_collector.historical_data - INFO -    📊 OI: 87388.002 contracts, Value: 9384903392.786999 USDT
+2025-05-26 02:11:17,101 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 02:11:17,935 - data_collector.historical_data - INFO -    📈 Ticker: 2513.96 (-1.511%), Volume: 9547328102.79 USDT
+2025-05-26 02:11:19,928 - data_collector.historical_data - INFO -    📊 OI: 1597427.342 contracts, Value: 4016587282.9982195 USDT
+2025-05-26 02:11:20,235 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 02:11:21,117 - data_collector.historical_data - INFO -    📈 Ticker: 665.820 (-1.554%), Volume: 310951748.082 USDT
+2025-05-26 02:11:22,949 - data_collector.historical_data - INFO -    📊 OI: 539089.09 contracts, Value: 358941688.7947 USDT
+2025-05-26 02:11:23,251 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 02:11:24,112 - data_collector.historical_data - INFO -    📈 Ticker: 171.8400 (-3.167%), Volume: 2871338595.3526 USDT
+2025-05-26 02:11:26,053 - data_collector.historical_data - INFO -    📊 OI: 7386107.24 contracts, Value: 1269228668.1216002 USDT
+2025-05-26 02:11:26,365 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 02:11:27,228 - data_collector.historical_data - INFO -    📈 Ticker: 0.219140 (-3.598%), Volume: 863367182.041260 USDT
+2025-05-26 02:11:29,128 - data_collector.historical_data - INFO -    📊 OI: 1787821249 contracts, Value: 391729513.86839 USDT
+2025-05-26 02:11:29,438 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 02:41:36,118 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 02:41:36,118 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 02:41:36,119 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 02:41:36,119 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 02:41:36,126 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 02:41:36,126 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 02:41:36,916 - data_collector.historical_data - INFO -    📈 Ticker: 107653.30 (-1.209%), Volume: 16686824174.38 USDT
+2025-05-26 02:41:38,748 - data_collector.historical_data - INFO -    📊 OI: 87356.014 contracts, Value: 9404171917.5476 USDT
+2025-05-26 02:41:39,062 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 02:41:39,902 - data_collector.historical_data - INFO -    📈 Ticker: 2522.51 (-1.233%), Volume: 9588582655.72 USDT
+2025-05-26 02:41:41,782 - data_collector.historical_data - INFO -    📊 OI: 1598619.074 contracts, Value: 4032532600.3557405 USDT
+2025-05-26 02:41:42,094 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 02:41:42,913 - data_collector.historical_data - INFO -    📈 Ticker: 666.900 (-1.368%), Volume: 310924536.356 USDT
+2025-05-26 02:41:44,675 - data_collector.historical_data - INFO -    📊 OI: 539274.68 contracts, Value: 359642284.092 USDT
+2025-05-26 02:41:44,977 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 02:41:45,874 - data_collector.historical_data - INFO -    📈 Ticker: 172.1100 (-2.944%), Volume: 2881183049.8378 USDT
+2025-05-26 02:41:47,752 - data_collector.historical_data - INFO -    📊 OI: 7384227.94 contracts, Value: 1270973313.0328002 USDT
+2025-05-26 02:41:48,056 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 02:41:48,846 - data_collector.historical_data - INFO -    📈 Ticker: 0.219940 (-3.229%), Volume: 863065669.739950 USDT
+2025-05-26 02:41:50,715 - data_collector.historical_data - INFO -    📊 OI: 1787651753 contracts, Value: 393158250.03729 USDT
+2025-05-26 02:41:51,031 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 03:00:02,444 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 03:00:02,445 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 03:00:02,445 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 03:00:02,446 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 03:00:02,453 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 03:00:02,454 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 03:00:03,267 - data_collector.historical_data - INFO -    📈 Ticker: 107656.30 (-1.167%), Volume: 16795345765.96 USDT
+2025-05-26 03:00:05,171 - data_collector.historical_data - INFO -    📊 OI: 87129.021 contracts, Value: 9379988023.4823 USDT
+2025-05-26 03:00:05,477 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 03:00:06,291 - data_collector.historical_data - INFO -    📈 Ticker: 2525.14 (-1.104%), Volume: 9698480781.06 USDT
+2025-05-26 03:00:08,030 - data_collector.historical_data - INFO -    📊 OI: 1586976.710 contracts, Value: 4007338369.4894 USDT
+2025-05-26 03:00:08,343 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 03:00:09,192 - data_collector.historical_data - INFO -    📈 Ticker: 667.200 (-1.408%), Volume: 311515625.276 USDT
+2025-05-26 03:00:10,968 - data_collector.historical_data - INFO -    📊 OI: 539331.31 contracts, Value: 359858029.97130007 USDT
+2025-05-26 03:00:11,276 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 03:00:12,082 - data_collector.historical_data - INFO -    📈 Ticker: 172.4400 (-2.598%), Volume: 2892588944.2622 USDT
+2025-05-26 03:00:13,916 - data_collector.historical_data - INFO -    📊 OI: 7366217.89 contracts, Value: 1270377937.3094 USDT
+2025-05-26 03:00:14,232 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 03:00:15,090 - data_collector.historical_data - INFO -    📈 Ticker: 0.220050 (-3.104%), Volume: 864106254.374990 USDT
+2025-05-26 03:00:16,959 - data_collector.historical_data - INFO -    📊 OI: 1787572602 contracts, Value: 393408978.24816 USDT
+2025-05-26 03:00:17,271 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 03:11:57,963 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 03:11:57,963 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 03:11:57,964 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 03:11:57,965 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 03:11:57,973 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 03:11:57,974 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 03:11:58,852 - data_collector.historical_data - INFO -    📈 Ticker: 107491.00 (-1.254%), Volume: 16858247883.95 USDT
+2025-05-26 03:12:00,776 - data_collector.historical_data - INFO -    📊 OI: 87198.779 contracts, Value: 9373083953.489 USDT
+2025-05-26 03:12:01,078 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 03:12:01,909 - data_collector.historical_data - INFO -    📈 Ticker: 2517.22 (-1.270%), Volume: 9744887592.80 USDT
+2025-05-26 03:12:03,722 - data_collector.historical_data - INFO -    📊 OI: 1587908.746 contracts, Value: 3997099774.51866 USDT
+2025-05-26 03:12:04,029 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 03:12:04,871 - data_collector.historical_data - INFO -    📈 Ticker: 667.340 (-1.082%), Volume: 310148937.510 USDT
+2025-05-26 03:12:06,796 - data_collector.historical_data - INFO -    📊 OI: 540496.50 contracts, Value: 360694934.31 USDT
+2025-05-26 03:12:07,104 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 03:12:07,913 - data_collector.historical_data - INFO -    📈 Ticker: 171.7900 (-3.026%), Volume: 2903516015.7652 USDT
+2025-05-26 03:12:09,890 - data_collector.historical_data - INFO -    📊 OI: 7351002.78 contracts, Value: 1262902277.604 USDT
+2025-05-26 03:12:10,191 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 03:12:11,066 - data_collector.historical_data - INFO -    📈 Ticker: 0.219050 (-3.506%), Volume: 865860151.229120 USDT
+2025-05-26 03:12:12,920 - data_collector.historical_data - INFO -    📊 OI: 1785825022 contracts, Value: 391184971.06909996 USDT
+2025-05-26 03:12:13,234 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 03:42:19,313 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 03:42:19,314 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 03:42:19,315 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 03:42:19,316 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 03:42:19,325 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 03:42:19,325 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 03:42:20,188 - data_collector.historical_data - INFO -    📈 Ticker: 107581.10 (-1.317%), Volume: 16893127896.26 USDT
+2025-05-26 03:42:22,069 - data_collector.historical_data - INFO -    📊 OI: 87306.815 contracts, Value: 9393802951.9695 USDT
+2025-05-26 03:42:22,382 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 03:42:23,131 - data_collector.historical_data - INFO -    📈 Ticker: 2523.88 (-1.202%), Volume: 9817052587.87 USDT
+2025-05-26 03:42:24,970 - data_collector.historical_data - INFO -    📊 OI: 1586525.656 contracts, Value: 4004200372.66528 USDT
+2025-05-26 03:42:25,285 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 03:42:26,094 - data_collector.historical_data - INFO -    📈 Ticker: 666.790 (-1.121%), Volume: 309355890.533 USDT
+2025-05-26 03:42:27,879 - data_collector.historical_data - INFO -    📊 OI: 541117.00 contracts, Value: 360811404.43 USDT
+2025-05-26 03:42:28,189 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 03:42:28,956 - data_collector.historical_data - INFO -    📈 Ticker: 172.2800 (-3.050%), Volume: 2919255543.6475 USDT
+2025-05-26 03:42:30,752 - data_collector.historical_data - INFO -    📊 OI: 7337097.43 contracts, Value: 1263961774.2661 USDT
+2025-05-26 03:42:31,055 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 03:42:31,802 - data_collector.historical_data - INFO -    📈 Ticker: 0.219750 (-3.538%), Volume: 864849130.819020 USDT
+2025-05-26 03:42:33,645 - data_collector.historical_data - INFO -    📊 OI: 1782671587 contracts, Value: 391742081.24325 USDT
+2025-05-26 03:42:33,954 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 04:00:01,962 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 04:00:01,963 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 04:00:01,964 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 04:00:01,964 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 04:00:01,971 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 04:00:01,972 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 04:00:02,781 - data_collector.historical_data - INFO -    📈 Ticker: 107632.00 (-1.087%), Volume: 16877244915.14 USDT
+2025-05-26 04:00:04,643 - data_collector.historical_data - INFO -    📊 OI: 87274.009 contracts, Value: 9393476136.688 USDT
+2025-05-26 04:00:04,958 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 04:00:05,812 - data_collector.historical_data - INFO -    📈 Ticker: 2522.67 (-1.107%), Volume: 9822179116.32 USDT
+2025-05-26 04:00:07,764 - data_collector.historical_data - INFO -    📊 OI: 1585637.881 contracts, Value: 4000358240.83847 USDT
+2025-05-26 04:00:08,080 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 04:00:08,899 - data_collector.historical_data - INFO -    📈 Ticker: 666.950 (-0.839%), Volume: 304667321.543 USDT
+2025-05-26 04:00:10,719 - data_collector.historical_data - INFO -    📊 OI: 540267.28 contracts, Value: 360331262.396 USDT
+2025-05-26 04:00:11,027 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 04:00:11,988 - data_collector.historical_data - INFO -    📈 Ticker: 171.8800 (-3.264%), Volume: 2914576387.3868 USDT
+2025-05-26 04:00:13,814 - data_collector.historical_data - INFO -    📊 OI: 7332528.55 contracts, Value: 1260315007.174 USDT
+2025-05-26 04:00:14,122 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 04:00:14,993 - data_collector.historical_data - INFO -    📈 Ticker: 0.219580 (-3.401%), Volume: 864490916.469950 USDT
+2025-05-26 04:00:16,865 - data_collector.historical_data - INFO -    📊 OI: 1781077662 contracts, Value: 391089033.02196 USDT
+2025-05-26 04:00:17,172 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 04:12:40,154 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 04:12:40,155 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 04:12:40,156 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 04:12:40,157 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 04:12:40,167 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 04:12:40,168 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 04:12:40,996 - data_collector.historical_data - INFO -    📈 Ticker: 107766.80 (-0.935%), Volume: 16876106789.52 USDT
+2025-05-26 04:12:42,892 - data_collector.historical_data - INFO -    📊 OI: 87182.078 contracts, Value: 9395324845.202599 USDT
+2025-05-26 04:12:43,206 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 04:12:44,086 - data_collector.historical_data - INFO -    📈 Ticker: 2527.91 (-0.792%), Volume: 9825362986.54 USDT
+2025-05-26 04:12:46,020 - data_collector.historical_data - INFO -    📊 OI: 1585138.679 contracts, Value: 4006850147.22904 USDT
+2025-05-26 04:12:46,325 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 04:12:47,174 - data_collector.historical_data - INFO -    📈 Ticker: 668.530 (-0.558%), Volume: 301680103.870 USDT
+2025-05-26 04:12:49,117 - data_collector.historical_data - INFO -    📊 OI: 540599.67 contracts, Value: 361396285.3917 USDT
+2025-05-26 04:12:49,429 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 04:12:50,338 - data_collector.historical_data - INFO -    📈 Ticker: 172.4400 (-2.801%), Volume: 2918462434.0737 USDT
+2025-05-26 04:12:52,147 - data_collector.historical_data - INFO -    📊 OI: 7319837.03 contracts, Value: 1262232697.4532 USDT
+2025-05-26 04:12:52,452 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 04:12:53,273 - data_collector.historical_data - INFO -    📈 Ticker: 0.219980 (-2.964%), Volume: 865024786.079720 USDT
+2025-05-26 04:12:55,157 - data_collector.historical_data - INFO -    📊 OI: 1780106732 contracts, Value: 391570077.83804 USDT
+2025-05-26 04:12:55,473 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 04:43:01,428 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 04:43:01,429 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 04:43:01,430 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 04:43:01,430 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 04:43:01,437 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 04:43:01,438 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 04:43:02,285 - data_collector.historical_data - INFO -    📈 Ticker: 107339.40 (-1.279%), Volume: 16994293388.08 USDT
+2025-05-26 04:43:04,092 - data_collector.historical_data - INFO -    📊 OI: 87081.180 contracts, Value: 9347502856.032 USDT
+2025-05-26 04:43:04,407 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 04:43:05,142 - data_collector.historical_data - INFO -    📈 Ticker: 2515.39 (-0.745%), Volume: 9627341363.31 USDT
+2025-05-26 04:43:06,976 - data_collector.historical_data - INFO -    📊 OI: 1582492.485 contracts, Value: 3980585771.84415 USDT
+2025-05-26 04:43:07,279 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 04:43:08,135 - data_collector.historical_data - INFO -    📈 Ticker: 666.390 (-0.767%), Volume: 297247635.009 USDT
+2025-05-26 04:43:09,969 - data_collector.historical_data - INFO -    📊 OI: 540453.22 contracts, Value: 360152621.2758 USDT
+2025-05-26 04:43:10,277 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 04:43:11,099 - data_collector.historical_data - INFO -    📈 Ticker: 171.3800 (-3.077%), Volume: 2924570812.9139 USDT
+2025-05-26 04:43:13,038 - data_collector.historical_data - INFO -    📊 OI: 7310841.71 contracts, Value: 1252932052.2598 USDT
+2025-05-26 04:43:13,352 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 04:43:14,171 - data_collector.historical_data - INFO -    📈 Ticker: 0.218850 (-3.232%), Volume: 864586731.625930 USDT
+2025-05-26 04:43:16,090 - data_collector.historical_data - INFO -    📊 OI: 1775793711 contracts, Value: 388632453.65235 USDT
+2025-05-26 04:43:16,403 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 05:00:02,470 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 05:00:02,470 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 05:00:02,471 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 05:00:02,471 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 05:00:02,477 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 05:00:02,478 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 05:00:03,346 - data_collector.historical_data - INFO -    📈 Ticker: 107406.70 (-1.299%), Volume: 17038265895.67 USDT
+2025-05-26 05:00:05,112 - data_collector.historical_data - INFO -    📊 OI: 87040.577 contracts, Value: 9350786595.2254 USDT
+2025-05-26 05:00:05,428 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 05:00:06,283 - data_collector.historical_data - INFO -    📈 Ticker: 2514.12 (-1.052%), Volume: 9602679193.01 USDT
+2025-05-26 05:00:08,086 - data_collector.historical_data - INFO -    📊 OI: 1583216.371 contracts, Value: 3982184977.15775 USDT
+2025-05-26 05:00:08,402 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 05:00:09,240 - data_collector.historical_data - INFO -    📈 Ticker: 666.160 (-0.893%), Volume: 296974015.226 USDT
+2025-05-26 05:00:11,068 - data_collector.historical_data - INFO -    📊 OI: 540347.30 contracts, Value: 360136071.97700006 USDT
+2025-05-26 05:00:11,384 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 05:00:12,195 - data_collector.historical_data - INFO -    📈 Ticker: 171.5700 (-3.215%), Volume: 2926676033.3628 USDT
+2025-05-26 05:00:14,078 - data_collector.historical_data - INFO -    📊 OI: 7319244.03 contracts, Value: 1255177158.7047 USDT
+2025-05-26 05:00:14,394 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 05:00:15,199 - data_collector.historical_data - INFO -    📈 Ticker: 0.219030 (-3.413%), Volume: 864044317.395780 USDT
+2025-05-26 05:00:17,070 - data_collector.historical_data - INFO -    📊 OI: 1776080495 contracts, Value: 388855063.5753 USDT
+2025-05-26 05:00:17,383 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 05:13:22,644 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 05:13:22,645 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 05:13:22,646 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 05:13:22,647 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 05:13:22,655 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 05:13:22,656 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 05:13:23,433 - data_collector.historical_data - INFO -    📈 Ticker: 108635.30 (-0.024%), Volume: 17821279452.38 USDT
+2025-05-26 05:13:25,253 - data_collector.historical_data - INFO -    📊 OI: 87616.376 contracts, Value: 9517766924.880001 USDT
+2025-05-26 05:13:25,570 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 05:13:26,448 - data_collector.historical_data - INFO -    📈 Ticker: 2544.69 (0.541%), Volume: 9822553547.74 USDT
+2025-05-26 05:13:28,306 - data_collector.historical_data - INFO -    📊 OI: 1577479.348 contracts, Value: 4014195922.06212 USDT
+2025-05-26 05:13:28,615 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 05:13:29,424 - data_collector.historical_data - INFO -    📈 Ticker: 670.050 (0.003%), Volume: 295633638.772 USDT
+2025-05-26 05:13:31,245 - data_collector.historical_data - INFO -    📊 OI: 539326.35 contracts, Value: 361375620.81749994 USDT
+2025-05-26 05:13:31,560 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 05:13:32,303 - data_collector.historical_data - INFO -    📈 Ticker: 173.6700 (-1.776%), Volume: 2974505311.8652 USDT
+2025-05-26 05:13:33,997 - data_collector.historical_data - INFO -    📊 OI: 7350902.83 contracts, Value: 1276631294.4861 USDT
+2025-05-26 05:13:34,305 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 05:13:35,156 - data_collector.historical_data - INFO -    📈 Ticker: 0.222070 (-1.713%), Volume: 879720351.103840 USDT
+2025-05-26 05:13:36,983 - data_collector.historical_data - INFO -    📊 OI: 1775645402 contracts, Value: 394388600.23822 USDT
+2025-05-26 05:13:37,286 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 05:43:43,025 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 05:43:43,026 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 05:43:43,027 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 05:43:43,027 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 05:43:43,034 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 05:43:43,034 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 05:43:43,945 - data_collector.historical_data - INFO -    📈 Ticker: 108534.00 (0.400%), Volume: 18101361241.08 USDT
+2025-05-26 05:43:45,919 - data_collector.historical_data - INFO -    📊 OI: 87187.936 contracts, Value: 9460082869.4592 USDT
+2025-05-26 05:43:46,224 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 05:43:47,129 - data_collector.historical_data - INFO -    📈 Ticker: 2542.20 (0.602%), Volume: 9950198595.04 USDT
+2025-05-26 05:43:49,048 - data_collector.historical_data - INFO -    📊 OI: 1580606.137 contracts, Value: 4017300169.9219403 USDT
+2025-05-26 05:43:49,356 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 05:43:50,196 - data_collector.historical_data - INFO -    📈 Ticker: 670.000 (0.118%), Volume: 298851915.456 USDT
+2025-05-26 05:43:51,966 - data_collector.historical_data - INFO -    📊 OI: 538230.84 contracts, Value: 360593133.5664 USDT
+2025-05-26 05:43:52,275 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 05:43:53,098 - data_collector.historical_data - INFO -    📈 Ticker: 173.7700 (-1.228%), Volume: 3025595250.1069 USDT
+2025-05-26 05:43:54,951 - data_collector.historical_data - INFO -    📊 OI: 7342591.64 contracts, Value: 1275922149.2828 USDT
+2025-05-26 05:43:55,256 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 05:43:56,117 - data_collector.historical_data - INFO -    📈 Ticker: 0.222970 (-0.911%), Volume: 894672487.091220 USDT
+2025-05-26 05:43:58,030 - data_collector.historical_data - INFO -    📊 OI: 1766484585 contracts, Value: 393873067.91745 USDT
+2025-05-26 05:43:58,338 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 06:00:02,385 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 06:00:02,386 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 06:00:02,386 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 06:00:02,387 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 06:00:02,399 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 06:00:02,400 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 06:00:03,125 - data_collector.historical_data - INFO -    📈 Ticker: 109127.10 (1.081%), Volume: 18575062854.95 USDT
+2025-05-26 06:00:05,013 - data_collector.historical_data - INFO -    📊 OI: 87973.841 contracts, Value: 9600321346.807 USDT
+2025-05-26 06:00:05,317 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 06:00:06,191 - data_collector.historical_data - INFO -    📈 Ticker: 2548.39 (0.954%), Volume: 10100530517.34 USDT
+2025-05-26 06:00:07,984 - data_collector.historical_data - INFO -    📊 OI: 1587981.580 contracts, Value: 4046113546.5768003 USDT
+2025-05-26 06:00:08,289 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 06:00:09,106 - data_collector.historical_data - INFO -    📈 Ticker: 670.840 (0.209%), Volume: 303113927.605 USDT
+2025-05-26 06:00:11,049 - data_collector.historical_data - INFO -    📊 OI: 536064.69 contracts, Value: 359613636.6396 USDT
+2025-05-26 06:00:11,364 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 06:00:12,212 - data_collector.historical_data - INFO -    📈 Ticker: 174.9800 (-0.619%), Volume: 3071736049.8354 USDT
+2025-05-26 06:00:14,057 - data_collector.historical_data - INFO -    📊 OI: 7375856.81 contracts, Value: 1290627424.6137998 USDT
+2025-05-26 06:00:14,362 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 06:00:15,164 - data_collector.historical_data - INFO -    📈 Ticker: 0.224560 (-0.249%), Volume: 910364257.066500 USDT
+2025-05-26 06:00:17,146 - data_collector.historical_data - INFO -    📊 OI: 1767444706 contracts, Value: 396897383.17936003 USDT
+2025-05-26 06:00:17,458 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 06:14:04,055 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 06:14:04,056 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 06:14:04,057 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 06:14:04,058 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 06:14:04,067 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 06:14:04,067 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 06:14:04,943 - data_collector.historical_data - INFO -    📈 Ticker: 108917.90 (1.010%), Volume: 18254230206.32 USDT
+2025-05-26 06:14:06,758 - data_collector.historical_data - INFO -    📊 OI: 88251.822 contracts, Value: 9612203123.4138 USDT
+2025-05-26 06:14:07,069 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 06:14:07,925 - data_collector.historical_data - INFO -    📈 Ticker: 2542.46 (0.640%), Volume: 10080403059.24 USDT
+2025-05-26 06:14:09,800 - data_collector.historical_data - INFO -    📊 OI: 1589283.366 contracts, Value: 4040673493.8866997 USDT
+2025-05-26 06:14:10,114 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 06:14:10,931 - data_collector.historical_data - INFO -    📈 Ticker: 669.820 (0.307%), Volume: 299510918.642 USDT
+2025-05-26 06:14:12,792 - data_collector.historical_data - INFO -    📊 OI: 534536.91 contracts, Value: 358043513.0562 USDT
+2025-05-26 06:14:13,095 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 06:14:13,963 - data_collector.historical_data - INFO -    📈 Ticker: 174.3500 (-0.847%), Volume: 3079907412.0623 USDT
+2025-05-26 06:14:15,762 - data_collector.historical_data - INFO -    📊 OI: 7380839.80 contracts, Value: 1286849419.1299999 USDT
+2025-05-26 06:14:16,070 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 06:14:16,885 - data_collector.historical_data - INFO -    📈 Ticker: 0.224180 (-0.169%), Volume: 911632666.068520 USDT
+2025-05-26 06:14:18,829 - data_collector.historical_data - INFO -    📊 OI: 1765110801 contracts, Value: 395684888.26017004 USDT
+2025-05-26 06:14:19,145 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 06:44:25,013 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 06:44:25,014 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 06:44:25,015 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 06:44:25,015 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 06:44:25,022 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 06:44:25,023 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 06:44:25,912 - data_collector.historical_data - INFO -    📈 Ticker: 108846.20 (0.985%), Volume: 17626660799.47 USDT
+2025-05-26 06:44:27,866 - data_collector.historical_data - INFO -    📊 OI: 88028.165 contracts, Value: 9581531253.223 USDT
+2025-05-26 06:44:28,180 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 06:44:29,018 - data_collector.historical_data - INFO -    📈 Ticker: 2545.74 (0.745%), Volume: 10118275273.22 USDT
+2025-05-26 06:44:30,871 - data_collector.historical_data - INFO -    📊 OI: 1587178.553 contracts, Value: 4040543929.5142198 USDT
+2025-05-26 06:44:31,173 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 06:44:32,032 - data_collector.historical_data - INFO -    📈 Ticker: 670.010 (0.469%), Volume: 297683665.720 USDT
+2025-05-26 06:44:34,011 - data_collector.historical_data - INFO -    📊 OI: 534275.12 contracts, Value: 357969673.1512 USDT
+2025-05-26 06:44:34,321 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 06:44:35,168 - data_collector.historical_data - INFO -    📈 Ticker: 175.2300 (-0.296%), Volume: 3115533288.2676 USDT
+2025-05-26 06:44:37,002 - data_collector.historical_data - INFO -    📊 OI: 7358440.35 contracts, Value: 1289419502.5305 USDT
+2025-05-26 06:44:37,316 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 06:44:38,106 - data_collector.historical_data - INFO -    📈 Ticker: 0.224550 (-0.187%), Volume: 917527297.289770 USDT
+2025-05-26 06:44:40,044 - data_collector.historical_data - INFO -    📊 OI: 1761450550 contracts, Value: 395533721.0025 USDT
+2025-05-26 06:44:40,354 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 07:00:02,150 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 07:00:02,150 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 07:00:02,151 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 07:00:02,152 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 07:00:02,159 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 07:00:02,160 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 07:00:03,032 - data_collector.historical_data - INFO -    📈 Ticker: 108956.00 (1.174%), Volume: 17174653482.07 USDT
+2025-05-26 07:00:04,928 - data_collector.historical_data - INFO -    📊 OI: 87957.147 contracts, Value: 9583450112.817299 USDT
+2025-05-26 07:00:05,239 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 07:00:06,059 - data_collector.historical_data - INFO -    📈 Ticker: 2550.03 (0.821%), Volume: 10112399406.73 USDT
+2025-05-26 07:00:07,909 - data_collector.historical_data - INFO -    📊 OI: 1589086.970 contracts, Value: 4052219446.1091003 USDT
+2025-05-26 07:00:08,218 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 07:00:08,949 - data_collector.historical_data - INFO -    📈 Ticker: 669.130 (0.177%), Volume: 295437910.010 USDT
+2025-05-26 07:00:10,819 - data_collector.historical_data - INFO -    📊 OI: 534303.96 contracts, Value: 357518808.75479996 USDT
+2025-05-26 07:00:11,124 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 07:00:11,975 - data_collector.historical_data - INFO -    📈 Ticker: 175.6500 (-0.097%), Volume: 3118935789.6373 USDT
+2025-05-26 07:00:13,912 - data_collector.historical_data - INFO -    📊 OI: 7363088.26 contracts, Value: 1293326452.869 USDT
+2025-05-26 07:00:14,223 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 07:00:15,009 - data_collector.historical_data - INFO -    📈 Ticker: 0.224940 (-0.031%), Volume: 918624237.305460 USDT
+2025-05-26 07:00:16,766 - data_collector.historical_data - INFO -    📊 OI: 1763987121 contracts, Value: 396791262.99774003 USDT
+2025-05-26 07:00:17,073 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 07:14:46,696 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 07:14:46,697 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 07:14:46,698 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 07:14:46,698 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 07:14:46,707 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 07:14:46,708 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 07:14:47,550 - data_collector.historical_data - INFO -    📈 Ticker: 108875.00 (0.939%), Volume: 17030285653.29 USDT
+2025-05-26 07:14:49,371 - data_collector.historical_data - INFO -    📊 OI: 88117.193 contracts, Value: 9595918259.1035 USDT
+2025-05-26 07:14:49,683 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 07:14:50,549 - data_collector.historical_data - INFO -    📈 Ticker: 2546.73 (0.594%), Volume: 10149598609.57 USDT
+2025-05-26 07:14:52,335 - data_collector.historical_data - INFO -    📊 OI: 1588390.777 contracts, Value: 4045186559.6014395 USDT
+2025-05-26 07:14:52,646 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 07:14:53,445 - data_collector.historical_data - INFO -    📈 Ticker: 668.580 (0.309%), Volume: 295017491.472 USDT
+2025-05-26 07:14:55,355 - data_collector.historical_data - INFO -    📊 OI: 534745.41 contracts, Value: 357520086.2178 USDT
+2025-05-26 07:14:55,670 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 07:14:56,498 - data_collector.historical_data - INFO -    📈 Ticker: 175.5600 (-0.414%), Volume: 3124579960.0036 USDT
+2025-05-26 07:14:58,330 - data_collector.historical_data - INFO -    📊 OI: 7369730.92 contracts, Value: 1293829960.3152 USDT
+2025-05-26 07:14:58,647 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 07:14:59,509 - data_collector.historical_data - INFO -    📈 Ticker: 0.224270 (-0.545%), Volume: 917717273.460720 USDT
+2025-05-26 07:15:01,394 - data_collector.historical_data - INFO -    📊 OI: 1769808326 contracts, Value: 396914913.27202 USDT
+2025-05-26 07:15:01,708 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 07:45:07,446 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 07:45:07,447 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 07:45:07,447 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 07:45:07,448 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 07:45:07,454 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 07:45:07,455 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 07:45:08,225 - data_collector.historical_data - INFO -    📈 Ticker: 109181.70 (1.618%), Volume: 17092348164.17 USDT
+2025-05-26 07:45:10,107 - data_collector.historical_data - INFO -    📊 OI: 87655.330 contracts, Value: 9568254215.541 USDT
+2025-05-26 07:45:10,410 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 07:45:11,235 - data_collector.historical_data - INFO -    📈 Ticker: 2555.36 (2.428%), Volume: 9789314241.52 USDT
+2025-05-26 07:45:13,065 - data_collector.historical_data - INFO -    📊 OI: 1584413.820 contracts, Value: 4048731854.937 USDT
+2025-05-26 07:45:13,377 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 07:45:14,232 - data_collector.historical_data - INFO -    📈 Ticker: 670.050 (0.973%), Volume: 285894086.699 USDT
+2025-05-26 07:45:16,074 - data_collector.historical_data - INFO -    📊 OI: 533650.08 contracts, Value: 357572236.104 USDT
+2025-05-26 07:45:16,382 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 07:45:17,185 - data_collector.historical_data - INFO -    📈 Ticker: 177.2400 (2.209%), Volume: 3106139033.3294 USDT
+2025-05-26 07:45:19,035 - data_collector.historical_data - INFO -    📊 OI: 7383795.88 contracts, Value: 1308777819.73 USDT
+2025-05-26 07:45:19,347 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 07:45:20,201 - data_collector.historical_data - INFO -    📈 Ticker: 0.226040 (1.907%), Volume: 900089358.993150 USDT
+2025-05-26 07:45:22,091 - data_collector.historical_data - INFO -    📊 OI: 1761583745 contracts, Value: 398258853.0696 USDT
+2025-05-26 07:45:22,400 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 08:00:02,946 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 08:00:02,946 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 08:00:02,947 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 08:00:02,948 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 08:00:02,957 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 08:00:02,958 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 08:00:03,873 - data_collector.historical_data - INFO -    📈 Ticker: 109516.50 (1.978%), Volume: 17158159509.11 USDT
+2025-05-26 08:00:06,274 - data_collector.historical_data - INFO -    📊 OI: 87754.518 contracts, Value: 9609558493.59 USDT
+2025-05-26 08:00:06,590 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 08:00:07,446 - data_collector.historical_data - INFO -    📈 Ticker: 2570.52 (3.418%), Volume: 9676101171.49 USDT
+2025-05-26 08:00:09,416 - data_collector.historical_data - INFO -    📊 OI: 1581372.692 contracts, Value: 4067053357.9202 USDT
+2025-05-26 08:00:09,728 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 08:00:10,591 - data_collector.historical_data - INFO -    📈 Ticker: 671.350 (1.266%), Volume: 282134324.896 USDT
+2025-05-26 08:00:12,605 - data_collector.historical_data - INFO -    📊 OI: 533741.44 contracts, Value: 358402039.5456 USDT
+2025-05-26 08:00:12,911 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 08:00:13,668 - data_collector.historical_data - INFO -    📈 Ticker: 177.6500 (3.159%), Volume: 3016335246.9581 USDT
+2025-05-26 08:00:15,488 - data_collector.historical_data - INFO -    📊 OI: 7384685.18 contracts, Value: 1311741628.5233998 USDT
+2025-05-26 08:00:15,799 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 08:00:16,627 - data_collector.historical_data - INFO -    📈 Ticker: 0.227310 (2.679%), Volume: 896746100.359420 USDT
+2025-05-26 08:00:18,520 - data_collector.historical_data - INFO -    📊 OI: 1762524534 contracts, Value: 400604201.33286 USDT
+2025-05-26 08:00:18,831 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 08:15:28,273 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 08:15:28,273 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 08:15:28,274 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 08:15:28,275 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 08:15:28,283 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 08:15:28,283 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 08:15:29,128 - data_collector.historical_data - INFO -    📈 Ticker: 109356.80 (1.904%), Volume: 17338925657.50 USDT
+2025-05-26 08:15:31,060 - data_collector.historical_data - INFO -    📊 OI: 87905.370 contracts, Value: 9613049966.015999 USDT
+2025-05-26 08:15:31,368 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 08:15:32,259 - data_collector.historical_data - INFO -    📈 Ticker: 2558.89 (2.903%), Volume: 9737244086.26 USDT
+2025-05-26 08:15:34,209 - data_collector.historical_data - INFO -    📊 OI: 1584381.460 contracts, Value: 4054257874.1793995 USDT
+2025-05-26 08:15:34,511 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 08:15:35,335 - data_collector.historical_data - INFO -    📈 Ticker: 670.210 (1.412%), Volume: 277426818.941 USDT
+2025-05-26 08:15:37,109 - data_collector.historical_data - INFO -    📊 OI: 533363.72 contracts, Value: 357460365.144 USDT
+2025-05-26 08:15:37,424 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 08:15:38,263 - data_collector.historical_data - INFO -    📈 Ticker: 176.4500 (3.067%), Volume: 2975370981.0225 USDT
+2025-05-26 08:15:40,125 - data_collector.historical_data - INFO -    📊 OI: 7389845.67 contracts, Value: 1303938268.4715 USDT
+2025-05-26 08:15:40,429 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 08:15:41,252 - data_collector.historical_data - INFO -    📈 Ticker: 0.225950 (2.500%), Volume: 882781889.020530 USDT
+2025-05-26 08:15:43,119 - data_collector.historical_data - INFO -    📊 OI: 1765986834 contracts, Value: 399042385.01063997 USDT
+2025-05-26 08:15:43,432 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 08:45:49,508 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 08:45:49,509 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 08:45:49,510 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 08:45:49,511 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 08:45:49,519 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 08:45:49,520 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 08:45:50,334 - data_collector.historical_data - INFO -    📈 Ticker: 109640.10 (1.674%), Volume: 17270998070.92 USDT
+2025-05-26 08:45:52,190 - data_collector.historical_data - INFO -    📊 OI: 88308.636 contracts, Value: 9685832490.2976 USDT
+2025-05-26 08:45:52,497 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 08:45:53,304 - data_collector.historical_data - INFO -    📈 Ticker: 2563.09 (2.417%), Volume: 9660897631.18 USDT
+2025-05-26 08:45:55,230 - data_collector.historical_data - INFO -    📊 OI: 1584565.522 contracts, Value: 4061906950.4052405 USDT
+2025-05-26 08:45:55,543 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 08:45:56,389 - data_collector.historical_data - INFO -    📈 Ticker: 671.880 (0.986%), Volume: 271837540.756 USDT
+2025-05-26 08:45:58,226 - data_collector.historical_data - INFO -    📊 OI: 532740.25 contracts, Value: 357916209.56 USDT
+2025-05-26 08:45:58,530 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 08:45:59,344 - data_collector.historical_data - INFO -    📈 Ticker: 176.9900 (2.698%), Volume: 2887325748.6635 USDT
+2025-05-26 08:46:01,321 - data_collector.historical_data - INFO -    📊 OI: 7382993.57 contracts, Value: 1306716031.9543002 USDT
+2025-05-26 08:46:01,632 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 08:46:02,473 - data_collector.historical_data - INFO -    📈 Ticker: 0.227330 (2.258%), Volume: 873018858.013690 USDT
+2025-05-26 08:46:04,361 - data_collector.historical_data - INFO -    📊 OI: 1764543604 contracts, Value: 401045470.31712 USDT
+2025-05-26 08:46:04,669 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 09:00:02,274 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 09:00:02,274 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 09:00:02,275 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 09:00:02,275 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 09:00:02,282 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 09:00:02,282 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 09:00:03,154 - data_collector.historical_data - INFO -    📈 Ticker: 109500.00 (1.783%), Volume: 17660824809.78 USDT
+2025-05-26 09:00:05,161 - data_collector.historical_data - INFO -    📊 OI: 88427.258 contracts, Value: 9682793593.725801 USDT
+2025-05-26 09:00:05,469 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 09:00:06,723 - data_collector.historical_data - INFO -    📈 Ticker: 2557.55 (2.528%), Volume: 9669550098.57 USDT
+2025-05-26 09:00:09,156 - data_collector.historical_data - INFO -    📊 OI: 1584601.411 contracts, Value: 4052697338.7030506 USDT
+2025-05-26 09:00:09,460 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 09:00:10,312 - data_collector.historical_data - INFO -    📈 Ticker: 671.570 (1.221%), Volume: 272275313.488 USDT
+2025-05-26 09:00:12,346 - data_collector.historical_data - INFO -    📊 OI: 532464.71 contracts, Value: 357518104.8824 USDT
+2025-05-26 09:00:12,656 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 09:00:13,579 - data_collector.historical_data - INFO -    📈 Ticker: 176.4400 (2.916%), Volume: 2881981608.4075 USDT
+2025-05-26 09:00:15,616 - data_collector.historical_data - INFO -    📊 OI: 7375288.51 contracts, Value: 1301295904.7044 USDT
+2025-05-26 09:00:15,928 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 09:00:16,790 - data_collector.historical_data - INFO -    📈 Ticker: 0.227060 (2.399%), Volume: 878665617.884430 USDT
+2025-05-26 09:00:18,737 - data_collector.historical_data - INFO -    📊 OI: 1761865224 contracts, Value: 400066736.41368 USDT
+2025-05-26 09:00:19,046 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 09:16:11,392 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 09:16:11,393 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 09:16:11,393 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 09:16:11,394 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 09:16:11,409 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 09:16:11,409 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 09:16:12,299 - data_collector.historical_data - INFO -    📈 Ticker: 109450.00 (1.737%), Volume: 17719963445.18 USDT
+2025-05-26 09:16:14,221 - data_collector.historical_data - INFO -    📊 OI: 88557.019 contracts, Value: 9693238762.8944 USDT
+2025-05-26 09:16:14,531 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 09:16:15,365 - data_collector.historical_data - INFO -    📈 Ticker: 2552.59 (2.349%), Volume: 9655700852.15 USDT
+2025-05-26 09:16:17,182 - data_collector.historical_data - INFO -    📊 OI: 1581248.495 contracts, Value: 4036279095.8520503 USDT
+2025-05-26 09:16:17,497 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 09:16:18,361 - data_collector.historical_data - INFO -    📈 Ticker: 670.600 (1.139%), Volume: 272723099.188 USDT
+2025-05-26 09:16:20,268 - data_collector.historical_data - INFO -    📊 OI: 532102.63 contracts, Value: 356828023.67800003 USDT
+2025-05-26 09:16:20,578 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 09:16:21,413 - data_collector.historical_data - INFO -    📈 Ticker: 176.6300 (3.184%), Volume: 2849457864.9782 USDT
+2025-05-26 09:16:23,316 - data_collector.historical_data - INFO -    📊 OI: 7382933.16 contracts, Value: 1304047484.0508 USDT
+2025-05-26 09:16:23,623 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 09:16:24,480 - data_collector.historical_data - INFO -    📈 Ticker: 0.226380 (2.185%), Volume: 877327366.828250 USDT
+2025-05-26 09:16:26,469 - data_collector.historical_data - INFO -    📊 OI: 1763535421 contracts, Value: 399229148.60598 USDT
+2025-05-26 09:16:26,780 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 09:46:33,170 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 09:46:33,171 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 09:46:33,171 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 09:46:33,172 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 09:46:33,179 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 09:46:33,179 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 09:46:34,022 - data_collector.historical_data - INFO -    📈 Ticker: 109165.00 (1.345%), Volume: 17798664936.69 USDT
+2025-05-26 09:46:35,893 - data_collector.historical_data - INFO -    📊 OI: 88287.176 contracts, Value: 9637869568.04 USDT
+2025-05-26 09:46:36,204 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 09:46:36,964 - data_collector.historical_data - INFO -    📈 Ticker: 2548.37 (1.894%), Volume: 9569635639.75 USDT
+2025-05-26 09:46:38,877 - data_collector.historical_data - INFO -    📊 OI: 1579490.270 contracts, Value: 4024098950.6843996 USDT
+2025-05-26 09:46:39,183 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 09:46:40,064 - data_collector.historical_data - INFO -    📈 Ticker: 669.930 (0.758%), Volume: 271056761.422 USDT
+2025-05-26 09:46:42,008 - data_collector.historical_data - INFO -    📊 OI: 532261.27 contracts, Value: 356577792.61109996 USDT
+2025-05-26 09:46:42,321 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 09:46:43,210 - data_collector.historical_data - INFO -    📈 Ticker: 175.7700 (2.305%), Volume: 2805799146.3325 USDT
+2025-05-26 09:46:45,183 - data_collector.historical_data - INFO -    📊 OI: 7394195.22 contracts, Value: 1299677693.8194 USDT
+2025-05-26 09:46:45,499 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 09:46:46,345 - data_collector.historical_data - INFO -    📈 Ticker: 0.225110 (1.529%), Volume: 877639707.171430 USDT
+2025-05-26 09:46:48,201 - data_collector.historical_data - INFO -    📊 OI: 1757039044 contracts, Value: 395720333.48968 USDT
+2025-05-26 09:46:48,516 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 10:00:02,745 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 10:00:02,745 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 10:00:02,746 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 10:00:02,747 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 10:00:02,753 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 10:00:02,754 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 10:00:03,861 - data_collector.historical_data - INFO -    📈 Ticker: 109353.20 (1.346%), Volume: 17851782101.65 USDT
+2025-05-26 10:00:05,925 - data_collector.historical_data - INFO -    📊 OI: 88393.632 contracts, Value: 9666135358.1856 USDT
+2025-05-26 10:00:06,238 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 10:00:07,038 - data_collector.historical_data - INFO -    📈 Ticker: 2551.54 (1.781%), Volume: 9530635159.64 USDT
+2025-05-26 10:00:08,926 - data_collector.historical_data - INFO -    📊 OI: 1580857.932 contracts, Value: 4033622247.81528 USDT
+2025-05-26 10:00:09,235 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 10:00:10,067 - data_collector.historical_data - INFO -    📈 Ticker: 671.050 (0.764%), Volume: 270529457.902 USDT
+2025-05-26 10:00:12,024 - data_collector.historical_data - INFO -    📊 OI: 532233.12 contracts, Value: 357155035.176 USDT
+2025-05-26 10:00:12,327 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 10:00:13,148 - data_collector.historical_data - INFO -    📈 Ticker: 175.9700 (2.142%), Volume: 2797873069.3662 USDT
+2025-05-26 10:00:15,084 - data_collector.historical_data - INFO -    📊 OI: 7398936.02 contracts, Value: 1301990771.4394 USDT
+2025-05-26 10:00:15,396 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 10:00:16,200 - data_collector.historical_data - INFO -    📈 Ticker: 0.225470 (1.390%), Volume: 876825716.385920 USDT
+2025-05-26 10:00:18,126 - data_collector.historical_data - INFO -    📊 OI: 1759058509 contracts, Value: 396614922.02423 USDT
+2025-05-26 10:00:18,434 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 10:16:54,885 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 10:16:54,886 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 10:16:54,887 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 10:16:54,887 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 10:16:54,896 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 10:16:54,897 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 10:16:55,763 - data_collector.historical_data - INFO -    📈 Ticker: 109283.10 (1.072%), Volume: 17702177583.76 USDT
+2025-05-26 10:16:57,685 - data_collector.historical_data - INFO -    📊 OI: 88399.865 contracts, Value: 9660611286.781502 USDT
+2025-05-26 10:16:57,994 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 10:16:58,797 - data_collector.historical_data - INFO -    📈 Ticker: 2549.55 (1.419%), Volume: 9437594864.38 USDT
+2025-05-26 10:17:00,594 - data_collector.historical_data - INFO -    📊 OI: 1580356.511 contracts, Value: 4029245353.3153796 USDT
+2025-05-26 10:17:00,907 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 10:17:01,674 - data_collector.historical_data - INFO -    📈 Ticker: 670.790 (0.666%), Volume: 269672897.690 USDT
+2025-05-26 10:17:03,570 - data_collector.historical_data - INFO -    📊 OI: 531775.31 contracts, Value: 356714877.948 USDT
+2025-05-26 10:17:03,881 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 10:17:04,737 - data_collector.historical_data - INFO -    📈 Ticker: 176.0800 (1.704%), Volume: 2782370955.0476 USDT
+2025-05-26 10:17:06,597 - data_collector.historical_data - INFO -    📊 OI: 7396103.40 contracts, Value: 1302305886.6720002 USDT
+2025-05-26 10:17:06,909 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 10:17:07,691 - data_collector.historical_data - INFO -    📈 Ticker: 0.225510 (0.836%), Volume: 870957958.700590 USDT
+2025-05-26 10:17:09,713 - data_collector.historical_data - INFO -    📊 OI: 1762712836 contracts, Value: 397509371.64636 USDT
+2025-05-26 10:17:10,029 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 10:47:15,869 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 10:47:15,870 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 10:47:15,871 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 10:47:15,871 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 10:47:15,878 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 10:47:15,879 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 10:47:16,763 - data_collector.historical_data - INFO -    📈 Ticker: 109700.10 (1.462%), Volume: 17862760258.72 USDT
+2025-05-26 10:47:18,616 - data_collector.historical_data - INFO -    📊 OI: 88706.164 contracts, Value: 9732112923.5352 USDT
+2025-05-26 10:47:18,921 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 10:47:19,699 - data_collector.historical_data - INFO -    📈 Ticker: 2565.35 (2.051%), Volume: 9459139948.19 USDT
+2025-05-26 10:47:21,574 - data_collector.historical_data - INFO -    📊 OI: 1580362.283 contracts, Value: 4054482651.52782 USDT
+2025-05-26 10:47:21,884 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 10:47:22,664 - data_collector.historical_data - INFO -    📈 Ticker: 674.720 (1.288%), Volume: 276512218.006 USDT
+2025-05-26 10:47:24,583 - data_collector.historical_data - INFO -    📊 OI: 531892.79 contracts, Value: 358873384.34090006 USDT
+2025-05-26 10:47:24,894 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 10:47:25,747 - data_collector.historical_data - INFO -    📈 Ticker: 177.4500 (2.265%), Volume: 2791995829.8114 USDT
+2025-05-26 10:47:27,617 - data_collector.historical_data - INFO -    📊 OI: 7391186.44 contracts, Value: 1311566033.7779999 USDT
+2025-05-26 10:47:27,919 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 10:47:28,754 - data_collector.historical_data - INFO -    📈 Ticker: 0.227450 (1.604%), Volume: 874940489.863590 USDT
+2025-05-26 10:47:30,542 - data_collector.historical_data - INFO -    📊 OI: 1768810511 contracts, Value: 402351326.93717 USDT
+2025-05-26 10:47:30,856 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 11:00:02,206 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 11:00:02,207 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 11:00:02,208 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 11:00:02,208 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 11:00:02,214 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 11:00:02,215 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 11:00:03,167 - data_collector.historical_data - INFO -    📈 Ticker: 109587.00 (1.421%), Volume: 17897977972.25 USDT
+2025-05-26 11:00:05,352 - data_collector.historical_data - INFO -    📊 OI: 88751.125 contracts, Value: 9725978410.487501 USDT
+2025-05-26 11:00:05,667 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 11:00:06,618 - data_collector.historical_data - INFO -    📈 Ticker: 2559.34 (1.893%), Volume: 9463784534.94 USDT
+2025-05-26 11:00:08,784 - data_collector.historical_data - INFO -    📊 OI: 1582150.849 contracts, Value: 4049261953.87966 USDT
+2025-05-26 11:00:09,093 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 11:00:10,050 - data_collector.historical_data - INFO -    📈 Ticker: 674.050 (1.266%), Volume: 280197100.614 USDT
+2025-05-26 11:00:12,228 - data_collector.historical_data - INFO -    📊 OI: 530699.55 contracts, Value: 357744566.65500003 USDT
+2025-05-26 11:00:12,540 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 11:00:13,527 - data_collector.historical_data - INFO -    📈 Ticker: 176.9500 (1.971%), Volume: 2792081764.5448 USDT
+2025-05-26 11:00:15,701 - data_collector.historical_data - INFO -    📊 OI: 7396585.50 contracts, Value: 1308899770.0800002 USDT
+2025-05-26 11:00:16,016 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 11:00:17,047 - data_collector.historical_data - INFO -    📈 Ticker: 0.227110 (1.579%), Volume: 879126113.908740 USDT
+2025-05-26 11:00:19,133 - data_collector.historical_data - INFO -    📊 OI: 1771321396 contracts, Value: 402337941.88744 USDT
+2025-05-26 11:00:19,447 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 11:17:37,334 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 11:17:37,335 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 11:17:37,336 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 11:17:37,336 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 11:17:37,342 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 11:17:37,343 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 11:17:38,142 - data_collector.historical_data - INFO -    📈 Ticker: 109481.20 (1.419%), Volume: 17954304855.55 USDT
+2025-05-26 11:17:40,093 - data_collector.historical_data - INFO -    📊 OI: 88854.187 contracts, Value: 9727863017.7844 USDT
+2025-05-26 11:17:40,409 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 11:17:41,254 - data_collector.historical_data - INFO -    📈 Ticker: 2559.54 (2.035%), Volume: 9456852621.79 USDT
+2025-05-26 11:17:43,055 - data_collector.historical_data - INFO -    📊 OI: 1580887.292 contracts, Value: 4046344259.3656797 USDT
+2025-05-26 11:17:43,355 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 11:17:44,140 - data_collector.historical_data - INFO -    📈 Ticker: 673.480 (1.422%), Volume: 281550724.220 USDT
+2025-05-26 11:17:46,039 - data_collector.historical_data - INFO -    📊 OI: 530078.38 contracts, Value: 356997187.3624 USDT
+2025-05-26 11:17:46,354 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 11:17:47,276 - data_collector.historical_data - INFO -    📈 Ticker: 176.9200 (2.284%), Volume: 2783032746.8151 USDT
+2025-05-26 11:17:49,065 - data_collector.historical_data - INFO -    📊 OI: 7423737.92 contracts, Value: 1313630424.944 USDT
+2025-05-26 11:17:49,373 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 11:17:50,248 - data_collector.historical_data - INFO -    📈 Ticker: 0.227130 (1.884%), Volume: 883374141.905680 USDT
+2025-05-26 11:17:52,058 - data_collector.historical_data - INFO -    📊 OI: 1770709581 contracts, Value: 402234388.41996 USDT
+2025-05-26 11:17:52,374 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success
+2025-05-26 11:47:58,301 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 5 symbols
+2025-05-26 11:47:58,302 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, DOGEUSDT
+2025-05-26 11:47:58,302 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-05-26 11:47:58,303 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-05-26 11:47:58,309 - data_collector.historical_data - INFO - ⚡ Thu thập dữ liệu realtime cho tracking
+2025-05-26 11:47:58,310 - data_collector.historical_data - INFO - ⚡ [1/5] Realtime data for BTCUSDT
+2025-05-26 11:47:59,175 - data_collector.historical_data - INFO -    📈 Ticker: 109637.90 (1.412%), Volume: 17971814356.09 USDT
+2025-05-26 11:48:01,098 - data_collector.historical_data - INFO -    📊 OI: 88982.073 contracts, Value: 9755122459.4046 USDT
+2025-05-26 11:48:01,407 - data_collector.historical_data - INFO - ⚡ [2/5] Realtime data for ETHUSDT
+2025-05-26 11:48:02,271 - data_collector.historical_data - INFO -    📈 Ticker: 2568.07 (2.213%), Volume: 9519106081.64 USDT
+2025-05-26 11:48:04,019 - data_collector.historical_data - INFO -    📊 OI: 1583510.244 contracts, Value: 4065520035.5480394 USDT
+2025-05-26 11:48:04,328 - data_collector.historical_data - INFO - ⚡ [3/5] Realtime data for BNBUSDT
+2025-05-26 11:48:05,164 - data_collector.historical_data - INFO -    📈 Ticker: 673.720 (1.308%), Volume: 281963396.082 USDT
+2025-05-26 11:48:07,022 - data_collector.historical_data - INFO -    📊 OI: 530008.94 contracts, Value: 357077623.05679995 USDT
+2025-05-26 11:48:07,328 - data_collector.historical_data - INFO - ⚡ [4/5] Realtime data for SOLUSDT
+2025-05-26 11:48:08,244 - data_collector.historical_data - INFO -    📈 Ticker: 177.1000 (2.216%), Volume: 2777754766.4707 USDT
+2025-05-26 11:48:10,149 - data_collector.historical_data - INFO -    📊 OI: 7408695.44 contracts, Value: 1312079962.424 USDT
+2025-05-26 11:48:10,460 - data_collector.historical_data - INFO - ⚡ [5/5] Realtime data for DOGEUSDT
+2025-05-26 11:48:11,298 - data_collector.historical_data - INFO -    📈 Ticker: 0.227890 (2.028%), Volume: 897133175.092850 USDT
+2025-05-26 11:48:13,187 - data_collector.historical_data - INFO -    📊 OI: 1784491744 contracts, Value: 406667823.54016 USDT
+2025-05-26 11:48:13,495 - data_collector.historical_data - INFO - ✅ Realtime collection: 5/5 success

@@ -311,6 +311,23 @@
                     }));
                 }
                 
+                // Process klines data
+                if (data.klines) {
+                    Object.keys(data.klines).forEach(timeframe => {
+                        if (data.klines[timeframe] && data.klines[timeframe].length > 0) {
+                            data.klines[timeframe] = data.klines[timeframe].map(item => ({
+                                ...item,
+                                open: parseFloat(item.open),
+                                high: parseFloat(item.high),
+                                low: parseFloat(item.low),
+                                close: parseFloat(item.close),
+                                volume: parseFloat(item.volume),
+                                quote_volume: parseFloat(item.quote_volume || item.volume)
+                            }));
+                        }
+                    });
+                }
+                
                 coinsData[symbol] = data;
                 console.log(`✅ Đã tải dữ liệu thành công cho ${symbol}`);
                 
@@ -389,8 +406,10 @@
                     // Lọc dữ liệu hợp lệ
                     const validData = hourlyData.filter(item => 
                         item && 
-                        (item.open_interest_value || item.open_interest) > 0 &&
-                        (item.quote_volume || item.volume) > 0
+                        ((item.open_interest_value !== undefined && item.open_interest_value > 0) || 
+                         (item.open_interest !== undefined && item.open_interest > 0)) &&
+                        ((item.quote_volume !== undefined && item.quote_volume > 0) || 
+                         (item.volume !== undefined && item.volume > 0))
                     );
                     
                     if (validData.length > 0) {
@@ -398,10 +417,17 @@
                         const previous = validData.length > 1 ? validData[validData.length - 2] : latest;
                         
                         // Ưu tiên sử dụng giá trị USDT
-                        const latestOI = latest.open_interest_value || latest.open_interest;
-                        const previousOI = previous.open_interest_value || previous.open_interest;
-                        const latestVolume = latest.quote_volume || latest.volume;
-                        const previousVolume = previous.quote_volume || previous.volume;
+                        const latestOI = latest.open_interest_value !== undefined ? 
+                            latest.open_interest_value : latest.open_interest;
+                        const previousOI = previous.open_interest_value !== undefined ? 
+                            previous.open_interest_value : previous.open_interest;
+                        const latestVolume = latest.quote_volume !== undefined ? 
+                            latest.quote_volume : latest.volume;
+                        const previousVolume = previous.quote_volume !== undefined ? 
+                            previous.quote_volume : previous.volume;
+                        
+                        // Log để debug
+                        console.log(`${symbol} 24h metrics - OI: ${formatNumber(latestOI)}, Volume: ${formatNumber(latestVolume)}`);
                         
                         const oiChange = calculateChange(latestOI, previousOI);
                         const volumeChange = calculateChange(latestVolume, previousVolume);
@@ -446,8 +472,9 @@
                 if (data.tracking_30d && data.tracking_30d.length > 0) {
                     const validData = data.tracking_30d.filter(item => 
                         item && 
-                        (item.open_interest_value || item.avg_open_interest_value) > 0 &&
-                        item.quote_volume > 0
+                        ((item.avg_open_interest_value !== undefined && item.avg_open_interest_value > 0) || 
+                         (item.open_interest_value !== undefined && item.open_interest_value > 0)) &&
+                        (item.quote_volume !== undefined && item.quote_volume > 0)
                     );
                     
                     if (validData.length > 0) {
@@ -455,8 +482,13 @@
                         const previous = validData.length > 1 ? validData[validData.length - 2] : latest;
                         
                         // Ưu tiên sử dụng avg_open_interest_value nếu có
-                        const latestOI = latest.avg_open_interest_value || latest.open_interest_value;
-                        const previousOI = previous.avg_open_interest_value || previous.open_interest_value;
+                        const latestOI = latest.avg_open_interest_value !== undefined ? 
+                            latest.avg_open_interest_value : latest.open_interest_value;
+                        const previousOI = previous.avg_open_interest_value !== undefined ? 
+                            previous.avg_open_interest_value : previous.open_interest_value;
+                        
+                        // Log để debug
+                        console.log(`${symbol} 30d metrics - OI: ${formatNumber(latestOI)}, Volume: ${formatNumber(latest.quote_volume)}`);
                         
                         const oiChange = calculateChange(latestOI, previousOI);
                         const volumeChange = calculateChange(latest.quote_volume, previous.quote_volume);
@@ -504,10 +536,17 @@
                         const previousVolume = dailyKlines.length > 1 ? dailyKlines[dailyKlines.length - 2] : latestVolume;
                         
                         // Ưu tiên sử dụng giá trị USDT
-                        const oiValue = latestOI.open_interest_value || latestOI.open_interest;
-                        const prevOiValue = previousOI.open_interest_value || previousOI.open_interest;
-                        const volumeValue = latestVolume.quote_volume || latestVolume.volume;
-                        const prevVolumeValue = previousVolume.quote_volume || previousVolume.volume;
+                        const oiValue = latestOI.open_interest_value !== undefined ? 
+                            latestOI.open_interest_value : latestOI.open_interest;
+                        const prevOiValue = previousOI.open_interest_value !== undefined ? 
+                            previousOI.open_interest_value : previousOI.open_interest;
+                        const volumeValue = latestVolume.quote_volume !== undefined ? 
+                            latestVolume.quote_volume : latestVolume.volume;
+                        const prevVolumeValue = previousVolume.quote_volume !== undefined ? 
+                            previousVolume.quote_volume : previousVolume.volume;
+                        
+                        // Log để debug
+                        console.log(`${symbol} 30d fallback metrics - OI: ${formatNumber(oiValue)}, Volume: ${formatNumber(volumeValue)}`);
                         
                         const oiChange = calculateChange(oiValue, prevOiValue);
                         const volumeChange = calculateChange(volumeValue, prevVolumeValue);
@@ -549,59 +588,92 @@
             container.innerHTML = metrics;
         }
         
-        // Render chart cho coin
-        function renderCoinChart(symbol, data) {
-            const canvas = document.getElementById(`chart-${symbol}`);
-            if (!canvas) return;
-            
-            // Destroy existing chart
-            if (charts[symbol]) {
-                charts[symbol].destroy();
-            }
-            
-            const ctx = canvas.getContext('2d');
-            
+        // Hàm chuẩn bị dữ liệu cho biểu đồ
+        function prepareChartData(symbol, data) {
             let chartData = [];
             
             if (currentView === 'hourly') {
                 // Data cho view theo giờ (24h)
                 const hourlyData = data.tracking_24h || [];
                 if (hourlyData.length === 0) {
-                    ctx.fillStyle = '#6c757d';
-                    ctx.font = '16px Arial';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
-                    return;
+                    return [];
                 }
                 
-                // Lọc dữ liệu hợp lệ
+                // Lọc dữ liệu hợp lệ và đảm bảo sử dụng giá trị USDT
                 chartData = hourlyData
                     .filter(item => 
                         item && 
                         item.hour_timestamp && 
-                        (item.open_interest_value || item.open_interest) > 0 &&
-                        (item.quote_volume || item.volume) > 0
+                        ((item.open_interest_value !== undefined && item.open_interest_value > 0) || 
+                         (item.open_interest !== undefined && item.open_interest > 0)) &&
+                        ((item.quote_volume !== undefined && item.quote_volume > 0) || 
+                         (item.volume !== undefined && item.volume > 0))
                     )
                     .map(item => ({
                         x: item.hour_timestamp,
-                        oi: item.open_interest_value || item.open_interest,
-                        volume: item.quote_volume || item.volume
+                        // Ưu tiên sử dụng giá trị USDT
+                        oi: item.open_interest_value !== undefined ? item.open_interest_value : item.open_interest,
+                        volume: item.quote_volume !== undefined ? item.quote_volume : item.volume
                     }));
+                    
+                // Log để debug
+                if (chartData.length > 0) {
+                    console.log(`${symbol} 24h data: ${chartData.length} points`);
+                    console.log(`OI range: ${Math.min(...chartData.map(i => i.oi)).toLocaleString()} - ${Math.max(...chartData.map(i => i.oi)).toLocaleString()}`);
+                    console.log(`Volume range: ${Math.min(...chartData.map(i => i.volume)).toLocaleString()} - ${Math.max(...chartData.map(i => i.volume)).toLocaleString()}`);
+                }
+                
+                // Phát hiện và xử lý dữ liệu trùng lặp
+                if (chartData.length > 1) {
+                    let lastOI = null;
+                    let lastVolume = null;
+                    let duplicateCount = 0;
+                    
+                    for (let i = 0; i < chartData.length; i++) {
+                        const item = chartData[i];
+                        // Nếu 3 điểm dữ liệu liên tiếp hoàn toàn giống nhau, có thể là dữ liệu sao chép
+                        if (lastOI === item.oi && lastVolume === item.volume) {
+                            duplicateCount++;
+                            if (duplicateCount > 3) {
+                                // Đánh dấu điểm dữ liệu này là null để Chart.js hiển thị khoảng trống
+                                item.oi = null;
+                                item.volume = null;
+                                console.log(`${symbol} - Marking duplicated data point as null`);
+                                continue;
+                            }
+                        } else {
+                            duplicateCount = 0;
+                        }
+                        
+                        lastOI = item.oi;
+                        lastVolume = item.volume;
+                    }
+                }
             } else {
                 // Ưu tiên sử dụng tracking_30d nếu có
                 if (data.tracking_30d && data.tracking_30d.length > 0) {
                     chartData = data.tracking_30d
                         .filter(item => 
                             item && 
-                            item.date_timestamp && 
-                            (item.open_interest_value || item.avg_open_interest_value) > 0 &&
-                            item.quote_volume > 0
+                            (item.date_timestamp || item.timestamp) && 
+                            // Kiểm tra cả avg_open_interest_value và open_interest_value
+                            ((item.avg_open_interest_value !== undefined && item.avg_open_interest_value > 0) || 
+                             (item.open_interest_value !== undefined && item.open_interest_value > 0)) &&
+                            (item.quote_volume !== undefined && item.quote_volume > 0)
                         )
                         .map(item => ({
-                            x: item.date_timestamp,
-                            oi: item.avg_open_interest_value || item.open_interest_value,
+                            x: item.date_timestamp || item.timestamp,
+                            // Ưu tiên sử dụng avg_open_interest_value nếu có
+                            oi: item.avg_open_interest_value !== undefined ? item.avg_open_interest_value : item.open_interest_value,
                             volume: item.quote_volume
                         }));
+                        
+                    // Log để debug
+                    if (chartData.length > 0) {
+                        console.log(`${symbol} 30d data: ${chartData.length} points`);
+                        console.log(`OI range: ${Math.min(...chartData.map(i => i.oi)).toLocaleString()} - ${Math.max(...chartData.map(i => i.oi)).toLocaleString()}`);
+                        console.log(`Volume range: ${Math.min(...chartData.map(i => i.volume)).toLocaleString()} - ${Math.max(...chartData.map(i => i.volume)).toLocaleString()}`);
+                    }
                 } else {
                     // Fallback: Data cho view theo ngày (30 ngày) từ open_interest và klines
                     const dailyOI = data.open_interest || [];
@@ -616,8 +688,10 @@
                         const date = item.timestamp.split('T')[0];
                         if (!mergedData[date]) mergedData[date] = {};
                         
-                        // Ưu tiên sử dụng open_interest_value
-                        mergedData[date].oi = item.open_interest_value || item.open_interest;
+                        // Ưu tiên sử dụng open_interest_value - Luôn sử dụng giá trị USDT
+                        mergedData[date].oi = item.open_interest_value !== undefined ? 
+                            item.open_interest_value : (item.avg_open_interest_value !== undefined ? 
+                                item.avg_open_interest_value : item.open_interest);
                         mergedData[date].timestamp = item.timestamp;
                     });
                     
@@ -627,8 +701,8 @@
                         const date = item.open_time.split('T')[0];
                         if (!mergedData[date]) mergedData[date] = {};
                         
-                        // Ưu tiên sử dụng quote_volume
-                        mergedData[date].volume = item.quote_volume || item.volume;
+                        // Ưu tiên sử dụng quote_volume - Luôn sử dụng giá trị USDT
+                        mergedData[date].volume = item.quote_volume !== undefined ? item.quote_volume : item.volume;
                         if (!mergedData[date].timestamp) mergedData[date].timestamp = item.open_time;
                     });
                     
@@ -641,8 +715,33 @@
                             volume: mergedData[date].volume || 0
                         }))
                         .filter(item => item.oi > 0 && item.volume > 0); // Lọc các điểm có giá trị hợp lệ
+                        
+                    // Log để debug
+                    if (chartData.length > 0) {
+                        console.log(`${symbol} 30d fallback data: ${chartData.length} points`);
+                        console.log(`OI range: ${Math.min(...chartData.map(i => i.oi)).toLocaleString()} - ${Math.max(...chartData.map(i => i.oi)).toLocaleString()}`);
+                        console.log(`Volume range: ${Math.min(...chartData.map(i => i.volume)).toLocaleString()} - ${Math.max(...chartData.map(i => i.volume)).toLocaleString()}`);
+                    }
                 }
             }
+            
+            return chartData;
+        }
+        
+        // Render chart cho coin
+        function renderCoinChart(symbol, data) {
+            const canvas = document.getElementById(`chart-${symbol}`);
+            if (!canvas) return;
+            
+            // Destroy existing chart
+            if (charts[symbol]) {
+                charts[symbol].destroy();
+            }
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Sử dụng hàm chuẩn bị dữ liệu mới
+            const chartData = prepareChartData(symbol, data);
             
             if (chartData.length === 0) {
                 ctx.fillStyle = '#6c757d';
@@ -651,6 +750,16 @@
                 ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
                 return;
             }
+            
+            // Tính toán giá trị min và max cho trục y
+            const oiValues = chartData.map(item => item.oi).filter(v => v !== null && v !== undefined);
+            const minOI = oiValues.length > 0 ? Math.min(...oiValues) * 0.95 : 0; // Giảm 5% để có khoảng cách
+            const maxOI = oiValues.length > 0 ? Math.max(...oiValues) * 1.05 : 0; // Tăng 5% để có khoảng cách
+            
+            // Tính toán giá trị min và max cho trục y1 (Volume)
+            const volumeValues = chartData.map(item => item.volume).filter(v => v !== null && v !== undefined);
+            const minVolume = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.95 : 0;
+            const maxVolume = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.05 : 0;
             
             charts[symbol] = new Chart(ctx, {
                 type: 'line',
@@ -664,7 +773,8 @@
                             yAxisID: 'y',
                             tension: 0.4,
                             pointRadius: 2,
-                            pointHoverRadius: 4
+                            pointHoverRadius: 4,
+                            spanGaps: true
                         },
                         {
                             label: 'Volume',
@@ -674,7 +784,8 @@
                             yAxisID: 'y1',
                             tension: 0.4,
                             pointRadius: 2,
-                            pointHoverRadius: 4
+                            pointHoverRadius: 4,
+                            spanGaps: true
                         }
                     ]
                 },
@@ -703,7 +814,9 @@
                             type: 'linear',
                             display: true,
                             position: 'left',
-                            beginAtZero: false,
+                            // Sử dụng min/max đã tính toán
+                            min: minOI,
+                            max: maxOI,
                             title: {
                                 display: true,
                                 text: 'Open Interest (USDT)',
@@ -717,7 +830,9 @@
                             type: 'linear',
                             display: true,
                             position: 'right',
-                            beginAtZero: false,
+                            // Sử dụng min/max đã tính toán
+                            min: minVolume,
+                            max: maxVolume,
                             title: {
                                 display: true,
                                 text: 'Volume (USDT)',
