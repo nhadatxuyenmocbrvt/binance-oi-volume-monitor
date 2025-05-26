@@ -120,13 +120,23 @@
     "notified": 0
   },
   {
-    "id": 568,
+    "id": 582,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-25T20:29:06",
+    "data_type": "30d_OI",
+    "value": 1611241.714,
+    "z_score": 2.5203431206319804,
+    "message": "Bất thường OI 30d cho ETHUSDT: 1611241.71 (Z-score: 2.52)",
+    "notified": 0
+  },
+  {
+    "id": 577,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-25T18:00:00",
     "data_type": "30d_OI",
     "value": 7456691.48,
-    "z_score": 2.9389826850813314,
-    "message": "Bất thường OI 30d cho SOLUSDT: 7456691.48 (Z-score: 2.94)",
+    "z_score": 3.0011157540489943,
+    "message": "Bất thường OI 30d cho SOLUSDT: 7456691.48 (Z-score: 3.00)",
     "notified": 0
   },
   {
@@ -487,16 +497,6 @@
     "value": 4111773692.93799,
     "z_score": 2.763934065270077,
     "message": "Bất thường OI_Value 30d cho ETHUSDT: 4111773692.94 (Z-score: 2.76)",
-    "notified": 0
-  },
-  {
-    "id": 412,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-25T13:46:57",
-    "data_type": "30d_Avg_OI_Value",
-    "value": 4111773692.93799,
-    "z_score": 2.763934065270077,
-    "message": "Bất thường Avg_OI_Value 30d cho ETHUSDT: 4111773692.94 (Z-score: 2.76)",
     "notified": 0
   }
 ]
