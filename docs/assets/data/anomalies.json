@@ -120,6 +120,26 @@
     "notified": 0
   },
   {
+    "id": 688,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-25T21:24:17",
+    "data_type": "30d_OI",
+    "value": 1803613373.0,
+    "z_score": 2.765207282383177,
+    "message": "Bất thường OI 30d cho DOGEUSDT: 1803613373.00 (Z-score: 2.77)",
+    "notified": 0
+  },
+  {
+    "id": 672,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-25T21:24:09",
+    "data_type": "30d_OI",
+    "value": 1602722.705,
+    "z_score": 2.7508607165933605,
+    "message": "Bất thường OI 30d cho ETHUSDT: 1602722.71 (Z-score: 2.75)",
+    "notified": 0
+  },
+  {
     "id": 619,
     "symbol": "ETHUSDT",
     "timestamp": "2025-05-25T21:00:00",
@@ -477,26 +497,6 @@
     "value": 2677085849.6687,
     "z_score": 2.567277046164637,
     "message": "Bất thường Volume 24h cho SOLUSDT: 2677085849.67 (Z-score: 2.57)",
-    "notified": 0
-  },
-  {
-    "id": 416,
-    "symbol": "DOGEUSDT",
-    "timestamp": "2025-05-25T13:47:06",
-    "data_type": "30d_OI_Value",
-    "value": 411690639.16279,
-    "z_score": 2.8200596599852545,
-    "message": "Bất thường OI_Value 30d cho DOGEUSDT: 411690639.16 (Z-score: 2.82)",
-    "notified": 0
-  },
-  {
-    "id": 417,
-    "symbol": "DOGEUSDT",
-    "timestamp": "2025-05-25T13:47:06",
-    "data_type": "30d_Avg_OI_Value",
-    "value": 411690639.16279,
-    "z_score": 2.8200596599852545,
-    "message": "Bất thường Avg_OI_Value 30d cho DOGEUSDT: 411690639.16 (Z-score: 2.82)",
     "notified": 0
   }
 ]
