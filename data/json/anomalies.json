@@ -48,5 +48,25 @@
     "z_score": 4.676793437226797,
     "message": "Bất thường Volume 24h cho DOGEUSDT: 899461710.79 (Z-score: 4.68)",
     "notified": 0
+  },
+  {
+    "id": 6,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-25T05:00:00",
+    "data_type": "30d_OI_Value",
+    "value": 365693735.02832353,
+    "z_score": 2.538154317902195,
+    "message": "Bất thường OI_Value 30d cho BNBUSDT: 365693735.03 (Z-score: 2.54)",
+    "notified": 0
+  },
+  {
+    "id": 7,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-25T05:00:00",
+    "data_type": "30d_Avg_OI_Value",
+    "value": 365693735.02832353,
+    "z_score": 2.538154317902195,
+    "message": "Bất thường Avg_OI_Value 30d cho BNBUSDT: 365693735.03 (Z-score: 2.54)",
+    "notified": 0
   }
 ]
