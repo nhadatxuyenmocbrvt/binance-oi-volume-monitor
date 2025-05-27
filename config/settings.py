@@ -55,3 +55,21 @@ ANOMALY_THRESHOLD = 2.5  # Số lần độ lệch chuẩn để xác định b�
 
 # Cấu hình cho cập nhật dữ liệu
 UPDATE_INTERVAL = 60  # Cập nhật mỗi 60 giây cho dữ liệu realtime
+
+# Thêm vào cuối file settings.py
+
+# Cấu hình proxy cho Telegram (tùy chọn)
+# Để trống nếu không sử dụng proxy
+PROXY_SETTINGS = {
+    'http': 'http://mitchellcryptogroup:mcg396879@104.252.149.34:5448',
+    'https': 'http://mitchellcryptogroup:mcg396879@104.252.149.34:5448'  # Thêm thông tin xác thực
+}
+
+# Tùy chọn xác thực cho proxy
+PROXY_USERNAME = 'mitchellcryptogroup'
+PROXY_PASSWORD = 'mcg396879'
+
+# Timeout và retry cho Telegram
+TELEGRAM_TIMEOUT = 15  # Thời gian chờ request (giây)
+TELEGRAM_MAX_RETRIES = 3  # Số lần thử lại tối đa
+TELEGRAM_BACKOFF_FACTOR = 0.5  # Hệ số cho exponential backoff

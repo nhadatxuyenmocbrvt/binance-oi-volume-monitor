@@ -359,7 +359,6 @@ class OptimizedReportGenerator:
                 'recent_24h': 0
             }
     
-    # Sửa trong hàm _merge_daily_data để sử dụng open_interest_value và quote_volume
     def _merge_daily_data(self, oi_df, klines_df):
         """
         Merge dữ liệu OI và klines theo ngày
@@ -367,28 +366,14 @@ class OptimizedReportGenerator:
         try:
             # Group OI data by date
             oi_df['date'] = pd.to_datetime(oi_df['timestamp']).dt.date
-            
-            # FIX: Sử dụng open_interest_value thay vì open_interest nếu có
-            if 'open_interest_value' in oi_df.columns:
-                oi_daily = oi_df.groupby('date')['open_interest_value'].mean().reset_index()
-                oi_daily.rename(columns={'open_interest_value': 'open_interest_value'}, inplace=True)
-            else:
-                oi_daily = oi_df.groupby('date')['open_interest'].mean().reset_index()
-                oi_daily.rename(columns={'open_interest': 'open_interest_value'}, inplace=True)
+            oi_daily = oi_df.groupby('date')['open_interest'].mean().reset_index()
             
             # Group klines data by date
             klines_df['date'] = pd.to_datetime(klines_df['open_time']).dt.date
-            
-            # FIX: Sử dụng quote_volume thay vì volume nếu có
-            agg_dict = {'close': 'last'}
-            if 'quote_volume' in klines_df.columns:
-                agg_dict['quote_volume'] = 'sum'
-                volume_daily = klines_df.groupby('date').agg(agg_dict).reset_index()
-                volume_daily.rename(columns={'quote_volume': 'quote_volume'}, inplace=True)
-            else:
-                agg_dict['volume'] = 'sum'
-                volume_daily = klines_df.groupby('date').agg(agg_dict).reset_index()
-                volume_daily.rename(columns={'volume': 'quote_volume'}, inplace=True)
+            volume_daily = klines_df.groupby('date')[['volume', 'close']].agg({
+                'volume': 'sum',
+                'close': 'last'
+            }).reset_index()
             
             # Merge
             merged = pd.merge(oi_daily, volume_daily, on='date', how='inner')
@@ -399,8 +384,7 @@ class OptimizedReportGenerator:
         except Exception as e:
             logger.error(f"❌ Lỗi khi merge daily data: {str(e)}")
             return pd.DataFrame()
-
-    # Sửa trong hàm _prepare_30d_chart_data để sử dụng trường đúng
+    
     def _prepare_30d_chart_data(self, oi_df, klines_df):
         """
         Chuẩn bị dữ liệu chart cho 30 ngày
@@ -418,12 +402,8 @@ class OptimizedReportGenerator:
             for _, row in merged_df.iterrows():
                 chart_data.append({
                     'date': row['date'].isoformat(),
-                    'date_timestamp': row['timestamp'].isoformat(),
-                    # FIX: Sử dụng các trường đúng
-                    'oi': float(row['open_interest_value']),
-                    'volume': float(row['quote_volume']),
-                    'open_interest_value': float(row['open_interest_value']),
-                    'quote_volume': float(row['quote_volume']),
+                    'oi': float(row['open_interest']),
+                    'volume': float(row['volume']),
                     'price': float(row['close'])
                 })
             

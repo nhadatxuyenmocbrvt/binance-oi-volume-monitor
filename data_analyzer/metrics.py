@@ -106,7 +106,7 @@ class OptimizedOIVolumeMetrics:
     # ĐÃ SỬA: Cải thiện hàm tính metrics OI theo ngày
     def calculate_daily_oi_metrics(self, df, days=30):
         """
-        Tính toán metrics OI theo ngày (30d focus) - ĐÃ SỬA
+        Tính toán metrics OI theo ngày (30d focus) - ĐÃ SỬA ĐỂ LUÔN DÙNG USDT VALUE
         """
         try:
             if df.empty or len(df) < 2:
@@ -117,18 +117,53 @@ class OptimizedOIVolumeMetrics:
             recent_df = df.tail(days) if len(df) > days else df
             recent_df = recent_df.copy()
             
-            # ĐÃ SỬA: Kiểm tra cấu trúc dữ liệu
-            # Sử dụng trường open_interest_value thay vì open_interest (trường có giá trị USDT)
-            if 'open_interest_value' in recent_df.columns:
-                oi_column = 'open_interest_value'
-                avg_oi_column = 'avg_open_interest_value' if 'avg_open_interest_value' in recent_df.columns else 'open_interest_value'
-            else:
-                # Fallback cho cấu trúc cũ
-                oi_column = 'sumOpenInterestValue' if 'sumOpenInterestValue' in recent_df.columns else 'open_interest'
-                avg_oi_column = 'avgOpenInterestValue' if 'avgOpenInterestValue' in recent_df.columns else oi_column
+            # ĐÃ SỬA: Luôn sử dụng giá trị USDT, thêm logic để tìm cột phù hợp
+            oi_column = None
+            avg_oi_column = None
+            
+            # Danh sách ưu tiên cho cột OI (giá trị USDT)
+            oi_columns_priority = [
+                'open_interest_value',
+                'sumOpenInterestValue',
+                'openInterestValue'
+            ]
+            
+            # Danh sách ưu tiên cho cột Average OI (giá trị USDT)
+            avg_oi_columns_priority = [
+                'avg_open_interest_value',
+                'avgOpenInterestValue',
+                'avgOpenInterest_value'
+            ]
+            
+            # Tìm cột OI theo độ ưu tiên
+            for col in oi_columns_priority:
+                if col in recent_df.columns:
+                    oi_column = col
+                    break
+            
+            # Nếu không tìm thấy, kiểm tra xem có cột open_interest không
+            if oi_column is None:
+                if 'open_interest' in recent_df.columns and 'price' in recent_df.columns:
+                    # Cần tính OI value từ OI * price
+                    logger.warning("Không tìm thấy cột OI Value, đang tính toán từ OI * price")
+                    recent_df['calculated_oi_value'] = recent_df['open_interest'] * recent_df['price']
+                    oi_column = 'calculated_oi_value'
+                else:
+                    logger.error("Không tìm được cột phù hợp cho OI Value")
+                    return self._get_empty_oi_metrics_30d()
+            
+            # Tìm cột Average OI theo độ ưu tiên
+            for col in avg_oi_columns_priority:
+                if col in recent_df.columns:
+                    avg_oi_column = col
+                    break
+            
+            # Nếu không tìm thấy, sử dụng cột OI
+            if avg_oi_column is None:
+                avg_oi_column = oi_column
             
             # Log cấu trúc dữ liệu
-            logger.info(f"🔍 Cấu trúc dữ liệu OI: sử dụng cột {oi_column} và {avg_oi_column}")
+            logger.info(f"🔍 Cấu trúc dữ liệu OI: sử dụng cột {oi_column} và {avg_oi_column} (luôn theo USDT)")
             
             # Lấy giá trị hiện tại và trước đó
             current_oi = recent_df[oi_column].iloc[-1]
@@ -153,7 +188,13 @@ class OptimizedOIVolumeMetrics:
             negative_days = (recent_df['oi_daily_change'] < 0).sum()
             total_days = len(recent_df) - 1
             
-            trend_direction = 'bullish' if positive_days > negative_days else ('bearish' if negative_days > positive_days else 'neutral')
+            # ĐÃ SỬA: Dựa trên số ngày thay đổi tích cực/tiêu cực và % thay đổi
+            if positive_days > negative_days and oi_change_30d > 0:
+                trend_direction = 'bullish'
+            elif negative_days > positive_days and oi_change_30d < 0:
+                trend_direction = 'bearish'
+            else:
+                trend_direction = 'neutral'
             
             # Moving averages
             if len(recent_df) >= 7:
@@ -187,7 +228,10 @@ class OptimizedOIVolumeMetrics:
                 'max_oi_30d': max_oi,
                 'min_oi_30d': min_oi,
                 'oi_range_30d_pct': round(((max_oi - min_oi) / min_oi) * 100, 2) if min_oi > 0 else 0,
-                'total_data_points': len(recent_df)
+                'total_data_points': len(recent_df),
+                # ĐÃ THÊM: Đánh dấu rõ đơn vị
+                'unit': 'USDT',
+                'used_columns': {'oi': oi_column, 'avg_oi': avg_oi_column}
             }
             
             # Log kết quả
@@ -198,11 +242,10 @@ class OptimizedOIVolumeMetrics:
         except Exception as e:
             logger.error(f"❌ Lỗi khi tính OI metrics hàng ngày: {str(e)}")
             return self._get_empty_oi_metrics_30d()
-    
-    # ĐÃ SỬA: Cải thiện hàm tính metrics Volume theo ngày
+
     def calculate_daily_volume_metrics(self, df, days=30):
         """
-        Tính toán metrics Volume theo ngày (30d focus) - ĐÃ SỬA
+        Tính toán metrics Volume theo ngày (30d focus) - ĐÃ SỬA ĐỂ LUÔN DÙNG QUOTE_VOLUME (USDT)
         """
         try:
             if df.empty or len(df) < 2:
@@ -213,16 +256,39 @@ class OptimizedOIVolumeMetrics:
             recent_df = df.tail(days) if len(df) > days else df
             recent_df = recent_df.copy()
             
-            # ĐÃ SỬA: Kiểm tra cấu trúc dữ liệu
-            # Sử dụng trường quote_volume thay vì volume để đảm bảo lấy giá trị theo USDT
-            if 'quote_volume' in recent_df.columns:
-                volume_column = 'quote_volume'
-            else:
-                # Fallback cho cấu trúc cũ
-                volume_column = 'volume'
+            # ĐÃ SỬA: Luôn sử dụng giá trị USDT, thêm logic để tìm cột phù hợp
+            volume_column = None
+            
+            # Danh sách ưu tiên cho cột Volume (giá trị USDT)
+            volume_columns_priority = [
+                'quote_volume',
+                'quoteVolume',
+                'total_volume'
+            ]
+            
+            # Tìm cột Volume theo độ ưu tiên
+            for col in volume_columns_priority:
+                if col in recent_df.columns:
+                    volume_column = col
+                    break
+            
+            # Nếu không tìm thấy, kiểm tra xem có cột volume không
+            if volume_column is None:
+                if 'volume' in recent_df.columns and 'price' in recent_df.columns:
+                    # Cần tính Volume value từ volume * price
+                    logger.warning("Không tìm thấy cột Quote Volume, đang tính toán từ volume * price")
+                    recent_df['calculated_quote_volume'] = recent_df['volume'] * recent_df['price']
+                    volume_column = 'calculated_quote_volume'
+                elif 'volume' in recent_df.columns:
+                    # Không lý tưởng, nhưng nếu không có cách nào khác
+                    logger.warning("Sử dụng cột volume làm fallback - có thể không phản ánh chính xác giá trị USDT")
+                    volume_column = 'volume'
+                else:
+                    logger.error("Không tìm được cột phù hợp cho Volume")
+                    return self._get_empty_volume_metrics_30d()
             
             # Log cấu trúc dữ liệu
-            logger.info(f"🔍 Cấu trúc dữ liệu Volume: sử dụng cột {volume_column}")
+            logger.info(f"🔍 Cấu trúc dữ liệu Volume: sử dụng cột {volume_column} (theo USDT)")
             
             current_volume = recent_df[volume_column].iloc[-1]
             first_volume = recent_df[volume_column].iloc[0]
@@ -248,9 +314,14 @@ class OptimizedOIVolumeMetrics:
             # Trend analysis
             positive_days = (recent_df['volume_daily_change'] > 0).sum()
             negative_days = (recent_df['volume_daily_change'] < 0).sum()
-            total_days = len(recent_df) - 1
             
-            trend_direction = 'increasing' if positive_days > negative_days else ('decreasing' if negative_days > positive_days else 'stable')
+            # ĐÃ SỬA: Xác định trend direction dựa trên số ngày thay đổi tích cực/tiêu cực và % thay đổi
+            if positive_days > negative_days and volume_change_30d > 0:
+                trend_direction = 'increasing'
+            elif negative_days > positive_days and volume_change_30d < 0:
+                trend_direction = 'decreasing'
+            else:
+                trend_direction = 'stable'
             
             # Volume distribution
             volume_std = recent_df[volume_column].std()
@@ -282,7 +353,10 @@ class OptimizedOIVolumeMetrics:
                 'volume_cv': round(volume_cv, 4),
                 'max_volume_30d': recent_df[volume_column].max(),
                 'min_volume_30d': recent_df[volume_column].min(),
-                'total_data_points': len(recent_df)
+                'total_data_points': len(recent_df),
+                # ĐÃ THÊM: Đánh dấu rõ đơn vị
+                'unit': 'USDT',
+                'used_column': volume_column
             }
             
             # Log kết quả
@@ -293,7 +367,7 @@ class OptimizedOIVolumeMetrics:
         except Exception as e:
             logger.error(f"❌ Lỗi khi tính Volume metrics hàng ngày: {str(e)}")
             return self._get_empty_volume_metrics_30d()
-    
+       
     # ĐÃ SỬA: Cải thiện hàm tính tương quan OI-Volume
     def calculate_oi_volume_correlation(self, df, period='24h'):
         """
@@ -391,10 +465,14 @@ class OptimizedOIVolumeMetrics:
                 'interpretation': 'Không thể tính toán'
             }
     
-    # ĐÃ SỬA: Cải thiện hàm phát hiện bất thường
-    def detect_oi_volume_anomalies(self, df, threshold=2.5):
+    def detect_oi_volume_anomalies(self, df, threshold=2.5, dedup_window_minutes=30):
         """
-        Phát hiện bất thường cho OI và Volume - ĐÃ SỬA
+        Phát hiện bất thường cho OI và Volume - ĐÃ SỬA ĐỂ TRÁNH LẶP LẠI
+        
+        Args:
+            df: DataFrame chứa dữ liệu
+            threshold: Ngưỡng Z-score để coi là bất thường
+            dedup_window_minutes: Cửa sổ thời gian (phút) để tránh lặp lại cảnh báo
         """
         try:
             anomalies = []
@@ -441,6 +519,25 @@ class OptimizedOIVolumeMetrics:
             col_names = [name for _, name in columns_to_check]
             logger.info(f"🔍 Kiểm tra bất thường cho các chỉ số: {', '.join(col_names)}")
             
+            # Xác định trường timestamp phù hợp
+            timestamp_field = None
+            for possible_field in ['timestamp', 'hour_timestamp', 'date_timestamp', 'date']:
+                if possible_field in df.columns:
+                    timestamp_field = possible_field
+                    break
+            
+            if timestamp_field is None:
+                logger.warning("Không tìm thấy cột timestamp để phát hiện bất thường")
+                return anomalies
+            
+            # ĐÃ THÊM: Chuyển đổi timestamp sang datetime nếu chưa phải
+            if not pd.api.types.is_datetime64_any_dtype(df[timestamp_field]):
+                df = df.copy()
+                df[timestamp_field] = pd.to_datetime(df[timestamp_field])
+            
+            # ĐÃ THÊM: Danh sách để theo dõi bất thường đã phát hiện để tránh lặp lại
+            detected_anomalies = {}  # Key: (metric, rounded_value), Value: timestamp
+            
             for col, name in columns_to_check:
                 # Tính Z-score
                 mean_val = df[col].mean()
@@ -453,33 +550,60 @@ class OptimizedOIVolumeMetrics:
                     if anomaly_mask.any():
                         anomaly_indices = df[anomaly_mask].index
                         for idx in anomaly_indices:
-                            # Xác định trường timestamp phù hợp
-                            timestamp_field = None
-                            for possible_field in ['timestamp', 'hour_timestamp', 'date_timestamp', 'date']:
-                                if possible_field in df.columns:
-                                    timestamp_field = possible_field
-                                    break
+                            value = df.loc[idx, col]
+                            timestamp = df.loc[idx, timestamp_field]
+                            z_score = z_scores.loc[idx]
                             
-                            if timestamp_field is None:
-                                timestamp = idx
-                            else:
-                                timestamp = df.loc[idx, timestamp_field]
+                            # ĐÃ THÊM: Làm tròn giá trị để nhóm các bất thường tương tự
+                            # Làm tròn đến 2 chữ số có nghĩa
+                            rounded_value = round(value, -int(np.floor(np.log10(abs(value)))) + 2) if value != 0 else 0
+                            anomaly_key = (name, rounded_value)
                             
-                            anomalies.append({
-                                'timestamp': timestamp,
-                                'metric': name,
-                                'value': df.loc[idx, col],
-                                'z_score': z_scores.loc[idx],
-                                'threshold': threshold,
-                                'severity': 'high' if z_scores.loc[idx] > threshold + 1 else 'moderate'
-                            })
-            
-            logger.info(f"🚨 Phát hiện {len(anomalies)} anomalies với threshold {threshold}")
+                            # Kiểm tra xem bất thường này đã được phát hiện gần đây chưa
+                            is_duplicate = False
+                            if anomaly_key in detected_anomalies:
+                                previous_timestamp = detected_anomalies[anomaly_key]
+                                # Tính khoảng thời gian giữa 2 phát hiện
+                                time_diff = (timestamp - previous_timestamp).total_seconds() / 60
+                                if time_diff < dedup_window_minutes:
+                                    is_duplicate = True
+                                    logger.info(f"⏭️ Bỏ qua anomaly trùng lặp cho {name} với giá trị {rounded_value} (phát hiện cách đây {time_diff:.1f} phút)")
+                            
+                            if not is_duplicate:
+                                # Cập nhật timestamp mới nhất cho anomaly này
+                                detected_anomalies[anomaly_key] = timestamp
+                                
+                                anomalies.append({
+                                    'timestamp': timestamp,
+                                    'metric': name,
+                                    'value': df.loc[idx, col],
+                                    'z_score': z_scores.loc[idx],
+                                    'threshold': threshold,
+                                    'severity': 'high' if z_scores.loc[idx] > threshold + 1 else 'moderate',
+                                    'data_type': 'oi' if 'OI' in name else 'volume'  # ĐÃ THÊM: Phân loại dữ liệu
+                                })
+                
+            logger.info(f"🚨 Phát hiện {len(anomalies)} anomalies với threshold {threshold} (đã lọc trùng lặp)")
             return anomalies
             
         except Exception as e:
             logger.error(f"❌ Lỗi khi phát hiện anomalies: {str(e)}")
             return []
+
+    # ĐÃ THÊM: Hàm mới để kiểm tra xem anomaly có phải là gần đây không
+    def _is_recent_anomaly(self, timestamp, minutes=30):
+        """Kiểm tra xem anomaly có phải là gần đây không (trong khoảng X phút)"""
+        try:
+            if isinstance(timestamp, str):
+                timestamp = pd.to_datetime(timestamp)
+            
+            now = datetime.now()
+            time_diff = (now - timestamp).total_seconds() / 60
+            
+            return time_diff <= minutes
+        except Exception as e:
+            logger.error(f"Lỗi khi kiểm tra thời gian anomaly: {str(e)}")
+            return False
     
     def generate_summary_metrics(self, oi_metrics_24h, volume_metrics_24h, oi_metrics_30d, volume_metrics_30d):
         """

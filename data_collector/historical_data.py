@@ -80,7 +80,7 @@ class OptimizedHistoricalDataCollector:
     
     def collect_24h_hourly_data(self):
         """
-        Thu thập dữ liệu 24h theo từng giờ - CORE FUNCTION
+        Thu thập dữ liệu 24h theo từng giờ - CORE FUNCTION - ĐÃ SỬA
         Tối ưu cho tracking OI & Volume theo giờ
         """
         logger.info("🕒 Bắt đầu thu thập dữ liệu 24h hourly - OI & Volume focus")
@@ -101,6 +101,7 @@ class OptimizedHistoricalDataCollector:
             logger.info(f"📊 [{i}/{total_symbols}] Thu thập 24h data cho {symbol}")
             
             try:
+                # ĐÃ SỬA: Tăng limit để đảm bảo đủ 24 điểm dữ liệu
                 # Thu thập klines 1h cho 24h
                 logger.info(f"   📈 Collecting 1h klines for {symbol}")
                 klines_data = self.api.get_klines(
@@ -108,36 +109,136 @@ class OptimizedHistoricalDataCollector:
                     interval='1h', 
                     start_time=start_time, 
                     end_time=end_time, 
-                    limit=25  # 24 + 1 buffer
+                    limit=30  # Tăng từ 25 lên 30 để đủ dữ liệu
                 )
                 
                 if klines_data is not None and not klines_data.empty:
-                    # Lọc chỉ lấy 24 điểm gần nhất
-                    klines_data = klines_data.tail(24)
-                    result['klines'][symbol] = klines_data
-                    logger.info(f"   ✅ {len(klines_data)} klines collected")
+                    # ĐÃ SỬA: Kiểm tra kỹ lưỡng số lượng điểm dữ liệu
+                    expected_hours = set()
+                    current_hour = datetime.fromtimestamp(end_time/1000).replace(minute=0, second=0, microsecond=0)
+                    
+                    for i in range(24):
+                        hour = current_hour - timedelta(hours=i)
+                        expected_hours.add(hour.strftime('%Y-%m-%d %H:00:00'))
+                    
+                    # Chuyển timestamp thành format chuẩn để so sánh
+                    if 'open_time' in klines_data.columns:
+                        klines_data['hour_str'] = pd.to_datetime(klines_data['open_time']).dt.strftime('%Y-%m-%d %H:00:00')
+                        
+                        # Lọc chỉ lấy 24 giờ cần thiết
+                        filtered_klines = klines_data[klines_data['hour_str'].isin(expected_hours)]
+                        
+                        if len(filtered_klines) < 24:
+                            logger.warning(f"   ⚠️ Chỉ thu được {len(filtered_klines)}/24 điểm klines cho {symbol}")
+                        
+                        result['klines'][symbol] = filtered_klines
+                        logger.info(f"   ✅ {len(filtered_klines)}/{24} klines collected")
+                    else:
+                        # Lọc chỉ lấy 24 điểm gần nhất
+                        if len(klines_data) > 24:
+                            klines_data = klines_data.tail(24)
+                        result['klines'][symbol] = klines_data
+                        logger.info(f"   ✅ {len(klines_data)} klines collected")
                 else:
                     logger.warning(f"   ⚠️ No klines data for {symbol}")
                     result['klines'][symbol] = pd.DataFrame()
                 
                 # Rate limiting between API calls
-                time.sleep(0.3)
+                time.sleep(0.5)  # Tăng thời gian chờ
                 
-                # Thu thập Open Interest 1h cho 24h
+                # ĐÃ SỬA: Thu thập Open Interest chi tiết hơn cho 24h
                 logger.info(f"   📊 Collecting 1h OI for {symbol}")
-                oi_data = self.api.get_open_interest(
-                    symbol=symbol, 
-                    period='1h', 
-                    start_time=start_time, 
-                    end_time=end_time, 
-                    limit=25
-                )
+                
+                # Tăng limit và thử thu thập theo từng chunk
+                oi_data = None
+                
+                # Thử 3 phương pháp khác nhau
+                for attempt in range(1, 4):
+                    try:
+                        if attempt == 1:
+                            # Phương pháp 1: Lấy trực tiếp với limit cao
+                            oi_data = self.api.get_open_interest(
+                                symbol=symbol, 
+                                period='1h', 
+                                start_time=start_time, 
+                                end_time=end_time, 
+                                limit=50  # Tăng limit
+                            )
+                        elif attempt == 2:
+                            # Phương pháp 2: Chia thành 2 chunk
+                            mid_time = start_time + (end_time - start_time) // 2
+                            
+                            oi_data_1 = self.api.get_open_interest(
+                                symbol=symbol, 
+                                period='1h', 
+                                start_time=start_time, 
+                                end_time=mid_time, 
+                                limit=30
+                            )
+                            
+                            time.sleep(0.5)
+                            
+                            oi_data_2 = self.api.get_open_interest(
+                                symbol=symbol, 
+                                period='1h', 
+                                start_time=mid_time+1, 
+                                end_time=end_time, 
+                                limit=30
+                            )
+                            
+                            if oi_data_1 is not None and oi_data_2 is not None:
+                                oi_data = pd.concat([oi_data_1, oi_data_2]).drop_duplicates()
+                        else:
+                            # Phương pháp 3: Sử dụng chunked API
+                            oi_data = self.api.get_open_interest_chunked(
+                                symbol=symbol,
+                                period='1h',
+                                start_time=start_time,
+                                end_time=end_time,
+                                days_per_chunk=1
+                            )
+                        
+                        # Kiểm tra kết quả
+                        if oi_data is not None and not oi_data.empty and len(oi_data) >= 20:
+                            # Có đủ dữ liệu, thoát khỏi vòng lặp
+                            logger.info(f"   ✅ Thu thập OI thành công bằng phương pháp {attempt}")
+                            break
+                        
+                        # Không đủ dữ liệu, thử phương pháp tiếp theo
+                        logger.warning(f"   ⚠️ Phương pháp {attempt} chỉ thu được {len(oi_data) if oi_data is not None else 0} điểm")
+                        time.sleep(0.5)
+                        
+                    except Exception as e:
+                        logger.error(f"   ❌ Lỗi khi thu thập OI bằng phương pháp {attempt}: {str(e)}")
+                        time.sleep(0.5)
                 
                 if oi_data is not None and not oi_data.empty:
-                    # Lọc chỉ lấy 24 điểm gần nhất
-                    oi_data = oi_data.tail(24)
-                    result['open_interest'][symbol] = oi_data
-                    logger.info(f"   ✅ {len(oi_data)} OI points collected")
+                    # ĐÃ SỬA: Lọc và kiểm tra như với klines
+                    expected_hours = set()
+                    current_hour = datetime.fromtimestamp(end_time/1000).replace(minute=0, second=0, microsecond=0)
+                    
+                    for i in range(24):
+                        hour = current_hour - timedelta(hours=i)
+                        expected_hours.add(hour.strftime('%Y-%m-%d %H:00:00'))
+                    
+                    # Chuyển timestamp thành format chuẩn để so sánh
+                    if 'timestamp' in oi_data.columns:
+                        oi_data['hour_str'] = pd.to_datetime(oi_data['timestamp']).dt.strftime('%Y-%m-%d %H:00:00')
+                        
+                        # Lọc chỉ lấy 24 giờ cần thiết
+                        filtered_oi = oi_data[oi_data['hour_str'].isin(expected_hours)]
+                        
+                        if len(filtered_oi) < 24:
+                            logger.warning(f"   ⚠️ Chỉ thu được {len(filtered_oi)}/24 điểm OI cho {symbol}")
+                        
+                        result['open_interest'][symbol] = filtered_oi
+                        logger.info(f"   ✅ {len(filtered_oi)}/{24} OI points collected")
+                    else:
+                        # Lọc chỉ lấy 24 điểm gần nhất
+                        if len(oi_data) > 24:
+                            oi_data = oi_data.tail(24)
+                        result['open_interest'][symbol] = oi_data
+                        logger.info(f"   ✅ {len(oi_data)} OI points collected")
                 else:
                     logger.warning(f"   ⚠️ No OI data for {symbol}")
                     result['open_interest'][symbol] = pd.DataFrame()
@@ -146,7 +247,7 @@ class OptimizedHistoricalDataCollector:
                 logger.info(f"   🎯 {symbol}: Success")
                 
                 # Rate limiting between symbols
-                time.sleep(0.5)
+                time.sleep(1.0)  # Tăng thời gian chờ
                 
             except Exception as e:
                 logger.error(f"   ❌ Error collecting 24h data for {symbol}: {str(e)}")
