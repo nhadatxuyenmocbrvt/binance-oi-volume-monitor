@@ -1,5 +1,25 @@
 [
   {
+    "id": 109,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-27T10:05:13",
+    "data_type": "correlation_24h",
+    "value": -0.7125,
+    "z_score": 2.1375,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho DOGEUSDT: -0.713 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 108,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-27T10:00:00",
+    "data_type": "24h_OI",
+    "value": 9568648117.3348,
+    "z_score": 3.0231944592109277,
+    "message": "Bất thường OI 24h cho BTCUSDT: 9568648117.33 (Z-score: 3.02)",
+    "notified": 0
+  },
+  {
     "id": 107,
     "symbol": "DOGEUSDT",
     "timestamp": "2025-05-27T09:34:50",
@@ -477,26 +497,6 @@
     "value": 2701500236.8813,
     "z_score": 2.5632693019550485,
     "message": "Bất thường Volume 24h cho SOLUSDT: 2701500236.88 (Z-score: 2.56)",
-    "notified": 0
-  },
-  {
-    "id": 22,
-    "symbol": "DOGEUSDT",
-    "timestamp": "2025-05-26T18:00:00",
-    "data_type": "24h_Volume",
-    "value": 865729983.69128,
-    "z_score": 2.537508418455572,
-    "message": "Bất thường Volume 24h cho DOGEUSDT: 865729983.69 (Z-score: 2.54)",
-    "notified": 0
-  },
-  {
-    "id": 8,
-    "symbol": "BTCUSDT",
-    "timestamp": "2025-05-26T17:00:00",
-    "data_type": "24h_Volume",
-    "value": 17518185723.78,
-    "z_score": 3.1525591413738474,
-    "message": "Bất thường Volume 24h cho BTCUSDT: 17518185723.78 (Z-score: 3.15)",
     "notified": 0
   }
 ]
