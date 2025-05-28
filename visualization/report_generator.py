@@ -107,69 +107,135 @@ class OptimizedReportGenerator:
             return {}
     
     def generate_24h_data(self):
-        """
-        Tạo dữ liệu tracking 24h cho web interface
-        """
+        """Tạo dữ liệu tracking 24h cho web"""
         try:
-            logger.info("📈 Tạo dữ liệu tracking 24h")
+            logger.info("🔄 Tạo dữ liệu tracking 24h cho web")
             
-            tracking_data = {
-                'timestamp': datetime.now().isoformat(),
-                'data_type': '24h_hourly_tracking',
-                'symbols': {}
-            }
+            tracking_data = []
+            symbols_data = {}
             
-            for symbol in SYMBOLS:
-                try:
-                    # Lấy dữ liệu tracking 24h
-                    tracking_df = self.db.get_24h_tracking_data(symbol)
+            # Lấy dữ liệu 24h cho tất cả symbols
+            df_24h = self.db.get_24h_tracking_data()
+            
+            # Nếu không có dữ liệu, trả về None
+            if df_24h.empty:
+                logger.warning("❌ Không có dữ liệu tracking 24h")
+                return None
+            
+            # Tổ chức dữ liệu theo symbol
+            for symbol in self.SYMBOLS:
+                symbol_data = df_24h[df_24h['symbol'] == symbol]
+                
+                if not symbol_data.empty:
+                    # Sắp xếp theo thời gian
+                    symbol_data = symbol_data.sort_values('hour_timestamp')
                     
-                    if not tracking_df.empty:
-                        # Tính toán metrics
-                        oi_metrics = self.metrics.calculate_hourly_oi_metrics(tracking_df)
-                        volume_metrics = self.metrics.calculate_hourly_volume_metrics(tracking_df)
-                        correlation = self.metrics.calculate_oi_volume_correlation(tracking_df, '24h')
+                    # Tạo dataset cho web
+                    hours = []
+                    oi_values = []
+                    volume_values = []
+                    price_values = []
+                    oi_changes = []
+                    volume_changes = []
+                    price_changes = []
+                    
+                    # Đảm bảo dữ liệu đủ 24 giờ
+                    expected_hours = 24
+                    actual_hours = len(symbol_data)
+                    
+                    if actual_hours < expected_hours:
+                        logger.warning(f"⚠️ {symbol} chỉ có {actual_hours}/{expected_hours} giờ dữ liệu")
+                    
+                    for _, row in symbol_data.iterrows():
+                        hour_str = row['hour_timestamp'].strftime("%H:%M")
+                        timestamp_str = row['hour_timestamp'].strftime("%Y-%m-%dT%H:%M:%S")
                         
-                        # Chuẩn bị dữ liệu cho chart
-                        chart_data = []
-                        for _, row in tracking_df.iterrows():
-                            chart_data.append({
-                                'timestamp': row['hour_timestamp'].isoformat() if hasattr(row['hour_timestamp'], 'isoformat') else str(row['hour_timestamp']),
-                                'hour': row['hour_timestamp'].strftime('%H:00') if hasattr(row['hour_timestamp'], 'strftime') else str(row['hour_timestamp']),
-                                'oi': float(row['open_interest']),
-                                'volume': float(row['volume']),
-                                'price': float(row['price']),
-                                'oi_change_1h': float(row.get('oi_change_1h', 0)),
-                                'volume_change_1h': float(row.get('volume_change_1h', 0)),
-                                'price_change_1h': float(row.get('price_change_1h', 0))
-                            })
+                        # QUAN TRỌNG: Đảm bảo sử dụng volume như quote_volume (USDT)
+                        # Ghi log để debug và kiểm tra giá trị thực tế
+                        price = float(row['price'])
+                        volume = float(row['volume'])  # Đây phải là quote_volume (USDT)
+                        oi = float(row['open_interest'])  # Đây phải là open_interest_value (USDT)
                         
-                        # Tạo dữ liệu symbol
-                        tracking_data['symbols'][symbol] = {
-                            'oi_metrics': oi_metrics,
-                            'volume_metrics': volume_metrics,
-                            'correlation': correlation,
-                            'chart_data': chart_data,
-                            'data_points': len(chart_data),
-                            'last_update': tracking_df['hour_timestamp'].iloc[-1].isoformat() if not tracking_df.empty else None
+                        # Kiểm tra các giá trị và ghi log nếu có vấn đề
+                        if volume < oi * 0.01 and price > 0:
+                            logger.warning(f"⚠️ {symbol} {hour_str}: Volume quá nhỏ ({volume:,.2f} USDT), có thể cần nhân với giá")
+                            # Tự sửa nếu volume quá nhỏ (có thể là số lượng contracts)
+                            volume = volume * price
+                            logger.info(f"🔄 {symbol} {hour_str}: Đã sửa volume thành {volume:,.2f} USDT")
+                        
+                        # Thêm dữ liệu vào danh sách
+                        hours.append(hour_str)
+                        oi_values.append(oi)
+                        volume_values.append(volume)
+                        price_values.append(price)
+                        oi_changes.append(float(row['oi_change_1h']))
+                        volume_changes.append(float(row['volume_change_1h']))
+                        price_changes.append(float(row['price_change_1h']))
+                    
+                    # Tạo entry cho mỗi giờ
+                    hourly_entries = []
+                    
+                    for i in range(len(hours)):
+                        hourly_entry = {
+                            "timestamp": symbol_data.iloc[i]['hour_timestamp'].strftime("%Y-%m-%dT%H:%M:%S"),
+                            "hour": hours[i],
+                            "oi": oi_values[i],
+                            "volume": volume_values[i],
+                            "price": price_values[i],
+                            "oi_change_1h": oi_changes[i],
+                            "volume_change_1h": volume_changes[i],
+                            "price_change_1h": price_changes[i]
                         }
-                        
-                    else:
-                        tracking_data['symbols'][symbol] = self._get_empty_24h_data()
-                        
-                except Exception as e:
-                    logger.error(f"❌ Lỗi khi tạo tracking 24h cho {symbol}: {str(e)}")
-                    tracking_data['symbols'][symbol] = self._get_empty_24h_data()
+                        hourly_entries.append(hourly_entry)
+                    
+                    symbols_data[symbol] = {
+                        'hourly_data': hourly_entries,
+                        'latest': {
+                            'oi': oi_values[-1] if oi_values else 0,
+                            'volume': volume_values[-1] if volume_values else 0,
+                            'price': price_values[-1] if price_values else 0,
+                            'oi_change_1h': oi_changes[-1] if oi_changes else 0,
+                            'volume_change_1h': volume_changes[-1] if volume_changes else 0,
+                            'price_change_1h': price_changes[-1] if price_changes else 0
+                        }
+                    }
             
-            # Lưu dữ liệu tracking 24h
-            self._save_report(tracking_data, '24h_tracking.json')
+            # Tạo tracking data
+            for symbol in self.SYMBOLS:
+                if symbol in symbols_data:
+                    for entry in symbols_data[symbol]['hourly_data']:
+                        entry['symbol'] = symbol
+                        tracking_data.append(entry)
             
-            logger.info("✅ Hoàn thành tạo dữ liệu tracking 24h")
+            # Sắp xếp theo thời gian và symbol
+            tracking_data = sorted(tracking_data, key=lambda x: (x['timestamp'], x['symbol']))
+            
+            # Lưu dữ liệu tracking 24h vào file
+            output_path = os.path.join(self.output_dir, '24h_tracking.json')
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(tracking_data, f, indent=2, ensure_ascii=False)
+            
+            # Lưu bản sao vào thư mục GitHub Pages
+            github_path = os.path.join(self.github_dir, '24h_tracking.json')
+            with open(github_path, 'w', encoding='utf-8') as f:
+                json.dump(tracking_data, f, indent=2, ensure_ascii=False)
+            
+            # Ghi log thông tin
+            record_counts = {symbol: len(symbols_data[symbol]['hourly_data']) if symbol in symbols_data else 0 
+                            for symbol in self.SYMBOLS}
+            logger.info(f"✅ Đã tạo tracking 24h data: {len(tracking_data)} bản ghi")
+            for symbol, count in record_counts.items():
+                if symbol in symbols_data:
+                    latest = symbols_data[symbol]['latest']
+                    logger.info(f"   - {symbol}: {count}/24 giờ, OI={latest['oi']:,.2f} USDT, Volume={latest['volume']:,.2f} USDT")
+                else:
+                    logger.warning(f"   - {symbol}: 0/24 giờ, không có dữ liệu")
+            
             return tracking_data
             
         except Exception as e:
             logger.error(f"❌ Lỗi khi tạo dữ liệu tracking 24h: {str(e)}")
-            return {}
+            return None
     
     def generate_30d_data(self):
         """

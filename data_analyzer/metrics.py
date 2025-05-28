@@ -17,32 +17,52 @@ class OptimizedOIVolumeMetrics:
     
     # Hàm tính toán metrics cho OI (hourly)
     def calculate_hourly_oi_metrics(self, df):
-        """Tính toán các metrics OI theo giờ"""
+        """Tính toán các metrics OI theo giờ - LUÔN DÙNG GIÁ TRỊ USDT"""
         try:
             if df.empty:
                 return self._get_empty_oi_metrics()
+
+            # Xác định cột OI value (USDT) phù hợp
+            oi_column = None
+            for col in ['open_interest_value', 'openInterestValue', 'open_interest']:
+                if col in df.columns:
+                    oi_column = col
+                    break
+
+            if not oi_column:
+                logger.warning("Không tìm thấy cột Open Interest Value phù hợp")
+                return self._get_empty_oi_metrics()
+                
+            # Kiểm tra nếu cột không phải là giá trị USDT
+            if oi_column == 'open_interest' and 'price' in df.columns:
+                logger.warning("Phải chuyển đổi open_interest sang giá trị USDT")
+                df = df.copy()
+                df['open_interest_value'] = df['open_interest'] * df['price']
+                oi_column = 'open_interest_value'
+            
+            logger.info(f"Tính OI metrics dùng cột: {oi_column}")
             
             # Lấy dữ liệu OI hiện tại và 24h trước
-            current_oi = float(df['open_interest'].iloc[-1])
-            previous_oi = float(df['open_interest'].iloc[0]) if len(df) > 1 else current_oi
+            current_oi = float(df[oi_column].iloc[-1])
+            previous_oi = float(df[oi_column].iloc[0]) if len(df) > 1 else current_oi
             
             # Tính thay đổi
             oi_change_24h = ((current_oi - previous_oi) / previous_oi * 100) if previous_oi != 0 else 0
             
             # Tính các metrics khác
-            max_oi = float(df['open_interest'].max())
-            min_oi = float(df['open_interest'].min())
-            avg_oi = float(df['open_interest'].mean())
+            max_oi = float(df[oi_column].max())
+            min_oi = float(df[oi_column].min())
+            avg_oi = float(df[oi_column].mean())
             
             # Tính volatility (độ biến động)
             if len(df) > 1:
-                std_oi = float(df['open_interest'].std())
+                std_oi = float(df[oi_column].std())
                 volatility = (std_oi / avg_oi * 100) if avg_oi != 0 else 0
             else:
                 volatility = 0
             
             # Thêm log để debug
-            logger.info(f"OI Data: current={current_oi:,.2f}, previous={previous_oi:,.2f}, change={oi_change_24h:.2f}%")
+            logger.info(f"OI Value Data (USDT): current={current_oi:,.2f}, previous={previous_oi:,.2f}, change={oi_change_24h:.2f}%")
             
             return {
                 'current_oi': current_oi,
@@ -52,41 +72,61 @@ class OptimizedOIVolumeMetrics:
                 'min_oi': min_oi,
                 'avg_oi': avg_oi,
                 'volatility': volatility,
-                'data_points': len(df)
+                'data_points': len(df),
+                'unit': 'USDT'  # Đánh dấu rõ đơn vị
             }
             
         except Exception as e:
             logger.error(f"Error calculating OI metrics: {e}")
             return self._get_empty_oi_metrics()
 
-    # Hàm tính toán metrics cho Volume (hourly)
     def calculate_hourly_volume_metrics(self, df):
-        """Tính toán các metrics Volume theo giờ"""
+        """Tính toán các metrics Volume theo giờ - LUÔN DÙNG QUOTE_VOLUME (USDT)"""
         try:
             if df.empty:
                 return self._get_empty_volume_metrics()
             
+            # Xác định cột Volume value (USDT) phù hợp
+            volume_column = None
+            for col in ['quote_volume', 'quoteVolume', 'volume']:
+                if col in df.columns:
+                    volume_column = col
+                    break
+                    
+            if not volume_column:
+                logger.warning("Không tìm thấy cột Volume phù hợp")
+                return self._get_empty_volume_metrics()
+            
+            # Kiểm tra nếu cột không phải là giá trị USDT
+            if volume_column == 'volume' and 'price' in df.columns:
+                logger.warning("Phải chuyển đổi volume sang giá trị USDT")
+                df = df.copy()
+                df['quote_volume'] = df['volume'] * df['price']
+                volume_column = 'quote_volume'
+                
+            logger.info(f"Tính Volume metrics dùng cột: {volume_column}")
+            
             # Lấy dữ liệu Volume hiện tại và 24h trước
-            current_volume = float(df['volume'].iloc[-1])
-            previous_volume = float(df['volume'].iloc[0]) if len(df) > 1 else current_volume
+            current_volume = float(df[volume_column].iloc[-1])
+            previous_volume = float(df[volume_column].iloc[0]) if len(df) > 1 else current_volume
             
             # Tính thay đổi
             volume_change_24h = ((current_volume - previous_volume) / previous_volume * 100) if previous_volume != 0 else 0
             
             # Tính các metrics khác
-            max_volume = float(df['volume'].max())
-            min_volume = float(df['volume'].min())
-            avg_volume = float(df['volume'].mean())
+            max_volume = float(df[volume_column].max())
+            min_volume = float(df[volume_column].min())
+            avg_volume = float(df[volume_column].mean())
             
             # Tính volatility (độ biến động)
             if len(df) > 1:
-                std_volume = float(df['volume'].std())
+                std_volume = float(df[volume_column].std())
                 volatility = (std_volume / avg_volume * 100) if avg_volume != 0 else 0
             else:
                 volatility = 0
                 
             # Thêm log để debug
-            logger.info(f"Volume Data: current={current_volume:,.2f}, previous={previous_volume:,.2f}, change={volume_change_24h:.2f}%")
+            logger.info(f"Volume Data (USDT): current={current_volume:,.2f}, previous={previous_volume:,.2f}, change={volume_change_24h:.2f}%")
             
             return {
                 'current_volume': current_volume,
@@ -96,7 +136,8 @@ class OptimizedOIVolumeMetrics:
                 'min_volume': min_volume,
                 'avg_volume': avg_volume,
                 'volatility': volatility,
-                'data_points': len(df)
+                'data_points': len(df),
+                'unit': 'USDT'  # Đánh dấu rõ đơn vị
             }
             
         except Exception as e:
@@ -368,56 +409,56 @@ class OptimizedOIVolumeMetrics:
             logger.error(f"❌ Lỗi khi tính Volume metrics hàng ngày: {str(e)}")
             return self._get_empty_volume_metrics_30d()
        
-    # ĐÃ SỬA: Cải thiện hàm tính tương quan OI-Volume
     def calculate_oi_volume_correlation(self, df, period='24h'):
         """
-        Tính toán tương quan giữa OI và Volume - ĐÃ SỬA
+        Tính toán tương quan giữa OI và Volume - ĐẢM BẢO DÙNG GIÁ TRỊ USDT
         """
         try:
             if df.empty or len(df) < 3:
                 return {
                     'correlation': 0,
                     'correlation_strength': 'no_data',
-                    'sample_size': 0
+                    'sample_size': 0,
+                    'interpretation': 'Không đủ dữ liệu'
                 }
             
-            # ĐÃ SỬA: Chọn cột phù hợp dựa trên cấu trúc dữ liệu thực tế
-            if period == '24h':
-                # Dữ liệu 24h
-                if 'open_interest' in df.columns and 'volume' in df.columns:
-                    oi_col = 'open_interest'
-                    vol_col = 'volume'
-                else:
-                    logger.error("Không tìm thấy cấu trúc dữ liệu OI-Volume 24h phù hợp")
-                    return {
-                        'correlation': 0,
-                        'correlation_strength': 'error',
-                        'sample_size': 0
-                    }
-            else:
-                # Dữ liệu 30d - ĐÃ SỬA để phù hợp với cấu trúc mới
-                oi_col = None
-                vol_col = None
+            # Xác định cột phù hợp dựa trên cấu trúc dữ liệu thực tế
+            oi_col = None
+            vol_col = None
+            
+            # Kiểm tra các trường OI - ưu tiên giá trị USDT
+            for possible_oi in ['open_interest_value', 'avg_open_interest_value', 'openInterestValue', 'open_interest']:
+                if possible_oi in df.columns and df[possible_oi].notna().any() and (df[possible_oi] > 0).any():
+                    oi_col = possible_oi
+                    break
+            
+            # Kiểm tra các trường Volume - ưu tiên giá trị USDT
+            for possible_vol in ['quote_volume', 'quoteVolume', 'volume']:
+                if possible_vol in df.columns and df[possible_vol].notna().any() and (df[possible_vol] > 0).any():
+                    vol_col = possible_vol
+                    break
+            
+            if oi_col is None or vol_col is None:
+                logger.error("Không tìm thấy cấu trúc dữ liệu OI-Volume phù hợp")
+                return {
+                    'correlation': 0,
+                    'correlation_strength': 'error',
+                    'sample_size': 0,
+                    'interpretation': 'Dữ liệu không hợp lệ'
+                }
+            
+            # Đảm bảo dùng giá trị USDT
+            if oi_col == 'open_interest' and 'price' in df.columns:
+                logger.info(f"Chuyển đổi {oi_col} sang giá trị USDT")
+                df = df.copy()
+                df['open_interest_value'] = df['open_interest'] * df['price']
+                oi_col = 'open_interest_value'
                 
-                # Kiểm tra các trường OI
-                for possible_oi in ['open_interest_value', 'avg_open_interest_value', 'sumOpenInterestValue']:
-                    if possible_oi in df.columns:
-                        oi_col = possible_oi
-                        break
-                
-                # Kiểm tra các trường Volume
-                for possible_vol in ['quote_volume', 'total_volume', 'volume']:
-                    if possible_vol in df.columns:
-                        vol_col = possible_vol
-                        break
-                
-                if oi_col is None or vol_col is None:
-                    logger.error("Không tìm thấy cấu trúc dữ liệu OI-Volume 30d phù hợp")
-                    return {
-                        'correlation': 0,
-                        'correlation_strength': 'error',
-                        'sample_size': 0
-                    }
+            if vol_col == 'volume' and 'price' in df.columns:
+                logger.info(f"Chuyển đổi {vol_col} sang giá trị USDT")
+                df = df.copy()
+                df['quote_volume'] = df['volume'] * df['price']
+                vol_col = 'quote_volume'
             
             # Log để debug
             logger.info(f"📊 Tính correlation giữa {oi_col} và {vol_col} cho period {period}")
@@ -453,7 +494,7 @@ class OptimizedOIVolumeMetrics:
                 'interpretation': self._interpret_correlation(correlation)
             }
             
-            logger.info(f"📊 OI-Volume correlation ({period}): {correlation:.3f} ({strength})")
+            logger.info(f"📊 OI-Volume correlation ({period}): {correlation:.3f} ({strength}_{direction})")
             return result
             
         except Exception as e:
@@ -467,7 +508,7 @@ class OptimizedOIVolumeMetrics:
     
     def detect_oi_volume_anomalies(self, df, threshold=2.5, dedup_window_minutes=30):
         """
-        Phát hiện bất thường cho OI và Volume - ĐÃ SỬA ĐỂ TRÁNH LẶP LẠI
+        Phát hiện bất thường cho OI và Volume - ĐẢM BẢO DÙNG GIÁ TRỊ USDT
         
         Args:
             df: DataFrame chứa dữ liệu
@@ -480,43 +521,66 @@ class OptimizedOIVolumeMetrics:
             if df.empty or len(df) < 10:
                 return anomalies
             
-            # ĐÃ SỬA: Tự động xác định cấu trúc dữ liệu
-            # Liệt kê các cột cần kiểm tra theo độ ưu tiên
+            # Tự động xác định cấu trúc dữ liệu - ưu tiên giá trị USDT
+            # Liệt kê các cột OI cần kiểm tra theo độ ưu tiên
             oi_columns = [
-                ('open_interest_value', 'OI_Value'),
-                ('open_interest', 'OI'),
-                ('sumOpenInterestValue', 'OI_Value'),
-                ('sumOpenInterest', 'OI'),
-                ('avg_open_interest_value', 'Avg_OI_Value')
+                ('open_interest_value', 'OI_Value_USDT'),
+                ('openInterestValue', 'OI_Value_USDT'),
+                ('avg_open_interest_value', 'Avg_OI_Value_USDT'),
+                ('open_interest', 'OI')  # Fallback nếu không có lựa chọn nào khác
             ]
             
+            # Liệt kê các cột Volume cần kiểm tra theo độ ưu tiên
             volume_columns = [
                 ('quote_volume', 'Volume_USDT'),
-                ('volume', 'Volume'),
-                ('total_volume', 'Total_Volume')
+                ('quoteVolume', 'Volume_USDT'),
+                ('volume', 'Volume')  # Fallback nếu không có lựa chọn nào khác
             ]
             
             # Xác định cột OI khả dụng
             available_oi_cols = []
             for col, name in oi_columns:
-                if col in df.columns:
+                if col in df.columns and df[col].notna().any() and (df[col] > 0).any():
                     available_oi_cols.append((col, name))
+                    # Nếu tìm thấy cột ưu tiên cao (USDT), dừng tìm kiếm
+                    if 'value' in col.lower() or 'usdt' in name.lower():
+                        break
             
             # Xác định cột Volume khả dụng
             available_vol_cols = []
             for col, name in volume_columns:
-                if col in df.columns:
+                if col in df.columns and df[col].notna().any() and (df[col] > 0).any():
                     available_vol_cols.append((col, name))
+                    # Nếu tìm thấy cột ưu tiên cao (USDT), dừng tìm kiếm
+                    if 'quote' in col.lower() or 'usdt' in name.lower():
+                        break
             
             # Kết hợp cả hai danh sách
             columns_to_check = available_oi_cols + available_vol_cols
+            
+            # Cần chuyển đổi giá trị non-USDT sang USDT nếu cần
+            df_check = df.copy()
+            
+            # Xử lý cột OI nếu không phải giá trị USDT
+            if available_oi_cols and 'open_interest' in available_oi_cols[0][0] and 'value' not in available_oi_cols[0][0].lower() and 'price' in df.columns:
+                oi_col = available_oi_cols[0][0]
+                logger.info(f"Chuyển đổi {oi_col} sang giá trị USDT")
+                df_check['open_interest_value_calculated'] = df[oi_col] * df['price']
+                columns_to_check = [(c, n) if c != oi_col else ('open_interest_value_calculated', 'OI_Value_USDT') for c, n in columns_to_check]
+                
+            # Xử lý cột Volume nếu không phải giá trị USDT
+            if available_vol_cols and 'volume' == available_vol_cols[0][0] and 'price' in df.columns:
+                vol_col = available_vol_cols[0][0]
+                logger.info(f"Chuyển đổi {vol_col} sang giá trị USDT")
+                df_check['quote_volume_calculated'] = df[vol_col] * df['price']
+                columns_to_check = [(c, n) if c != vol_col else ('quote_volume_calculated', 'Volume_USDT') for c, n in columns_to_check]
             
             if not columns_to_check:
                 logger.warning("Không tìm thấy cột OI hoặc Volume phù hợp để phát hiện bất thường")
                 return anomalies
             
             # Log cấu trúc dữ liệu
-            col_names = [name for _, name in columns_to_check]
+            col_names = [f"{name} (từ {col})" for col, name in columns_to_check]
             logger.info(f"🔍 Kiểm tra bất thường cho các chỉ số: {', '.join(col_names)}")
             
             # Xác định trường timestamp phù hợp
@@ -530,31 +594,30 @@ class OptimizedOIVolumeMetrics:
                 logger.warning("Không tìm thấy cột timestamp để phát hiện bất thường")
                 return anomalies
             
-            # ĐÃ THÊM: Chuyển đổi timestamp sang datetime nếu chưa phải
-            if not pd.api.types.is_datetime64_any_dtype(df[timestamp_field]):
-                df = df.copy()
-                df[timestamp_field] = pd.to_datetime(df[timestamp_field])
+            # Chuyển đổi timestamp sang datetime nếu chưa phải
+            if not pd.api.types.is_datetime64_any_dtype(df_check[timestamp_field]):
+                df_check[timestamp_field] = pd.to_datetime(df_check[timestamp_field])
             
-            # ĐÃ THÊM: Danh sách để theo dõi bất thường đã phát hiện để tránh lặp lại
+            # Danh sách để theo dõi bất thường đã phát hiện để tránh lặp lại
             detected_anomalies = {}  # Key: (metric, rounded_value), Value: timestamp
             
             for col, name in columns_to_check:
                 # Tính Z-score
-                mean_val = df[col].mean()
-                std_val = df[col].std()
+                mean_val = df_check[col].mean()
+                std_val = df_check[col].std()
                 
                 if std_val > 0:
-                    z_scores = np.abs((df[col] - mean_val) / std_val)
+                    z_scores = np.abs((df_check[col] - mean_val) / std_val)
                     anomaly_mask = z_scores > threshold
                     
                     if anomaly_mask.any():
-                        anomaly_indices = df[anomaly_mask].index
+                        anomaly_indices = df_check[anomaly_mask].index
                         for idx in anomaly_indices:
-                            value = df.loc[idx, col]
-                            timestamp = df.loc[idx, timestamp_field]
+                            value = df_check.loc[idx, col]
+                            timestamp = df_check.loc[idx, timestamp_field]
                             z_score = z_scores.loc[idx]
                             
-                            # ĐÃ THÊM: Làm tròn giá trị để nhóm các bất thường tương tự
+                            # Làm tròn giá trị để nhóm các bất thường tương tự
                             # Làm tròn đến 2 chữ số có nghĩa
                             rounded_value = round(value, -int(np.floor(np.log10(abs(value)))) + 2) if value != 0 else 0
                             anomaly_key = (name, rounded_value)
@@ -573,16 +636,20 @@ class OptimizedOIVolumeMetrics:
                                 # Cập nhật timestamp mới nhất cho anomaly này
                                 detected_anomalies[anomaly_key] = timestamp
                                 
+                                # Thêm chú thích đơn vị USDT cho các giá trị liên quan
+                                message = f"Bất thường {name}: {value:,.2f}" + (" USDT" if 'usdt' in name.lower() else "")
+                                
                                 anomalies.append({
                                     'timestamp': timestamp,
                                     'metric': name,
-                                    'value': df.loc[idx, col],
-                                    'z_score': z_scores.loc[idx],
+                                    'value': float(value),
+                                    'z_score': float(z_score),
                                     'threshold': threshold,
-                                    'severity': 'high' if z_scores.loc[idx] > threshold + 1 else 'moderate',
-                                    'data_type': 'oi' if 'OI' in name else 'volume'  # ĐÃ THÊM: Phân loại dữ liệu
+                                    'severity': 'high' if z_score > threshold + 1 else 'moderate',
+                                    'data_type': 'oi' if 'oi' in name.lower() else 'volume',  # Phân loại dữ liệu
+                                    'message': message
                                 })
-                
+            
             logger.info(f"🚨 Phát hiện {len(anomalies)} anomalies với threshold {threshold} (đã lọc trùng lặp)")
             return anomalies
             

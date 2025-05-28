@@ -145,7 +145,88 @@ class Database:
             self.conn.close()
             self.conn = None
             logger.info("Đã đóng kết nối cơ sở dữ liệu")
-    
+
+    def update_database_schema(self):
+        """Cập nhật cấu trúc cơ sở dữ liệu để hỗ trợ đầy đủ quote_volume và open_interest_value"""
+        try:
+            cursor = self.conn.cursor()
+            
+            # 1. Kiểm tra và cập nhật bảng hourly_tracking
+            cursor.execute("PRAGMA table_info(hourly_tracking)")
+            columns = {row[1]: row for row in cursor.fetchall()}
+            
+            schema_changes = []
+            
+            # Thêm cột quote_volume nếu chưa có
+            if 'quote_volume' not in columns:
+                cursor.execute('''
+                ALTER TABLE hourly_tracking ADD COLUMN quote_volume REAL DEFAULT 0
+                ''')
+                schema_changes.append("Đã thêm cột quote_volume vào bảng hourly_tracking")
+                
+                # Cập nhật dữ liệu: sao chép từ volume (giả định volume hiện tại là quote_volume)
+                cursor.execute('''
+                UPDATE hourly_tracking SET quote_volume = volume
+                ''')
+                schema_changes.append("Đã sao chép dữ liệu từ volume sang quote_volume")
+            
+            # Thêm cột open_interest_value nếu chưa có
+            if 'open_interest_value' not in columns:
+                cursor.execute('''
+                ALTER TABLE hourly_tracking ADD COLUMN open_interest_value REAL DEFAULT 0
+                ''')
+                schema_changes.append("Đã thêm cột open_interest_value vào bảng hourly_tracking")
+                
+                # Cập nhật dữ liệu: sao chép từ open_interest (giả định open_interest hiện tại là open_interest_value)
+                cursor.execute('''
+                UPDATE hourly_tracking SET open_interest_value = open_interest
+                ''')
+                schema_changes.append("Đã sao chép dữ liệu từ open_interest sang open_interest_value")
+            
+            # 2. Kiểm tra và cập nhật bảng daily_tracking
+            cursor.execute("PRAGMA table_info(daily_tracking)")
+            columns = {row[1]: row for row in cursor.fetchall()}
+            
+            if 'quote_volume_original' not in columns:
+                # Thêm cột quote_volume_original để lưu dữ liệu gốc
+                cursor.execute('''
+                ALTER TABLE daily_tracking ADD COLUMN quote_volume_original REAL DEFAULT 0
+                ''')
+                schema_changes.append("Đã thêm cột quote_volume_original vào bảng daily_tracking")
+                
+                # Sao chép dữ liệu từ quote_volume
+                cursor.execute('''
+                UPDATE daily_tracking SET quote_volume_original = quote_volume
+                ''')
+            
+            if 'open_interest_original' not in columns:
+                # Thêm cột open_interest_original để lưu dữ liệu gốc
+                cursor.execute('''
+                ALTER TABLE daily_tracking ADD COLUMN open_interest_original REAL DEFAULT 0
+                ''')
+                schema_changes.append("Đã thêm cột open_interest_original vào bảng daily_tracking")
+                
+                # Sao chép dữ liệu từ open_interest
+                cursor.execute('''
+                UPDATE daily_tracking SET open_interest_original = open_interest
+                ''')
+            
+            self.conn.commit()
+            
+            if schema_changes:
+                logger.info("Đã cập nhật cấu trúc cơ sở dữ liệu:")
+                for change in schema_changes:
+                    logger.info(f" - {change}")
+                return True
+            else:
+                logger.info("Cấu trúc cơ sở dữ liệu đã được cập nhật trước đó")
+                return False
+                
+        except Exception as e:
+            self.conn.rollback()
+            logger.error(f"Lỗi khi cập nhật cấu trúc cơ sở dữ liệu: {str(e)}")
+            return False
+
     def save_klines(self, symbol, timeframe, df):
         """Lưu dữ liệu nến (klines) vào cơ sở dữ liệu"""
         try:
@@ -361,7 +442,6 @@ class Database:
             logger.error(f"Lỗi khi cập nhật daily_tracking từ OI: {str(e)}")
             return False
             
-    # Sửa hàm save_hourly_tracking để hiển thị đúng giá trị
     def save_hourly_tracking(self, hour_timestamp):
         """Lưu dữ liệu tracking 24h - TỐI ƯU"""
         try:
@@ -370,11 +450,11 @@ class Database:
             for symbol in SYMBOLS:
                 # Lấy dữ liệu gần nhất
                 price_data = self.get_latest_price(symbol)
-                volume_data = self.get_latest_volume(symbol)
-                oi_data = self.get_latest_oi(symbol)
+                quote_volume_data = self.get_latest_volume(symbol)  # Đây là quote_volume (USDT)
+                oi_value_data = self.get_latest_oi(symbol)  # Đây là open_interest_value (USDT)
                 
-                # Log debug values
-                logger.info(f"DEBUG {symbol} tracking values: price={price_data}, volume={volume_data}, oi={oi_data}")
+                # Log để debug giá trị thực tế
+                logger.info(f"DEBUG {symbol} tracking values: price={price_data}, quote_volume={quote_volume_data:,.2f}, oi_value={oi_value_data:,.2f}")
                 
                 # Tính thay đổi so với giờ trước
                 prev_data = self.get_hourly_data(symbol, hour_timestamp - timedelta(hours=1))
@@ -386,21 +466,21 @@ class Database:
                 if prev_data:
                     if prev_data['price'] > 0:
                         price_change_1h = ((price_data - prev_data['price']) / prev_data['price']) * 100
-                    if prev_data['volume'] > 0:
-                        volume_change_1h = ((volume_data - prev_data['volume']) / prev_data['volume']) * 100
-                    if prev_data['open_interest'] > 0:
-                        oi_change_1h = ((oi_data - prev_data['open_interest']) / prev_data['open_interest']) * 100
+                    if prev_data['quote_volume'] > 0:  # Sử dụng quote_volume cho % thay đổi
+                        volume_change_1h = ((quote_volume_data - prev_data['quote_volume']) / prev_data['quote_volume']) * 100
+                    if prev_data['open_interest_value'] > 0:  # Sử dụng open_interest_value cho % thay đổi
+                        oi_change_1h = ((oi_value_data - prev_data['open_interest_value']) / prev_data['open_interest_value']) * 100
                 
-                # Lưu dữ liệu tracking
+                # Lưu dữ liệu tracking với cả hai giá trị volume và quote_volume
                 data = (
                     symbol,
                     hour_timestamp.strftime('%Y-%m-%d %H:%M:%S'),
                     price_data,
-                    volume_data,
-                    oi_data,
+                    quote_volume_data,  # Lưu quote_volume vào trường volume
+                    oi_value_data,      # Lưu open_interest_value vào trường open_interest
                     price_change_1h,
-                    volume_change_1h,
-                    oi_change_1h
+                    volume_change_1h,   # Thay đổi của quote_volume
+                    oi_change_1h        # Thay đổi của open_interest_value
                 )
                 
                 cursor.execute('''
@@ -883,10 +963,9 @@ class Database:
             return 0
     
     def get_latest_volume(self, symbol):
-        """Lấy volume mới nhất của symbol theo USDT"""
+        """Lấy quote_volume (USDT) mới nhất của symbol"""
         try:
             cursor = self.conn.cursor()
-            # Thay đổi từ volume sang quote_volume
             cursor.execute('''
             SELECT quote_volume FROM ticker 
             WHERE symbol = ? 
@@ -895,16 +974,20 @@ class Database:
             ''', (symbol,))
             
             result = cursor.fetchone()
-            return result[0] if result else 0
+            value = result[0] if result else 0
+            
+            # Log để debug giá trị
+            logger.info(f"DEBUG: Quote Volume mới nhất của {symbol} = {value:,.2f} USDT")
+            
+            return value
         except Exception as e:
-            logger.error(f"Lỗi khi lấy volume mới nhất cho {symbol}: {str(e)}")
+            logger.error(f"Lỗi khi lấy quote_volume mới nhất cho {symbol}: {str(e)}")
             return 0
 
     def get_latest_oi(self, symbol):
-        """Lấy Open Interest mới nhất của symbol theo USDT"""
+        """Lấy Open Interest Value (USDT) mới nhất của symbol"""
         try:
             cursor = self.conn.cursor()
-            # Thay đổi từ open_interest sang open_interest_value
             cursor.execute('''
             SELECT open_interest_value FROM open_interest
             WHERE symbol = ? 
@@ -913,11 +996,16 @@ class Database:
             ''', (symbol,))
             
             result = cursor.fetchone()
-            return result[0] if result else 0
+            value = result[0] if result else 0
+            
+            # Log để debug giá trị
+            logger.info(f"DEBUG: OI Value mới nhất của {symbol} = {value:,.2f} USDT")
+            
+            return value
         except Exception as e:
-            logger.error(f"Lỗi khi lấy OI mới nhất cho {symbol}: {str(e)}")
+            logger.error(f"Lỗi khi lấy OI Value mới nhất cho {symbol}: {str(e)}")
             return 0
-    
+
     def get_hourly_data(self, symbol, hour_timestamp):
         """Lấy dữ liệu tracking theo giờ"""
         try:
@@ -932,8 +1020,8 @@ class Database:
             if result:
                 return {
                     'price': result[0],
-                    'volume': result[1],
-                    'open_interest': result[2]
+                    'quote_volume': result[1],  # Bây giờ volume là quote_volume (USDT)
+                    'open_interest_value': result[2]  # Bây giờ open_interest là open_interest_value (USDT)
                 }
             return None
         except Exception as e:
@@ -1156,7 +1244,7 @@ class Database:
     
     # ĐÃ SỬA: Cải thiện hàm xuất dữ liệu symbol
     def export_symbol_data(self, symbol):
-        """Xuất dữ liệu chi tiết cho một symbol - ĐÃ SỬA ĐỂ ĐẢM BẢO NHẤT QUÁN USDT"""
+        """Xuất dữ liệu chi tiết cho một symbol - ĐẢM BẢO NHẤT QUÁN USDT"""
         try:
             symbol_data = {
                 'symbol': symbol,
@@ -1164,8 +1252,8 @@ class Database:
                 'klines': {},
                 'open_interest': [],
                 'tracking_24h': [],
-                'tracking_30d': [],  # THÊM trường tracking 30 ngày
-                'unit': 'USDT'  # ĐÃ THÊM: Đánh dấu rõ đơn vị
+                'tracking_30d': [],
+                'unit': 'USDT'  # Đánh dấu rõ đơn vị
             }
             
             # 1. Xuất dữ liệu klines (30 ngày gần nhất cho 1d)
@@ -1183,23 +1271,22 @@ class Database:
                     klines_clean = klines_df[['open_time', 'open', 'high', 'low', 'close', 'volume', 'quote_volume']].copy()
                     klines_clean['open_time'] = klines_clean['open_time'].dt.strftime('%Y-%m-%dT%H:%M:%S')
                     
-                    # ĐÃ SỬA: Kiểm tra và đảm bảo quote_volume có giá trị
+                    # ĐẢM BẢO quote_volume có giá trị
                     if 'quote_volume' not in klines_clean.columns or klines_clean['quote_volume'].isnull().any():
                         logger.warning(f"Phát hiện quote_volume không hợp lệ cho {symbol} {timeframe}, đang tính lại")
                         klines_clean['quote_volume'] = klines_clean['volume'] * klines_clean['close']
                     
                     # Log để debug
                     if len(klines_clean) > 0:
-                        logger.info(f"{symbol} {timeframe}: first={klines_clean['open_time'].iloc[0]}, last={klines_clean['open_time'].iloc[-1]}, count={len(klines_clean)}")
+                        logger.info(f"{symbol} {timeframe}: Quote Volume gần nhất = {klines_clean['quote_volume'].iloc[-1]:,.2f} USDT")
                     
                     symbol_data['klines'][timeframe] = klines_clean.to_dict(orient='records')
             
-            # 2. Xuất dữ liệu Open Interest (30 ngày gần nhất) - ĐÃ SỬA
-            # Sử dụng daily period để lấy dữ liệu OI theo ngày
+            # 2. Xuất dữ liệu Open Interest (30 ngày gần nhất)
             oi_df = self.get_open_interest(symbol, limit=30, period='daily')
             
             if not oi_df.empty:
-                # ĐÃ SỬA: Kiểm tra và ưu tiên sử dụng open_interest_value
+                # Đảm bảo sử dụng open_interest_value
                 if 'open_interest_value' in oi_df.columns:
                     oi_clean = oi_df[['timestamp', 'open_interest', 'open_interest_value', 
                                     'avg_open_interest', 'avg_open_interest_value']].copy()
@@ -1231,63 +1318,37 @@ class Database:
                 
                 # Log để debug
                 if len(oi_clean) > 0:
-                    logger.info(f"{symbol} OI: first={oi_clean['timestamp'].iloc[0]}, last={oi_clean['timestamp'].iloc[-1]}, count={len(oi_clean)}")
-                    logger.info(f"OI Value mới nhất: {oi_clean['open_interest_value'].iloc[-1]:,.2f} USDT")
+                    logger.info(f"{symbol} OI Value mới nhất: {oi_clean['open_interest_value'].iloc[-1]:,.2f} USDT")
                 
                 symbol_data['open_interest'] = oi_clean.to_dict(orient='records')
             
             # 3. Xuất dữ liệu tracking 24h
             tracking_df = self.get_24h_tracking_data(symbol)
             
-            if tracking_df.empty or len(tracking_df) < 24:
-                # Nếu chưa đủ 24 giờ, tự động khởi tạo dữ liệu lịch sử
-                logger.info(f"Không đủ dữ liệu tracking 24h cho {symbol}, đang khởi tạo dữ liệu lịch sử")
-                self.initialize_24h_tracking_data()
-                tracking_df = self.get_24h_tracking_data(symbol)
-            
             if not tracking_df.empty:
-                # ĐÃ SỬA: Đảm bảo cột volume là giá trị USDT
-                if 'volume' in tracking_df.columns:
-                    # Kiểm tra xem volume đã đúng là giá trị USDT chưa
-                    if tracking_df['volume'].max() < tracking_df['open_interest'].max() * 0.01:
-                        logger.warning(f"Volume có vẻ không phải giá trị USDT cho {symbol}, đang điều chỉnh")
-                        # Giả định volume hiện tại là số lượng contracts, cần nhân với giá
-                        tracking_df['volume'] = tracking_df['volume'] * tracking_df['price']
-                
+                # Đảm bảo volume là quote_volume (giá trị USDT)
+                # Gọi volume là quote_volume trong tracking_clean
                 tracking_clean = tracking_df[['hour_timestamp', 'price', 'volume', 'open_interest', 
                                             'price_change_1h', 'volume_change_1h', 'oi_change_1h']].copy()
+                tracking_clean.columns = ['hour_timestamp', 'price', 'quote_volume', 'open_interest_value', 
+                                        'price_change_1h', 'volume_change_1h', 'oi_change_1h']
+                
                 tracking_clean['hour_timestamp'] = tracking_clean['hour_timestamp'].dt.strftime('%Y-%m-%dT%H:%M:%S')
                 
                 # Log để debug
                 if len(tracking_clean) > 0:
-                    logger.info(f"{symbol} 24h: first={tracking_clean['hour_timestamp'].iloc[0]}, last={tracking_clean['hour_timestamp'].iloc[-1]}, count={len(tracking_clean)}")
-                    logger.info(f"24h Volume gần nhất: {tracking_clean['volume'].iloc[-1]:,.2f} USDT, OI: {tracking_clean['open_interest'].iloc[-1]:,.2f} USDT")
+                    logger.info(f"{symbol} 24h Volume gần nhất: {tracking_clean['quote_volume'].iloc[-1]:,.2f} USDT")
                 
                 symbol_data['tracking_24h'] = tracking_clean.to_dict(orient='records')
             
-            # 4. ĐÃ THÊM: Xuất dữ liệu tracking 30d
+            # 4. Xuất dữ liệu tracking 30d
             tracking_30d_df = self.get_30d_tracking_data(symbol)
             
-            if tracking_30d_df.empty or len(tracking_30d_df) < 20:  # Yêu cầu ít nhất 20 ngày
-                # Nếu chưa đủ dữ liệu, tự động khởi tạo
-                logger.info(f"Không đủ dữ liệu tracking 30d cho {symbol}, đang khởi tạo dữ liệu")
-                self.initialize_30d_tracking_data()
-                tracking_30d_df = self.get_30d_tracking_data(symbol)
-            
             if not tracking_30d_df.empty:
-                # ĐÃ SỬA: Đảm bảo sử dụng quote_volume (USDT)
+                # Đảm bảo sử dụng quote_volume (USDT)
                 if 'quote_volume' not in tracking_30d_df.columns and 'volume' in tracking_30d_df.columns:
                     logger.warning(f"Không tìm thấy quote_volume cho {symbol}, sử dụng volume")
                     tracking_30d_df['quote_volume'] = tracking_30d_df['volume']
-                
-                # Kiểm tra giá trị open_interest_value
-                if 'open_interest_value' not in tracking_30d_df.columns and 'open_interest' in tracking_30d_df.columns:
-                    logger.warning(f"Không tìm thấy open_interest_value cho {symbol}, sử dụng open_interest")
-                    tracking_30d_df['open_interest_value'] = tracking_30d_df['open_interest']
-                
-                # Kiểm tra giá trị avg_open_interest_value
-                if 'avg_open_interest_value' not in tracking_30d_df.columns:
-                    tracking_30d_df['avg_open_interest_value'] = tracking_30d_df['open_interest_value']
                 
                 tracking_30d_clean = tracking_30d_df[['date_timestamp', 'price', 'quote_volume', 'open_interest_value',
                                                 'avg_open_interest_value', 'price_change_1d', 'volume_change_1d', 'oi_change_1d']].copy()
@@ -1295,12 +1356,7 @@ class Database:
                 
                 # Log để debug
                 if len(tracking_30d_clean) > 0:
-                    logger.info(f"{symbol} 30d: first={tracking_30d_clean['date_timestamp'].iloc[0]}, " +
-                             f"last={tracking_30d_clean['date_timestamp'].iloc[-1]}, count={len(tracking_30d_clean)}")
-                    
-                    # Log giá trị OI để kiểm tra
-                    logger.info(f"{symbol} 30d OI Value: latest={tracking_30d_clean['open_interest_value'].iloc[-1]:,.2f} USDT, " +
-                            f"Volume: {tracking_30d_clean['quote_volume'].iloc[-1]:,.2f} USDT")
+                    logger.info(f"{symbol} 30d Volume mới nhất: {tracking_30d_clean['quote_volume'].iloc[-1]:,.2f} USDT")
                 
                 symbol_data['tracking_30d'] = tracking_30d_clean.to_dict(orient='records')
             

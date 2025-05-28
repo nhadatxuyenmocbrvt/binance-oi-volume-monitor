@@ -536,15 +536,15 @@ class SimpleOIVolumeMonitor {
             return '<div class="text-muted text-center">Không có dữ liệu</div>';
         }
         
-        // FIX: Kiểm tra dữ liệu hợp lệ trước khi hiển thị
+        // FIX: Kiểm tra dữ liệu hợp lệ trước khi hiển thị - luôn dùng quote_volume và open_interest_value
         const validData = hourlyData.filter(item => 
             item && 
-            typeof item.open_interest === 'number' && 
-            typeof item.volume === 'number' &&
-            !isNaN(item.open_interest) &&
-            !isNaN(item.volume) &&
-            item.open_interest > 0 &&
-            item.volume > 0
+            typeof item.open_interest_value === 'number' && 
+            typeof item.quote_volume === 'number' &&
+            !isNaN(item.open_interest_value) &&
+            !isNaN(item.quote_volume) &&
+            item.open_interest_value > 0 &&
+            item.quote_volume > 0
         );
         
         if (validData.length === 0) {
@@ -554,16 +554,16 @@ class SimpleOIVolumeMonitor {
         const latest = validData[validData.length - 1];
         const previous = validData.length > 1 ? validData[validData.length - 2] : latest;
         
-        const oiChange = this.calculateChange(latest.open_interest, previous.open_interest);
-        const volumeChange = this.calculateChange(latest.volume, previous.volume);
+        const oiChange = this.calculateChange(latest.open_interest_value, previous.open_interest_value);
+        const volumeChange = this.calculateChange(latest.quote_volume, previous.quote_volume);
         
-        // FIX: Hiển thị đơn vị tiền tệ USDT để rõ ràng hơn
+        // FIX: Hiển thị đơn vị tiền tệ USDT để rõ ràng hơn và luôn dùng quote_volume
         return `
             <div class="metric-box oi">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <small>Open Interest</small>
-                        <div class="fw-bold">${this.formatNumber(latest.open_interest)} USDT</div>
+                        <div class="fw-bold">${this.formatNumber(latest.open_interest_value)} USDT</div>
                     </div>
                     <div class="text-end">
                         <span class="badge ${oiChange >= 0 ? 'bg-success' : 'bg-danger'}">
@@ -576,7 +576,7 @@ class SimpleOIVolumeMonitor {
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <small>Volume</small>
-                        <div class="fw-bold">${this.formatNumber(latest.volume)} USDT</div>
+                        <div class="fw-bold">${this.formatNumber(latest.quote_volume)} USDT</div>
                     </div>
                     <div class="text-end">
                         <span class="badge ${volumeChange >= 0 ? 'bg-success' : 'bg-danger'}">
@@ -587,11 +587,12 @@ class SimpleOIVolumeMonitor {
             </div>
         `;
     }
-    
+
+    // Sửa hàm generateDailyMetrics để luôn sử dụng quote_volume và avg_open_interest_value
     generateDailyMetrics(symbol, data) {
         // FIX: Ưu tiên sử dụng tracking_30d nếu có
         if (data.tracking_30d && data.tracking_30d.length > 0) {
-            // Lọc các dữ liệu có giá trị hợp lệ
+            // Lọc các dữ liệu có giá trị hợp lệ - ưu tiên dùng avg_open_interest_value và quote_volume
             const validData = data.tracking_30d.filter(item => 
                 item && 
                 typeof item.open_interest_value === 'number' && 
@@ -695,8 +696,8 @@ class SimpleOIVolumeMonitor {
             const latestVolume = dailyKlines[dailyKlines.length - 1];
             const previousVolume = dailyKlines.length > 1 ? dailyKlines[dailyKlines.length - 2] : latestVolume;
             
-            const volumeValue = latestVolume.quote_volume || latestVolume.volume;
-            const prevVolumeValue = previousVolume.quote_volume || previousVolume.volume;
+            const volumeValue = latestVolume.quote_volume || 0;
+            const prevVolumeValue = previousVolume.quote_volume || 0;
             
             // Debug để kiểm tra giá trị thực tế
             console.log(`${symbol} Volume value from klines: ${volumeValue.toLocaleString()}`);
@@ -876,57 +877,27 @@ class SimpleOIVolumeMonitor {
             // Data cho view theo giờ (24h)
             const hourlyData = data.tracking_24h || [];
             
-            // FIX: Lọc dữ liệu không hợp lệ
+            // FIX: Lọc dữ liệu không hợp lệ - luôn sử dụng quote_volume và open_interest_value
             chartData = hourlyData
                 .filter(item => 
                     item && 
                     item.hour_timestamp && 
-                    typeof item.open_interest === 'number' && 
-                    typeof item.volume === 'number' &&
-                    !isNaN(item.open_interest) &&
-                    !isNaN(item.volume) &&
-                    item.open_interest > 0 &&
-                    item.volume > 0
+                    typeof (item.open_interest_value || item.open_interest) === 'number' && 
+                    typeof (item.quote_volume || item.volume) === 'number' &&
+                    !isNaN(item.open_interest_value || item.open_interest) &&
+                    !isNaN(item.quote_volume || item.volume) &&
+                    (item.open_interest_value || item.open_interest) > 0 &&
+                    (item.quote_volume || item.volume) > 0
                 )
                 .map(item => ({
                     x: item.hour_timestamp,
-                    oi: item.open_interest || 0,
-                    volume: item.volume || 0
+                    oi: item.open_interest_value || item.open_interest || 0, 
+                    volume: item.quote_volume || item.volume || 0
                 }));
-                
+                    
             // Log dữ liệu biểu đồ để debug
             if (chartData.length > 0) {
-                console.log(`${symbol} 24h chart data: ${chartData.length} points, OI range: ${Math.min(...chartData.map(item => item.oi)).toLocaleString()} - ${Math.max(...chartData.map(item => item.oi)).toLocaleString()}`);
-            }
-                
-            // FIX: Phát hiện dữ liệu trùng lặp
-            if (chartData.length > 1) {
-                const uniqueData = [];
-                let lastOI = null;
-                let lastVolume = null;
-                let duplicateCount = 0;
-                
-                for (const item of chartData) {
-                    // Nếu 3 điểm dữ liệu liên tiếp hoàn toàn giống nhau, có thể là dữ liệu sao chép
-                    if (lastOI === item.oi && lastVolume === item.volume) {
-                        duplicateCount++;
-                        if (duplicateCount > 3) {
-                            // FIX: Đánh dấu điểm dữ liệu này là null để Chart.js hiển thị khoảng trống
-                            item.oi = null;
-                            item.volume = null;
-                            console.log(`🔄 Marking duplicated data point as null`);
-                            continue;
-                        }
-                    } else {
-                        duplicateCount = 0;
-                    }
-                    
-                    lastOI = item.oi;
-                    lastVolume = item.volume;
-                    uniqueData.push(item);
-                }
-                
-                // Không cần thay thế chartData vì chúng ta đã đánh dấu các điểm trùng lặp là null
+                console.log(`${symbol} 24h chart data: ${chartData.length} points, Volume range: ${Math.min(...chartData.map(item => item.volume)).toLocaleString()} - ${Math.max(...chartData.map(item => item.volume)).toLocaleString()}`);
             }
         } else {
             // FIX: Ưu tiên sử dụng tracking_30d nếu có
@@ -935,25 +906,23 @@ class SimpleOIVolumeMonitor {
                     .filter(item => 
                         item && 
                         item.date_timestamp && 
-                        typeof item.open_interest_value === 'number' && 
+                        typeof (item.open_interest_value || item.avg_open_interest_value) === 'number' && 
                         typeof item.quote_volume === 'number' &&
-                        !isNaN(item.open_interest_value) &&
+                        !isNaN(item.open_interest_value || item.avg_open_interest_value) &&
                         !isNaN(item.quote_volume) &&
-                        item.open_interest_value > 0 &&
+                        (item.open_interest_value || item.avg_open_interest_value) > 0 &&
                         item.quote_volume > 0
                     )
                     .map(item => ({
                         x: item.date_timestamp,
-                        oi: item.open_interest_value || 0,
+                        oi: item.avg_open_interest_value || item.open_interest_value || 0,
                         volume: item.quote_volume || 0
                     }));
                 
                 // Log dữ liệu biểu đồ để debug
                 if (chartData.length > 0) {
-                    console.log(`${symbol} 30d chart data: ${chartData.length} points, OI range: ${Math.min(...chartData.map(item => item.oi)).toLocaleString()} - ${Math.max(...chartData.map(item => item.oi)).toLocaleString()}`);
+                    console.log(`${symbol} 30d chart data: ${chartData.length} points, Volume range: ${Math.min(...chartData.map(item => item.volume)).toLocaleString()} - ${Math.max(...chartData.map(item => item.volume)).toLocaleString()}`);
                 }
-                
-                console.log(`📊 Using tracking_30d for daily chart with ${chartData.length} points`);
             } else {
                 // Fallback: Data cho view theo ngày (30 ngày) từ open_interest và klines
                 const dailyOI = data.open_interest || [];
@@ -969,7 +938,7 @@ class SimpleOIVolumeMonitor {
                     if (!mergedData[date]) mergedData[date] = {};
                     
                     // FIX: Ưu tiên sử dụng open_interest_value
-                    mergedData[date].oi = item.open_interest_value || item.open_interest;
+                    mergedData[date].oi = item.open_interest_value || item.open_interest || 0;
                     mergedData[date].timestamp = item.timestamp;
                 });
                 
@@ -980,7 +949,7 @@ class SimpleOIVolumeMonitor {
                     if (!mergedData[date]) mergedData[date] = {};
                     
                     // FIX: Ưu tiên sử dụng quote_volume
-                    mergedData[date].volume = item.quote_volume || item.volume;
+                    mergedData[date].volume = item.quote_volume || (item.volume * item.close) || 0;
                     if (!mergedData[date].timestamp) mergedData[date].timestamp = item.open_time;
                 });
                 
