@@ -1,6 +1,7 @@
 /**
  * Simple OI & Volume Monitor CSS
  * Tối ưu cho giao diện theo dõi OI và Volume
+ * Hỗ trợ cả Card View và List View
  */
 
 /* ===== VARIABLES ===== */
@@ -50,6 +51,15 @@ body {
     letter-spacing: -0.5px;
 }
 
+/* ===== CONTENT CONTAINER STYLES ===== */
+#contentContainer.list-view {
+    padding: 0;
+}
+
+#contentContainer.card-view {
+    padding: 0 15px;
+}
+
 /* ===== CARDS ===== */
 .coin-card {
     border: none;
@@ -84,6 +94,69 @@ body {
 
 .coin-card .card-body {
     padding: 1.25rem;
+}
+
+/* ===== LIST VIEW TABLE STYLES ===== */
+.coins-table {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    background-color: white;
+    margin-bottom: 1.5rem;
+}
+
+.coins-table th {
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    background-color: var(--primary-color);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+    padding: 0.75rem 1rem;
+}
+
+.coins-table td {
+    vertical-align: middle;
+    padding: 0.75rem 1rem;
+    border-color: #e9ecef;
+}
+
+/* Coin name column */
+.coins-table td:first-child {
+    font-weight: 500;
+}
+
+.coins-table td:first-child strong {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Badge styling in table */
+.coins-table .badge {
+    min-width: 60px;
+    font-weight: 500;
+    padding: 0.4rem 0.6rem;
+}
+
+/* Mini chart container */
+.mini-chart-container {
+    width: 150px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+/* Hover effects for table rows */
+.coins-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.coins-table tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Alternating row colors */
+.coins-table tbody tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
 }
 
 /* ===== METRICS BOXES ===== */
@@ -168,6 +241,15 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
+/* Thêm margin cho button toggle view */
+.btn-group.view-toggle {
+    margin-left: 10px;
+}
+
+#toggleViewBtn {
+    min-width: 180px;
+}
+
 /* ===== CHARTS ===== */
 .chart-container {
     height: 300px;
@@ -216,6 +298,18 @@ body {
     margin: 1rem 0;
     border: 1px solid #f5c6cb;
     box-shadow: var(--shadow-sm);
+}
+
+/* Data warning message */
+.data-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    display: none;
+    border: 1px solid #ffeeba;
 }
 
 /* ===== BADGES & INDICATORS ===== */
@@ -274,6 +368,21 @@ footer small {
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 992px) {
+    .coins-table {
+        font-size: 0.85rem;
+    }
+    
+    .mini-chart-container {
+        width: 100px;
+        height: 40px;
+    }
+    
+    .coins-table th, .coins-table td {
+        padding: 0.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .container-fluid {
         padding-left: 0.75rem;
@@ -314,6 +423,29 @@ footer small {
     
     .loading {
         padding: 2rem 1rem;
+    }
+    
+    .coins-table .chart-column {
+        display: none;
+    }
+    
+    .time-nav .btn-group-wrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .time-nav .btn-group {
+        width: 100%;
+    }
+    
+    #toggleViewBtn {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+    
+    .coins-table .badge {
+        min-width: 50px;
+        font-size: 0.7rem;
     }
 }
 
@@ -364,6 +496,11 @@ footer small {
     }
 }
 
+@keyframes fadeIn {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+}
+
 @keyframes pulse {
     0% {
         box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4);
@@ -384,6 +521,10 @@ footer small {
     animation: spin 1s linear infinite, pulse 2s infinite;
 }
 
+.list-view, .card-view {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
 /* ===== DARK MODE SUPPORT ===== */
 @media (prefers-color-scheme: dark) {
     body {
@@ -391,9 +532,22 @@ footer small {
         color: #e9ecef;
     }
     
-    .coin-card {
+    .coin-card,
+    .coins-table {
         background: #2d3748;
         border-color: #4a5568;
+    }
+    
+    .coins-table td {
+        border-color: #4a5568;
+    }
+    
+    .coins-table tbody tr:nth-child(odd) {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .coins-table tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.1);
     }
     
     .time-nav {
@@ -437,6 +591,11 @@ footer small {
 
 .hover-glow:hover {
     box-shadow: 0 0 20px rgba(13, 110, 253, 0.3);
+}
+
+/* Value display trong list view */
+.value-display {
+    font-weight: 500;
 }
 
 /* ===== CUSTOM SCROLLBAR ===== */

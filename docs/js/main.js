@@ -1,11 +1,6 @@
 /**
- * Simple OI & Volume Monitor JavaScript
- * Fixed: Smart data path detection for GitHub Pages
- * Fixed: Data display issues, chart scaling, and repeated data
- * Fixed: Đơn vị hiển thị đúng cho dữ liệu từ Binance
- * Fixed: Vấn đề hiển thị trục y trên biểu đồ OI
- * Fixed: Cải thiện phát hiện nguồn dữ liệu
- * Fixed: Đảm bảo hiển thị đủ 24 giờ trên biểu đồ
+ * Simple OI & Volume Monitor JavaScript - List View Version
+ * Đã chuyển đổi từ Card View sang List View
  */
 
 class SimpleOIVolumeMonitor {
@@ -54,7 +49,7 @@ class SimpleOIVolumeMonitor {
         for (const path of paths) {
             try {
                 console.log(`🔍 Trying: ${path}`);
-                const response = await fetch(path, { cache: 'no-store' }); // Thêm no-store để tránh cache
+                const response = await fetch(path);
                 if (response.ok) {
                     const contentType = response.headers.get('content-type');
                     console.log(`✅ Success! Content-Type: ${contentType}`);
@@ -76,28 +71,43 @@ class SimpleOIVolumeMonitor {
     
     setupEventListeners() {
         // Refresh button
-        const refreshBtn = document.getElementById('refreshBtn');
-        if (refreshBtn) {
-            refreshBtn.addEventListener('click', () => {
-                this.loadAllData();
-            });
-        }
+        document.getElementById('refreshBtn')?.addEventListener('click', () => {
+            this.loadAllData();
+        });
         
         // View switcher buttons
-        const hourlyBtn = document.getElementById('hourlyBtn');
-        const dailyBtn = document.getElementById('dailyBtn');
+        document.getElementById('hourlyBtn')?.addEventListener('click', () => {
+            this.switchView('hourly');
+        });
         
-        if (hourlyBtn) {
-            hourlyBtn.addEventListener('click', () => {
-                this.switchView('hourly');
-            });
+        document.getElementById('dailyBtn')?.addEventListener('click', () => {
+            this.switchView('daily');
+        });
+        
+        // Toggle view button (List/Card)
+        document.getElementById('toggleViewBtn')?.addEventListener('click', () => {
+            this.toggleDisplayMode();
+        });
+    }
+    
+    toggleDisplayMode() {
+        const container = document.getElementById('contentContainer');
+        const toggleBtn = document.getElementById('toggleViewBtn');
+        
+        if (container.classList.contains('list-view')) {
+            // Chuyển từ list view sang card view
+            container.classList.remove('list-view');
+            container.classList.add('card-view');
+            toggleBtn.innerHTML = '<i class="bi bi-list"></i> Xem dạng danh sách';
+        } else {
+            // Chuyển từ card view sang list view
+            container.classList.remove('card-view');
+            container.classList.add('list-view');
+            toggleBtn.innerHTML = '<i class="bi bi-grid"></i> Xem dạng thẻ';
         }
         
-        if (dailyBtn) {
-            dailyBtn.addEventListener('click', () => {
-                this.switchView('daily');
-            });
-        }
+        // Render lại dữ liệu với chế độ hiển thị mới
+        this.renderCoins();
     }
     
     startAutoRefresh() {
@@ -164,10 +174,7 @@ class SimpleOIVolumeMonitor {
     }
     
     async detectDataSource() {
-        // Thử các nguồn dữ liệu có thể có theo thứ tự ưu tiên - với cache busting
-        const timestamp = new Date().getTime(); // Sử dụng timestamp để tránh cache
-        
-        // Danh sách các đường dẫn có thể
+        // Thử các nguồn dữ liệu có thể có theo thứ tự ưu tiên
         const possibleSources = [
             // Đường dẫn GitHub Pages từ /docs
             './assets/data/',                                      // Tương đối từ trang hiện tại (trong /docs)
@@ -180,8 +187,10 @@ class SimpleOIVolumeMonitor {
             '/binance-oi-volume-monitor/data/json/',               // Tuyệt đối
             'https://nhadatxuyenmocbrvt.github.io/binance-oi-volume-monitor/data/json/',  // URL đầy đủ
             
-            // Đường dẫn raw GitHub - thường ít bị cache
+            // Đường dẫn từ /docs/assets/data (raw GitHub URLs)
             'https://raw.githubusercontent.com/nhadatxuyenmocbrvt/binance-oi-volume-monitor/main/docs/assets/data/',
+            
+            // Đường dẫn từ /data/json (raw GitHub URLs)
             'https://raw.githubusercontent.com/nhadatxuyenmocbrvt/binance-oi-volume-monitor/main/data/json/',
             
             // Các đường dẫn khác
@@ -193,83 +202,20 @@ class SimpleOIVolumeMonitor {
         console.log('Current URL:', window.location.href);
         console.log('Base URL:', window.location.origin + window.location.pathname);
         
-        // Thử kiểm tra trạng thái của BTCUSDT.json và symbols.json cùng lúc để xác minh nguồn dữ liệu đầy đủ
         for (const source of possibleSources) {
             try {
                 console.log(`🔍 Trying data source: ${source}`);
-                
-                // Kiểm tra cả symbols.json và BTCUSDT.json để đảm bảo cả hai đều tồn tại
-                const symbolsURL = `${source}symbols.json?_=${timestamp}`;
-                const btcURL = `${source}BTCUSDT.json?_=${timestamp}`;
-                
-                console.log(`  Checking symbols: ${symbolsURL}`);
-                console.log(`  Checking BTC data: ${btcURL}`);
-                
-                // Kiểm tra symbols.json
-                const symbolsResponse = await fetch(symbolsURL);
-                if (!symbolsResponse.ok) {
-                    console.log(`  ❌ symbols.json not found at ${source}`);
-                    continue; // Thử nguồn khác nếu symbols.json không tìm thấy
-                }
-                
-                // Đọc danh sách symbols
-                const symbols = await symbolsResponse.json();
-                if (!Array.isArray(symbols) || symbols.length === 0) {
-                    console.log(`  ❌ symbols.json không chứa mảng hợp lệ`);
-                    continue;
-                }
-                
-                console.log(`  ✅ symbols.json tìm thấy với ${symbols.length} symbols`);
-                
-                // Kiểm tra BTCUSDT.json (ví dụ)
-                const btcResponse = await fetch(btcURL);
-                if (!btcResponse.ok) {
-                    console.log(`  ❌ BTCUSDT.json không tìm thấy tại ${source}`);
-                    continue; // Thử nguồn khác nếu BTCUSDT.json không tìm thấy
-                }
-                
-                try {
-                    // Thử parse JSON để đảm bảo nó hợp lệ
-                    const btcData = await btcResponse.json();
-                    console.log(`  ✅ BTCUSDT.json tìm thấy và hợp lệ`);
-                    
-                    // Kiểm tra nếu dữ liệu có cấu trúc mong đợi
-                    if (!btcData || typeof btcData !== 'object') {
-                        console.log(`  ⚠️ BTCUSDT.json không có định dạng mong đợi`);
-                        continue;
-                    }
-                    
-                    // Đã tìm thấy nguồn dữ liệu hợp lệ, trả về
-                    console.log(`✅ Found working data source with complete data: ${source}`);
-                    return source;
-                    
-                } catch (parseError) {
-                    console.log(`  ❌ BTCUSDT.json không phải JSON hợp lệ: ${parseError.message}`);
-                    continue;
-                }
-                
-            } catch (e) {
-                console.log(`❌ Failed: ${source} - ${e.message}`);
-                // Continue to next source
-            }
-        }
-        
-        // Thử lại với kiểm tra chỉ symbols.json (kém nghiêm ngặt hơn)
-        console.log('⚠️ Không tìm thấy nguồn dữ liệu đầy đủ. Thử tìm nguồn chỉ với symbols.json...');
-        
-        for (const source of possibleSources) {
-            try {
-                console.log(`🔍 Re-trying with only symbols.json: ${source}`);
-                const response = await fetch(`${source}symbols.json?_=${timestamp}`);
+                const response = await fetch(`${source}symbols.json`);
                 if (response.ok) {
                     const data = await response.json();
                     if (Array.isArray(data) && data.length > 0) {
-                        console.log(`✅ Found symbols.json at: ${source} (fallback method)`);
+                        console.log(`✅ Found working data source: ${source}`);
                         return source;
                     }
                 }
             } catch (e) {
-                // Bỏ qua lỗi và thử nguồn tiếp theo
+                console.log(`❌ Failed: ${source} - ${e.message}`);
+                // Continue to next source
             }
         }
         
@@ -279,10 +225,7 @@ class SimpleOIVolumeMonitor {
     
     async loadSymbolsList() {
         try {
-            // Thêm timestamp để tránh cache
-            const timestamp = new Date().getTime();
-            const response = await fetch(`${this.dataSource}symbols.json?_=${timestamp}`);
-            
+            const response = await fetch(`${this.dataSource}symbols.json`);
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
@@ -310,26 +253,13 @@ class SimpleOIVolumeMonitor {
     
     async loadSymbolData(symbol) {
         try {
-            // Thêm timestamp để tránh cache
-            const timestamp = new Date().getTime();
-            console.log(`📊 Loading data for ${symbol} from ${this.dataSource}${symbol}.json?_=${timestamp}`);
-            
-            const response = await fetch(`${this.dataSource}${symbol}.json?_=${timestamp}`);
+            console.log(`📊 Loading data for ${symbol}`);
+            const response = await fetch(`${this.dataSource}${symbol}.json`);
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
             
             const data = await response.json();
-            
-            // Kiểm tra cấu trúc dữ liệu
-            if (!data || typeof data !== 'object') {
-                throw new Error('Invalid data format');
-            }
-            
-            // Log cấu trúc dữ liệu để debug
-            console.log(`Data structure for ${symbol}:`, Object.keys(data));
-            
-            // Xử lý dữ liệu
             this.coinsData[symbol] = this.processSymbolData(data);
             
             console.log(`✅ Loaded data for ${symbol}`);
@@ -337,12 +267,8 @@ class SimpleOIVolumeMonitor {
         } catch (error) {
             console.warn(`⚠️ Không thể load dữ liệu cho ${symbol}:`, error);
             
-            // Kiểm tra xem dữ liệu đã được tạo chưa
-            if (!this.coinsData[symbol]) {
-                // Tạo dữ liệu mẫu nếu không load được
-                this.coinsData[symbol] = this.generateSampleData(symbol);
-                console.log(`⚙️ Đã tạo dữ liệu mẫu cho ${symbol}`);
-            }
+            // Tạo dữ liệu mẫu nếu không load được
+            this.coinsData[symbol] = this.generateSampleData(symbol);
         }
     }
     
@@ -352,188 +278,91 @@ class SimpleOIVolumeMonitor {
             klines: rawData.klines || {},
             open_interest: rawData.open_interest || [],
             tracking_24h: rawData.tracking_24h || [],
-            tracking_30d: rawData.tracking_30d || [],
-            symbol: rawData.symbol || 'UNKNOWN'
+            tracking_30d: rawData.tracking_30d || []
         };
         
-        console.log(`⚙️ Processing data for ${processed.symbol}`);
-        
-        // Đảm bảo klines có cấu trúc mong đợi
-        if (!processed.klines || typeof processed.klines !== 'object') {
-            processed.klines = { '1d': [] };
-        }
-        
         // Sort data by timestamp
-        if (processed.open_interest && processed.open_interest.length > 0) {
+        if (processed.open_interest.length > 0) {
             processed.open_interest.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
             
             // QUAN TRỌNG: Đảm bảo giá trị open_interest_value là số
             processed.open_interest = processed.open_interest.map(item => {
-                const openInterest = parseFloat(item.open_interest || 0);
-                const openInterestValue = parseFloat(item.open_interest_value || 0);
-                
                 return {
                     ...item,
-                    open_interest: isNaN(openInterest) ? 0 : openInterest,
-                    open_interest_value: isNaN(openInterestValue) ? 0 : openInterestValue
+                    open_interest: parseFloat(item.open_interest),
+                    open_interest_value: parseFloat(item.open_interest_value)
                 };
             });
             
             // Debug để kiểm tra giá trị OI
             if (processed.open_interest.length > 0) {
                 const lastOI = processed.open_interest[processed.open_interest.length-1];
-                console.log(`DEBUG OI: ${processed.symbol} latest OI value=${lastOI.open_interest_value.toLocaleString()} USDT`);
+                console.log(`DEBUG OI: ${rawData.symbol} latest OI value=${lastOI.open_interest_value.toLocaleString()} USDT`);
             }
         }
         
         // Xử lý dữ liệu tracking_30d
         if (processed.tracking_30d && processed.tracking_30d.length > 0) {
-            processed.tracking_30d.sort((a, b) => {
-                const dateA = a.date_timestamp ? new Date(a.date_timestamp) : 0;
-                const dateB = b.date_timestamp ? new Date(b.date_timestamp) : 0;
-                return dateA - dateB;
-            });
+            processed.tracking_30d.sort((a, b) => new Date(a.date_timestamp) - new Date(b.date_timestamp));
             
             // QUAN TRỌNG: Đảm bảo giá trị số trong trạng thái số (không phải chuỗi)
             processed.tracking_30d = processed.tracking_30d.map(item => {
-                // Tạo một bản sao của item để tránh thay đổi đối tượng gốc
-                const processedItem = { ...item };
-                
-                // Chuyển đổi các trường thành số
-                ['price', 'quote_volume', 'open_interest_value', 'avg_open_interest_value', 
-                 'price_change_1d', 'volume_change_1d', 'oi_change_1d'].forEach(field => {
-                    if (item[field] !== undefined) {
-                        const value = parseFloat(item[field]);
-                        processedItem[field] = isNaN(value) ? 0 : value;
-                    } else if (field === 'quote_volume' && item.volume !== undefined) {
-                        // Fallback nếu không có quote_volume
-                        const value = parseFloat(item.volume);
-                        processedItem.quote_volume = isNaN(value) ? 0 : value;
-                    }
-                });
-                
-                return processedItem;
+                return {
+                    ...item,
+                    price: parseFloat(item.price),
+                    quote_volume: parseFloat(item.quote_volume),
+                    open_interest_value: parseFloat(item.open_interest_value),
+                    avg_open_interest_value: parseFloat(item.avg_open_interest_value),
+                    price_change_1d: parseFloat(item.price_change_1d),
+                    volume_change_1d: parseFloat(item.volume_change_1d),
+                    oi_change_1d: parseFloat(item.oi_change_1d)
+                };
             });
             
             // Debug để kiểm tra giá trị OI và Volume trong dữ liệu 30 ngày
             if (processed.tracking_30d.length > 0) {
                 const lastRecord = processed.tracking_30d[processed.tracking_30d.length-1];
-                console.log(`DEBUG 30d: ${processed.symbol} latest values: OI=${lastRecord.open_interest_value?.toLocaleString() || 0}, Volume=${lastRecord.quote_volume?.toLocaleString() || 0}`);
+                console.log(`DEBUG 30d: ${rawData.symbol} latest values: OI=${lastRecord.open_interest_value.toLocaleString()}, Volume=${lastRecord.quote_volume.toLocaleString()}`);
             }
         }
         
-        // QUAN TRỌNG: Xử lý dữ liệu trong 24h tracking
-        if (processed.tracking_24h && processed.tracking_24h.length > 0) {
-            // Log số lượng dữ liệu ban đầu
-            console.log(`DEBUG 24h initial: ${processed.symbol} has ${processed.tracking_24h.length} data points`);
-            
-            // Sắp xếp dữ liệu theo thời gian
-            processed.tracking_24h.sort((a, b) => {
-                const timeA = a.hour_timestamp ? new Date(a.hour_timestamp) : 0;
-                const timeB = b.hour_timestamp ? new Date(b.hour_timestamp) : 0;
-                return timeA - timeB;
-            });
+        // FIX: Xử lý dữ liệu trùng lặp trong 24h tracking
+        if (processed.tracking_24h.length > 0) {
+            processed.tracking_24h.sort((a, b) => new Date(a.hour_timestamp) - new Date(b.hour_timestamp));
             
             // QUAN TRỌNG: Đảm bảo giá trị số trong trạng thái số
             processed.tracking_24h = processed.tracking_24h.map(item => {
-                // Tạo một bản sao của item để tránh thay đổi đối tượng gốc
-                const processedItem = { ...item };
-                
-                // Fix: Đảm bảo timestamp là đối tượng Date hợp lệ
-                if (item.hour_timestamp) {
-                    try {
-                        // Chuẩn hóa timestamp và giữ nguyên chuỗi gốc
-                        const timestamp = new Date(item.hour_timestamp);
-                        if (!isNaN(timestamp.getTime())) {
-                            processedItem.hour_timestamp = item.hour_timestamp;
-                        }
-                    } catch (e) {
-                        console.warn(`Invalid timestamp format: ${item.hour_timestamp}`);
-                    }
-                }
-                
-                // Chuyển đổi các trường thành số
-                ['price', 'volume', 'open_interest', 'price_change_1h', 
-                 'volume_change_1h', 'oi_change_1h'].forEach(field => {
-                    if (item[field] !== undefined) {
-                        const value = parseFloat(item[field]);
-                        processedItem[field] = isNaN(value) ? 0 : value;
-                    }
-                });
-                
-                // Đảm bảo có trường open_interest_value
-                if (item.open_interest_value !== undefined) {
-                    const value = parseFloat(item.open_interest_value);
-                    processedItem.open_interest_value = isNaN(value) ? 0 : value;
-                } else if (item.open_interest !== undefined && item.price !== undefined) {
-                    // Nếu không có open_interest_value, tính từ open_interest và price
-                    processedItem.open_interest_value = processedItem.open_interest * processedItem.price;
-                }
-                
-                // Đảm bảo có trường quote_volume
-                if (item.quote_volume !== undefined) {
-                    const value = parseFloat(item.quote_volume);
-                    processedItem.quote_volume = isNaN(value) ? 0 : value;
-                } else if (item.volume !== undefined && item.price !== undefined) {
-                    // Nếu không có quote_volume, tính từ volume và price
-                    processedItem.quote_volume = processedItem.volume * processedItem.price;
-                }
-                
-                return processedItem;
+                return {
+                    ...item,
+                    price: parseFloat(item.price),
+                    volume: parseFloat(item.volume),
+                    open_interest: parseFloat(item.open_interest),
+                    price_change_1h: parseFloat(item.price_change_1h),
+                    volume_change_1h: parseFloat(item.volume_change_1h),
+                    oi_change_1h: parseFloat(item.oi_change_1h)
+                };
             });
-            
-            // Debug: Kiểm tra phạm vi thời gian
-            if (processed.tracking_24h.length > 0) {
-                const firstItem = processed.tracking_24h[0];
-                const lastItem = processed.tracking_24h[processed.tracking_24h.length-1];
-                
-                // Hiển thị phạm vi thời gian 24h
-                if (firstItem.hour_timestamp && lastItem.hour_timestamp) {
-                    const firstTime = new Date(firstItem.hour_timestamp);
-                    const lastTime = new Date(lastItem.hour_timestamp);
-                    const timeDiffHours = Math.round((lastTime - firstTime) / (1000 * 60 * 60));
-                    
-                    console.log(`DEBUG 24h range: ${processed.symbol} - from ${firstTime.toLocaleString()} to ${lastTime.toLocaleString()} (${timeDiffHours}h range)`);
-                    
-                    // Cảnh báo nếu phạm vi nhỏ hơn 20 giờ
-                    if (timeDiffHours < 20) {
-                        console.warn(`⚠️ 24h data for ${processed.symbol} spans only ${timeDiffHours} hours instead of 24h`);
-                    }
-                }
-                
-                console.log(`DEBUG 24h: ${processed.symbol} - ${processed.tracking_24h.length} valid data points`);
-            }
         }
         
         // Process klines data
-        if (processed.klines) {
-            Object.keys(processed.klines).forEach(timeframe => {
-                if (processed.klines[timeframe] && Array.isArray(processed.klines[timeframe]) && processed.klines[timeframe].length > 0) {
-                    processed.klines[timeframe].sort((a, b) => new Date(a.open_time) - new Date(b.open_time));
-                    
-                    // Đảm bảo giá trị số
-                    processed.klines[timeframe] = processed.klines[timeframe].map(item => {
-                        // Tạo một bản sao của item để tránh thay đổi đối tượng gốc
-                        const processedItem = { ...item };
-                        
-                        // Chuyển đổi các trường thành số
-                        ['open', 'high', 'low', 'close', 'volume', 'quote_volume'].forEach(field => {
-                            if (item[field] !== undefined) {
-                                const value = parseFloat(item[field]);
-                                processedItem[field] = isNaN(value) ? 0 : value;
-                            }
-                        });
-                        
-                        // Đảm bảo có trường quote_volume
-                        if (processedItem.quote_volume === undefined && processedItem.volume !== undefined && processedItem.close !== undefined) {
-                            processedItem.quote_volume = processedItem.volume * processedItem.close;
-                        }
-                        
-                        return processedItem;
-                    });
-                }
-            });
-        }
+        Object.keys(processed.klines).forEach(timeframe => {
+            if (processed.klines[timeframe] && processed.klines[timeframe].length > 0) {
+                processed.klines[timeframe].sort((a, b) => new Date(a.open_time) - new Date(b.open_time));
+                
+                // Đảm bảo giá trị số
+                processed.klines[timeframe] = processed.klines[timeframe].map(item => {
+                    return {
+                        ...item,
+                        open: parseFloat(item.open),
+                        high: parseFloat(item.high),
+                        low: parseFloat(item.low),
+                        close: parseFloat(item.close),
+                        volume: parseFloat(item.volume),
+                        quote_volume: parseFloat(item.quote_volume)
+                    };
+                });
+            }
+        });
         
         return processed;
     }
@@ -643,11 +472,8 @@ class SimpleOIVolumeMonitor {
             
             sampleData.tracking_24h.push({
                 hour_timestamp: date.toISOString(),
-                hour: date.getHours().toString().padStart(2, '0') + ':00',
-                open_interest: hourlyOI / hourlyPrice,  // contracts
-                open_interest_value: hourlyOI,
-                volume: hourlyVolume / hourlyPrice, // contracts
-                quote_volume: hourlyVolume,
+                open_interest: hourlyOI,
+                volume: hourlyVolume,
                 price: hourlyPrice,
                 price_change_1h: (Math.random() * 2) - 1, // -1% to +1%
                 volume_change_1h: (Math.random() * 14) - 7, // -7% to +7%
@@ -668,8 +494,137 @@ class SimpleOIVolumeMonitor {
         // Use loaded symbols if available, fallback to default
         const symbolsToRender = Object.keys(this.coinsData).length > 0 ? 
             Object.keys(this.coinsData) : this.symbols;
+            
+        const isListView = document.getElementById('contentContainer').classList.contains('list-view');
         
-        symbolsToRender.forEach(symbol => {
+        if (isListView) {
+            this.renderListView(symbolsToRender);
+        } else {
+            this.renderCardView(symbolsToRender);
+        }
+    }
+    
+    renderListView(symbols) {
+        const container = document.getElementById('coinsContainer');
+        if (!container) return;
+        
+        // Tạo bảng cho list view
+        const table = document.createElement('table');
+        table.className = 'table table-striped table-hover coins-table';
+        
+        // Tạo phần thead của bảng
+        const thead = document.createElement('thead');
+        thead.className = 'table-dark';
+        
+        thead.innerHTML = `
+            <tr>
+                <th scope="col">Coin</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Open Interest</th>
+                <th scope="col">OI Change</th>
+                <th scope="col">Volume</th>
+                <th scope="col">Volume Change</th>
+                <th scope="col" class="text-center">Biểu đồ</th>
+            </tr>
+        `;
+        
+        table.appendChild(thead);
+        
+        // Tạo phần tbody của bảng
+        const tbody = document.createElement('tbody');
+        
+        symbols.forEach(symbol => {
+            if (this.coinsData[symbol]) {
+                const row = this.createCoinRow(symbol, this.coinsData[symbol]);
+                tbody.appendChild(row);
+            }
+        });
+        
+        table.appendChild(tbody);
+        container.appendChild(table);
+        
+        // Render biểu đồ mini sau khi DOM đã cập nhật
+        setTimeout(() => {
+            symbols.forEach(symbol => {
+                if (this.coinsData[symbol]) {
+                    this.renderMiniChart(symbol, this.coinsData[symbol]);
+                }
+            });
+        }, 100);
+    }
+    
+    createCoinRow(symbol, data) {
+        const row = document.createElement('tr');
+        const cleanSymbol = symbol.replace('USDT', '');
+        
+        let price = 0;
+        let oiValue = 0;
+        let oiChange = 0;
+        let volumeValue = 0;
+        let volumeChange = 0;
+        
+        // Lấy dữ liệu cần hiển thị
+        if (this.currentView === 'hourly') {
+            const hourlyData = data.tracking_24h || [];
+            if (hourlyData.length > 0) {
+                const latest = hourlyData[hourlyData.length - 1];
+                const previous = hourlyData.length > 1 ? hourlyData[hourlyData.length - 2] : latest;
+                
+                price = latest.price || 0;
+                oiValue = latest.open_interest_value || 0;
+                volumeValue = latest.quote_volume || 0;
+                oiChange = this.calculateChange(latest.open_interest_value, previous.open_interest_value);
+                volumeChange = this.calculateChange(latest.quote_volume, previous.quote_volume);
+            }
+        } else {
+            // Dữ liệu 30 ngày
+            if (data.tracking_30d && data.tracking_30d.length > 0) {
+                const latest = data.tracking_30d[data.tracking_30d.length - 1];
+                const previous = data.tracking_30d.length > 1 ? data.tracking_30d[data.tracking_30d.length - 2] : latest;
+                
+                price = latest.price || 0;
+                oiValue = latest.avg_open_interest_value || latest.open_interest_value || 0;
+                volumeValue = latest.quote_volume || 0;
+                oiChange = this.calculateChange(oiValue, previous.avg_open_interest_value || previous.open_interest_value);
+                volumeChange = this.calculateChange(latest.quote_volume, previous.quote_volume);
+            }
+        }
+        
+        row.innerHTML = `
+            <td>
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-currency-bitcoin me-2"></i>
+                    <strong>${cleanSymbol}</strong>
+                </div>
+            </td>
+            <td>${price.toFixed(2)} USDT</td>
+            <td>${this.formatNumber(oiValue)} USDT</td>
+            <td>
+                <span class="badge ${oiChange >= 0 ? 'bg-success' : 'bg-danger'}">
+                    ${oiChange >= 0 ? '+' : ''}${oiChange.toFixed(2)}%
+                </span>
+            </td>
+            <td>${this.formatNumber(volumeValue)} USDT</td>
+            <td>
+                <span class="badge ${volumeChange >= 0 ? 'bg-success' : 'bg-danger'}">
+                    ${volumeChange >= 0 ? '+' : ''}${volumeChange.toFixed(2)}%
+                </span>
+            </td>
+            <td>
+                <div class="mini-chart-container">
+                    <canvas id="minichart-${symbol}" width="150" height="50"></canvas>
+                </div>
+            </td>
+        `;
+        
+        return row;
+    }
+    
+    renderCardView(symbols) {
+        const container = document.getElementById('coinsContainer');
+        if (!container) return;
+        
+        symbols.forEach(symbol => {
             if (this.coinsData[symbol]) {
                 const coinCard = this.createCoinCard(symbol, this.coinsData[symbol]);
                 container.appendChild(coinCard);
@@ -678,7 +633,7 @@ class SimpleOIVolumeMonitor {
         
         // Render charts after DOM is updated
         setTimeout(() => {
-            symbolsToRender.forEach(symbol => {
+            symbols.forEach(symbol => {
                 if (this.coinsData[symbol]) {
                     this.renderCoinChart(symbol, this.coinsData[symbol]);
                 }
@@ -846,7 +801,7 @@ class SimpleOIVolumeMonitor {
         
         // Fallback: Sử dụng open_interest và klines
         const dailyOI = data.open_interest || [];
-        const dailyKlines = data.klines && data.klines['1d'] ? data.klines['1d'] : [];
+        const dailyKlines = data.klines['1d'] || [];
         
         if (dailyOI.length === 0 && dailyKlines.length === 0) {
             return '<div class="text-muted text-center">Không có dữ liệu</div>';
@@ -942,25 +897,17 @@ class SimpleOIVolumeMonitor {
         
         // Tính toán giá trị min và max cho trục y (Open Interest)
         const oiValues = chartData.map(item => item.oi).filter(v => v !== null && v !== undefined);
-        const minOI = oiValues.length > 0 ? Math.min(...oiValues) * 0.95 : 0; // Giảm 5% để có khoảng cách
-        const maxOI = oiValues.length > 0 ? Math.max(...oiValues) * 1.05 : 0; // Tăng 5% để có khoảng cách
+        const minOI = oiValues.length > 0 ? Math.min(...oiValues) * 0.98 : 0; // Giảm 2% để có khoảng cách
+        const maxOI = oiValues.length > 0 ? Math.max(...oiValues) * 1.02 : 0; // Tăng 2% để có khoảng cách
         
         // Tính toán giá trị min và max cho trục y1 (Volume)
         const volumeValues = chartData.map(item => item.volume).filter(v => v !== null && v !== undefined);
-        const minVolume = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.95 : 0;
-        const maxVolume = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.05 : 0;
+        const minVolume = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.98 : 0;
+        const maxVolume = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.02 : 0;
         
         // Log để debug
-        console.log(`${symbol} Chart data points: ${chartData.length}`);
         console.log(`${symbol} OI range: ${this.formatNumber(minOI)} - ${this.formatNumber(maxOI)}`);
         console.log(`${symbol} Volume range: ${this.formatNumber(minVolume)} - ${this.formatNumber(maxVolume)}`);
-        
-        // Log phạm vi thời gian cho debug
-        if (chartData.length > 0) {
-            const firstPoint = chartData[0];
-            const lastPoint = chartData[chartData.length - 1];
-            console.log(`${symbol} Time range: ${new Date(firstPoint.x).toLocaleString()} to ${new Date(lastPoint.x).toLocaleString()}`);
-        }
         
         // FIX: Cải thiện cấu hình biểu đồ với min/max đã tính toán
         this.charts[symbol] = new Chart(ctx, {
@@ -977,7 +924,7 @@ class SimpleOIVolumeMonitor {
                         pointRadius: 2,
                         pointHoverRadius: 4,
                         // FIX: Xử lý dữ liệu bị thiếu
-                        spanGaps: true
+                        spanGaps: false
                     },
                     {
                         label: 'Volume',
@@ -989,7 +936,7 @@ class SimpleOIVolumeMonitor {
                         pointRadius: 2,
                         pointHoverRadius: 4,
                         // FIX: Xử lý dữ liệu bị thiếu
-                        spanGaps: true
+                        spanGaps: false
                     }
                 ]
             },
@@ -1027,22 +974,10 @@ class SimpleOIVolumeMonitor {
                             displayFormats: {
                                 hour: 'HH:mm',
                                 day: 'MM/dd'
-                            },
-                            tooltipFormat: this.currentView === 'hourly' ? 'dd/MM HH:mm' : 'dd/MM/yyyy'
+                            }
                         },
                         grid: {
                             display: false
-                        },
-                        // FIX: Hiển thị đủ phạm vi trục X
-                        min: this.currentView === 'hourly' ? (() => {
-                            const date = new Date();
-                            date.setHours(date.getHours() - 24);
-                            return date;
-                        })() : undefined,
-                        ticks: {
-                            maxRotation: 0,
-                            autoSkip: true,
-                            maxTicksLimit: this.currentView === 'hourly' ? 6 : 10
                         }
                     },
                     y: {
@@ -1085,15 +1020,77 @@ class SimpleOIVolumeMonitor {
         });
     }
     
+    // Render mini chart cho list view
+    renderMiniChart(symbol, data) {
+        const canvas = document.getElementById(`minichart-${symbol}`);
+        if (!canvas) return;
+        
+        // Xóa biểu đồ cũ nếu có
+        if (this.charts[`mini-${symbol}`]) {
+            this.charts[`mini-${symbol}`].destroy();
+        }
+        
+        const ctx = canvas.getContext('2d');
+        const chartData = this.prepareChartData(symbol, data);
+        
+        if (chartData.length === 0) {
+            ctx.fillStyle = '#6c757d';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Không có dữ liệu', canvas.width / 2, canvas.height / 2);
+            return;
+        }
+        
+        // Cấu hình mini chart đơn giản hơn
+        this.charts[`mini-${symbol}`] = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        label: 'OI',
+                        data: chartData.map(item => ({ x: item.x, y: item.oi })),
+                        borderColor: '#f5576c',
+                        borderWidth: 1.5,
+                        pointRadius: 0,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        display: false
+                    },
+                    y: {
+                        display: false
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                }
+            }
+        });
+    }
+    
     prepareChartData(symbol, data) {
         let chartData = [];
         
         if (this.currentView === 'hourly') {
             // Data cho view theo giờ (24h)
             const hourlyData = data.tracking_24h || [];
-            
-            // Log số lượng dữ liệu ban đầu
-            console.log(`${symbol} hourly data: ${hourlyData.length} points before processing`);
             
             // FIX: Lọc dữ liệu không hợp lệ - luôn sử dụng quote_volume và open_interest_value
             chartData = hourlyData
@@ -1108,91 +1105,10 @@ class SimpleOIVolumeMonitor {
                     (item.quote_volume || item.volume) > 0
                 )
                 .map(item => ({
-                    x: new Date(item.hour_timestamp),
+                    x: item.hour_timestamp,
                     oi: item.open_interest_value || item.open_interest || 0, 
                     volume: item.quote_volume || item.volume || 0
                 }));
-            
-            // Sắp xếp lại dữ liệu theo thời gian
-            chartData.sort((a, b) => a.x - b.x);
-            
-            // FIX: Nếu không đủ 24 điểm dữ liệu, tạo thêm dữ liệu ước tính
-            if (chartData.length > 0 && chartData.length < 24) {
-                console.log(`${symbol} has only ${chartData.length} hourly data points, filling gaps...`);
-                
-                const filledData = [];
-                const now = new Date();
-                const lastPoint = chartData[chartData.length - 1];
-                
-                // Tạo mảng đầy đủ 24 giờ
-                for (let i = 23; i >= 0; i--) {
-                    const hourPoint = new Date(now);
-                    hourPoint.setHours(hourPoint.getHours() - i);
-                    hourPoint.setMinutes(0, 0, 0);
-                    
-                    // Tìm điểm dữ liệu gần nhất với giờ này
-                    const matchingPoint = chartData.find(point => 
-                        Math.abs(point.x - hourPoint) < 30 * 60 * 1000 // Trong vòng 30 phút
-                    );
-                    
-                    if (matchingPoint) {
-                        // Nếu có điểm dữ liệu phù hợp, sử dụng điểm đó với giờ đã điều chỉnh
-                        filledData.push({
-                            ...matchingPoint,
-                            x: hourPoint
-                        });
-                    } else {
-                        // Nếu không có, ước tính giá trị
-                        // Tìm điểm dữ liệu gần nhất trước và sau
-                        const prevPoints = chartData.filter(p => p.x < hourPoint).sort((a, b) => b.x - a.x);
-                        const nextPoints = chartData.filter(p => p.x > hourPoint).sort((a, b) => a.x - b.x);
-                        
-                        const prevPoint = prevPoints.length > 0 ? prevPoints[0] : null;
-                        const nextPoint = nextPoints.length > 0 ? nextPoints[0] : null;
-                        
-                        if (prevPoint && nextPoint) {
-                            // Nội suy tuyến tính
-                            const totalTime = nextPoint.x - prevPoint.x;
-                            const timeFromPrev = hourPoint - prevPoint.x;
-                            const ratio = timeFromPrev / totalTime;
-                            
-                            const oi = prevPoint.oi + (nextPoint.oi - prevPoint.oi) * ratio;
-                            const volume = prevPoint.volume + (nextPoint.volume - prevPoint.volume) * ratio;
-                            
-                            filledData.push({
-                                x: hourPoint,
-                                oi: oi,
-                                volume: volume
-                            });
-                        } else if (prevPoint) {
-                            // Chỉ có điểm trước
-                            filledData.push({
-                                x: hourPoint,
-                                oi: prevPoint.oi,
-                                volume: prevPoint.volume
-                            });
-                        } else if (nextPoint) {
-                            // Chỉ có điểm sau
-                            filledData.push({
-                                x: hourPoint,
-                                oi: nextPoint.oi,
-                                volume: nextPoint.volume
-                            });
-                        } else if (lastPoint) {
-                            // Không có điểm nào, sử dụng điểm cuối cùng
-                            filledData.push({
-                                x: hourPoint,
-                                oi: lastPoint.oi,
-                                volume: lastPoint.volume
-                            });
-                        }
-                    }
-                }
-                
-                // Sắp xếp lại dữ liệu theo thời gian
-                filledData.sort((a, b) => a.x - b.x);
-                chartData = filledData;
-            }
                     
             // Log dữ liệu biểu đồ để debug
             if (chartData.length > 0) {
@@ -1213,7 +1129,7 @@ class SimpleOIVolumeMonitor {
                         item.quote_volume > 0
                     )
                     .map(item => ({
-                        x: new Date(item.date_timestamp),
+                        x: item.date_timestamp,
                         oi: item.avg_open_interest_value || item.open_interest_value || 0,
                         volume: item.quote_volume || 0
                     }));
@@ -1256,7 +1172,7 @@ class SimpleOIVolumeMonitor {
                     .sort()
                     .slice(-30) // Lấy 30 ngày gần nhất
                     .map(date => ({
-                        x: new Date(mergedData[date].timestamp),
+                        x: mergedData[date].timestamp,
                         oi: mergedData[date].oi || 0,
                         volume: mergedData[date].volume || 0
                     }))

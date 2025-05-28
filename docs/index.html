@@ -22,6 +22,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        /* Styles cho card view */
         .coin-card {
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -54,6 +55,31 @@
             margin: 15px 0;
         }
         
+        /* Style cho list view */
+        .coins-table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        
+        .coins-table th {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .mini-chart-container {
+            width: 150px;
+            height: 50px;
+            margin: 0 auto;
+        }
+        
+        .list-view .row {
+            margin-right: 0;
+            margin-left: 0;
+        }
+        
+        /* Style chung cho cả card và list view */
         .time-nav {
             background: white;
             border-radius: 8px;
@@ -95,6 +121,38 @@
             margin-bottom: 10px;
             display: none;
         }
+        
+        /* Thêm margin cho button */
+        .btn-group.view-toggle {
+            margin-left: 10px;
+        }
+        
+        /* Responsive table */
+        @media (max-width: 992px) {
+            .coins-table {
+                font-size: 0.85rem;
+            }
+            
+            .mini-chart-container {
+                width: 100px;
+                height: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .coins-table .chart-column {
+                display: none;
+            }
+            
+            .time-nav .btn-group-wrapper {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .time-nav .btn-group {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -126,7 +184,7 @@
     <div class="container-fluid py-4">
         <!-- Time Navigation -->
         <div class="time-nav">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center btn-group-wrapper">
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-outline-primary active" id="hourlyBtn">
                         <i class="bi bi-clock me-1"></i>
@@ -135,6 +193,14 @@
                     <button type="button" class="btn btn-outline-primary" id="dailyBtn">
                         <i class="bi bi-calendar3 me-1"></i>
                         Theo Ngày (30 ngày)
+                    </button>
+                </div>
+                
+                <!-- Thêm nút chuyển đổi kiểu hiển thị -->
+                <div class="btn-group view-toggle" role="group">
+                    <button type="button" class="btn btn-outline-secondary" id="toggleViewBtn">
+                        <i class="bi bi-list me-1"></i>
+                        Xem dạng danh sách
                     </button>
                 </div>
             </div>
@@ -162,8 +228,10 @@
 
         <!-- Content -->
         <div id="contentDiv" class="d-none">
-            <div class="row" id="coinsContainer">
-                <!-- Coins will be loaded here -->
+            <div id="contentContainer" class="card-view">
+                <div class="row" id="coinsContainer">
+                    <!-- Coins will be loaded here -->
+                </div>
             </div>
         </div>
     </div>
@@ -181,7 +249,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript -->
+    <!-- Our custom JS -->
     <script src="js/main.js"></script>
 </body>
 </html>
