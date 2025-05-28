@@ -5,6 +5,7 @@
  * Fixed: Đơn vị hiển thị đúng cho dữ liệu từ Binance
  * Fixed: Vấn đề hiển thị trục y trên biểu đồ OI
  * Fixed: Cải thiện phát hiện nguồn dữ liệu
+ * Fixed: Đảm bảo hiển thị đủ 24 giờ trên biểu đồ
  */
 
 class SimpleOIVolumeMonitor {
@@ -421,8 +422,12 @@ class SimpleOIVolumeMonitor {
             }
         }
         
-        // FIX: Xử lý dữ liệu trong 24h tracking
+        // QUAN TRỌNG: Xử lý dữ liệu trong 24h tracking
         if (processed.tracking_24h && processed.tracking_24h.length > 0) {
+            // Log số lượng dữ liệu ban đầu
+            console.log(`DEBUG 24h initial: ${processed.symbol} has ${processed.tracking_24h.length} data points`);
+            
+            // Sắp xếp dữ liệu theo thời gian
             processed.tracking_24h.sort((a, b) => {
                 const timeA = a.hour_timestamp ? new Date(a.hour_timestamp) : 0;
                 const timeB = b.hour_timestamp ? new Date(b.hour_timestamp) : 0;
@@ -433,6 +438,19 @@ class SimpleOIVolumeMonitor {
             processed.tracking_24h = processed.tracking_24h.map(item => {
                 // Tạo một bản sao của item để tránh thay đổi đối tượng gốc
                 const processedItem = { ...item };
+                
+                // Fix: Đảm bảo timestamp là đối tượng Date hợp lệ
+                if (item.hour_timestamp) {
+                    try {
+                        // Chuẩn hóa timestamp và giữ nguyên chuỗi gốc
+                        const timestamp = new Date(item.hour_timestamp);
+                        if (!isNaN(timestamp.getTime())) {
+                            processedItem.hour_timestamp = item.hour_timestamp;
+                        }
+                    } catch (e) {
+                        console.warn(`Invalid timestamp format: ${item.hour_timestamp}`);
+                    }
+                }
                 
                 // Chuyển đổi các trường thành số
                 ['price', 'volume', 'open_interest', 'price_change_1h', 
@@ -464,14 +482,26 @@ class SimpleOIVolumeMonitor {
                 return processedItem;
             });
             
-            // Log để kiểm tra sau khi xử lý
+            // Debug: Kiểm tra phạm vi thời gian
             if (processed.tracking_24h.length > 0) {
                 const firstItem = processed.tracking_24h[0];
                 const lastItem = processed.tracking_24h[processed.tracking_24h.length-1];
                 
-                console.log(`DEBUG 24h first: ${processed.symbol} - ${new Date(firstItem.hour_timestamp).toLocaleString()}`);
-                console.log(`DEBUG 24h last: ${processed.symbol} - ${new Date(lastItem.hour_timestamp).toLocaleString()}`);
-                console.log(`DEBUG 24h data count: ${processed.tracking_24h.length}`);
+                // Hiển thị phạm vi thời gian 24h
+                if (firstItem.hour_timestamp && lastItem.hour_timestamp) {
+                    const firstTime = new Date(firstItem.hour_timestamp);
+                    const lastTime = new Date(lastItem.hour_timestamp);
+                    const timeDiffHours = Math.round((lastTime - firstTime) / (1000 * 60 * 60));
+                    
+                    console.log(`DEBUG 24h range: ${processed.symbol} - from ${firstTime.toLocaleString()} to ${lastTime.toLocaleString()} (${timeDiffHours}h range)`);
+                    
+                    // Cảnh báo nếu phạm vi nhỏ hơn 20 giờ
+                    if (timeDiffHours < 20) {
+                        console.warn(`⚠️ 24h data for ${processed.symbol} spans only ${timeDiffHours} hours instead of 24h`);
+                    }
+                }
+                
+                console.log(`DEBUG 24h: ${processed.symbol} - ${processed.tracking_24h.length} valid data points`);
             }
         }
         
@@ -912,17 +942,25 @@ class SimpleOIVolumeMonitor {
         
         // Tính toán giá trị min và max cho trục y (Open Interest)
         const oiValues = chartData.map(item => item.oi).filter(v => v !== null && v !== undefined);
-        const minOI = oiValues.length > 0 ? Math.min(...oiValues) * 0.98 : 0; // Giảm 2% để có khoảng cách
-        const maxOI = oiValues.length > 0 ? Math.max(...oiValues) * 1.02 : 0; // Tăng 2% để có khoảng cách
+        const minOI = oiValues.length > 0 ? Math.min(...oiValues) * 0.95 : 0; // Giảm 5% để có khoảng cách
+        const maxOI = oiValues.length > 0 ? Math.max(...oiValues) * 1.05 : 0; // Tăng 5% để có khoảng cách
         
         // Tính toán giá trị min và max cho trục y1 (Volume)
         const volumeValues = chartData.map(item => item.volume).filter(v => v !== null && v !== undefined);
-        const minVolume = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.98 : 0;
-        const maxVolume = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.02 : 0;
+        const minVolume = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.95 : 0;
+        const maxVolume = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.05 : 0;
         
         // Log để debug
+        console.log(`${symbol} Chart data points: ${chartData.length}`);
         console.log(`${symbol} OI range: ${this.formatNumber(minOI)} - ${this.formatNumber(maxOI)}`);
         console.log(`${symbol} Volume range: ${this.formatNumber(minVolume)} - ${this.formatNumber(maxVolume)}`);
+        
+        // Log phạm vi thời gian cho debug
+        if (chartData.length > 0) {
+            const firstPoint = chartData[0];
+            const lastPoint = chartData[chartData.length - 1];
+            console.log(`${symbol} Time range: ${new Date(firstPoint.x).toLocaleString()} to ${new Date(lastPoint.x).toLocaleString()}`);
+        }
         
         // FIX: Cải thiện cấu hình biểu đồ với min/max đã tính toán
         this.charts[symbol] = new Chart(ctx, {
@@ -989,10 +1027,22 @@ class SimpleOIVolumeMonitor {
                             displayFormats: {
                                 hour: 'HH:mm',
                                 day: 'MM/dd'
-                            }
+                            },
+                            tooltipFormat: this.currentView === 'hourly' ? 'dd/MM HH:mm' : 'dd/MM/yyyy'
                         },
                         grid: {
                             display: false
+                        },
+                        // FIX: Hiển thị đủ phạm vi trục X
+                        min: this.currentView === 'hourly' ? (() => {
+                            const date = new Date();
+                            date.setHours(date.getHours() - 24);
+                            return date;
+                        })() : undefined,
+                        ticks: {
+                            maxRotation: 0,
+                            autoSkip: true,
+                            maxTicksLimit: this.currentView === 'hourly' ? 6 : 10
                         }
                     },
                     y: {
@@ -1042,6 +1092,9 @@ class SimpleOIVolumeMonitor {
             // Data cho view theo giờ (24h)
             const hourlyData = data.tracking_24h || [];
             
+            // Log số lượng dữ liệu ban đầu
+            console.log(`${symbol} hourly data: ${hourlyData.length} points before processing`);
+            
             // FIX: Lọc dữ liệu không hợp lệ - luôn sử dụng quote_volume và open_interest_value
             chartData = hourlyData
                 .filter(item => 
@@ -1055,10 +1108,91 @@ class SimpleOIVolumeMonitor {
                     (item.quote_volume || item.volume) > 0
                 )
                 .map(item => ({
-                    x: item.hour_timestamp,
+                    x: new Date(item.hour_timestamp),
                     oi: item.open_interest_value || item.open_interest || 0, 
                     volume: item.quote_volume || item.volume || 0
                 }));
+            
+            // Sắp xếp lại dữ liệu theo thời gian
+            chartData.sort((a, b) => a.x - b.x);
+            
+            // FIX: Nếu không đủ 24 điểm dữ liệu, tạo thêm dữ liệu ước tính
+            if (chartData.length > 0 && chartData.length < 24) {
+                console.log(`${symbol} has only ${chartData.length} hourly data points, filling gaps...`);
+                
+                const filledData = [];
+                const now = new Date();
+                const lastPoint = chartData[chartData.length - 1];
+                
+                // Tạo mảng đầy đủ 24 giờ
+                for (let i = 23; i >= 0; i--) {
+                    const hourPoint = new Date(now);
+                    hourPoint.setHours(hourPoint.getHours() - i);
+                    hourPoint.setMinutes(0, 0, 0);
+                    
+                    // Tìm điểm dữ liệu gần nhất với giờ này
+                    const matchingPoint = chartData.find(point => 
+                        Math.abs(point.x - hourPoint) < 30 * 60 * 1000 // Trong vòng 30 phút
+                    );
+                    
+                    if (matchingPoint) {
+                        // Nếu có điểm dữ liệu phù hợp, sử dụng điểm đó với giờ đã điều chỉnh
+                        filledData.push({
+                            ...matchingPoint,
+                            x: hourPoint
+                        });
+                    } else {
+                        // Nếu không có, ước tính giá trị
+                        // Tìm điểm dữ liệu gần nhất trước và sau
+                        const prevPoints = chartData.filter(p => p.x < hourPoint).sort((a, b) => b.x - a.x);
+                        const nextPoints = chartData.filter(p => p.x > hourPoint).sort((a, b) => a.x - b.x);
+                        
+                        const prevPoint = prevPoints.length > 0 ? prevPoints[0] : null;
+                        const nextPoint = nextPoints.length > 0 ? nextPoints[0] : null;
+                        
+                        if (prevPoint && nextPoint) {
+                            // Nội suy tuyến tính
+                            const totalTime = nextPoint.x - prevPoint.x;
+                            const timeFromPrev = hourPoint - prevPoint.x;
+                            const ratio = timeFromPrev / totalTime;
+                            
+                            const oi = prevPoint.oi + (nextPoint.oi - prevPoint.oi) * ratio;
+                            const volume = prevPoint.volume + (nextPoint.volume - prevPoint.volume) * ratio;
+                            
+                            filledData.push({
+                                x: hourPoint,
+                                oi: oi,
+                                volume: volume
+                            });
+                        } else if (prevPoint) {
+                            // Chỉ có điểm trước
+                            filledData.push({
+                                x: hourPoint,
+                                oi: prevPoint.oi,
+                                volume: prevPoint.volume
+                            });
+                        } else if (nextPoint) {
+                            // Chỉ có điểm sau
+                            filledData.push({
+                                x: hourPoint,
+                                oi: nextPoint.oi,
+                                volume: nextPoint.volume
+                            });
+                        } else if (lastPoint) {
+                            // Không có điểm nào, sử dụng điểm cuối cùng
+                            filledData.push({
+                                x: hourPoint,
+                                oi: lastPoint.oi,
+                                volume: lastPoint.volume
+                            });
+                        }
+                    }
+                }
+                
+                // Sắp xếp lại dữ liệu theo thời gian
+                filledData.sort((a, b) => a.x - b.x);
+                chartData = filledData;
+            }
                     
             // Log dữ liệu biểu đồ để debug
             if (chartData.length > 0) {
@@ -1079,7 +1213,7 @@ class SimpleOIVolumeMonitor {
                         item.quote_volume > 0
                     )
                     .map(item => ({
-                        x: item.date_timestamp,
+                        x: new Date(item.date_timestamp),
                         oi: item.avg_open_interest_value || item.open_interest_value || 0,
                         volume: item.quote_volume || 0
                     }));
@@ -1122,7 +1256,7 @@ class SimpleOIVolumeMonitor {
                     .sort()
                     .slice(-30) // Lấy 30 ngày gần nhất
                     .map(date => ({
-                        x: mergedData[date].timestamp,
+                        x: new Date(mergedData[date].timestamp),
                         oi: mergedData[date].oi || 0,
                         volume: mergedData[date].volume || 0
                     }))
