@@ -1,7 +1,8 @@
 /**
  * Simple OI & Volume Monitor CSS
  * Tối ưu cho giao diện theo dõi OI và Volume
- * Hỗ trợ cả Card View và List View
+ * Hỗ trợ cả Card View, List View và Biểu đồ dạng cột
+ * Version 2.0.0
  */
 
 /* ===== VARIABLES ===== */
@@ -25,6 +26,12 @@
     --border-radius-lg: 12px;
     
     --transition: all 0.2s ease;
+    
+    /* Biến mới cho biểu đồ dạng cột */
+    --oi-bar-color: rgba(245, 87, 108, 0.7);
+    --oi-bar-border: #f5576c;
+    --volume-bar-color: rgba(0, 242, 254, 0.7);
+    --volume-bar-border: #00f2fe;
 }
 
 /* ===== GLOBAL STYLES ===== */
@@ -143,6 +150,9 @@ body {
     width: 150px;
     height: 50px;
     margin: 0 auto;
+    background-color: transparent;
+    overflow: hidden;
+    border-radius: 4px;
 }
 
 /* Hover effects for table rows */
@@ -252,7 +262,7 @@ body {
 
 /* ===== CHARTS ===== */
 .chart-container {
-    height: 300px;
+    height: 350px;  /* Tăng từ 300px lên 350px */
     margin: 1rem 0;
     padding: 0.5rem;
     background: #fafafa;
@@ -262,6 +272,29 @@ body {
 
 .chart-container canvas {
     border-radius: calc(var(--border-radius) - 2px);
+}
+
+/* Hiệu ứng hover cho các cột */
+.chart-container:hover {
+    box-shadow: var(--shadow-md);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Tùy chỉnh tooltip */
+.chart-js-tooltip {
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(5px);
+    border-radius: 4px;
+    padding: 8px 12px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none !important;
+    color: white !important;
+    font-weight: 500;
+}
+
+/* Hiệu ứng hover cho biểu đồ mini */
+.mini-chart-container:hover {
+    opacity: 0.9;
 }
 
 /* ===== STATUS & LOADING ===== */
@@ -403,8 +436,8 @@ footer small {
     }
     
     .chart-container {
-        height: 250px;
-        margin: 0.75rem 0;
+        height: 300px;
+        padding: 0.3rem;
     }
     
     .time-nav {
@@ -470,7 +503,7 @@ footer small {
     }
     
     .chart-container {
-        height: 200px;
+        height: 250px;
     }
     
     .time-nav .btn-group {
@@ -510,6 +543,17 @@ footer small {
     }
     100% {
         box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+    }
+}
+
+@keyframes barGrow {
+    from { 
+        opacity: 0;
+        transform: scaleY(0);
+    }
+    to {
+        opacity: 1;
+        transform: scaleY(1);
     }
 }
 

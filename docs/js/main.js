@@ -1,6 +1,7 @@
 /**
- * Simple OI & Volume Monitor JavaScript - List View Version
- * Đã chuyển đổi từ Card View sang List View
+ * Simple OI & Volume Monitor JavaScript
+ * Đã cập nhật với chức năng hiển thị biểu đồ dạng cột và hỗ trợ List View
+ * Version 2.0.0
  */
 
 class SimpleOIVolumeMonitor {
@@ -495,7 +496,7 @@ class SimpleOIVolumeMonitor {
         const symbolsToRender = Object.keys(this.coinsData).length > 0 ? 
             Object.keys(this.coinsData) : this.symbols;
             
-        const isListView = document.getElementById('contentContainer').classList.contains('list-view');
+        const isListView = document.getElementById('contentContainer')?.classList.contains('list-view');
         
         if (isListView) {
             this.renderListView(symbolsToRender);
@@ -884,7 +885,7 @@ class SimpleOIVolumeMonitor {
         }
         
         const ctx = canvas.getContext('2d');
-        const chartData = this.prepareChartData(symbol, data);
+        let chartData = this.prepareChartData(symbol, data);
         
         if (chartData.length === 0) {
             // Draw "no data" message
@@ -895,48 +896,51 @@ class SimpleOIVolumeMonitor {
             return;
         }
         
+        // Giới hạn số lượng điểm dữ liệu
+        if (this.currentView === 'hourly') {
+            // Lấy tối đa 24 điểm dữ liệu cho chế độ giờ
+            chartData = chartData.slice(-24);
+        } else {
+            // Lấy tối đa 30 điểm dữ liệu cho chế độ ngày
+            chartData = chartData.slice(-30);
+        }
+        
         // Tính toán giá trị min và max cho trục y (Open Interest)
         const oiValues = chartData.map(item => item.oi).filter(v => v !== null && v !== undefined);
-        const minOI = oiValues.length > 0 ? Math.min(...oiValues) * 0.98 : 0; // Giảm 2% để có khoảng cách
-        const maxOI = oiValues.length > 0 ? Math.max(...oiValues) * 1.02 : 0; // Tăng 2% để có khoảng cách
+        const minOI = oiValues.length > 0 ? Math.min(...oiValues) * 0.95 : 0; // Giảm 5% để có khoảng cách
+        const maxOI = oiValues.length > 0 ? Math.max(...oiValues) * 1.05 : 0; // Tăng 5% để có khoảng cách
         
         // Tính toán giá trị min và max cho trục y1 (Volume)
         const volumeValues = chartData.map(item => item.volume).filter(v => v !== null && v !== undefined);
-        const minVolume = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.98 : 0;
-        const maxVolume = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.02 : 0;
+        const minVolume = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.95 : 0;
+        const maxVolume = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.05 : 0;
         
-        // Log để debug
-        console.log(`${symbol} OI range: ${this.formatNumber(minOI)} - ${this.formatNumber(maxOI)}`);
-        console.log(`${symbol} Volume range: ${this.formatNumber(minVolume)} - ${this.formatNumber(maxVolume)}`);
-        
-        // FIX: Cải thiện cấu hình biểu đồ với min/max đã tính toán
+        // Thay đổi loại biểu đồ từ 'line' sang 'bar'
         this.charts[symbol] = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 datasets: [
                     {
                         label: 'Open Interest',
                         data: chartData.map(item => ({ x: item.x, y: item.oi })),
+                        backgroundColor: 'rgba(245, 87, 108, 0.7)',
                         borderColor: '#f5576c',
-                        backgroundColor: 'rgba(245, 87, 108, 0.1)',
+                        borderWidth: 1,
                         yAxisID: 'y',
-                        tension: 0.4,
-                        pointRadius: 2,
-                        pointHoverRadius: 4,
-                        // FIX: Xử lý dữ liệu bị thiếu
-                        spanGaps: false
+                        barPercentage: 0.8,
+                        categoryPercentage: 0.9,
+                        order: 1
                     },
                     {
                         label: 'Volume',
                         data: chartData.map(item => ({ x: item.x, y: item.volume })),
+                        backgroundColor: 'rgba(0, 242, 254, 0.7)',
                         borderColor: '#00f2fe',
-                        backgroundColor: 'rgba(0, 242, 254, 0.1)',
+                        borderWidth: 1,
                         yAxisID: 'y1',
-                        tension: 0.4,
-                        pointRadius: 2,
-                        pointHoverRadius: 4,
-                        // FIX: Xử lý dữ liệu bị thiếu
-                        spanGaps: false
+                        barPercentage: 0.8,
+                        categoryPercentage: 0.9,
+                        order: 2
                     }
                 ]
             },
@@ -974,17 +978,22 @@ class SimpleOIVolumeMonitor {
                             displayFormats: {
                                 hour: 'HH:mm',
                                 day: 'MM/dd'
-                            }
+                            },
+                            tooltipFormat: this.currentView === 'hourly' ? 'HH:mm' : 'dd/MM/yyyy'
                         },
                         grid: {
                             display: false
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 0
                         }
                     },
                     y: {
                         type: 'linear',
                         display: true,
                         position: 'left',
-                        // FIX: Đặt min và max dựa trên dữ liệu thực tế
+                        // Đặt min và max dựa trên dữ liệu thực tế
                         min: minOI,
                         max: maxOI,
                         title: {
@@ -1000,7 +1009,7 @@ class SimpleOIVolumeMonitor {
                         type: 'linear',
                         display: true,
                         position: 'right',
-                        // FIX: Đặt min và max dựa trên dữ liệu thực tế
+                        // Đặt min và max dựa trên dữ liệu thực tế
                         min: minVolume,
                         max: maxVolume,
                         title: {
@@ -1031,7 +1040,7 @@ class SimpleOIVolumeMonitor {
         }
         
         const ctx = canvas.getContext('2d');
-        const chartData = this.prepareChartData(symbol, data);
+        let chartData = this.prepareChartData(symbol, data);
         
         if (chartData.length === 0) {
             ctx.fillStyle = '#6c757d';
@@ -1041,18 +1050,28 @@ class SimpleOIVolumeMonitor {
             return;
         }
         
-        // Cấu hình mini chart đơn giản hơn
+        // Giới hạn số lượng điểm dữ liệu
+        if (this.currentView === 'hourly') {
+            // Lấy tối đa 12 điểm dữ liệu cho biểu đồ mini
+            chartData = chartData.slice(-12);
+        } else {
+            // Lấy tối đa 15 điểm dữ liệu cho biểu đồ mini
+            chartData = chartData.slice(-15);
+        }
+        
+        // Cấu hình mini chart đơn giản hơn nhưng cũng dùng dạng cột
         this.charts[`mini-${symbol}`] = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 datasets: [
                     {
                         label: 'OI',
                         data: chartData.map(item => ({ x: item.x, y: item.oi })),
+                        backgroundColor: 'rgba(245, 87, 108, 0.7)',
                         borderColor: '#f5576c',
-                        borderWidth: 1.5,
-                        pointRadius: 0,
-                        tension: 0.4
+                        borderWidth: 1,
+                        barPercentage: 1,
+                        categoryPercentage: 0.95
                     }
                 ]
             },
@@ -1073,7 +1092,8 @@ class SimpleOIVolumeMonitor {
                         display: false
                     },
                     y: {
-                        display: false
+                        display: false,
+                        beginAtZero: false
                     }
                 },
                 elements: {
@@ -1092,7 +1112,7 @@ class SimpleOIVolumeMonitor {
             // Data cho view theo giờ (24h)
             const hourlyData = data.tracking_24h || [];
             
-            // FIX: Lọc dữ liệu không hợp lệ - luôn sử dụng quote_volume và open_interest_value
+            // Lọc dữ liệu không hợp lệ - luôn sử dụng quote_volume và open_interest_value
             chartData = hourlyData
                 .filter(item => 
                     item && 
@@ -1109,13 +1129,13 @@ class SimpleOIVolumeMonitor {
                     oi: item.open_interest_value || item.open_interest || 0, 
                     volume: item.quote_volume || item.volume || 0
                 }));
-                    
-            // Log dữ liệu biểu đồ để debug
-            if (chartData.length > 0) {
-                console.log(`${symbol} 24h chart data: ${chartData.length} points, Volume range: ${Math.min(...chartData.map(item => item.volume)).toLocaleString()} - ${Math.max(...chartData.map(item => item.volume)).toLocaleString()}`);
+            
+            // Giới hạn 24 điểm dữ liệu (24 giờ)
+            if (chartData.length > 24) {
+                chartData = chartData.slice(-24);
             }
         } else {
-            // FIX: Ưu tiên sử dụng tracking_30d nếu có
+            // Ưu tiên sử dụng tracking_30d nếu có
             if (data.tracking_30d && data.tracking_30d.length > 0) {
                 chartData = data.tracking_30d
                     .filter(item => 
@@ -1134,9 +1154,9 @@ class SimpleOIVolumeMonitor {
                         volume: item.quote_volume || 0
                     }));
                 
-                // Log dữ liệu biểu đồ để debug
-                if (chartData.length > 0) {
-                    console.log(`${symbol} 30d chart data: ${chartData.length} points, Volume range: ${Math.min(...chartData.map(item => item.volume)).toLocaleString()} - ${Math.max(...chartData.map(item => item.volume)).toLocaleString()}`);
+                // Giới hạn 30 điểm dữ liệu (30 ngày)
+                if (chartData.length > 30) {
+                    chartData = chartData.slice(-30);
                 }
             } else {
                 // Fallback: Data cho view theo ngày (30 ngày) từ open_interest và klines
@@ -1152,7 +1172,7 @@ class SimpleOIVolumeMonitor {
                     const date = item.timestamp.split('T')[0];
                     if (!mergedData[date]) mergedData[date] = {};
                     
-                    // FIX: Ưu tiên sử dụng open_interest_value
+                    // Ưu tiên sử dụng open_interest_value
                     mergedData[date].oi = item.open_interest_value || item.open_interest || 0;
                     mergedData[date].timestamp = item.timestamp;
                 });
@@ -1163,7 +1183,7 @@ class SimpleOIVolumeMonitor {
                     const date = item.open_time.split('T')[0];
                     if (!mergedData[date]) mergedData[date] = {};
                     
-                    // FIX: Ưu tiên sử dụng quote_volume
+                    // Ưu tiên sử dụng quote_volume
                     mergedData[date].volume = item.quote_volume || (item.volume * item.close) || 0;
                     if (!mergedData[date].timestamp) mergedData[date].timestamp = item.open_time;
                 });
