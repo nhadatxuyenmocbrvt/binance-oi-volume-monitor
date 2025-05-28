@@ -463,7 +463,7 @@ class SimpleOIVolumeMonitor {
         
         return sampleData;
     }
-    
+
     renderCoins() {
         const container = document.getElementById('coinsContainer');
         if (!container) return;
