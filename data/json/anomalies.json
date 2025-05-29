@@ -1,5 +1,15 @@
 [
   {
+    "id": 24,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-30T05:37:33",
+    "data_type": "correlation_24h",
+    "value": -0.7232,
+    "z_score": 2.1696,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.723 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 20,
     "symbol": "BTCUSDT",
     "timestamp": "2025-05-30T05:07:19",
@@ -80,6 +90,16 @@
     "notified": 1
   },
   {
+    "id": 23,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-29T13:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 5464969474.306297,
+    "z_score": 2.704407097679673,
+    "message": "Bất thường OI_Value_USDT 30d cho ETHUSDT: 5464969474.31 (Z-score: 2.70)",
+    "notified": 1
+  },
+  {
     "id": 21,
     "symbol": "ETHUSDT",
     "timestamp": "2025-05-29T12:00:00",
@@ -87,6 +107,16 @@
     "value": 5591604465.480331,
     "z_score": 2.9792273605525064,
     "message": "Bất thường OI_Value_USDT 30d cho ETHUSDT: 5591604465.48 (Z-score: 2.98)",
+    "notified": 1
+  },
+  {
+    "id": 22,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-29T12:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 9412417939.46,
+    "z_score": 2.5273052437213637,
+    "message": "Bất thường OI_Value_USDT 30d cho BTCUSDT: 9412417939.46 (Z-score: 2.53)",
     "notified": 1
   },
   {
