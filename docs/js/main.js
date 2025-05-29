@@ -1,7 +1,7 @@
 /**
  * Simple OI & Volume Monitor JavaScript
  * Đã cập nhật với chức năng hiển thị biểu đồ dạng cột, hỗ trợ List View và Table View
- * Version 3.0.0
+ * Version 3.0.1 - Đã sửa lỗi
  */
 
 class SimpleOIVolumeMonitor {
@@ -280,8 +280,23 @@ class SimpleOIVolumeMonitor {
             
         } catch (error) {
             console.error('❌ Error loading data:', error);
-            this.showError('Lỗi khi tải dữ liệu: ' + error.message);
-            this.hideLoading();
+            
+            // Nếu không tải được dữ liệu từ các nguồn, thử tải trực tiếp từ Binance API
+            try {
+                console.log('🔄 Thử tải trực tiếp từ Binance API...');
+                await this.loadDirectFromBinanceAPI();
+                
+                // Update UI
+                this.updateLastUpdateTime();
+                this.renderContent();
+                this.hideLoading();
+                
+                console.log('✅ Đã tải dữ liệu trực tiếp từ Binance API');
+            } catch (apiError) {
+                console.error('❌ Không thể tải dữ liệu từ Binance API:', apiError);
+                this.showError('Lỗi khi tải dữ liệu: ' + error.message);
+                this.hideLoading();
+            }
         }
     }
     
@@ -332,10 +347,15 @@ class SimpleOIVolumeMonitor {
         }
         
         console.error('❌ No working data source found');
-        return null;
+        return 'api';  // Trả về 'api' để biết là sẽ tải từ Binance API
     }
     
     async loadSymbolsList() {
+        // Nếu data source là api, trả về mảng symbols mặc định
+        if (this.dataSource === 'api') {
+            return this.symbols;
+        }
+        
         try {
             const response = await fetch(`${this.dataSource}symbols.json`);
             if (!response.ok) {
@@ -366,6 +386,19 @@ class SimpleOIVolumeMonitor {
     async loadSymbolData(symbol) {
         try {
             console.log(`📊 Loading data for ${symbol}`);
+            
+            // Nếu data source là api, tải trực tiếp từ Binance API
+            if (this.dataSource === 'api') {
+                const data = await this.loadSymbolDataFromAPI(symbol);
+                if (data) {
+                    this.coinsData[symbol] = data;
+                    console.log(`✅ Loaded API data for ${symbol}`);
+                    return;
+                }
+                throw new Error('Không thể tải dữ liệu từ API');
+            }
+            
+            // Tải từ nguồn dữ liệu cục bộ
             const response = await fetch(`${this.dataSource}${symbol}.json`);
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
@@ -379,9 +412,178 @@ class SimpleOIVolumeMonitor {
         } catch (error) {
             console.warn(`⚠️ Không thể load dữ liệu cho ${symbol}:`, error);
             
-            // Tạo dữ liệu mẫu nếu không load được
+            // Thử tải từ Binance API nếu thất bại
+            try {
+                const apiData = await this.loadSymbolDataFromAPI(symbol);
+                if (apiData) {
+                    this.coinsData[symbol] = apiData;
+                    console.log(`✅ Fallback: Loaded API data for ${symbol}`);
+                    return;
+                }
+            } catch (apiError) {
+                console.warn(`⚠️ Không thể tải dữ liệu API cho ${symbol}:`, apiError);
+            }
+            
+            // Tạo dữ liệu mẫu nếu tất cả đều thất bại
             this.coinsData[symbol] = this.generateSampleData(symbol);
         }
+    }
+    
+    async loadSymbolDataFromAPI(symbol) {
+        try {
+            console.log(`🌐 Tải dữ liệu trực tiếp từ Binance API cho ${symbol}`);
+            
+            // URLs cho Binance API
+            const openInterestUrl = `https://fapi.binance.com/futures/data/openInterestHist?symbol=${symbol}&period=1d&limit=30`;
+            const volumeUrl = `https://fapi.binance.com/futures/data/markPriceKlines?symbol=${symbol}&interval=1d&limit=30`;
+            
+            // Sử dụng CORS proxy để tránh lỗi CORS
+            const corsProxy = 'https://corsproxy.io/?';
+            
+            // Tải song song cả hai tập dữ liệu
+            const [oiResponse, volumeResponse] = await Promise.all([
+                fetch(corsProxy + encodeURIComponent(openInterestUrl)),
+                fetch(corsProxy + encodeURIComponent(volumeUrl))
+            ]);
+            
+            // Kiểm tra responses
+            if (!oiResponse.ok || !volumeResponse.ok) {
+                throw new Error('Không thể tải dữ liệu từ Binance API');
+            }
+            
+            // Parse JSON
+            const oiData = await oiResponse.json();
+            const volumeData = await volumeResponse.json();
+            
+            // Xử lý dữ liệu API
+            return this.processAPIData(symbol, oiData, volumeData);
+        } catch (error) {
+            console.error(`❌ Lỗi khi tải dữ liệu API cho ${symbol}:`, error);
+            throw error;
+        }
+    }
+    
+    processAPIData(symbol, oiData, volumeData) {
+        // Tạo cấu trúc dữ liệu đầy đủ từ API response
+        const processedData = {
+            symbol: symbol,
+            klines: { '1d': [] },
+            open_interest: [],
+            tracking_24h: [],
+            tracking_30d: []
+        };
+        
+        // Xử lý dữ liệu Open Interest
+        if (Array.isArray(oiData)) {
+            processedData.open_interest = oiData.map(item => ({
+                timestamp: new Date(item.timestamp).toISOString(),
+                open_interest: parseFloat(item.sumOpenInterest),
+                open_interest_value: parseFloat(item.sumOpenInterestValue)
+            }));
+            
+            // Sắp xếp theo timestamp
+            processedData.open_interest.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        }
+        
+        // Xử lý dữ liệu Volume/Klines
+        if (Array.isArray(volumeData)) {
+            processedData.klines['1d'] = volumeData.map(kline => ({
+                open_time: new Date(kline[0]).toISOString(),
+                open: parseFloat(kline[1]),
+                high: parseFloat(kline[2]),
+                low: parseFloat(kline[3]),
+                close: parseFloat(kline[4]),
+                volume: parseFloat(kline[5]),
+                quote_volume: parseFloat(kline[7]),
+                count: parseFloat(kline[8])
+            }));
+            
+            // Sắp xếp theo thời gian
+            processedData.klines['1d'].sort((a, b) => new Date(a.open_time) - new Date(b.open_time));
+        }
+        
+        // Tạo dữ liệu tracking_30d bằng cách kết hợp OI và Volume
+        if (processedData.open_interest.length > 0 && processedData.klines['1d'].length > 0) {
+            // Tạo map từ timestamp đến dữ liệu
+            const dateMap = new Map();
+            
+            // Thêm dữ liệu OI vào map
+            processedData.open_interest.forEach(oi => {
+                const dateStr = oi.timestamp.split('T')[0];
+                if (!dateMap.has(dateStr)) {
+                    dateMap.set(dateStr, {
+                        date_timestamp: oi.timestamp,
+                        open_interest_value: oi.open_interest_value,
+                        avg_open_interest_value: oi.open_interest_value
+                    });
+                }
+            });
+            
+            // Thêm dữ liệu volume vào map
+            processedData.klines['1d'].forEach(kline => {
+                const dateStr = kline.open_time.split('T')[0];
+                if (dateMap.has(dateStr)) {
+                    const entry = dateMap.get(dateStr);
+                    entry.price = kline.close;
+                    entry.quote_volume = kline.quote_volume;
+                } else {
+                    dateMap.set(dateStr, {
+                        date_timestamp: kline.open_time,
+                        price: kline.close,
+                        quote_volume: kline.quote_volume
+                    });
+                }
+            });
+            
+            // Chuyển map thành mảng và sắp xếp theo thời gian
+            const tracking30d = Array.from(dateMap.values()).sort((a, b) => 
+                new Date(a.date_timestamp) - new Date(b.date_timestamp)
+            );
+            
+            // Tính toán phần trăm thay đổi
+            for (let i = 1; i < tracking30d.length; i++) {
+                const current = tracking30d[i];
+                const previous = tracking30d[i-1];
+                
+                current.price_change_1d = this.calculateChange(current.price, previous.price);
+                current.volume_change_1d = this.calculateChange(current.quote_volume, previous.quote_volume);
+                current.oi_change_1d = this.calculateChange(current.open_interest_value, previous.open_interest_value);
+                current.is_actual_data = 1;
+            }
+            
+            processedData.tracking_30d = tracking30d;
+        }
+        
+        return processedData;
+    }
+    
+    async loadDirectFromBinanceAPI() {
+        // Tải dữ liệu trực tiếp từ Binance API cho tất cả symbols
+        const promises = this.symbols.map(symbol => this.loadSymbolDataFromAPI(symbol));
+        
+        // Xử lý kết quả
+        const results = await Promise.allSettled(promises);
+        
+        // Đếm số lượng thành công
+        const successCount = results.filter(result => result.status === 'fulfilled').length;
+        
+        if (successCount === 0) {
+            throw new Error('Không thể tải dữ liệu cho bất kỳ symbol nào từ Binance API');
+        }
+        
+        // Cập nhật dữ liệu cho các symbol đã tải thành công
+        results.forEach((result, index) => {
+            if (result.status === 'fulfilled') {
+                const symbol = this.symbols[index];
+                this.coinsData[symbol] = result.value;
+            } else {
+                // Nếu thất bại, tạo dữ liệu mẫu
+                const symbol = this.symbols[index];
+                this.coinsData[symbol] = this.generateSampleData(symbol);
+            }
+        });
+        
+        console.log(`✅ Đã tải ${successCount}/${this.symbols.length} symbols từ Binance API`);
     }
     
     processSymbolData(rawData) {
@@ -602,7 +804,10 @@ class SimpleOIVolumeMonitor {
 
     renderCoins() {
         const container = document.getElementById('coinsContainer');
-        if (!container) return;
+        if (!container) {
+            console.error('Không tìm thấy phần tử #coinsContainer');
+            return;
+        }
         
         container.innerHTML = '';
         
@@ -1075,120 +1280,138 @@ class SimpleOIVolumeMonitor {
         const minVolume = volumeValues.length > 0 ? Math.min(...volumeValues) * 0.95 : 0;
         const maxVolume = volumeValues.length > 0 ? Math.max(...volumeValues) * 1.05 : 0;
         
+        // Kiểm tra xem Chart đã được định nghĩa chưa
+        if (typeof Chart === 'undefined') {
+            console.error('Chart.js chưa được tải! Hãy kiểm tra thẻ script trong HTML.');
+            ctx.fillStyle = '#dc3545';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Lỗi: Chart.js chưa được tải', canvas.width / 2, canvas.height / 2);
+            return;
+        }
+        
         // Thay đổi loại biểu đồ từ 'line' sang 'bar'
-        this.charts[symbol] = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Open Interest',
-                        data: chartData.map(item => item.oi),
-                        backgroundColor: 'rgba(245, 87, 108, 0.7)',
-                        borderColor: '#f5576c',
-                        borderWidth: 1,
-                        yAxisID: 'y',
-                        barPercentage: 0.9, // Tăng độ rộng của cột
-                        categoryPercentage: 0.8, // Giảm khoảng cách giữa các nhóm cột
-                        order: 1
-                    },
-                    {
-                        label: 'Volume',
-                        data: chartData.map(item => item.volume),
-                        backgroundColor: 'rgba(0, 242, 254, 0.7)',
-                        borderColor: '#00f2fe',
-                        borderWidth: 1,
-                        yAxisID: 'y1',
-                        barPercentage: 0.9, // Tăng độ rộng của cột
-                        categoryPercentage: 0.8, // Giảm khoảng cách giữa các nhóm cột
-                        order: 2
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 1000, // Hiệu ứng animation rõ ràng
-                    easing: 'easeOutQuad'
-                },
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top',
-                        labels: {
-                            usePointStyle: true,
-                            padding: 20
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.dataset.label || '';
-                                const value = context.parsed.y;
-                                return `${label}: ${this.formatNumber ? this.formatNumber(value) : value} USDT`;
-                            }.bind(this)
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        type: 'category', // Thay đổi từ 'time' sang 'category' để hiển thị rõ hơn
-                        grid: {
-                            display: false
+        try {
+            this.charts[symbol] = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Open Interest',
+                            data: chartData.map(item => item.oi),
+                            backgroundColor: 'rgba(245, 87, 108, 0.7)',
+                            borderColor: '#f5576c',
+                            borderWidth: 1,
+                            yAxisID: 'y',
+                            barPercentage: 0.9, // Tăng độ rộng của cột
+                            categoryPercentage: 0.8, // Giảm khoảng cách giữa các nhóm cột
+                            order: 1
                         },
-                        ticks: {
-                            maxRotation: 45,
-                            minRotation: 0,
-                            font: {
-                                size: 10
+                        {
+                            label: 'Volume',
+                            data: chartData.map(item => item.volume),
+                            backgroundColor: 'rgba(0, 242, 254, 0.7)',
+                            borderColor: '#00f2fe',
+                            borderWidth: 1,
+                            yAxisID: 'y1',
+                            barPercentage: 0.9, // Tăng độ rộng của cột
+                            categoryPercentage: 0.8, // Giảm khoảng cách giữa các nhóm cột
+                            order: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1000, // Hiệu ứng animation rõ ràng
+                        easing: 'easeOutQuad'
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.parsed.y;
+                                    return `${label}: ${this.formatNumber ? this.formatNumber(value) : value} USDT`;
+                                }.bind(this)
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'category', // Thay đổi từ 'time' sang 'category' để hiển thị rõ hơn
+                            grid: {
+                                display: false
                             },
-                            autoSkip: true,
-                            maxTicksLimit: this.currentView === 'hourly' ? 12 : 15 // Hiển thị số nhãn phù hợp
-                        }
-                    },
-                    y: {
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        // Đặt min và max dựa trên dữ liệu thực tế
-                        min: minOI,
-                        max: maxOI,
-                        title: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 0,
+                                font: {
+                                    size: 10
+                                },
+                                autoSkip: true,
+                                maxTicksLimit: this.currentView === 'hourly' ? 12 : 15 // Hiển thị số nhãn phù hợp
+                            }
+                        },
+                        y: {
+                            type: 'linear',
                             display: true,
-                            text: 'Open Interest (USDT)',
-                            color: '#f5576c'
+                            position: 'left',
+                            // Đặt min và max dựa trên dữ liệu thực tế
+                            min: minOI,
+                            max: maxOI,
+                            title: {
+                                display: true,
+                                text: 'Open Interest (USDT)',
+                                color: '#f5576c'
+                            },
+                            ticks: {
+                                callback: (value) => this.formatNumber(value)
+                            }
                         },
-                        ticks: {
-                            callback: (value) => this.formatNumber(value)
-                        }
-                    },
-                    y1: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        // Đặt min và max dựa trên dữ liệu thực tế
-                        min: minVolume,
-                        max: maxVolume,
-                        title: {
+                        y1: {
+                            type: 'linear',
                             display: true,
-                            text: 'Volume (USDT)',
-                            color: '#00f2fe'
-                        },
-                        grid: {
-                            drawOnChartArea: false,
-                        },
-                        ticks: {
-                            callback: (value) => this.formatNumber(value)
+                            position: 'right',
+                            // Đặt min và max dựa trên dữ liệu thực tế
+                            min: minVolume,
+                            max: maxVolume,
+                            title: {
+                                display: true,
+                                text: 'Volume (USDT)',
+                                color: '#00f2fe'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                            ticks: {
+                                callback: (value) => this.formatNumber(value)
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        } catch (error) {
+            console.error('Lỗi khi tạo biểu đồ:', error);
+            ctx.fillStyle = '#dc3545';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Lỗi: ' + error.message, canvas.width / 2, canvas.height / 2);
+        }
     }
     
     // Render mini chart cho list view
@@ -1247,58 +1470,76 @@ class SimpleOIVolumeMonitor {
             }
         }
         
+        // Kiểm tra xem Chart đã được định nghĩa chưa
+        if (typeof Chart === 'undefined') {
+            console.error('Chart.js chưa được tải! Hãy kiểm tra thẻ script trong HTML.');
+            ctx.fillStyle = '#dc3545';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Lỗi: Chart.js chưa được tải', canvas.width / 2, canvas.height / 2);
+            return;
+        }
+        
         // Cấu hình mini chart đơn giản hơn với dạng cột (rõ ràng hơn)
-        this.charts[`mini-${symbol}`] = new Chart(ctx, {
-            type: 'bar', // Đảm bảo luôn dùng bar chart
-            data: {
-                datasets: [
-                    {
-                        label: 'OI',
-                        data: chartData.map(item => ({ x: item.x, y: item.oi })),
-                        backgroundColor: 'rgba(245, 87, 108, 0.8)', // Tăng độ đậm
-                        borderColor: '#f5576c',
-                        borderWidth: 1,
-                        barPercentage: 0.9, // Tăng độ rộng của cột
-                        categoryPercentage: 0.9 // Tăng độ rộng của cột
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: {
-                    duration: 1000, // Hiệu ứng animation rõ ràng
-                    easing: 'easeOutQuad'
+        try {
+            this.charts[`mini-${symbol}`] = new Chart(ctx, {
+                type: 'bar', // Đảm bảo luôn dùng bar chart
+                data: {
+                    datasets: [
+                        {
+                            label: 'OI',
+                            data: chartData.map(item => ({ x: item.x, y: item.oi })),
+                            backgroundColor: 'rgba(245, 87, 108, 0.8)', // Tăng độ đậm
+                            borderColor: '#f5576c',
+                            borderWidth: 1,
+                            barPercentage: 0.9, // Tăng độ rộng của cột
+                            categoryPercentage: 0.9 // Tăng độ rộng của cột
+                        }
+                    ]
                 },
-                plugins: {
-                    legend: {
-                        display: false
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1000, // Hiệu ứng animation rõ ràng
+                        easing: 'easeOutQuad'
                     },
-                    tooltip: {
-                        enabled: false
-                    }
-                },
-                scales: {
-                    x: {
-                        type: 'category', // Thay đổi từ 'time' sang 'category' để hiển thị rõ hơn
-                        display: false,
-                        grid: {
+                    plugins: {
+                        legend: {
                             display: false
+                        },
+                        tooltip: {
+                            enabled: false
                         }
                     },
-                    y: {
-                        display: false,
-                        beginAtZero: false,
-                        grid: {
-                            display: false
+                    scales: {
+                        x: {
+                            type: 'category', // Thay đổi từ 'time' sang 'category' để hiển thị rõ hơn
+                            display: false,
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            display: false,
+                            beginAtZero: false,
+                            grid: {
+                                display: false
+                            }
                         }
+                    },
+                    layout: {
+                        padding: 0
                     }
-                },
-                layout: {
-                    padding: 0
                 }
-            }
-        });
+            });
+        } catch (error) {
+            console.error('Lỗi khi tạo biểu đồ mini:', error);
+            ctx.fillStyle = '#dc3545';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Lỗi: ' + error.message, canvas.width / 2, canvas.height / 2);
+        }
     }
     
     prepareChartData(symbol, data) {
@@ -1529,15 +1770,15 @@ class SimpleOIVolumeMonitor {
     
     // Render dữ liệu dạng bảng theo ngày
     renderTableData() {
-        const tableContainer = document.getElementById('tableContainer');
-        if (!tableContainer) {
-            console.warn('Không tìm thấy phần tử #tableContainer');
+        const tableViewContainer = document.getElementById('tableViewContainer');
+        if (!tableViewContainer) {
+            console.warn('Không tìm thấy phần tử #tableViewContainer');
             return;
         }
         
         // Kiểm tra xem có dữ liệu không
         if (Object.keys(this.coinsData).length === 0) {
-            tableContainer.innerHTML = '<div class="alert alert-warning">Không có dữ liệu để hiển thị</div>';
+            tableViewContainer.innerHTML = '<div class="alert alert-warning">Không có dữ liệu để hiển thị</div>';
             return;
         }
         
@@ -1547,10 +1788,12 @@ class SimpleOIVolumeMonitor {
         // Tạo bảng
         const table = document.createElement('table');
         table.className = 'data-table';
+        table.id = 'dataTable';
         
         // Tạo header của bảng
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
+        headerRow.id = 'tableHeader';
         
         // Thêm cột đầu tiên (Symbol)
         const symbolHeader = document.createElement('th');
@@ -1570,6 +1813,7 @@ class SimpleOIVolumeMonitor {
         
         // Tạo body của bảng
         const tbody = document.createElement('tbody');
+        tbody.id = 'tableBody';
         
         // Lấy danh sách symbol
         const symbols = Object.keys(this.coinsData);
@@ -1600,8 +1844,8 @@ class SimpleOIVolumeMonitor {
         table.appendChild(tbody);
         
         // Xóa nội dung cũ và thêm bảng mới
-        tableContainer.innerHTML = '';
-        tableContainer.appendChild(table);
+        tableViewContainer.innerHTML = '';
+        tableViewContainer.appendChild(table);
         
         // Hiển thị container
         this.hideLoading();
@@ -1769,7 +2013,11 @@ class SimpleOIVolumeMonitor {
         // Destroy all charts
         Object.values(this.charts).forEach(chart => {
             if (chart && typeof chart.destroy === 'function') {
-                chart.destroy();
+                try {
+                    chart.destroy();
+                } catch (e) {
+                    console.warn('Error destroying chart:', e);
+                }
             }
         });
         
@@ -1779,7 +2027,24 @@ class SimpleOIVolumeMonitor {
 
 // Khởi tạo monitor khi DOM ready
 document.addEventListener('DOMContentLoaded', function() {
-    window.simpleMonitor = new SimpleOIVolumeMonitor();
+    try {
+        // Kiểm tra xem Chart.js đã được tải chưa
+        if (typeof Chart === 'undefined') {
+            console.warn('Chart.js chưa được tải, đang tải...');
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js';
+            script.onload = function() {
+                console.log('Đã tải Chart.js, khởi tạo SimpleOIVolumeMonitor');
+                window.simpleMonitor = new SimpleOIVolumeMonitor();
+            };
+            document.head.appendChild(script);
+        } else {
+            window.simpleMonitor = new SimpleOIVolumeMonitor();
+        }
+    } catch (error) {
+        console.error('Lỗi khi khởi tạo SimpleOIVolumeMonitor:', error);
+        alert('Đã xảy ra lỗi khi khởi tạo ứng dụng. Xem Console để biết thêm chi tiết.');
+    }
 });
 
 // Cleanup khi unload

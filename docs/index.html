@@ -100,6 +100,74 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* CSS từ style.css */
+        .coin-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            overflow: hidden;
+            background: white;
+        }
+
+        .coin-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .coin-card .card-header {
+            background: #0d6efd !important;
+            border: none;
+            padding: 1rem 1.25rem;
+        }
+
+        .coin-card .card-body {
+            padding: 1.25rem;
+        }
+
+        .metric-box {
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .metric-box.oi {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .metric-box.volume {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .chart-container {
+            height: 350px;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .coins-table {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .mini-chart-container {
+            width: 150px;
+            height: 50px;
+            margin: 0 auto;
+            background-color: transparent;
+            overflow: hidden;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -145,15 +213,15 @@
                 
                 <!-- Thêm nút chuyển đổi kiểu hiển thị -->
                 <div class="btn-group view-toggle ms-2" role="group">
-                    <button type="button" class="btn btn-outline-secondary" id="toggleCardViewBtn">
+                    <button type="button" class="btn btn-outline-secondary" id="cardViewBtn">
                         <i class="bi bi-grid me-1"></i>
                         Xem dạng thẻ
                     </button>
-                    <button type="button" class="btn btn-outline-secondary" id="toggleListViewBtn">
+                    <button type="button" class="btn btn-outline-secondary" id="listViewBtn">
                         <i class="bi bi-list me-1"></i>
                         Xem dạng danh sách
                     </button>
-                    <button type="button" class="btn btn-outline-secondary active" id="toggleTableViewBtn">
+                    <button type="button" class="btn btn-outline-secondary active" id="tableViewBtn">
                         <i class="bi bi-table me-1"></i>
                         Xem dạng bảng
                     </button>
@@ -208,19 +276,22 @@
         </div>
 
         <!-- Content - Table View -->
-        <div id="contentDiv" class="d-none">
-            <div id="tableViewContainer" class="data-table-container">
-                <table id="dataTable" class="data-table">
-                    <thead>
-                        <tr id="tableHeader">
-                            <th class="symbol-cell">Symbol</th>
-                            <!-- Các ngày sẽ được thêm vào đây bằng JavaScript -->
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
-                    </tbody>
-                </table>
+        <div id="contentDiv">
+            <div id="contentContainer" class="container">
+                <div id="coinsContainer" class="row"></div>
+                <div id="tableViewContainer" class="data-table-container">
+                    <table id="dataTable" class="data-table">
+                        <thead>
+                            <tr id="tableHeader">
+                                <th class="symbol-cell">Symbol</th>
+                                <!-- Các ngày sẽ được thêm vào đây bằng JavaScript -->
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -238,7 +309,23 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    
     <!-- Script tùy chỉnh cho bảng dữ liệu -->
     <script src="js/main.js"></script>
+    
+    <!-- Fix script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Đảm bảo simpleMonitor được khởi tạo
+            setTimeout(() => {
+                if (!window.simpleMonitor) {
+                    console.log('Khởi tạo SimpleOIVolumeMonitor...');
+                    window.simpleMonitor = new SimpleOIVolumeMonitor();
+                }
+            }, 500);
+        });
+    </script>
 </body>
 </html>
