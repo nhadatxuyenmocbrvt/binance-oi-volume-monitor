@@ -1,5 +1,15 @@
 [
   {
+    "id": 8,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-30T23:46:22",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 1225464379.3492,
+    "z_score": 2.9284219797293556,
+    "message": "Bất thường OI_Value_USDT 30d cho SOLUSDT: 1225464379.35 (Z-score: 2.93)",
+    "notified": 1
+  },
+  {
     "id": 1,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-30T01:00:00",
@@ -17,6 +27,16 @@
     "value": 350088439.51103354,
     "z_score": 2.5863082240396933,
     "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 350088439.51 (Z-score: 2.59)",
+    "notified": 1
+  },
+  {
+    "id": 9,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-29T22:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 405459378.80139184,
+    "z_score": 2.5731369175643644,
+    "message": "Bất thường OI_Value_USDT 30d cho DOGEUSDT: 405459378.80 (Z-score: 2.57)",
     "notified": 1
   },
   {
