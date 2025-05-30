@@ -1,49 +1,49 @@
 {
-  "timestamp": "2025-05-31T02:47:46.041088",
+  "timestamp": "2025-05-31T03:17:58.893249",
   "report_type": "daily_oi_volume_summary",
   "symbols": {
     "BTCUSDT": {
       "symbol": "BTCUSDT",
-      "timestamp": "2025-05-31T02:47:46.041088",
+      "timestamp": "2025-05-31T03:17:58.893249",
       "24h_metrics": {
         "oi": {
-          "current_oi": 910229915143992.9,
+          "current_oi": 906517732539905.1,
           "previous_oi": 929296600525088.5,
-          "oi_change_24h": -2.051733038765257,
+          "oi_change_24h": -2.451194588714995,
           "max_oi": 930256326654262.4,
           "min_oi": 897774635539084.8,
-          "avg_oi": 916364653973584.9,
-          "volatility": 1.5579122258736546,
-          "data_points": 6,
+          "avg_oi": 914957950911630.6,
+          "volatility": 1.4813042641449057,
+          "data_points": 7,
           "unit": "USDT"
         },
         "volume": {
-          "current_volume": 2490174562197920.0,
+          "current_volume": 2406984543413240.5,
           "previous_volume": 2737040897044419.5,
-          "volume_change_24h": -9.019460948248048,
+          "volume_change_24h": -12.0588754807277,
           "max_volume": 2737040897044419.5,
-          "min_volume": 2441956602658500.5,
-          "avg_volume": 2538767007686508.0,
-          "volatility": 4.170563463619771,
-          "data_points": 6,
+          "min_volume": 2406984543413240.5,
+          "avg_volume": 2519940941361755.5,
+          "volatility": 4.314972487959863,
+          "data_points": 7,
           "unit": "USDT"
         }
       },
       "30d_metrics": {
         "oi": {
-          "current_oi": 8684026118.4768,
-          "avg_oi_30d": 8761679831.93,
-          "oi_change_30d": -0.953,
-          "oi_change_7d": 0.1138,
-          "oi_daily_volatility": 0.6451,
-          "trend_direction": "neutral",
-          "positive_days": 15,
-          "negative_days": 14,
-          "oi_above_ma7d": true,
+          "current_oi": 8645270589.8508,
+          "avg_oi_30d": 8754039922.16,
+          "oi_change_30d": -2.3515,
+          "oi_change_7d": -0.2909,
+          "oi_daily_volatility": 0.6203,
+          "trend_direction": "bearish",
+          "positive_days": 13,
+          "negative_days": 16,
+          "oi_above_ma7d": false,
           "oi_above_ma14d": false,
           "max_oi_30d": 8882785643.912773,
-          "min_oi_30d": 8647456745.015,
-          "oi_range_30d_pct": 2.72,
+          "min_oi_30d": 8645270589.8508,
+          "oi_range_30d_pct": 2.75,
           "total_data_points": 30,
           "unit": "USDT",
           "used_columns": {
@@ -72,51 +72,51 @@
         }
       },
       "overall_sentiment": "bearish",
-      "price_change": -2.051733038765257,
+      "price_change": -2.451194588714995,
       "sentiment": "bearish"
     },
     "ETHUSDT": {
       "symbol": "ETHUSDT",
-      "timestamp": "2025-05-31T02:47:46.074042",
+      "timestamp": "2025-05-31T03:17:58.928232",
       "24h_metrics": {
         "oi": {
-          "current_oi": 12149035871146.6,
+          "current_oi": 12117681284177.703,
           "previous_oi": 12572872580853.469,
-          "oi_change_24h": -3.3710411600950017,
+          "oi_change_24h": -3.620424002140539,
           "max_oi": 12648504231793.932,
           "min_oi": 11972363438425.562,
-          "avg_oi": 12327826433949.29,
-          "volatility": 2.6500559677052826,
-          "data_points": 6,
+          "avg_oi": 12297805698267.635,
+          "volatility": 2.5095979066451597,
+          "data_points": 7,
           "unit": "USDT"
         },
         "volume": {
-          "current_volume": 44515976413283.23,
+          "current_volume": 43862667151531.47,
           "previous_volume": 45440471217384.25,
-          "volume_change_24h": -2.034518523538853,
+          "volume_change_24h": -3.4722440669786843,
           "max_volume": 45440471217384.25,
           "min_volume": 41845429362128.28,
-          "avg_volume": 43814036396142.37,
-          "volatility": 3.0168006632944193,
-          "data_points": 6,
+          "avg_volume": 43820983646912.234,
+          "volatility": 2.75383248219685,
+          "data_points": 7,
           "unit": "USDT"
         }
       },
       "30d_metrics": {
         "oi": {
-          "current_oi": 4698408781.1673,
-          "avg_oi_30d": 4834556348.89,
-          "oi_change_30d": -5.9577,
-          "oi_change_7d": -0.4222,
-          "oi_daily_volatility": 1.0985,
+          "current_oi": 4716384898.191999,
+          "avg_oi_30d": 4817190764.36,
+          "oi_change_30d": -4.3338,
+          "oi_change_7d": 0.1588,
+          "oi_daily_volatility": 1.0937,
           "trend_direction": "bearish",
-          "positive_days": 9,
-          "negative_days": 20,
-          "oi_above_ma7d": false,
+          "positive_days": 11,
+          "negative_days": 18,
+          "oi_above_ma7d": true,
           "oi_above_ma14d": false,
-          "max_oi_30d": 4996058227.951261,
+          "max_oi_30d": 4953646713.580253,
           "min_oi_30d": 4698408781.1673,
-          "oi_range_30d_pct": 6.34,
+          "oi_range_30d_pct": 5.43,
           "total_data_points": 30,
           "unit": "USDT",
           "used_columns": {
@@ -145,48 +145,48 @@
         }
       },
       "overall_sentiment": "volatile",
-      "price_change": -3.3710411600950017,
+      "price_change": -3.620424002140539,
       "sentiment": "volatile"
     },
     "BNBUSDT": {
       "symbol": "BNBUSDT",
-      "timestamp": "2025-05-31T02:47:46.103026",
+      "timestamp": "2025-05-31T03:17:58.956223",
       "24h_metrics": {
         "oi": {
-          "current_oi": 222763906280.82947,
+          "current_oi": 222775727379.23386,
           "previous_oi": 224990757711.4936,
-          "oi_change_24h": -0.9897524028607534,
+          "oi_change_24h": -0.9844983655284525,
           "max_oi": 225056122574.57004,
           "min_oi": 219638938721.39908,
-          "avg_oi": 223028024491.35474,
-          "volatility": 1.0393478986749802,
-          "data_points": 6,
+          "avg_oi": 222991982046.76605,
+          "volatility": 0.949906904608874,
+          "data_points": 7,
           "unit": "USDT"
         },
         "volume": {
-          "current_volume": 318696029350.59265,
+          "current_volume": 312410393228.01385,
           "previous_volume": 305766720169.9655,
-          "volume_change_24h": 4.228488036055776,
+          "volume_change_24h": 2.1727914190122926,
           "max_volume": 318696029350.59265,
           "min_volume": 295195396211.7164,
-          "avg_volume": 306542022127.375,
-          "volatility": 3.135288592089812,
-          "data_points": 6,
+          "avg_volume": 307380360856.0377,
+          "volatility": 2.9441076143621334,
+          "data_points": 7,
           "unit": "USDT"
         }
       },
       "30d_metrics": {
         "oi": {
-          "current_oi": 334447696.6376,
-          "avg_oi_30d": 336103018.01,
-          "oi_change_30d": -1.2255,
-          "oi_change_7d": 0.7385,
-          "oi_daily_volatility": 0.423,
+          "current_oi": 333998843.3956,
+          "avg_oi_30d": 335796745.95,
+          "oi_change_30d": -1.8007,
+          "oi_change_7d": 0.4449,
+          "oi_daily_volatility": 0.4164,
           "trend_direction": "bearish",
-          "positive_days": 11,
-          "negative_days": 18,
-          "oi_above_ma7d": true,
-          "oi_above_ma14d": true,
+          "positive_days": 10,
+          "negative_days": 19,
+          "oi_above_ma7d": false,
+          "oi_above_ma14d": false,
           "max_oi_30d": 340467799.0176,
           "min_oi_30d": 331785886.0729,
           "oi_range_30d_pct": 2.62,
@@ -218,47 +218,47 @@
         }
       },
       "overall_sentiment": "neutral",
-      "price_change": -0.9897524028607534,
+      "price_change": -0.9844983655284525,
       "sentiment": "neutral"
     },
     "SOLUSDT": {
       "symbol": "SOLUSDT",
-      "timestamp": "2025-05-31T02:47:46.130068",
+      "timestamp": "2025-05-31T03:17:58.984180",
       "24h_metrics": {
         "oi": {
-          "current_oi": 199811655190.56494,
+          "current_oi": 199919488676.80222,
           "previous_oi": 204115446371.93018,
-          "oi_change_24h": -2.1085083259809037,
+          "oi_change_24h": -2.0556786709234496,
           "max_oi": 204209641174.7624,
           "min_oi": 193616570818.32648,
-          "avg_oi": 200140010899.554,
-          "volatility": 2.3348331171878134,
-          "data_points": 6,
+          "avg_oi": 200108507724.87518,
+          "volatility": 2.132143708582431,
+          "data_points": 7,
           "unit": "USDT"
         },
         "volume": {
-          "current_volume": 630750073252.5695,
+          "current_volume": 611868223869.134,
           "previous_volume": 588825278837.3002,
-          "volume_change_24h": 7.120073801528082,
+          "volume_change_24h": 3.9133756412996865,
           "max_volume": 630750073252.5695,
           "min_volume": 575365114709.778,
-          "avg_volume": 602778173774.4249,
-          "volatility": 3.981086658163712,
-          "data_points": 6,
+          "avg_volume": 604076752359.3834,
+          "volatility": 3.670735804711934,
+          "data_points": 7,
           "unit": "USDT"
         }
       },
       "30d_metrics": {
         "oi": {
-          "current_oi": 1252186791.6348,
-          "avg_oi_30d": 1259712765.44,
-          "oi_change_30d": -2.1697,
-          "oi_change_7d": 1.887,
-          "oi_daily_volatility": 1.1813,
+          "current_oi": 1243201472.146,
+          "avg_oi_30d": 1257298013.65,
+          "oi_change_30d": -2.5872,
+          "oi_change_7d": 0.3251,
+          "oi_daily_volatility": 1.1861,
           "trend_direction": "neutral",
           "positive_days": 17,
           "negative_days": 12,
-          "oi_above_ma7d": true,
+          "oi_above_ma7d": false,
           "oi_above_ma14d": true,
           "max_oi_30d": 1287333885.5044162,
           "min_oi_30d": 1225464379.3492,
@@ -291,47 +291,47 @@
         }
       },
       "overall_sentiment": "neutral",
-      "price_change": -2.1085083259809037,
+      "price_change": -2.0556786709234496,
       "sentiment": "neutral"
     },
     "DOGEUSDT": {
       "symbol": "DOGEUSDT",
-      "timestamp": "2025-05-31T02:47:46.156864",
+      "timestamp": "2025-05-31T03:17:59.010200",
       "24h_metrics": {
         "oi": {
-          "current_oi": 75961864.83983697,
+          "current_oi": 75827248.67178725,
           "previous_oi": 77164349.16178997,
-          "oi_change_24h": -1.5583418184889473,
+          "oi_change_24h": -1.7327956556715485,
           "max_oi": 77371588.06826918,
           "min_oi": 72835712.60004286,
-          "avg_oi": 75665858.73913425,
-          "volatility": 2.6522743626110645,
-          "data_points": 6,
+          "avg_oi": 75688914.44379897,
+          "volatility": 2.421787998815576,
+          "data_points": 7,
           "unit": "USDT"
         },
         "volume": {
-          "current_volume": 320496492.1376318,
+          "current_volume": 304270809.92149913,
           "previous_volume": 308062448.59970754,
-          "volume_change_24h": 4.036208760413013,
+          "volume_change_24h": -1.2308019674073352,
           "max_volume": 320496492.1376318,
           "min_volume": 298492067.4998829,
-          "avg_volume": 309786090.3225904,
-          "volatility": 2.9082592560405347,
-          "data_points": 6,
+          "avg_volume": 308998193.12243456,
+          "volatility": 2.7458002927917637,
+          "data_points": 7,
           "unit": "USDT"
         }
       },
       "30d_metrics": {
         "oi": {
-          "current_oi": 378529718.13339,
-          "avg_oi_30d": 379973314.31,
-          "oi_change_30d": -1.3659,
-          "oi_change_7d": 1.6482,
-          "oi_daily_volatility": 1.0422,
+          "current_oi": 378394393.00628,
+          "avg_oi_30d": 379665727.61,
+          "oi_change_30d": -2.2239,
+          "oi_change_7d": 0.7281,
+          "oi_daily_volatility": 1.0157,
           "trend_direction": "bearish",
           "positive_days": 13,
           "negative_days": 16,
-          "oi_above_ma7d": true,
+          "oi_above_ma7d": false,
           "oi_above_ma14d": true,
           "max_oi_30d": 387000890.9828387,
           "min_oi_30d": 369411666.58308,
@@ -364,7 +364,7 @@
         }
       },
       "overall_sentiment": "volatile",
-      "price_change": -1.5583418184889473,
+      "price_change": -1.7327956556715485,
       "sentiment": "volatile"
     }
   },
@@ -375,18 +375,18 @@
     "neutral_count": 4
   },
   "anomalies_summary": {
-    "total": 19,
-    "recent_24h": 11,
+    "total": 20,
+    "recent_24h": 12,
     "by_symbol": {
-      "SOLUSDT": 5,
+      "SOLUSDT": 6,
       "BNBUSDT": 4,
       "DOGEUSDT": 2
     },
     "by_type": {
-      "correlation_24h": 10,
+      "correlation_24h": 11,
       "30d_OI_Value_USDT": 1
     },
-    "timestamp": "2025-05-31T02:47:46.187851"
+    "timestamp": "2025-05-31T03:17:59.042193"
   },
   "data_quality": {}
 }
