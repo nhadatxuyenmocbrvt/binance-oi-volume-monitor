@@ -1,5 +1,25 @@
 [
   {
+    "id": 10,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-30T18:03:52",
+    "data_type": "correlation_24h",
+    "value": -0.8786,
+    "z_score": 2.6358,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.879 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 13,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-30T18:03:52",
+    "data_type": "correlation_24h",
+    "value": -0.8299,
+    "z_score": 2.4897,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.830 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 3,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-30T01:00:00",
@@ -7,6 +27,26 @@
     "value": 1258389121.6245072,
     "z_score": 3.0621089145123204,
     "message": "Bất thường OI_Value_USDT 30d cho SOLUSDT: 1258389121.62 (Z-score: 3.06)",
+    "notified": 1
+  },
+  {
+    "id": 12,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-29T22:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 350088439.51103354,
+    "z_score": 2.7465439918424934,
+    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 350088439.51 (Z-score: 2.75)",
+    "notified": 1
+  },
+  {
+    "id": 11,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-29T21:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 350043364.52,
+    "z_score": 2.7327451896490427,
+    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 350043364.52 (Z-score: 2.73)",
     "notified": 1
   },
   {
