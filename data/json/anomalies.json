@@ -1,5 +1,45 @@
 [
   {
+    "id": 57,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-30T10:10:01",
+    "data_type": "correlation_24h",
+    "value": -0.7877,
+    "z_score": 2.3630999999999998,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.788 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 58,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-30T10:10:01",
+    "data_type": "correlation_24h",
+    "value": -0.8021,
+    "z_score": 2.4063,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho DOGEUSDT: -0.802 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 55,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-30T10:10:00",
+    "data_type": "correlation_24h",
+    "value": -0.8586,
+    "z_score": 2.5758,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.859 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 56,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-30T10:00:00",
+    "data_type": "24h_Volume_USDT",
+    "value": 51360012534367.16,
+    "z_score": 2.8013519556367505,
+    "message": "Bất thường Volume_USDT 24h cho ETHUSDT: 51360012534367.16 (Z-score: 2.80)",
+    "notified": 1
+  },
+  {
     "id": 52,
     "symbol": "BTCUSDT",
     "timestamp": "2025-05-30T09:39:46",
@@ -457,46 +497,6 @@
     "value": 5648714252.775655,
     "z_score": 2.785872637835475,
     "message": "Bất thường OI_Value_USDT 30d cho ETHUSDT: 5648714252.78 (Z-score: 2.79)",
-    "notified": 1
-  },
-  {
-    "id": 9,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-29T04:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 6011738464.35988,
-    "z_score": 2.5481114706426267,
-    "message": "Bất thường OI_Value_USDT 30d cho ETHUSDT: 6011738464.36 (Z-score: 2.55)",
-    "notified": 1
-  },
-  {
-    "id": 10,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-05-29T04:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 359621780.2184912,
-    "z_score": 2.514683300121189,
-    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 359621780.22 (Z-score: 2.51)",
-    "notified": 1
-  },
-  {
-    "id": 6,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-05-29T03:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 362273682.4666364,
-    "z_score": 2.578501521853839,
-    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 362273682.47 (Z-score: 2.58)",
-    "notified": 1
-  },
-  {
-    "id": 7,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-05-29T03:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 1339067795.6819816,
-    "z_score": 2.8908437754777077,
-    "message": "Bất thường OI_Value_USDT 30d cho SOLUSDT: 1339067795.68 (Z-score: 2.89)",
     "notified": 1
   }
 ]
