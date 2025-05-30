@@ -2,7 +2,7 @@
  * Simple OI & Volume Monitor CSS
  * Tối ưu cho giao diện theo dõi OI và Volume
  * Hỗ trợ cả Card View, List View và Biểu đồ dạng cột
- * Version 2.0.0
+ * Version 2.1.0 - Tối ưu hiển thị bảng dữ liệu
  */
 
 /* ===== VARIABLES ===== */
@@ -659,4 +659,112 @@ footer small {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #0056b3;
+}
+
+/* ===== TABLE VIEW STYLES ===== */
+.data-table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background-color: white;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.data-table th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa; /* Thay đổi thành màu trắng */
+    color: #333; /* Màu chữ tối */
+    font-weight: 600;
+    text-align: center;
+    padding: 8px;
+    min-width: 70px; /* Thu nhỏ độ rộng cột */
+    border: 1px solid #dee2e6;
+    z-index: 1;
+}
+
+.data-table td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #dee2e6;
+    font-size: 0.9rem;
+}
+
+/* Symbol cell */
+.data-table .symbol-cell {
+    position: sticky;
+    left: 0;
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    z-index: 1;
+}
+
+/* Làm cho các ô có hoa văn dòng chẵn lẻ */
+.data-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.data-table tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Định dạng giá trị OI và Volume */
+.oi-value {
+    font-weight: bold;
+    color: #0d6efd; /* Màu xanh dương */
+}
+
+.volume-value {
+    font-weight: bold;
+    color: #20c997; /* Màu xanh lục */
+    margin-top: 3px;
+}
+
+/* Thêm thanh điều khiển bảng */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.table-controls .form-control,
+.table-controls .btn-group {
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .data-table th, 
+    .data-table td {
+        padding: 6px 4px;
+        min-width: 60px;
+        font-size: 0.8rem;
+    }
+    
+    .table-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Thêm style cho các chỉ số thay đổi */
+.positive-change {
+    color: #198754;
+    font-size: 0.8rem;
+}
+
+.negative-change {
+    color: #dc3545;
+    font-size: 0.8rem;
 }

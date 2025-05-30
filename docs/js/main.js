@@ -1,13 +1,13 @@
 /**
  * Simple OI & Volume Monitor JavaScript
  * Đã cập nhật với chức năng hiển thị biểu đồ dạng cột, hỗ trợ List View và Table View
- * Version 3.0.1 - Chỉ hiển thị dữ liệu thật
+ * Version 3.1.0 - Tối ưu hóa hiển thị dạng bảng
  */
 
 class SimpleOIVolumeMonitor {
     constructor() {
-        this.currentView = 'hourly';
-        this.displayMode = this.getInitialDisplayMode();
+        this.currentView = 'daily';  // Mặc định xem theo ngày
+        this.displayMode = 'table-view';  // Mặc định hiển thị dạng bảng
         this.coinsData = {};
         this.charts = {};
         this.symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
@@ -20,17 +20,8 @@ class SimpleOIVolumeMonitor {
     }
     
     getInitialDisplayMode() {
-        // Kiểm tra URL để xác định chế độ hiển thị ban đầu
-        const urlParams = new URLSearchParams(window.location.search);
-        const mode = urlParams.get('mode');
-        
-        if (mode === 'table') {
-            return 'table-view';
-        } else if (mode === 'list') {
-            return 'list-view';
-        } else {
-            return 'card-view';
-        }
+        // Luôn trả về table-view để hiển thị dạng bảng mặc định
+        return 'table-view';
     }
     
     init() {
@@ -103,10 +94,6 @@ class SimpleOIVolumeMonitor {
         });
         
         // Toggle view mode buttons
-        document.getElementById('toggleViewBtn')?.addEventListener('click', () => {
-            this.toggleDisplayMode();
-        });
-        
         document.getElementById('cardViewBtn')?.addEventListener('click', () => {
             this.setDisplayMode('card-view');
         });
@@ -146,6 +133,19 @@ class SimpleOIVolumeMonitor {
             if (this.displayMode === 'table-view') {
                 this.renderTableData();
             }
+        });
+
+        // Thêm event listener cho các chức năng mới
+        document.getElementById('symbolFilter')?.addEventListener('change', (e) => {
+            this.filterSymbols(e.target.value);
+        });
+
+        document.getElementById('exportCsvBtn')?.addEventListener('click', () => {
+            this.exportTableToCsv();
+        });
+
+        document.getElementById('printTableBtn')?.addEventListener('click', () => {
+            this.printTable();
         });
     }
     
@@ -1313,10 +1313,12 @@ class SimpleOIVolumeMonitor {
         symbolHeader.textContent = 'Symbol';
         headerRow.appendChild(symbolHeader);
         
-        // Thêm các cột ngày
+        // Thêm các cột ngày với định dạng dd/MM
         dates.forEach(date => {
             const th = document.createElement('th');
-            th.textContent = this.formatDate(date);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            th.textContent = `${day}/${month}`;
             headerRow.appendChild(th);
         });
         
@@ -1327,25 +1329,43 @@ class SimpleOIVolumeMonitor {
         const tbody = document.createElement('tbody');
         tbody.id = 'tableBody';
         
-        // Lấy danh sách symbol
+        // Lấy danh sách symbol và chỉ hiển thị mã không có USDT
         const symbols = Object.keys(this.coinsData);
         
         // Render từng dòng
         symbols.forEach(symbol => {
             const row = document.createElement('tr');
             
-            // Thêm ô symbol
+            // Thêm ô symbol (loại bỏ USDT)
             const symbolCell = document.createElement('td');
             symbolCell.className = 'symbol-cell';
             symbolCell.textContent = symbol.replace('USDT', '');
             row.appendChild(symbolCell);
             
-            // Thêm các ô dữ liệu
+            // Thêm các ô dữ liệu cho từng ngày
             dates.forEach(date => {
                 const td = document.createElement('td');
                 const data = this.getDataForDate(symbol, date);
                 
-                td.innerHTML = this.formatCellContent(data);
+                // Đơn giản hóa cách hiển thị giá trị - chỉ hiển thị số
+                if (data) {
+                    switch (this.dataType) {
+                        case 'oi':
+                            td.textContent = this.formatNumberSimple(data.open_interest_value || 0);
+                            break;
+                        case 'volume':
+                            td.textContent = this.formatNumberSimple(data.quote_volume || 0);
+                            break;
+                        case 'both':
+                            td.innerHTML = `
+                                <div class="oi-value">${this.formatNumberSimple(data.open_interest_value || 0)}</div>
+                                <div class="volume-value">${this.formatNumberSimple(data.quote_volume || 0)}</div>
+                            `;
+                            break;
+                    }
+                } else {
+                    td.textContent = '—';
+                }
                 
                 row.appendChild(td);
             });
@@ -1447,6 +1467,19 @@ class SimpleOIVolumeMonitor {
         return `${day}/${month}`;
     }
     
+    // Thêm phương thức định dạng số đơn giản hơn
+    formatNumberSimple(num) {
+        if (!num || isNaN(num)) return '0';
+        
+        const absNum = Math.abs(num);
+        
+        if (absNum >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+        if (absNum >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+        if (absNum >= 1e3) return (num / 1e3).toFixed(1) + 'K';
+        
+        return num.toFixed(0);
+    }
+    
     // Utility functions
     calculateChange(current, previous) {
         if (!current || !previous || previous === 0) return 0;
@@ -1514,6 +1547,125 @@ class SimpleOIVolumeMonitor {
         if (loadingDiv) loadingDiv.classList.add('d-none');
         
         console.error('Error:', message);
+    }
+    
+    // Thêm các phương thức mới
+    filterSymbols(filterType) {
+        const table = document.getElementById('dataTable');
+        if (!table) return;
+        
+        const rows = table.querySelectorAll('tbody tr');
+        
+        // Danh sách các đồng tiền chính
+        const majorCoins = ['BTC', 'ETH', 'BNB'];
+        
+        rows.forEach(row => {
+            const symbolCell = row.querySelector('.symbol-cell');
+            if (!symbolCell) return;
+            
+            const symbol = symbolCell.textContent.trim();
+            
+            switch(filterType) {
+                case 'all':
+                    row.style.display = '';
+                    break;
+                case 'major':
+                    row.style.display = majorCoins.includes(symbol) ? '' : 'none';
+                    break;
+                case 'alt':
+                    row.style.display = !majorCoins.includes(symbol) ? '' : 'none';
+                    break;
+            }
+        });
+    }
+    
+    exportTableToCsv() {
+        const table = document.getElementById('dataTable');
+        if (!table) return;
+        
+        // Lấy dữ liệu từ bảng
+        const rows = Array.from(table.querySelectorAll('tr'));
+        
+        let csvContent = "data:text/csv;charset=utf-8,";
+        
+        // Thêm dữ liệu từng dòng
+        rows.forEach(row => {
+            const rowData = Array.from(row.querySelectorAll('th, td'))
+                .map(cell => {
+                    // Xử lý nội dung của ô
+                    let content = cell.textContent.trim();
+                    // Nếu có dấu phẩy, bao quanh bằng dấu ngoặc kép
+                    return content.includes(',') ? `"${content}"` : content;
+                })
+                .join(',');
+            csvContent += rowData + '\r\n';
+        });
+        
+        // Tạo link tải xuống
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `binance-oi-volume-${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        
+        // Kích hoạt tải xuống
+        link.click();
+        
+        // Xóa element
+        document.body.removeChild(link);
+    }
+    
+    printTable() {
+        // Tạo cửa sổ in mới
+        const printWindow = window.open('', '_blank');
+        
+        // Lấy dữ liệu bảng
+        const table = document.getElementById('dataTable');
+        if (!table) return;
+        
+        // CSS cho trang in
+        const printCSS = `
+            <style>
+                body { font-family: Arial, sans-serif; }
+                table { border-collapse: collapse; width: 100%; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+                th { background-color: #f2f2f2; }
+                .symbol-cell { font-weight: bold; }
+                .print-header { text-align: center; margin-bottom: 20px; }
+                .print-footer { text-align: center; font-size: 0.8em; margin-top: 20px; color: #666; }
+            </style>
+        `;
+        
+        // HTML cho trang in
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Binance OI & Volume - ${new Date().toLocaleDateString()}</title>
+                ${printCSS}
+            </head>
+            <body>
+                <div class="print-header">
+                    <h2>Binance Futures - ${this.dataType === 'oi' ? 'Open Interest' : 
+                                        this.dataType === 'volume' ? 'Volume' : 
+                                        'Open Interest & Volume'}</h2>
+                    <p>Dữ liệu ${this.timeRange} ngày gần nhất - Tạo lúc: ${new Date().toLocaleString()}</p>
+                </div>
+                ${table.outerHTML}
+                <div class="print-footer">
+                    <p>Dữ liệu từ Binance API - Tạo tự động bởi hệ thống theo dõi OI & Volume</p>
+                </div>
+            </body>
+            </html>
+        `);
+        
+        // Đóng document để hoàn tất việc viết
+        printWindow.document.close();
+        
+        // Đợi tài nguyên tải xong và bắt đầu in
+        printWindow.onload = function() {
+            printWindow.print();
+            // printWindow.close(); // Tùy chọn: đóng cửa sổ sau khi in
+        };
     }
     
     destroy() {
