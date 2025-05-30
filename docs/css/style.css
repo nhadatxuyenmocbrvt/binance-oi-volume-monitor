@@ -1,7 +1,7 @@
 /**
  * Simple OI & Volume Monitor CSS
  * Tối ưu cho giao diện theo dõi OI và Volume dạng bảng
- * Version 2.0.0
+ * Version 2.0.1 - Hiển thị rõ % thay đổi
  */
 
 /* ===== VARIABLES ===== */
@@ -149,24 +149,30 @@ body {
     font-weight: bold;
     color: var(--oi-color);
     margin-bottom: 4px;
+    font-size: 1rem;
 }
 
 .volume-value {
     font-weight: bold;
     color: var(--volume-color);
     margin-top: 4px;
+    font-size: 1rem;
 }
 
 .positive-change {
-    color: var(--success-color);
-    font-weight: 500;
-    font-size: 0.9rem;
+    color: var(--success-color) !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: block; /* Đảm bảo hiển thị */
+    margin-top: 2px;
 }
 
 .negative-change {
-    color: var(--danger-color);
-    font-weight: 500;
-    font-size: 0.9rem;
+    color: var(--danger-color) !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: block; /* Đảm bảo hiển thị */
+    margin-top: 2px;
 }
 
 /* ===== VIEW SELECTOR ===== */
@@ -297,7 +303,7 @@ footer small {
     
     .positive-change, 
     .negative-change {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
     
     .time-nav .btn-group-wrapper {

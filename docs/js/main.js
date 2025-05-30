@@ -1,7 +1,7 @@
 /**
  * Simple OI & Volume Monitor JavaScript
  * Tối ưu cho hiển thị dạng bảng
- * Version 3.0.3 - Thời gian mới nhất hiển thị ở đầu tiên
+ * Version 3.0.4 - Hiển thị phần trăm thay đổi
  */
 
 class SimpleOIVolumeMonitor {
@@ -13,8 +13,8 @@ class SimpleOIVolumeMonitor {
         this.symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
         this.updateInterval = null;
         this.dataSource = null; // Will be detected
-        this.dataType = 'volume'; // 'oi', 'volume', 'both' - mặc định chọn volume
-        this.timeRange = 30; // Số ngày hiển thị trong bảng
+        this.dataType = 'oi'; // 'oi', 'volume', 'both'
+        this.timeRange = 14; // Số ngày/giờ hiển thị trong bảng
         
         this.init();
     }
@@ -60,7 +60,7 @@ class SimpleOIVolumeMonitor {
                     
                     if (contentType && contentType.includes('application/json')) {
                         const data = await response.json();
-                        console.log(`📋 Data: ${JSON.stringify(data)}`);
+                        console.log(`📋 Data found at: ${path}`);
                     }
                 } else {
                     console.log(`❌ Failed with status: ${response.status}`);
@@ -260,11 +260,92 @@ class SimpleOIVolumeMonitor {
             const data = await response.json();
             this.coinsData[symbol] = this.processSymbolData(data);
             
+            // Tiền xử lý dữ liệu để tính toán % thay đổi nếu chưa có
+            this.preprocessChangeData(symbol);
+            
             console.log(`✅ Loaded data for ${symbol}`);
             
         } catch (error) {
             console.warn(`⚠️ Không thể load dữ liệu cho ${symbol}:`, error);
             console.error(`❌ Không tải được dữ liệu cho ${symbol}`);
+        }
+    }
+    
+    // Tiền xử lý dữ liệu để tính % thay đổi
+    preprocessChangeData(symbol) {
+        const data = this.coinsData[symbol];
+        if (!data) return;
+        
+        // Xử lý dữ liệu theo ngày
+        if (data.tracking_30d && data.tracking_30d.length > 1) {
+            // Sắp xếp theo thời gian
+            data.tracking_30d.sort((a, b) => new Date(a.date_timestamp) - new Date(b.date_timestamp));
+            
+            // Tính % thay đổi nếu chưa có
+            for (let i = 1; i < data.tracking_30d.length; i++) {
+                const current = data.tracking_30d[i];
+                const previous = data.tracking_30d[i-1];
+                
+                // Tính % thay đổi OI nếu chưa có
+                if (current.oi_change_1d === undefined || current.oi_change_1d === null) {
+                    const currentOI = current.open_interest_value || current.avg_open_interest_value || 0;
+                    const previousOI = previous.open_interest_value || previous.avg_open_interest_value || 0;
+                    
+                    if (previousOI > 0) {
+                        current.oi_change_1d = ((currentOI - previousOI) / previousOI) * 100;
+                    } else {
+                        current.oi_change_1d = 0;
+                    }
+                }
+                
+                // Tính % thay đổi Volume nếu chưa có
+                if (current.volume_change_1d === undefined || current.volume_change_1d === null) {
+                    const currentVolume = current.quote_volume || 0;
+                    const previousVolume = previous.quote_volume || 0;
+                    
+                    if (previousVolume > 0) {
+                        current.volume_change_1d = ((currentVolume - previousVolume) / previousVolume) * 100;
+                    } else {
+                        current.volume_change_1d = 0;
+                    }
+                }
+            }
+        }
+        
+        // Xử lý dữ liệu theo giờ
+        if (data.tracking_24h && data.tracking_24h.length > 1) {
+            // Sắp xếp theo thời gian
+            data.tracking_24h.sort((a, b) => new Date(a.hour_timestamp) - new Date(b.hour_timestamp));
+            
+            // Tính % thay đổi nếu chưa có
+            for (let i = 1; i < data.tracking_24h.length; i++) {
+                const current = data.tracking_24h[i];
+                const previous = data.tracking_24h[i-1];
+                
+                // Tính % thay đổi OI nếu chưa có
+                if (current.oi_change_1h === undefined || current.oi_change_1h === null) {
+                    const currentOI = current.open_interest_value || current.open_interest || 0;
+                    const previousOI = previous.open_interest_value || previous.open_interest || 0;
+                    
+                    if (previousOI > 0) {
+                        current.oi_change_1h = ((currentOI - previousOI) / previousOI) * 100;
+                    } else {
+                        current.oi_change_1h = 0;
+                    }
+                }
+                
+                // Tính % thay đổi Volume nếu chưa có
+                if (current.volume_change_1h === undefined || current.volume_change_1h === null) {
+                    const currentVolume = current.quote_volume || current.volume || 0;
+                    const previousVolume = previous.quote_volume || previous.volume || 0;
+                    
+                    if (previousVolume > 0) {
+                        current.volume_change_1h = ((currentVolume - previousVolume) / previousVolume) * 100;
+                    } else {
+                        current.volume_change_1h = 0;
+                    }
+                }
+            }
         }
     }
     
@@ -311,9 +392,9 @@ class SimpleOIVolumeMonitor {
                     quote_volume: parseFloat(item.quote_volume),
                     open_interest_value: parseFloat(item.open_interest_value),
                     avg_open_interest_value: parseFloat(item.avg_open_interest_value),
-                    price_change_1d: parseFloat(item.price_change_1d),
-                    volume_change_1d: parseFloat(item.volume_change_1d),
-                    oi_change_1d: parseFloat(item.oi_change_1d)
+                    price_change_1d: parseFloat(item.price_change_1d || 0),
+                    volume_change_1d: parseFloat(item.volume_change_1d || 0),
+                    oi_change_1d: parseFloat(item.oi_change_1d || 0)
                 };
             });
             
@@ -337,9 +418,9 @@ class SimpleOIVolumeMonitor {
                     quote_volume: parseFloat(item.quote_volume || item.volume),
                     open_interest: parseFloat(item.open_interest),
                     open_interest_value: parseFloat(item.open_interest_value || item.open_interest),
-                    price_change_1h: parseFloat(item.price_change_1h),
-                    volume_change_1h: parseFloat(item.volume_change_1h),
-                    oi_change_1h: parseFloat(item.oi_change_1h)
+                    price_change_1h: parseFloat(item.price_change_1h || 0),
+                    volume_change_1h: parseFloat(item.volume_change_1h || 0),
+                    oi_change_1h: parseFloat(item.oi_change_1h || 0)
                 };
             });
         }
@@ -559,40 +640,36 @@ class SimpleOIVolumeMonitor {
             case 'oi':
                 // Chỉ hiển thị OI
                 content = `<div class="oi-value">${this.formatNumber(oiValue)}</div>`;
-                if (oiChange) {
-                    content += `<div class="${oiChange >= 0 ? 'positive-change' : 'negative-change'}">
-                                ${oiChange >= 0 ? '+' : ''}${oiChange.toFixed(2)}%
-                                </div>`;
-                }
+                // Luôn hiển thị phần trăm thay đổi
+                content += `<div class="${oiChange >= 0 ? 'positive-change' : 'negative-change'}">
+                            ${oiChange >= 0 ? '+' : ''}${oiChange.toFixed(2)}%
+                            </div>`;
                 break;
                 
             case 'volume':
                 // Chỉ hiển thị Volume
                 content = `<div class="volume-value">${this.formatNumber(volumeValue)}</div>`;
-                if (volumeChange) {
-                    content += `<div class="${volumeChange >= 0 ? 'positive-change' : 'negative-change'}">
-                                ${volumeChange >= 0 ? '+' : ''}${volumeChange.toFixed(2)}%
-                                </div>`;
-                }
+                // Luôn hiển thị phần trăm thay đổi
+                content += `<div class="${volumeChange >= 0 ? 'positive-change' : 'negative-change'}">
+                            ${volumeChange >= 0 ? '+' : ''}${volumeChange.toFixed(2)}%
+                            </div>`;
                 break;
                 
             case 'both':
                 // Hiển thị cả OI và Volume
                 content = `<div class="oi-value">${this.formatNumber(oiValue)}</div>`;
-                if (oiChange) {
-                    content += `<div class="${oiChange >= 0 ? 'positive-change' : 'negative-change'}">
-                                ${oiChange >= 0 ? '+' : ''}${oiChange.toFixed(2)}%
-                                </div>`;
-                }
+                // Luôn hiển thị phần trăm thay đổi OI
+                content += `<div class="${oiChange >= 0 ? 'positive-change' : 'negative-change'}">
+                            ${oiChange >= 0 ? '+' : ''}${oiChange.toFixed(2)}%
+                            </div>`;
                 
                 content += `<hr style="margin: 5px 0">`;
                 
                 content += `<div class="volume-value">${this.formatNumber(volumeValue)}</div>`;
-                if (volumeChange) {
-                    content += `<div class="${volumeChange >= 0 ? 'positive-change' : 'negative-change'}">
-                                ${volumeChange >= 0 ? '+' : ''}${volumeChange.toFixed(2)}%
-                                </div>`;
-                }
+                // Luôn hiển thị phần trăm thay đổi Volume
+                content += `<div class="${volumeChange >= 0 ? 'positive-change' : 'negative-change'}">
+                            ${volumeChange >= 0 ? '+' : ''}${volumeChange.toFixed(2)}%
+                            </div>`;
                 break;
         }
         
