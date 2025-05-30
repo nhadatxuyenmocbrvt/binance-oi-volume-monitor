@@ -1,5 +1,55 @@
 [
   {
+    "id": 49,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-30T09:09:31",
+    "data_type": "correlation_24h",
+    "value": -0.8697,
+    "z_score": 2.6091,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.870 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 50,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-30T09:09:31",
+    "data_type": "correlation_24h",
+    "value": -0.7572,
+    "z_score": 2.2716,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.757 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 51,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-30T09:09:31",
+    "data_type": "correlation_24h",
+    "value": -0.7643,
+    "z_score": 2.2929,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho DOGEUSDT: -0.764 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 48,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-30T08:53:47",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 376502411.67,
+    "z_score": 2.661785774404828,
+    "message": "Bất thường OI_Value_USDT 30d cho DOGEUSDT: 376502411.67 (Z-score: 2.66)",
+    "notified": 1
+  },
+  {
+    "id": 47,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-30T08:53:41",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 8873036655.8936,
+    "z_score": 2.921458582486072,
+    "message": "Bất thường OI_Value_USDT 30d cho BTCUSDT: 8873036655.89 (Z-score: 2.92)",
+    "notified": 1
+  },
+  {
     "id": 46,
     "symbol": "BTCUSDT",
     "timestamp": "2025-05-30T08:39:18",
@@ -447,16 +497,6 @@
     "value": 1360344791.178537,
     "z_score": 2.6037247096161518,
     "message": "Bất thường OI_Value_USDT 30d cho SOLUSDT: 1360344791.18 (Z-score: 2.60)",
-    "notified": 1
-  },
-  {
-    "id": 2,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-05-29T01:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 365198084.8868,
-    "z_score": 2.6414337343278875,
-    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 365198084.89 (Z-score: 2.64)",
     "notified": 1
   }
 ]
