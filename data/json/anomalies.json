@@ -1,5 +1,35 @@
 [
   {
+    "id": 59,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-05-30T10:40:31",
+    "data_type": "correlation_24h",
+    "value": -0.8586,
+    "z_score": 2.5758,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.859 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 60,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-30T10:40:31",
+    "data_type": "correlation_24h",
+    "value": -0.7877,
+    "z_score": 2.3630999999999998,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.788 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 61,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-30T10:40:31",
+    "data_type": "correlation_24h",
+    "value": -0.8021,
+    "z_score": 2.4063,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho DOGEUSDT: -0.802 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 57,
     "symbol": "BNBUSDT",
     "timestamp": "2025-05-30T10:10:01",
@@ -467,36 +497,6 @@
     "value": 5616839150.57502,
     "z_score": 2.5887418174913095,
     "message": "Bất thường OI_Value_USDT 30d cho ETHUSDT: 5616839150.58 (Z-score: 2.59)",
-    "notified": 1
-  },
-  {
-    "id": 19,
-    "symbol": "DOGEUSDT",
-    "timestamp": "2025-05-29T11:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 416608254.82082665,
-    "z_score": 2.5389926979124686,
-    "message": "Bất thường OI_Value_USDT 30d cho DOGEUSDT: 416608254.82 (Z-score: 2.54)",
-    "notified": 1
-  },
-  {
-    "id": 11,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-05-29T10:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 359615510.8452178,
-    "z_score": 2.5122366390432336,
-    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 359615510.85 (Z-score: 2.51)",
-    "notified": 1
-  },
-  {
-    "id": 17,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-05-29T10:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 5648714252.775655,
-    "z_score": 2.785872637835475,
-    "message": "Bất thường OI_Value_USDT 30d cho ETHUSDT: 5648714252.78 (Z-score: 2.79)",
     "notified": 1
   }
 ]
