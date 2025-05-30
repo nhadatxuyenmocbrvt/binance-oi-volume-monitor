@@ -1,7 +1,7 @@
 /**
  * Simple OI & Volume Monitor JavaScript
  * Tối ưu cho hiển thị dạng bảng
- * Version 3.0.4 - Hiển thị phần trăm thay đổi
+ * Version 3.0.5 - Sửa lỗi hiển thị % thay đổi
  */
 
 class SimpleOIVolumeMonitor {
@@ -15,14 +15,12 @@ class SimpleOIVolumeMonitor {
         this.dataSource = null; // Will be detected
         this.dataType = 'oi'; // 'oi', 'volume', 'both'
         this.timeRange = 14; // Số ngày/giờ hiển thị trong bảng
+        this.dailyChangeData = {}; // Lưu trữ dữ liệu % thay đổi theo ngày
         
         this.init();
     }
     
     init() {
-        // Debug data availability
-        this.debugDataAvailability();
-        
         // Khởi tạo event listeners
         this.setupEventListeners();
         
@@ -31,46 +29,6 @@ class SimpleOIVolumeMonitor {
         
         // Setup auto refresh (30 phút)
         this.startAutoRefresh();
-    }
-    
-    async debugDataAvailability() {
-        console.group('🔍 Kiểm tra khả năng truy cập dữ liệu');
-        
-        const paths = [
-            './assets/data/symbols.json',
-            '/binance-oi-volume-monitor/assets/data/symbols.json',
-            'https://nhadatxuyenmocbrvt.github.io/binance-oi-volume-monitor/assets/data/symbols.json',
-            './data/json/symbols.json',
-            '/binance-oi-volume-monitor/data/json/symbols.json',
-            'https://nhadatxuyenmocbrvt.github.io/binance-oi-volume-monitor/data/json/symbols.json',
-            'https://raw.githubusercontent.com/nhadatxuyenmocbrvt/binance-oi-volume-monitor/main/docs/assets/data/symbols.json',
-            'https://raw.githubusercontent.com/nhadatxuyenmocbrvt/binance-oi-volume-monitor/main/data/json/symbols.json'
-        ];
-        
-        console.log('🌐 Current URL:', window.location.href);
-        console.log('🌐 Base URL:', window.location.origin + window.location.pathname);
-        
-        for (const path of paths) {
-            try {
-                console.log(`🔍 Trying: ${path}`);
-                const response = await fetch(path);
-                if (response.ok) {
-                    const contentType = response.headers.get('content-type');
-                    console.log(`✅ Success! Content-Type: ${contentType}`);
-                    
-                    if (contentType && contentType.includes('application/json')) {
-                        const data = await response.json();
-                        console.log(`📋 Data found at: ${path}`);
-                    }
-                } else {
-                    console.log(`❌ Failed with status: ${response.status}`);
-                }
-            } catch (e) {
-                console.log(`❌ Error: ${e.message}`);
-            }
-        }
-        
-        console.groupEnd();
     }
     
     setupEventListeners() {
@@ -159,6 +117,9 @@ class SimpleOIVolumeMonitor {
             const promises = symbols.map(symbol => this.loadSymbolData(symbol));
             await Promise.all(promises);
             
+            // Tính toán % thay đổi dựa trên dữ liệu thực tế
+            this.calculateAllChanges();
+            
             // Update UI
             this.updateLastUpdateTime();
             this.renderTableData();
@@ -170,6 +131,121 @@ class SimpleOIVolumeMonitor {
             console.error('❌ Error loading data:', error);
             this.showError('Lỗi khi tải dữ liệu: ' + error.message);
             this.hideLoading();
+        }
+    }
+    
+    // Tính toán phần trăm thay đổi cho tất cả các coins
+    calculateAllChanges() {
+        const symbols = Object.keys(this.coinsData);
+        
+        // Xóa dữ liệu thay đổi cũ
+        this.dailyChangeData = {};
+        
+        symbols.forEach(symbol => {
+            this.dailyChangeData[symbol] = {};
+            
+            // Tính toán % thay đổi cho dữ liệu theo ngày
+            this.calculateDailyChanges(symbol);
+            
+            // Tính toán % thay đổi cho dữ liệu theo giờ
+            this.calculateHourlyChanges(symbol);
+        });
+    }
+    
+    // Tính toán % thay đổi dữ liệu theo ngày
+    calculateDailyChanges(symbol) {
+        const data = this.coinsData[symbol];
+        if (!data || !data.tracking_30d || data.tracking_30d.length < 2) return;
+        
+        // Sắp xếp dữ liệu theo thời gian
+        const sortedData = [...data.tracking_30d].sort((a, b) => 
+            new Date(a.date_timestamp) - new Date(b.date_timestamp)
+        );
+        
+        this.dailyChangeData[symbol].daily = {};
+        
+        // Tính % thay đổi cho mỗi ngày
+        for (let i = 1; i < sortedData.length; i++) {
+            const current = sortedData[i];
+            const previous = sortedData[i-1];
+            
+            // Lấy ngày để làm key
+            const currentDate = current.date_timestamp ? current.date_timestamp.split('T')[0] : null;
+            if (!currentDate) continue;
+            
+            // Tính % thay đổi OI
+            const currentOI = current.avg_open_interest_value || current.open_interest_value || 0;
+            const previousOI = previous.avg_open_interest_value || previous.open_interest_value || 0;
+            
+            let oiChange = 0;
+            if (previousOI > 0) {
+                oiChange = ((currentOI - previousOI) / previousOI) * 100;
+            }
+            
+            // Tính % thay đổi Volume
+            const currentVolume = current.quote_volume || 0;
+            const previousVolume = previous.quote_volume || 0;
+            
+            let volumeChange = 0;
+            if (previousVolume > 0) {
+                volumeChange = ((currentVolume - previousVolume) / previousVolume) * 100;
+            }
+            
+            // Lưu vào đối tượng dailyChangeData
+            this.dailyChangeData[symbol].daily[currentDate] = {
+                oiChange: oiChange,
+                volumeChange: volumeChange
+            };
+            
+            console.log(`${symbol} - ${currentDate}: OI change = ${oiChange.toFixed(2)}%, Volume change = ${volumeChange.toFixed(2)}%`);
+        }
+    }
+    
+    // Tính toán % thay đổi dữ liệu theo giờ
+    calculateHourlyChanges(symbol) {
+        const data = this.coinsData[symbol];
+        if (!data || !data.tracking_24h || data.tracking_24h.length < 2) return;
+        
+        // Sắp xếp dữ liệu theo thời gian
+        const sortedData = [...data.tracking_24h].sort((a, b) => 
+            new Date(a.hour_timestamp) - new Date(b.hour_timestamp)
+        );
+        
+        this.dailyChangeData[symbol].hourly = {};
+        
+        // Tính % thay đổi cho mỗi giờ
+        for (let i = 1; i < sortedData.length; i++) {
+            const current = sortedData[i];
+            const previous = sortedData[i-1];
+            
+            // Lấy giờ để làm key
+            if (!current.hour_timestamp) continue;
+            const hourTime = new Date(current.hour_timestamp);
+            const hourKey = hourTime.getHours().toString().padStart(2, '0');
+            
+            // Tính % thay đổi OI
+            const currentOI = current.open_interest_value || current.open_interest || 0;
+            const previousOI = previous.open_interest_value || previous.open_interest || 0;
+            
+            let oiChange = 0;
+            if (previousOI > 0) {
+                oiChange = ((currentOI - previousOI) / previousOI) * 100;
+            }
+            
+            // Tính % thay đổi Volume
+            const currentVolume = current.quote_volume || current.volume || 0;
+            const previousVolume = previous.quote_volume || previous.volume || 0;
+            
+            let volumeChange = 0;
+            if (previousVolume > 0) {
+                volumeChange = ((currentVolume - previousVolume) / previousVolume) * 100;
+            }
+            
+            // Lưu vào đối tượng dailyChangeData
+            this.dailyChangeData[symbol].hourly[hourKey] = {
+                oiChange: oiChange,
+                volumeChange: volumeChange
+            };
         }
     }
     
@@ -260,92 +336,11 @@ class SimpleOIVolumeMonitor {
             const data = await response.json();
             this.coinsData[symbol] = this.processSymbolData(data);
             
-            // Tiền xử lý dữ liệu để tính toán % thay đổi nếu chưa có
-            this.preprocessChangeData(symbol);
-            
             console.log(`✅ Loaded data for ${symbol}`);
             
         } catch (error) {
             console.warn(`⚠️ Không thể load dữ liệu cho ${symbol}:`, error);
             console.error(`❌ Không tải được dữ liệu cho ${symbol}`);
-        }
-    }
-    
-    // Tiền xử lý dữ liệu để tính % thay đổi
-    preprocessChangeData(symbol) {
-        const data = this.coinsData[symbol];
-        if (!data) return;
-        
-        // Xử lý dữ liệu theo ngày
-        if (data.tracking_30d && data.tracking_30d.length > 1) {
-            // Sắp xếp theo thời gian
-            data.tracking_30d.sort((a, b) => new Date(a.date_timestamp) - new Date(b.date_timestamp));
-            
-            // Tính % thay đổi nếu chưa có
-            for (let i = 1; i < data.tracking_30d.length; i++) {
-                const current = data.tracking_30d[i];
-                const previous = data.tracking_30d[i-1];
-                
-                // Tính % thay đổi OI nếu chưa có
-                if (current.oi_change_1d === undefined || current.oi_change_1d === null) {
-                    const currentOI = current.open_interest_value || current.avg_open_interest_value || 0;
-                    const previousOI = previous.open_interest_value || previous.avg_open_interest_value || 0;
-                    
-                    if (previousOI > 0) {
-                        current.oi_change_1d = ((currentOI - previousOI) / previousOI) * 100;
-                    } else {
-                        current.oi_change_1d = 0;
-                    }
-                }
-                
-                // Tính % thay đổi Volume nếu chưa có
-                if (current.volume_change_1d === undefined || current.volume_change_1d === null) {
-                    const currentVolume = current.quote_volume || 0;
-                    const previousVolume = previous.quote_volume || 0;
-                    
-                    if (previousVolume > 0) {
-                        current.volume_change_1d = ((currentVolume - previousVolume) / previousVolume) * 100;
-                    } else {
-                        current.volume_change_1d = 0;
-                    }
-                }
-            }
-        }
-        
-        // Xử lý dữ liệu theo giờ
-        if (data.tracking_24h && data.tracking_24h.length > 1) {
-            // Sắp xếp theo thời gian
-            data.tracking_24h.sort((a, b) => new Date(a.hour_timestamp) - new Date(b.hour_timestamp));
-            
-            // Tính % thay đổi nếu chưa có
-            for (let i = 1; i < data.tracking_24h.length; i++) {
-                const current = data.tracking_24h[i];
-                const previous = data.tracking_24h[i-1];
-                
-                // Tính % thay đổi OI nếu chưa có
-                if (current.oi_change_1h === undefined || current.oi_change_1h === null) {
-                    const currentOI = current.open_interest_value || current.open_interest || 0;
-                    const previousOI = previous.open_interest_value || previous.open_interest || 0;
-                    
-                    if (previousOI > 0) {
-                        current.oi_change_1h = ((currentOI - previousOI) / previousOI) * 100;
-                    } else {
-                        current.oi_change_1h = 0;
-                    }
-                }
-                
-                // Tính % thay đổi Volume nếu chưa có
-                if (current.volume_change_1h === undefined || current.volume_change_1h === null) {
-                    const currentVolume = current.quote_volume || current.volume || 0;
-                    const previousVolume = previous.quote_volume || previous.volume || 0;
-                    
-                    if (previousVolume > 0) {
-                        current.volume_change_1h = ((currentVolume - previousVolume) / previousVolume) * 100;
-                    } else {
-                        current.volume_change_1h = 0;
-                    }
-                }
-            }
         }
     }
     
@@ -371,12 +366,6 @@ class SimpleOIVolumeMonitor {
                     open_interest_value: parseFloat(item.open_interest_value)
                 };
             });
-            
-            // Debug để kiểm tra giá trị OI
-            if (processed.open_interest.length > 0) {
-                const lastOI = processed.open_interest[processed.open_interest.length-1];
-                console.log(`DEBUG OI: ${rawData.symbol} latest OI value=${lastOI.open_interest_value.toLocaleString()} USDT`);
-            }
         }
         
         // Xử lý dữ liệu tracking_30d
@@ -397,12 +386,6 @@ class SimpleOIVolumeMonitor {
                     oi_change_1d: parseFloat(item.oi_change_1d || 0)
                 };
             });
-            
-            // Debug để kiểm tra giá trị OI và Volume trong dữ liệu 30 ngày
-            if (processed.tracking_30d.length > 0) {
-                const lastRecord = processed.tracking_30d[processed.tracking_30d.length-1];
-                console.log(`DEBUG 30d: ${rawData.symbol} latest values: OI=${lastRecord.open_interest_value.toLocaleString()}, Volume=${lastRecord.quote_volume.toLocaleString()}`);
-            }
         }
         
         // Xử lý dữ liệu tracking_24h
@@ -517,14 +500,27 @@ class SimpleOIVolumeMonitor {
                 
                 // Lấy dữ liệu cho thời điểm cụ thể
                 let data = null;
+                let changeData = null;
                 
                 if (this.currentView === 'daily') {
                     data = this.getDataForDate(symbol, time);
+                    
+                    // Lấy dữ liệu % thay đổi
+                    const dateStr = time.toISOString().split('T')[0];
+                    if (this.dailyChangeData[symbol] && this.dailyChangeData[symbol].daily) {
+                        changeData = this.dailyChangeData[symbol].daily[dateStr];
+                    }
                 } else {
                     data = this.getHourlyData(symbol, time);
+                    
+                    // Lấy dữ liệu % thay đổi
+                    const hourKey = time.getHours().toString().padStart(2, '0');
+                    if (this.dailyChangeData[symbol] && this.dailyChangeData[symbol].hourly) {
+                        changeData = this.dailyChangeData[symbol].hourly[hourKey];
+                    }
                 }
                 
-                td.innerHTML = this.formatCellContent(data);
+                td.innerHTML = this.formatCellContent(data, changeData);
                 
                 row.appendChild(td);
             });
@@ -614,7 +610,7 @@ class SimpleOIVolumeMonitor {
         });
     }
     
-    formatCellContent(data) {
+    formatCellContent(data, changeData) {
         if (!data) return '—';
         
         let content = '';
@@ -627,20 +623,21 @@ class SimpleOIVolumeMonitor {
         const volumeValue = this.currentView === 'daily'
             ? (data.quote_volume || 0)
             : (data.quote_volume || data.volume || 0);
-            
-        const oiChange = this.currentView === 'daily'
-            ? (data.oi_change_1d || 0)
-            : (data.oi_change_1h || 0);
-            
-        const volumeChange = this.currentView === 'daily'
-            ? (data.volume_change_1d || 0)
-            : (data.volume_change_1h || 0);
+        
+        // Lấy % thay đổi từ dữ liệu tính toán
+        let oiChange = 0;
+        let volumeChange = 0;
+        
+        if (changeData) {
+            oiChange = changeData.oiChange || 0;
+            volumeChange = changeData.volumeChange || 0;
+        }
         
         switch (this.dataType) {
             case 'oi':
                 // Chỉ hiển thị OI
                 content = `<div class="oi-value">${this.formatNumber(oiValue)}</div>`;
-                // Luôn hiển thị phần trăm thay đổi
+                // Hiển thị phần trăm thay đổi
                 content += `<div class="${oiChange >= 0 ? 'positive-change' : 'negative-change'}">
                             ${oiChange >= 0 ? '+' : ''}${oiChange.toFixed(2)}%
                             </div>`;
@@ -649,7 +646,7 @@ class SimpleOIVolumeMonitor {
             case 'volume':
                 // Chỉ hiển thị Volume
                 content = `<div class="volume-value">${this.formatNumber(volumeValue)}</div>`;
-                // Luôn hiển thị phần trăm thay đổi
+                // Hiển thị phần trăm thay đổi
                 content += `<div class="${volumeChange >= 0 ? 'positive-change' : 'negative-change'}">
                             ${volumeChange >= 0 ? '+' : ''}${volumeChange.toFixed(2)}%
                             </div>`;
@@ -658,7 +655,7 @@ class SimpleOIVolumeMonitor {
             case 'both':
                 // Hiển thị cả OI và Volume
                 content = `<div class="oi-value">${this.formatNumber(oiValue)}</div>`;
-                // Luôn hiển thị phần trăm thay đổi OI
+                // Hiển thị phần trăm thay đổi OI
                 content += `<div class="${oiChange >= 0 ? 'positive-change' : 'negative-change'}">
                             ${oiChange >= 0 ? '+' : ''}${oiChange.toFixed(2)}%
                             </div>`;
@@ -666,7 +663,7 @@ class SimpleOIVolumeMonitor {
                 content += `<hr style="margin: 5px 0">`;
                 
                 content += `<div class="volume-value">${this.formatNumber(volumeValue)}</div>`;
-                // Luôn hiển thị phần trăm thay đổi Volume
+                // Hiển thị phần trăm thay đổi Volume
                 content += `<div class="${volumeChange >= 0 ? 'positive-change' : 'negative-change'}">
                             ${volumeChange >= 0 ? '+' : ''}${volumeChange.toFixed(2)}%
                             </div>`;
