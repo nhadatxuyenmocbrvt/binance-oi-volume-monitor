@@ -1,7 +1,7 @@
 /**
  * Simple OI & Volume Monitor JavaScript
  * Tối ưu cho hiển thị dạng bảng
- * Version 3.0.2 - Chỉ hiển thị dữ liệu dạng bảng với thời gian mới nhất ở đầu tiên
+ * Version 3.0.3 - Thời gian mới nhất hiển thị ở đầu tiên
  */
 
 class SimpleOIVolumeMonitor {
@@ -13,7 +13,7 @@ class SimpleOIVolumeMonitor {
         this.symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT'];
         this.updateInterval = null;
         this.dataSource = null; // Will be detected
-        this.dataType = 'oi'; // 'oi', 'volume', 'both'
+        this.dataType = 'volume'; // 'oi', 'volume', 'both' - mặc định chọn volume
         this.timeRange = 30; // Số ngày hiển thị trong bảng
         
         this.init();
@@ -367,7 +367,7 @@ class SimpleOIVolumeMonitor {
         return processed;
     }
     
-    // Render dữ liệu dạng bảng theo ngày
+    // Render dữ liệu dạng bảng theo ngày hoặc giờ
     renderTableData() {
         const tableViewContainer = document.getElementById('tableViewContainer');
         if (!tableViewContainer) {
@@ -381,11 +381,11 @@ class SimpleOIVolumeMonitor {
             return;
         }
         
-        // Lấy các ngày hoặc giờ cần hiển thị
-        const dates = this.generateDateArray(this.timeRange);
+        // Lấy các ngày/giờ cần hiển thị
+        let timePoints = this.generateTimePoints(this.timeRange);
         
-        // Đảo ngược thứ tự thời gian: mới nhất ở đầu tiên, xa nhất ở cuối
-        dates.reverse();
+        // Đảm bảo thời gian mới nhất ở đầu (trái) và cũ nhất ở cuối (phải)
+        timePoints = timePoints.sort((a, b) => b - a);
         
         // Tạo bảng
         const table = document.createElement('table');
@@ -403,10 +403,10 @@ class SimpleOIVolumeMonitor {
         symbolHeader.textContent = 'Symbol';
         headerRow.appendChild(symbolHeader);
         
-        // Thêm các cột ngày (thời gian mới nhất ở trước)
-        dates.forEach(date => {
+        // Thêm các cột thời gian, mới nhất ở trái
+        timePoints.forEach(time => {
             const th = document.createElement('th');
-            th.textContent = this.formatDate(date);
+            th.textContent = this.formatTimePoint(time);
             headerRow.appendChild(th);
         });
         
@@ -430,18 +430,17 @@ class SimpleOIVolumeMonitor {
             symbolCell.textContent = symbol.replace('USDT', '');
             row.appendChild(symbolCell);
             
-            // Thêm các ô dữ liệu theo thứ tự thời gian mới nhất trước
-            dates.forEach(date => {
+            // Thêm các ô dữ liệu, thời gian mới nhất ở trái
+            timePoints.forEach(time => {
                 const td = document.createElement('td');
                 
-                // Lấy dữ liệu cho ngày hoặc giờ tùy theo chế độ xem
+                // Lấy dữ liệu cho thời điểm cụ thể
                 let data = null;
                 
                 if (this.currentView === 'daily') {
-                    data = this.getDataForDate(symbol, date);
+                    data = this.getDataForDate(symbol, time);
                 } else {
-                    // Nếu là chế độ xem theo giờ, lấy dữ liệu 24h gần nhất
-                    data = this.getHourlyData(symbol, date);
+                    data = this.getHourlyData(symbol, time);
                 }
                 
                 td.innerHTML = this.formatCellContent(data);
@@ -463,28 +462,45 @@ class SimpleOIVolumeMonitor {
         document.getElementById('contentDiv')?.classList.remove('d-none');
     }
     
-    generateDateArray(days) {
-        const dates = [];
-        const today = new Date();
+    generateTimePoints(count) {
+        const timePoints = [];
+        const now = new Date();
         
         if (this.currentView === 'daily') {
-            // Nếu là chế độ xem theo ngày, tạo mảng ngày
-            for (let i = 0; i < days; i++) {
-                const date = new Date(today);
+            // Tạo mảng các ngày, từ hiện tại về quá khứ
+            for (let i = 0; i < count; i++) {
+                const date = new Date(now);
                 date.setDate(date.getDate() - i);
-                dates.push(date);
+                // Reset về đầu ngày để so sánh chính xác
+                date.setHours(0, 0, 0, 0);
+                timePoints.push(date);
             }
         } else {
-            // Nếu là chế độ xem theo giờ, tạo mảng giờ (24 giờ gần nhất)
-            const hours = Math.min(days, 24); // Giới hạn ở 24 giờ
+            // Tạo mảng các giờ, từ hiện tại về quá khứ
+            const hours = Math.min(count, 24); // Giới hạn ở 24 giờ
             for (let i = 0; i < hours; i++) {
-                const date = new Date(today);
+                const date = new Date(now);
                 date.setHours(date.getHours() - i);
-                dates.push(date);
+                // Reset về đầu giờ
+                date.setMinutes(0, 0, 0);
+                timePoints.push(date);
             }
         }
         
-        return dates;
+        return timePoints;
+    }
+    
+    formatTimePoint(date) {
+        if (this.currentView === 'daily') {
+            // Format: DD/MM
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            return `${day}/${month}`;
+        } else {
+            // Format: HH:00
+            const hour = date.getHours().toString().padStart(2, '0');
+            return `${hour}:00`;
+        }
     }
     
     getDataForDate(symbol, date) {
@@ -497,7 +513,7 @@ class SimpleOIVolumeMonitor {
         // Find data for the date
         return data.tracking_30d.find(item => {
             const itemDate = item.date_timestamp ? item.date_timestamp.split('T')[0] : 
-                            (item.date ? item.date.toISOString().split('T')[0] : null);
+                           (item.date ? item.date.toISOString().split('T')[0] : null);
             return itemDate === dateStr;
         });
     }
@@ -506,20 +522,14 @@ class SimpleOIVolumeMonitor {
         const data = this.coinsData[symbol];
         if (!data || !data.tracking_24h || data.tracking_24h.length === 0) return null;
         
-        // Tạo timestamp cho giờ cần tìm (chỉ giữ giờ, phút và giây đặt về 0)
-        const targetHour = new Date(date);
-        targetHour.setMinutes(0, 0, 0);
-        
-        // Tìm dữ liệu giờ gần nhất
-        const targetTimestamp = targetHour.toISOString();
+        // Tìm dữ liệu cho giờ cụ thể
+        const targetHour = date.getHours();
         
         return data.tracking_24h.find(item => {
             if (!item.hour_timestamp) return false;
             
-            const itemHour = new Date(item.hour_timestamp);
-            itemHour.setMinutes(0, 0, 0);
-            
-            return itemHour.toISOString() === targetTimestamp;
+            const itemDate = new Date(item.hour_timestamp);
+            return itemDate.getHours() === targetHour;
         });
     }
     
@@ -587,19 +597,6 @@ class SimpleOIVolumeMonitor {
         }
         
         return content;
-    }
-    
-    formatDate(date) {
-        if (this.currentView === 'daily') {
-            // Format: DD/MM
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            return `${day}/${month}`;
-        } else {
-            // Format: HH:00
-            const hour = date.getHours().toString().padStart(2, '0');
-            return `${hour}:00`;
-        }
     }
     
     // Utility functions
