@@ -1,5 +1,25 @@
 [
   {
+    "id": 17,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-30T19:05:25",
+    "data_type": "correlation_24h",
+    "value": -0.8773,
+    "z_score": 2.6319,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.877 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 20,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-05-30T19:05:25",
+    "data_type": "correlation_24h",
+    "value": -0.7637,
+    "z_score": 2.2911,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.764 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 15,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-30T18:34:48",
@@ -47,6 +67,46 @@
     "value": 1258389121.6245072,
     "z_score": 3.0621089145123204,
     "message": "Bất thường OI_Value_USDT 30d cho SOLUSDT: 1258389121.62 (Z-score: 3.06)",
+    "notified": 1
+  },
+  {
+    "id": 19,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-30T01:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 335278776.85419494,
+    "z_score": 2.7113943294662417,
+    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 335278776.85 (Z-score: 2.71)",
+    "notified": 1
+  },
+  {
+    "id": 22,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-30T00:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 399886751.34126544,
+    "z_score": 2.750870590260466,
+    "message": "Bất thường OI_Value_USDT 30d cho DOGEUSDT: 399886751.34 (Z-score: 2.75)",
+    "notified": 1
+  },
+  {
+    "id": 18,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-29T23:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 346700372.460846,
+    "z_score": 3.6361060051203307,
+    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 346700372.46 (Z-score: 3.64)",
+    "notified": 1
+  },
+  {
+    "id": 21,
+    "symbol": "DOGEUSDT",
+    "timestamp": "2025-05-29T23:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 402300169.32142806,
+    "z_score": 3.199864668747324,
+    "message": "Bất thường OI_Value_USDT 30d cho DOGEUSDT: 402300169.32 (Z-score: 3.20)",
     "notified": 1
   },
   {
