@@ -1,7 +1,7 @@
 /**
  * Simple OI & Volume Monitor JavaScript
  * Tối ưu cho hiển thị dạng bảng
- * Version 3.0.1 - Chỉ hiển thị dữ liệu dạng bảng
+ * Version 3.0.2 - Chỉ hiển thị dữ liệu dạng bảng với thời gian mới nhất ở đầu tiên
  */
 
 class SimpleOIVolumeMonitor {
@@ -381,8 +381,11 @@ class SimpleOIVolumeMonitor {
             return;
         }
         
-        // Lấy các ngày cần hiển thị
+        // Lấy các ngày hoặc giờ cần hiển thị
         const dates = this.generateDateArray(this.timeRange);
+        
+        // Đảo ngược thứ tự thời gian: mới nhất ở đầu tiên, xa nhất ở cuối
+        dates.reverse();
         
         // Tạo bảng
         const table = document.createElement('table');
@@ -400,7 +403,7 @@ class SimpleOIVolumeMonitor {
         symbolHeader.textContent = 'Symbol';
         headerRow.appendChild(symbolHeader);
         
-        // Thêm các cột ngày
+        // Thêm các cột ngày (thời gian mới nhất ở trước)
         dates.forEach(date => {
             const th = document.createElement('th');
             th.textContent = this.formatDate(date);
@@ -427,7 +430,7 @@ class SimpleOIVolumeMonitor {
             symbolCell.textContent = symbol.replace('USDT', '');
             row.appendChild(symbolCell);
             
-            // Thêm các ô dữ liệu
+            // Thêm các ô dữ liệu theo thứ tự thời gian mới nhất trước
             dates.forEach(date => {
                 const td = document.createElement('td');
                 
@@ -466,7 +469,7 @@ class SimpleOIVolumeMonitor {
         
         if (this.currentView === 'daily') {
             // Nếu là chế độ xem theo ngày, tạo mảng ngày
-            for (let i = days - 1; i >= 0; i--) {
+            for (let i = 0; i < days; i++) {
                 const date = new Date(today);
                 date.setDate(date.getDate() - i);
                 dates.push(date);
@@ -474,7 +477,7 @@ class SimpleOIVolumeMonitor {
         } else {
             // Nếu là chế độ xem theo giờ, tạo mảng giờ (24 giờ gần nhất)
             const hours = Math.min(days, 24); // Giới hạn ở 24 giờ
-            for (let i = hours - 1; i >= 0; i--) {
+            for (let i = 0; i < hours; i++) {
                 const date = new Date(today);
                 date.setHours(date.getHours() - i);
                 dates.push(date);
