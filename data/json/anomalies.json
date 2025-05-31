@@ -1,5 +1,45 @@
 [
   {
+    "id": 95,
+    "symbol": "ALGOUSDT",
+    "timestamp": "2025-05-31T18:42:35",
+    "data_type": "correlation_24h",
+    "value": -0.9519,
+    "z_score": 2.8556999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ALGOUSDT: -0.952 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 92,
+    "symbol": "AVAXUSDT",
+    "timestamp": "2025-05-31T18:42:34",
+    "data_type": "correlation_24h",
+    "value": -0.8616,
+    "z_score": 2.5848,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AVAXUSDT: -0.862 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 93,
+    "symbol": "ETCUSDT",
+    "timestamp": "2025-05-31T18:42:34",
+    "data_type": "correlation_24h",
+    "value": -0.945,
+    "z_score": 2.835,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETCUSDT: -0.945 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 94,
+    "symbol": "NEARUSDT",
+    "timestamp": "2025-05-31T18:42:34",
+    "data_type": "correlation_24h",
+    "value": -0.8203,
+    "z_score": 2.4609,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.820 (strong_negative)",
+    "notified": 0
+  },
+  {
     "id": 75,
     "symbol": "ALGOUSDT",
     "timestamp": "2025-05-31T18:10:23",
@@ -320,6 +360,46 @@
     "notified": 1
   },
   {
+    "id": 78,
+    "symbol": "DOTUSDT",
+    "timestamp": "2025-05-30T20:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 68072274.776,
+    "z_score": 2.581534303574568,
+    "message": "Bất thường OI_Value_USDT 30d cho DOTUSDT: 68072274.78 (Z-score: 2.58)",
+    "notified": 0
+  },
+  {
+    "id": 80,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-05-30T20:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 137359486.7132,
+    "z_score": 2.659555861009387,
+    "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 137359486.71 (Z-score: 2.66)",
+    "notified": 0
+  },
+  {
+    "id": 82,
+    "symbol": "GALAUSDT",
+    "timestamp": "2025-05-30T20:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 20050211.77452,
+    "z_score": 2.5441046933805467,
+    "message": "Bất thường OI_Value_USDT 30d cho GALAUSDT: 20050211.77 (Z-score: 2.54)",
+    "notified": 0
+  },
+  {
+    "id": 85,
+    "symbol": "FILUSDT",
+    "timestamp": "2025-05-30T20:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 56054096.73987702,
+    "z_score": 2.540976286008227,
+    "message": "Bất thường OI_Value_USDT 30d cho FILUSDT: 56054096.74 (Z-score: 2.54)",
+    "notified": 0
+  },
+  {
     "id": 57,
     "symbol": "XRPUSDT",
     "timestamp": "2025-05-30T19:00:00",
@@ -337,6 +417,36 @@
     "value": 40521673.56625596,
     "z_score": 2.5050798531071954,
     "message": "Bất thường OI_Value_USDT 30d cho XLMUSDT: 40521673.57 (Z-score: 2.51)",
+    "notified": 0
+  },
+  {
+    "id": 77,
+    "symbol": "DOTUSDT",
+    "timestamp": "2025-05-30T19:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 68296520.38507986,
+    "z_score": 2.72124657864243,
+    "message": "Bất thường OI_Value_USDT 30d cho DOTUSDT: 68296520.39 (Z-score: 2.72)",
+    "notified": 0
+  },
+  {
+    "id": 79,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-05-30T19:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 137347922.20444956,
+    "z_score": 2.655669986337153,
+    "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 137347922.20 (Z-score: 2.66)",
+    "notified": 0
+  },
+  {
+    "id": 81,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-05-30T19:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 94446363.216,
+    "z_score": 2.654122368706297,
+    "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 94446363.22 (Z-score: 2.65)",
     "notified": 0
   },
   {
@@ -387,116 +497,6 @@
     "value": 57829222.84128886,
     "z_score": 2.9189169492558977,
     "message": "Bất thường OI_Value_USDT 30d cho FILUSDT: 57829222.84 (Z-score: 2.92)",
-    "notified": 0
-  },
-  {
-    "id": 63,
-    "symbol": "ALGOUSDT",
-    "timestamp": "2025-05-30T16:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 15030171.9549,
-    "z_score": 2.6445811264389443,
-    "message": "Bất thường OI_Value_USDT 30d cho ALGOUSDT: 15030171.95 (Z-score: 2.64)",
-    "notified": 0
-  },
-  {
-    "id": 54,
-    "symbol": "FILUSDT",
-    "timestamp": "2025-05-30T15:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 57994259.6293,
-    "z_score": 2.5767645092310296,
-    "message": "Bất thường OI_Value_USDT 30d cho FILUSDT: 57994259.63 (Z-score: 2.58)",
-    "notified": 0
-  },
-  {
-    "id": 55,
-    "symbol": "ALGOUSDT",
-    "timestamp": "2025-05-30T15:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 15119956.38757325,
-    "z_score": 2.5135801906493254,
-    "message": "Bất thường OI_Value_USDT 30d cho ALGOUSDT: 15119956.39 (Z-score: 2.51)",
-    "notified": 0
-  },
-  {
-    "id": 74,
-    "symbol": "POLUSDT",
-    "timestamp": "2025-05-30T15:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 16661763.85602696,
-    "z_score": 2.6564398144689396,
-    "message": "Bất thường OI_Value_USDT 30d cho POLUSDT: 16661763.86 (Z-score: 2.66)",
-    "notified": 0
-  },
-  {
-    "id": 76,
-    "symbol": "LPTUSDT",
-    "timestamp": "2025-05-30T15:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 54836016.25738686,
-    "z_score": 2.7354461404265713,
-    "message": "Bất thường OI_Value_USDT 30d cho LPTUSDT: 54836016.26 (Z-score: 2.74)",
-    "notified": 0
-  },
-  {
-    "id": 43,
-    "symbol": "LPTUSDT",
-    "timestamp": "2025-05-30T14:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 59896127.3526,
-    "z_score": 2.623296705451378,
-    "message": "Bất thường OI_Value_USDT 30d cho LPTUSDT: 59896127.35 (Z-score: 2.62)",
-    "notified": 0
-  },
-  {
-    "id": 50,
-    "symbol": "XRPUSDT",
-    "timestamp": "2025-05-30T14:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 594819508.39206,
-    "z_score": 2.663693341719774,
-    "message": "Bất thường OI_Value_USDT 30d cho XRPUSDT: 594819508.39 (Z-score: 2.66)",
-    "notified": 0
-  },
-  {
-    "id": 72,
-    "symbol": "LDOUSDT",
-    "timestamp": "2025-05-30T14:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 39850456.8212,
-    "z_score": 2.5514060238823713,
-    "message": "Bất thường OI_Value_USDT 30d cho LDOUSDT: 39850456.82 (Z-score: 2.55)",
-    "notified": 0
-  },
-  {
-    "id": 48,
-    "symbol": "XRPUSDT",
-    "timestamp": "2025-05-30T13:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 600273245.1034012,
-    "z_score": 2.8620569871883625,
-    "message": "Bất thường OI_Value_USDT 30d cho XRPUSDT: 600273245.10 (Z-score: 2.86)",
-    "notified": 0
-  },
-  {
-    "id": 66,
-    "symbol": "LDOUSDT",
-    "timestamp": "2025-05-30T13:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 41098874.93163936,
-    "z_score": 2.575193542580219,
-    "message": "Bất thường OI_Value_USDT 30d cho LDOUSDT: 41098874.93 (Z-score: 2.58)",
-    "notified": 0
-  },
-  {
-    "id": 67,
-    "symbol": "ORDIUSDT",
-    "timestamp": "2025-05-30T13:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 25993100.09018309,
-    "z_score": 2.521986588594133,
-    "message": "Bất thường OI_Value_USDT 30d cho ORDIUSDT: 25993100.09 (Z-score: 2.52)",
     "notified": 0
   }
 ]
