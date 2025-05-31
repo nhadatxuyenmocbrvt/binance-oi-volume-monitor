@@ -1,5 +1,35 @@
 [
   {
+    "id": 243,
+    "symbol": "ETCUSDT",
+    "timestamp": "2025-05-31T21:24:09",
+    "data_type": "correlation_24h",
+    "value": -0.917,
+    "z_score": 2.7510000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETCUSDT: -0.917 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 227,
+    "symbol": "NEARUSDT",
+    "timestamp": "2025-05-31T21:08:03",
+    "data_type": "correlation_24h",
+    "value": -0.8656,
+    "z_score": 2.5968,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.866 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 218,
+    "symbol": "AVAXUSDT",
+    "timestamp": "2025-05-31T21:08:02",
+    "data_type": "correlation_24h",
+    "value": -0.856,
+    "z_score": 2.568,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AVAXUSDT: -0.856 (strong_negative)",
+    "notified": 0
+  },
+  {
     "id": 211,
     "symbol": "AVAXUSDT",
     "timestamp": "2025-05-31T20:51:56",
@@ -280,6 +310,26 @@
     "notified": 0
   },
   {
+    "id": 214,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-05-31T10:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 4453336274.47138,
+    "z_score": 2.6721620212354105,
+    "message": "Bất thường OI_Value_USDT 30d cho ETHUSDT: 4453336274.47 (Z-score: 2.67)",
+    "notified": 0
+  },
+  {
+    "id": 215,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-05-31T10:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 329691409.49160004,
+    "z_score": 2.6028258977993968,
+    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 329691409.49 (Z-score: 2.60)",
+    "notified": 0
+  },
+  {
     "id": 28,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-31T07:34:56",
@@ -380,6 +430,16 @@
     "notified": 1
   },
   {
+    "id": 217,
+    "symbol": "XRPUSDT",
+    "timestamp": "2025-05-31T04:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 569330629.26621,
+    "z_score": 2.626769736079517,
+    "message": "Bất thường OI_Value_USDT 30d cho XRPUSDT: 569330629.27 (Z-score: 2.63)",
+    "notified": 0
+  },
+  {
     "id": 21,
     "symbol": "SOLUSDT",
     "timestamp": "2025-05-31T03:33:22",
@@ -400,6 +460,36 @@
     "notified": 1
   },
   {
+    "id": 216,
+    "symbol": "XRPUSDT",
+    "timestamp": "2025-05-31T03:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 569364896.1,
+    "z_score": 2.612720874291509,
+    "message": "Bất thường OI_Value_USDT 30d cho XRPUSDT: 569364896.10 (Z-score: 2.61)",
+    "notified": 0
+  },
+  {
+    "id": 222,
+    "symbol": "AAVEUSDT",
+    "timestamp": "2025-05-31T03:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 141996839.80513006,
+    "z_score": 2.944102626203866,
+    "message": "Bất thường OI_Value_USDT 30d cho AAVEUSDT: 141996839.81 (Z-score: 2.94)",
+    "notified": 0
+  },
+  {
+    "id": 236,
+    "symbol": "ATHUSDT",
+    "timestamp": "2025-05-31T03:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 18147006.0105,
+    "z_score": 2.579532363356769,
+    "message": "Bất thường OI_Value_USDT 30d cho ATHUSDT: 18147006.01 (Z-score: 2.58)",
+    "notified": 0
+  },
+  {
     "id": 38,
     "symbol": "BTCUSDT",
     "timestamp": "2025-05-31T02:47:39",
@@ -408,95 +498,5 @@
     "z_score": 2.5084306279454083,
     "message": "Bất thường OI_Value_USDT 30d cho BTCUSDT: 8684026118.48 (Z-score: 2.51)",
     "notified": 0
-  },
-  {
-    "id": 18,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-05-31T02:32:41",
-    "data_type": "correlation_24h",
-    "value": -0.7057,
-    "z_score": 2.1170999999999998,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.706 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 19,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-05-31T02:32:41",
-    "data_type": "correlation_24h",
-    "value": -0.7979,
-    "z_score": 2.3937,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.798 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 16,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-05-31T02:02:29",
-    "data_type": "correlation_24h",
-    "value": -0.7057,
-    "z_score": 2.1170999999999998,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.706 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 17,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-05-31T02:02:29",
-    "data_type": "correlation_24h",
-    "value": -0.7979,
-    "z_score": 2.3937,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.798 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 109,
-    "symbol": "PENDLEUSDT",
-    "timestamp": "2025-05-31T02:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 23745317.3398255,
-    "z_score": 2.591587615294703,
-    "message": "Bất thường OI_Value_USDT 30d cho PENDLEUSDT: 23745317.34 (Z-score: 2.59)",
-    "notified": 0
-  },
-  {
-    "id": 124,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-05-31T02:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 134671818.9832629,
-    "z_score": 2.544415875003497,
-    "message": "Bất thường OI_Value_USDT 30d cho AAVEUSDT: 134671818.98 (Z-score: 2.54)",
-    "notified": 0
-  },
-  {
-    "id": 186,
-    "symbol": "UNIUSDT",
-    "timestamp": "2025-05-31T02:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 84755391.332422,
-    "z_score": 2.7941143190820315,
-    "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 84755391.33 (Z-score: 2.79)",
-    "notified": 0
-  },
-  {
-    "id": 13,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-05-31T01:32:16",
-    "data_type": "correlation_24h",
-    "value": -0.8563,
-    "z_score": 2.5688999999999997,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.856 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 14,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-05-31T01:32:16",
-    "data_type": "correlation_24h",
-    "value": -0.9486,
-    "z_score": 2.8458,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.949 (strong_negative)",
-    "notified": 1
   }
 ]
