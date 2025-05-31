@@ -1,5 +1,45 @@
 [
   {
+    "id": 134,
+    "symbol": "1000FLOKIUSDT",
+    "timestamp": "2025-05-31T19:47:01",
+    "data_type": "correlation_24h",
+    "value": -0.9781,
+    "z_score": 2.9343,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho 1000FLOKIUSDT: -0.978 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 135,
+    "symbol": "ALGOUSDT",
+    "timestamp": "2025-05-31T19:47:01",
+    "data_type": "correlation_24h",
+    "value": -0.964,
+    "z_score": 2.892,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ALGOUSDT: -0.964 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 133,
+    "symbol": "ETCUSDT",
+    "timestamp": "2025-05-31T19:47:00",
+    "data_type": "correlation_24h",
+    "value": -0.9562,
+    "z_score": 2.8686000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETCUSDT: -0.956 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 132,
+    "symbol": "AVAXUSDT",
+    "timestamp": "2025-05-31T19:46:59",
+    "data_type": "correlation_24h",
+    "value": -0.8349,
+    "z_score": 2.5046999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AVAXUSDT: -0.835 (strong_negative)",
+    "notified": 0
+  },
+  {
     "id": 127,
     "symbol": "ALGOUSDT",
     "timestamp": "2025-05-31T19:14:49",
@@ -457,46 +497,6 @@
     "value": 92849603.3,
     "z_score": 3.139096186467167,
     "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 92849603.30 (Z-score: 3.14)",
-    "notified": 0
-  },
-  {
-    "id": 125,
-    "symbol": "GALAUSDT",
-    "timestamp": "2025-05-30T22:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 19558381.93149288,
-    "z_score": 2.6760197498970046,
-    "message": "Bất thường OI_Value_USDT 30d cho GALAUSDT: 19558381.93 (Z-score: 2.68)",
-    "notified": 0
-  },
-  {
-    "id": 128,
-    "symbol": "ALGOUSDT",
-    "timestamp": "2025-05-30T22:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 14637896.49326302,
-    "z_score": 2.5395373168018076,
-    "message": "Bất thường OI_Value_USDT 30d cho ALGOUSDT: 14637896.49 (Z-score: 2.54)",
-    "notified": 0
-  },
-  {
-    "id": 29,
-    "symbol": "BTCUSDT",
-    "timestamp": "2025-05-30T21:00:00",
-    "data_type": "24h_Volume_USDT",
-    "value": 2737040897044419.5,
-    "z_score": 2.5144230361290005,
-    "message": "Bất thường Volume_USDT 24h cho BTCUSDT: 2737040897044419.50 (Z-score: 2.51)",
-    "notified": 1
-  },
-  {
-    "id": 98,
-    "symbol": "DOTUSDT",
-    "timestamp": "2025-05-30T21:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 67306450.9041,
-    "z_score": 2.5683358951298003,
-    "message": "Bất thường OI_Value_USDT 30d cho DOTUSDT: 67306450.90 (Z-score: 2.57)",
     "notified": 0
   }
 ]
