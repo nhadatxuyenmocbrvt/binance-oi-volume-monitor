@@ -1,5 +1,75 @@
 [
   {
+    "id": 300,
+    "symbol": "FILUSDT",
+    "timestamp": "2025-05-31T23:33:46",
+    "data_type": "correlation_24h",
+    "value": -0.7891,
+    "z_score": 2.3673,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho FILUSDT: -0.789 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 298,
+    "symbol": "DOTUSDT",
+    "timestamp": "2025-05-31T23:33:45",
+    "data_type": "correlation_24h",
+    "value": -0.7417,
+    "z_score": 2.2251000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho DOTUSDT: -0.742 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 299,
+    "symbol": "ETCUSDT",
+    "timestamp": "2025-05-31T23:33:45",
+    "data_type": "correlation_24h",
+    "value": -0.8978,
+    "z_score": 2.6934,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETCUSDT: -0.898 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 297,
+    "symbol": "XRPUSDT",
+    "timestamp": "2025-05-31T23:33:44",
+    "data_type": "correlation_24h",
+    "value": -0.8429,
+    "z_score": 2.5286999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho XRPUSDT: -0.843 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 296,
+    "symbol": "ALGOUSDT",
+    "timestamp": "2025-05-31T23:17:40",
+    "data_type": "correlation_24h",
+    "value": -0.7659,
+    "z_score": 2.2977,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ALGOUSDT: -0.766 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 295,
+    "symbol": "NEARUSDT",
+    "timestamp": "2025-05-31T23:17:39",
+    "data_type": "correlation_24h",
+    "value": -0.9003,
+    "z_score": 2.7009,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.900 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 294,
+    "symbol": "AVAXUSDT",
+    "timestamp": "2025-05-31T23:17:38",
+    "data_type": "correlation_24h",
+    "value": -0.8853,
+    "z_score": 2.6559,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AVAXUSDT: -0.885 (strong_negative)",
+    "notified": 0
+  },
+  {
     "id": 293,
     "symbol": "FILUSDT",
     "timestamp": "2025-05-31T23:01:32",
@@ -427,76 +497,6 @@
     "value": 8643089091.78,
     "z_score": 2.51077986995374,
     "message": "Bất thường OI_Value_USDT 30d cho BTCUSDT: 8643089091.78 (Z-score: 2.51)",
-    "notified": 0
-  },
-  {
-    "id": 168,
-    "symbol": "ALGOUSDT",
-    "timestamp": "2025-05-31T20:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 14559086.789099999,
-    "z_score": 2.511337743245041,
-    "message": "Bất thường OI_Value_USDT 30d cho ALGOUSDT: 14559086.79 (Z-score: 2.51)",
-    "notified": 0
-  },
-  {
-    "id": 134,
-    "symbol": "1000FLOKIUSDT",
-    "timestamp": "2025-05-31T19:47:01",
-    "data_type": "correlation_24h",
-    "value": -0.9781,
-    "z_score": 2.9343,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho 1000FLOKIUSDT: -0.978 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 135,
-    "symbol": "ALGOUSDT",
-    "timestamp": "2025-05-31T19:47:01",
-    "data_type": "correlation_24h",
-    "value": -0.964,
-    "z_score": 2.892,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ALGOUSDT: -0.964 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 133,
-    "symbol": "ETCUSDT",
-    "timestamp": "2025-05-31T19:47:00",
-    "data_type": "correlation_24h",
-    "value": -0.9562,
-    "z_score": 2.8686000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ETCUSDT: -0.956 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 132,
-    "symbol": "AVAXUSDT",
-    "timestamp": "2025-05-31T19:46:59",
-    "data_type": "correlation_24h",
-    "value": -0.8349,
-    "z_score": 2.5046999999999997,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AVAXUSDT: -0.835 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 127,
-    "symbol": "ALGOUSDT",
-    "timestamp": "2025-05-31T19:14:49",
-    "data_type": "correlation_24h",
-    "value": -0.964,
-    "z_score": 2.892,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ALGOUSDT: -0.964 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 126,
-    "symbol": "1000FLOKIUSDT",
-    "timestamp": "2025-05-31T19:14:48",
-    "data_type": "correlation_24h",
-    "value": -0.9781,
-    "z_score": 2.9343,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho 1000FLOKIUSDT: -0.978 (strong_negative)",
     "notified": 0
   }
 ]
