@@ -1,5 +1,135 @@
 [
   {
+    "id": 348,
+    "symbol": "POLUSDT",
+    "timestamp": "2025-06-01T01:03:27",
+    "data_type": "correlation_24h",
+    "value": -0.7046,
+    "z_score": 2.1138,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho POLUSDT: -0.705 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 349,
+    "symbol": "ALGOUSDT",
+    "timestamp": "2025-06-01T01:03:27",
+    "data_type": "correlation_24h",
+    "value": -0.7724,
+    "z_score": 2.3171999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ALGOUSDT: -0.772 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 342,
+    "symbol": "GALAUSDT",
+    "timestamp": "2025-06-01T01:03:26",
+    "data_type": "correlation_24h",
+    "value": -0.7757,
+    "z_score": 2.3270999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho GALAUSDT: -0.776 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 345,
+    "symbol": "FILUSDT",
+    "timestamp": "2025-06-01T01:03:26",
+    "data_type": "correlation_24h",
+    "value": -0.7221,
+    "z_score": 2.1662999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho FILUSDT: -0.722 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 346,
+    "symbol": "ONDOUSDT",
+    "timestamp": "2025-06-01T01:03:26",
+    "data_type": "correlation_24h",
+    "value": -0.7708,
+    "z_score": 2.3124000000000002,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ONDOUSDT: -0.771 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 338,
+    "symbol": "DOTUSDT",
+    "timestamp": "2025-06-01T01:03:25",
+    "data_type": "correlation_24h",
+    "value": -0.7385,
+    "z_score": 2.2155,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho DOTUSDT: -0.739 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 339,
+    "symbol": "AVAXUSDT",
+    "timestamp": "2025-06-01T01:03:25",
+    "data_type": "correlation_24h",
+    "value": -0.8681,
+    "z_score": 2.6043,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AVAXUSDT: -0.868 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 340,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-01T01:03:25",
+    "data_type": "correlation_24h",
+    "value": -0.7834,
+    "z_score": 2.3502,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.783 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 341,
+    "symbol": "LINKUSDT",
+    "timestamp": "2025-06-01T01:03:25",
+    "data_type": "correlation_24h",
+    "value": -0.7786,
+    "z_score": 2.3358,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LINKUSDT: -0.779 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 334,
+    "symbol": "XRPUSDT",
+    "timestamp": "2025-06-01T01:03:24",
+    "data_type": "correlation_24h",
+    "value": -0.8845,
+    "z_score": 2.6534999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho XRPUSDT: -0.884 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 335,
+    "symbol": "ADAUSDT",
+    "timestamp": "2025-06-01T01:00:00",
+    "data_type": "24h_Volume_USDT",
+    "value": 325253442.02642745,
+    "z_score": 2.5319712787348476,
+    "message": "Bất thường Volume_USDT 24h cho ADAUSDT: 325253442.03 (Z-score: 2.53)",
+    "notified": 0
+  },
+  {
+    "id": 336,
+    "symbol": "ADAUSDT",
+    "timestamp": "2025-06-01T01:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 146568155.2678,
+    "z_score": 2.8213009876753667,
+    "message": "Bất thường OI_Value_USDT 30d cho ADAUSDT: 146568155.27 (Z-score: 2.82)",
+    "notified": 0
+  },
+  {
+    "id": 337,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-06-01T01:00:00",
+    "data_type": "24h_Volume_USDT",
+    "value": 476374613872.46606,
+    "z_score": 2.5098721938992696,
+    "message": "Bất thường Volume_USDT 24h cho SOLUSDT: 476374613872.47 (Z-score: 2.51)",
+    "notified": 0
+  },
+  {
     "id": 329,
     "symbol": "POLUSDT",
     "timestamp": "2025-06-01T00:31:13",
@@ -367,136 +497,6 @@
     "value": -0.7417,
     "z_score": 2.2251000000000003,
     "message": "Tương quan âm bất thường OI-Volume 24h cho DOTUSDT: -0.742 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 292,
-    "symbol": "ETCUSDT",
-    "timestamp": "2025-05-31T23:01:31",
-    "data_type": "correlation_24h",
-    "value": -0.8978,
-    "z_score": 2.6934,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ETCUSDT: -0.898 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 287,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-05-31T23:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 332171711.7984,
-    "z_score": 2.6337519527563873,
-    "message": "Bất thường OI_Value_USDT 30d cho BNBUSDT: 332171711.80 (Z-score: 2.63)",
-    "notified": 0
-  },
-  {
-    "id": 289,
-    "symbol": "DOGEUSDT",
-    "timestamp": "2025-05-31T23:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 344055129.97749996,
-    "z_score": 2.5264270210749036,
-    "message": "Bất thường OI_Value_USDT 30d cho DOGEUSDT: 344055129.98 (Z-score: 2.53)",
-    "notified": 0
-  },
-  {
-    "id": 282,
-    "symbol": "ALGOUSDT",
-    "timestamp": "2025-05-31T22:44:46",
-    "data_type": "correlation_24h",
-    "value": -0.7483,
-    "z_score": 2.2449,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ALGOUSDT: -0.748 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 279,
-    "symbol": "NEARUSDT",
-    "timestamp": "2025-05-31T22:44:45",
-    "data_type": "correlation_24h",
-    "value": -0.8766,
-    "z_score": 2.6298000000000004,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.877 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 281,
-    "symbol": "FILUSDT",
-    "timestamp": "2025-05-31T22:44:45",
-    "data_type": "correlation_24h",
-    "value": -0.7386,
-    "z_score": 2.2158,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho FILUSDT: -0.739 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 274,
-    "symbol": "AVAXUSDT",
-    "timestamp": "2025-05-31T22:44:44",
-    "data_type": "correlation_24h",
-    "value": -0.873,
-    "z_score": 2.6189999999999998,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AVAXUSDT: -0.873 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 273,
-    "symbol": "XRPUSDT",
-    "timestamp": "2025-05-31T22:44:43",
-    "data_type": "correlation_24h",
-    "value": -0.7887,
-    "z_score": 2.3661,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho XRPUSDT: -0.789 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 280,
-    "symbol": "APTUSDT",
-    "timestamp": "2025-05-31T22:34:16",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 42774237.47455,
-    "z_score": 2.5267942814980735,
-    "message": "Bất thường OI_Value_USDT 30d cho APTUSDT: 42774237.47 (Z-score: 2.53)",
-    "notified": 0
-  },
-  {
-    "id": 278,
-    "symbol": "1000BONKUSDT",
-    "timestamp": "2025-05-31T22:34:06",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 26171420.649215,
-    "z_score": 2.5250393813199654,
-    "message": "Bất thường OI_Value_USDT 30d cho 1000BONKUSDT: 26171420.65 (Z-score: 2.53)",
-    "notified": 0
-  },
-  {
-    "id": 319,
-    "symbol": "WLDUSDT",
-    "timestamp": "2025-05-31T22:34:01",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 60678516.953600004,
-    "z_score": 2.7917169692085424,
-    "message": "Bất thường OI_Value_USDT 30d cho WLDUSDT: 60678516.95 (Z-score: 2.79)",
-    "notified": 0
-  },
-  {
-    "id": 277,
-    "symbol": "SUIUSDT",
-    "timestamp": "2025-05-31T22:33:54",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 267716713.97375998,
-    "z_score": 2.752154281895432,
-    "message": "Bất thường OI_Value_USDT 30d cho SUIUSDT: 267716713.97 (Z-score: 2.75)",
-    "notified": 0
-  },
-  {
-    "id": 276,
-    "symbol": "XLMUSDT",
-    "timestamp": "2025-05-31T22:33:51",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 40891626.96786,
-    "z_score": 2.6253130215567926,
-    "message": "Bất thường OI_Value_USDT 30d cho XLMUSDT: 40891626.97 (Z-score: 2.63)",
     "notified": 0
   }
 ]
