@@ -1,5 +1,15 @@
 [
   {
+    "id": 716,
+    "symbol": "CAKEUSDT",
+    "timestamp": "2025-06-01T15:33:03",
+    "data_type": "correlation_24h",
+    "value": -0.7116,
+    "z_score": 2.1348000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.712 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 712,
     "symbol": "CAKEUSDT",
     "timestamp": "2025-06-01T15:01:34",
@@ -127,6 +137,16 @@
     "value": 78286475.5303,
     "z_score": 2.553665371174919,
     "message": "Bất thường OI_Value_USDT 30d cho FARTCOINUSDT: 78286475.53 (Z-score: 2.55)",
+    "notified": 1
+  },
+  {
+    "id": 713,
+    "symbol": "LDOUSDT",
+    "timestamp": "2025-06-01T12:36:37",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 32022801.1255,
+    "z_score": 2.5713175436443105,
+    "message": "Bất thường OI_Value_USDT 30d cho LDOUSDT: 32022801.13 (Z-score: 2.57)",
     "notified": 1
   },
   {
@@ -477,26 +497,6 @@
     "value": 70529.30892268401,
     "z_score": 2.50145984943306,
     "message": "Bất thường Volume_USDT 24h cho BOMEUSDT: 70529.31 (Z-score: 2.50)",
-    "notified": 1
-  },
-  {
-    "id": 651,
-    "symbol": "CAKEUSDT",
-    "timestamp": "2025-06-01T08:54:22",
-    "data_type": "correlation_24h",
-    "value": -0.7987,
-    "z_score": 2.3960999999999997,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.799 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 650,
-    "symbol": "BTCUSDT",
-    "timestamp": "2025-06-01T08:54:20",
-    "data_type": "correlation_24h",
-    "value": -0.8649,
-    "z_score": 2.5947,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.865 (strong_negative)",
     "notified": 1
   }
 ]
