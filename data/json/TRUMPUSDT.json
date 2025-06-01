@@ -1,6 +1,6 @@
 {
   "symbol": "TRUMPUSDT",
-  "last_update": "2025-06-01T23:31:16.295082",
+  "last_update": "2025-06-02T00:03:03.248674",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-03T20:00:00",
-      "open_interest": 13493628.42,
-      "open_interest_value": 155190220.45842,
-      "avg_open_interest": 13493628.42,
-      "avg_open_interest_value": 155190220.45842
-    },
-    {
       "timestamp": "2025-05-04T20:00:00",
       "open_interest": 14385241.58,
       "open_interest_value": 156918762.76106068,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 127953020.60800001,
       "avg_open_interest": 11323276.16,
       "avg_open_interest_value": 127953020.60800001
+    },
+    {
+      "timestamp": "2025-06-02T00:02:01",
+      "open_interest": 11342097.95,
+      "open_interest_value": 128324496.20629999,
+      "avg_open_interest": 11342097.95,
+      "avg_open_interest_value": 128324496.20629999
     }
   ],
   "tracking_24h": [
@@ -3614,19 +3614,18 @@
       "price_change_1h": -0.34543844109831445,
       "volume_change_1h": -14.22363658784796,
       "oi_change_1h": -0.581457994360504
+    },
+    {
+      "hour_timestamp": "2025-06-02T00:00:00",
+      "price": 11.316,
+      "quote_volume": 239819009.99634,
+      "open_interest_value": 128299184.00656,
+      "price_change_1h": 0.5777264243178498,
+      "volume_change_1h": -0.16143830087045566,
+      "oi_change_1h": 0.887419012075721
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-03T00:00:00",
-      "price": 11.307,
-      "quote_volume": 777031794.60862,
-      "open_interest_value": 172029787.63482,
-      "avg_open_interest_value": 172029787.63482,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-04T00:00:00",
       "price": 10.957,

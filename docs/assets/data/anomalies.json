@@ -1,5 +1,25 @@
 [
   {
+    "id": 783,
+    "symbol": "ETHFIUSDT",
+    "timestamp": "2025-06-01T23:31:05",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 27818621.85784,
+    "z_score": 4.628672228117361,
+    "message": "Bất thường OI_Value_USDT 30d cho ETHFIUSDT: 27818621.86 (Z-score: 4.63)",
+    "notified": 1
+  },
+  {
+    "id": 782,
+    "symbol": "XLMUSDT",
+    "timestamp": "2025-06-01T23:30:09",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 40727014.71174,
+    "z_score": 3.7239323857963518,
+    "message": "Bất thường OI_Value_USDT 30d cho XLMUSDT: 40727014.71 (Z-score: 3.72)",
+    "notified": 1
+  },
+  {
     "id": 779,
     "symbol": "LTCUSDT",
     "timestamp": "2025-06-01T21:00:00",
@@ -477,26 +497,6 @@
     "value": 101328606.03999999,
     "z_score": 3.3088028738187307,
     "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 101328606.04 (Z-score: 3.31)",
-    "notified": 1
-  },
-  {
-    "id": 691,
-    "symbol": "CAKEUSDT",
-    "timestamp": "2025-06-01T12:21:01",
-    "data_type": "correlation_24h",
-    "value": -0.7203,
-    "z_score": 2.1609000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.720 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 693,
-    "symbol": "RENDERUSDT",
-    "timestamp": "2025-06-01T12:05:21",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 16643600.0248,
-    "z_score": 3.881312016566626,
-    "message": "Bất thường OI_Value_USDT 30d cho RENDERUSDT: 16643600.02 (Z-score: 3.88)",
     "notified": 1
   }
 ]
