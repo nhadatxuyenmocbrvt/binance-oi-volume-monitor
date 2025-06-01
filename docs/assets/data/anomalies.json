@@ -1,5 +1,45 @@
 [
   {
+    "id": 678,
+    "symbol": "CAKEUSDT",
+    "timestamp": "2025-06-01T09:58:50",
+    "data_type": "correlation_24h",
+    "value": -0.7565,
+    "z_score": 2.2695,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.756 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 676,
+    "symbol": "GALAUSDT",
+    "timestamp": "2025-06-01T09:42:43",
+    "data_type": "correlation_24h",
+    "value": -0.7534,
+    "z_score": 2.2601999999999998,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho GALAUSDT: -0.753 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 674,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-06-01T09:42:41",
+    "data_type": "correlation_24h",
+    "value": -0.7919,
+    "z_score": 2.3757,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.792 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 677,
+    "symbol": "FILUSDT",
+    "timestamp": "2025-06-01T09:35:03",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 53794898.0348,
+    "z_score": 2.6603114432657278,
+    "message": "Bất thường OI_Value_USDT 30d cho FILUSDT: 53794898.03 (Z-score: 2.66)",
+    "notified": 0
+  },
+  {
     "id": 673,
     "symbol": "CAKEUSDT",
     "timestamp": "2025-06-01T09:26:37",
@@ -457,46 +497,6 @@
     "value": 103243573.3552532,
     "z_score": 3.204878746958723,
     "message": "Bất thường Volume_USDT 24h cho EIGENUSDT: 103243573.36 (Z-score: 3.20)",
-    "notified": 0
-  },
-  {
-    "id": 617,
-    "symbol": "ENAUSDT",
-    "timestamp": "2025-06-01T07:49:54",
-    "data_type": "correlation_24h",
-    "value": -0.7308,
-    "z_score": 2.1924,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ENAUSDT: -0.731 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 616,
-    "symbol": "CAKEUSDT",
-    "timestamp": "2025-06-01T07:49:53",
-    "data_type": "correlation_24h",
-    "value": -0.7936,
-    "z_score": 2.3808,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.794 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 615,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-06-01T07:49:52",
-    "data_type": "correlation_24h",
-    "value": -0.7204,
-    "z_score": 2.1612,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.720 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 614,
-    "symbol": "BTCUSDT",
-    "timestamp": "2025-06-01T07:49:51",
-    "data_type": "correlation_24h",
-    "value": -0.8818,
-    "z_score": 2.6454,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.882 (strong_negative)",
     "notified": 0
   }
 ]
