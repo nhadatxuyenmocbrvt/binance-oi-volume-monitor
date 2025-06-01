@@ -1,5 +1,45 @@
 [
   {
+    "id": 700,
+    "symbol": "CAKEUSDT",
+    "timestamp": "2025-06-01T12:53:39",
+    "data_type": "correlation_24h",
+    "value": -0.7203,
+    "z_score": 2.1609000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.720 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 699,
+    "symbol": "RENDERUSDT",
+    "timestamp": "2025-06-01T12:37:18",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 16719844.724100001,
+    "z_score": 3.27487777264782,
+    "message": "Bất thường OI_Value_USDT 30d cho RENDERUSDT: 16719844.72 (Z-score: 3.27)",
+    "notified": 1
+  },
+  {
+    "id": 698,
+    "symbol": "HBARUSDT",
+    "timestamp": "2025-06-01T12:36:58",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 35197142.12928,
+    "z_score": 2.69227872630477,
+    "message": "Bất thường OI_Value_USDT 30d cho HBARUSDT: 35197142.13 (Z-score: 2.69)",
+    "notified": 1
+  },
+  {
+    "id": 695,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-06-01T12:36:21",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 101328606.03999999,
+    "z_score": 3.3088028738187307,
+    "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 101328606.04 (Z-score: 3.31)",
+    "notified": 1
+  },
+  {
     "id": 691,
     "symbol": "CAKEUSDT",
     "timestamp": "2025-06-01T12:21:01",
@@ -207,7 +247,7 @@
     "value": 128661560.54357001,
     "z_score": 2.620248574720057,
     "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 128661560.54 (Z-score: 2.62)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 656,
@@ -217,7 +257,7 @@
     "value": 570505901.0937899,
     "z_score": 2.7445366824815918,
     "message": "Bất thường OI_Value_USDT 30d cho XRPUSDT: 570505901.09 (Z-score: 2.74)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 653,
@@ -227,7 +267,7 @@
     "value": 8656226502.5192,
     "z_score": 2.5012997431009367,
     "message": "Bất thường OI_Value_USDT 30d cho BTCUSDT: 8656226502.52 (Z-score: 2.50)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 654,
@@ -237,7 +277,7 @@
     "value": 4582006109.3475,
     "z_score": 2.5665607083919615,
     "message": "Bất thường OI_Value_USDT 30d cho ETHUSDT: 4582006109.35 (Z-score: 2.57)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 657,
@@ -247,7 +287,7 @@
     "value": 245336346.35293105,
     "z_score": 2.7161569843121236,
     "message": "Bất thường Volume_USDT 24h cho ADAUSDT: 245336346.35 (Z-score: 2.72)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 658,
@@ -257,7 +297,7 @@
     "value": 200606026.5372722,
     "z_score": 2.5210099758117894,
     "message": "Bất thường Volume_USDT 24h cho DOGEUSDT: 200606026.54 (Z-score: 2.52)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 660,
@@ -267,7 +307,7 @@
     "value": 989376330.4606069,
     "z_score": 2.6050810776338524,
     "message": "Bất thường Volume_USDT 24h cho ETCUSDT: 989376330.46 (Z-score: 2.61)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 662,
@@ -277,7 +317,7 @@
     "value": 33848437500.448376,
     "z_score": 2.8459963227262004,
     "message": "Bất thường OI_Value_USDT 24h cho AAVEUSDT: 33848437500.45 (Z-score: 2.85)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 663,
@@ -287,7 +327,7 @@
     "value": 63735727.31884108,
     "z_score": 2.5399747451301438,
     "message": "Bất thường OI_Value_USDT 24h cho WLDUSDT: 63735727.32 (Z-score: 2.54)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 665,
@@ -297,7 +337,7 @@
     "value": 1381664.4975125217,
     "z_score": 2.5493244736913105,
     "message": "Bất thường Volume_USDT 24h cho 1000BONKUSDT: 1381664.50 (Z-score: 2.55)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 666,
@@ -307,7 +347,7 @@
     "value": 54099260.302,
     "z_score": 2.501955418382925,
     "message": "Bất thường OI_Value_USDT 30d cho FILUSDT: 54099260.30 (Z-score: 2.50)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 668,
@@ -317,7 +357,7 @@
     "value": 128723863.85360016,
     "z_score": 2.5841417988319497,
     "message": "Bất thường Volume_USDT 24h cho PENDLEUSDT: 128723863.85 (Z-score: 2.58)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 670,
@@ -327,7 +367,7 @@
     "value": 95413663.73085728,
     "z_score": 2.956688239952316,
     "message": "Bất thường Volume_USDT 24h cho EIGENUSDT: 95413663.73 (Z-score: 2.96)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 672,
@@ -337,7 +377,7 @@
     "value": 70529.30892268401,
     "z_score": 2.50145984943306,
     "message": "Bất thường Volume_USDT 24h cho BOMEUSDT: 70529.31 (Z-score: 2.50)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 651,
@@ -347,7 +387,7 @@
     "value": -0.7987,
     "z_score": 2.3960999999999997,
     "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.799 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 650,
@@ -357,7 +397,7 @@
     "value": -0.8649,
     "z_score": 2.5947,
     "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.865 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 649,
@@ -367,7 +407,7 @@
     "value": -0.7574,
     "z_score": 2.2721999999999998,
     "message": "Tương quan âm bất thường OI-Volume 24h cho ALGOUSDT: -0.757 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 646,
@@ -377,7 +417,7 @@
     "value": -0.7842,
     "z_score": 2.3526,
     "message": "Tương quan âm bất thường OI-Volume 24h cho FILUSDT: -0.784 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 647,
@@ -387,7 +427,7 @@
     "value": -0.7912,
     "z_score": 2.3736,
     "message": "Tương quan âm bất thường OI-Volume 24h cho ONDOUSDT: -0.791 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 641,
@@ -397,7 +437,7 @@
     "value": -0.7235,
     "z_score": 2.1705,
     "message": "Tương quan âm bất thường OI-Volume 24h cho AVAXUSDT: -0.724 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 642,
@@ -407,7 +447,7 @@
     "value": -0.7361,
     "z_score": 2.2083,
     "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.736 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 644,
@@ -417,7 +457,7 @@
     "value": -0.8312,
     "z_score": 2.4936000000000003,
     "message": "Tương quan âm bất thường OI-Volume 24h cho GALAUSDT: -0.831 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 640,
@@ -427,7 +467,7 @@
     "value": -0.7524,
     "z_score": 2.2572,
     "message": "Tương quan âm bất thường OI-Volume 24h cho XRPUSDT: -0.752 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 639,
@@ -437,7 +477,7 @@
     "value": -0.7987,
     "z_score": 2.3960999999999997,
     "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.799 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 638,
@@ -447,7 +487,7 @@
     "value": -0.8649,
     "z_score": 2.5947,
     "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.865 (strong_negative)",
-    "notified": 0
+    "notified": 1
   },
   {
     "id": 636,
@@ -457,46 +497,6 @@
     "value": -0.7574,
     "z_score": 2.2721999999999998,
     "message": "Tương quan âm bất thường OI-Volume 24h cho ALGOUSDT: -0.757 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 629,
-    "symbol": "GALAUSDT",
-    "timestamp": "2025-06-01T08:06:00",
-    "data_type": "correlation_24h",
-    "value": -0.8312,
-    "z_score": 2.4936000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho GALAUSDT: -0.831 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 632,
-    "symbol": "FILUSDT",
-    "timestamp": "2025-06-01T08:06:00",
-    "data_type": "correlation_24h",
-    "value": -0.7842,
-    "z_score": 2.3526,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho FILUSDT: -0.784 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 633,
-    "symbol": "ONDOUSDT",
-    "timestamp": "2025-06-01T08:06:00",
-    "data_type": "correlation_24h",
-    "value": -0.7912,
-    "z_score": 2.3736,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ONDOUSDT: -0.791 (strong_negative)",
-    "notified": 0
-  },
-  {
-    "id": 618,
-    "symbol": "XRPUSDT",
-    "timestamp": "2025-06-01T08:05:59",
-    "data_type": "correlation_24h",
-    "value": -0.7524,
-    "z_score": 2.2572,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho XRPUSDT: -0.752 (strong_negative)",
-    "notified": 0
+    "notified": 1
   }
 ]
