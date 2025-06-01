@@ -1,5 +1,15 @@
 [
   {
+    "id": 790,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T02:32:08",
+    "data_type": "correlation_24h",
+    "value": -0.7381,
+    "z_score": 2.2142999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.738 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 789,
     "symbol": "TRUMPUSDT",
     "timestamp": "2025-06-02T02:01:57",
@@ -487,16 +497,6 @@
     "value": 65671326.03944159,
     "z_score": 2.5864879199562942,
     "message": "Bất thường OI_Value_USDT 24h cho RENDERUSDT: 65671326.04 (Z-score: 2.59)",
-    "notified": 1
-  },
-  {
-    "id": 704,
-    "symbol": "AIXBTUSDT",
-    "timestamp": "2025-06-01T13:00:00",
-    "data_type": "24h_Volume_USDT",
-    "value": 15851511.937631024,
-    "z_score": 2.918004046172007,
-    "message": "Bất thường Volume_USDT 24h cho AIXBTUSDT: 15851511.94 (Z-score: 2.92)",
     "notified": 1
   }
 ]
