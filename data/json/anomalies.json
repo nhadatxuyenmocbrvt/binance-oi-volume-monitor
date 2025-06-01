@@ -1,5 +1,15 @@
 [
   {
+    "id": 778,
+    "symbol": "AIXBTUSDT",
+    "timestamp": "2025-06-01T20:04:46",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 13205212.335900001,
+    "z_score": 2.5312133685271485,
+    "message": "Bất thường OI_Value_USDT 30d cho AIXBTUSDT: 13205212.34 (Z-score: 2.53)",
+    "notified": 1
+  },
+  {
     "id": 774,
     "symbol": "AIXBTUSDT",
     "timestamp": "2025-06-01T19:30:13",
@@ -217,6 +227,16 @@
     "value": 14502081.42005,
     "z_score": 2.717251585689314,
     "message": "Bất thường OI_Value_USDT 30d cho ALGOUSDT: 14502081.42 (Z-score: 2.72)",
+    "notified": 1
+  },
+  {
+    "id": 776,
+    "symbol": "NEIROUSDT",
+    "timestamp": "2025-06-01T16:19:31",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 22297284.7566975,
+    "z_score": 2.6684255321075847,
+    "message": "Bất thường OI_Value_USDT 30d cho NEIROUSDT: 22297284.76 (Z-score: 2.67)",
     "notified": 1
   },
   {
@@ -477,26 +497,6 @@
     "value": 35275375.44886,
     "z_score": 3.4839734693415094,
     "message": "Bất thường OI_Value_USDT 30d cho HBARUSDT: 35275375.45 (Z-score: 3.48)",
-    "notified": 1
-  },
-  {
-    "id": 689,
-    "symbol": "GALAUSDT",
-    "timestamp": "2025-06-01T12:04:37",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 19748808.92199,
-    "z_score": 3.6040734291005854,
-    "message": "Bất thường OI_Value_USDT 30d cho GALAUSDT: 19748808.92 (Z-score: 3.60)",
-    "notified": 1
-  },
-  {
-    "id": 686,
-    "symbol": "UNIUSDT",
-    "timestamp": "2025-06-01T12:04:11",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 102211001.17199999,
-    "z_score": 4.650829075653408,
-    "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 102211001.17 (Z-score: 4.65)",
     "notified": 1
   }
 ]
