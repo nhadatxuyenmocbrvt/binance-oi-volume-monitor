@@ -1,5 +1,25 @@
 [
   {
+    "id": 721,
+    "symbol": "ORDIUSDT",
+    "timestamp": "2025-06-01T16:04:33",
+    "data_type": "correlation_24h",
+    "value": -0.7083,
+    "z_score": 2.1249000000000002,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ORDIUSDT: -0.708 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 717,
+    "symbol": "ADAUSDT",
+    "timestamp": "2025-06-01T15:46:51",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 151541136.8016,
+    "z_score": 2.51634452420669,
+    "message": "Bất thường OI_Value_USDT 30d cho ADAUSDT: 151541136.80 (Z-score: 2.52)",
+    "notified": 1
+  },
+  {
     "id": 716,
     "symbol": "CAKEUSDT",
     "timestamp": "2025-06-01T15:33:03",
@@ -477,26 +497,6 @@
     "value": 128723863.85360016,
     "z_score": 2.5841417988319497,
     "message": "Bất thường Volume_USDT 24h cho PENDLEUSDT: 128723863.85 (Z-score: 2.58)",
-    "notified": 1
-  },
-  {
-    "id": 670,
-    "symbol": "EIGENUSDT",
-    "timestamp": "2025-06-01T09:00:00",
-    "data_type": "24h_Volume_USDT",
-    "value": 95413663.73085728,
-    "z_score": 2.956688239952316,
-    "message": "Bất thường Volume_USDT 24h cho EIGENUSDT: 95413663.73 (Z-score: 2.96)",
-    "notified": 1
-  },
-  {
-    "id": 672,
-    "symbol": "BOMEUSDT",
-    "timestamp": "2025-06-01T09:00:00",
-    "data_type": "24h_Volume_USDT",
-    "value": 70529.30892268401,
-    "z_score": 2.50145984943306,
-    "message": "Bất thường Volume_USDT 24h cho BOMEUSDT: 70529.31 (Z-score: 2.50)",
     "notified": 1
   }
 ]
