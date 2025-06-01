@@ -230,6 +230,16 @@
     "notified": 1
   },
   {
+    "id": 755,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-01T16:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 130671444.37815,
+    "z_score": 2.519525118224267,
+    "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 130671444.38 (Z-score: 2.52)",
+    "notified": 1
+  },
+  {
     "id": 717,
     "symbol": "ADAUSDT",
     "timestamp": "2025-06-01T15:46:51",
@@ -487,16 +497,6 @@
     "value": -0.7554,
     "z_score": 2.2662,
     "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.755 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 679,
-    "symbol": "GALAUSDT",
-    "timestamp": "2025-06-01T10:14:56",
-    "data_type": "correlation_24h",
-    "value": -0.7257,
-    "z_score": 2.1771000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho GALAUSDT: -0.726 (strong_negative)",
     "notified": 1
   }
 ]
