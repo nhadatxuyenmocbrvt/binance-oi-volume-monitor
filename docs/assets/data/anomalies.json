@@ -1,5 +1,35 @@
 [
   {
+    "id": 684,
+    "symbol": "CAKEUSDT",
+    "timestamp": "2025-06-01T11:03:18",
+    "data_type": "correlation_24h",
+    "value": -0.7203,
+    "z_score": 2.1609000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.720 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 682,
+    "symbol": "GALAUSDT",
+    "timestamp": "2025-06-01T10:47:10",
+    "data_type": "correlation_24h",
+    "value": -0.7257,
+    "z_score": 2.1771000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho GALAUSDT: -0.726 (strong_negative)",
+    "notified": 0
+  },
+  {
+    "id": 681,
+    "symbol": "ETCUSDT",
+    "timestamp": "2025-06-01T10:37:52",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 32718932.284500003,
+    "z_score": 2.5032465269571067,
+    "message": "Bất thường OI_Value_USDT 30d cho ETCUSDT: 32718932.28 (Z-score: 2.50)",
+    "notified": 0
+  },
+  {
     "id": 680,
     "symbol": "CAKEUSDT",
     "timestamp": "2025-06-01T10:31:04",
@@ -467,36 +497,6 @@
     "value": 1126662864.2398999,
     "z_score": 2.505761183072821,
     "message": "Bất thường Volume_USDT 24h cho ETCUSDT: 1126662864.24 (Z-score: 2.51)",
-    "notified": 0
-  },
-  {
-    "id": 624,
-    "symbol": "SUIUSDT",
-    "timestamp": "2025-06-01T08:00:00",
-    "data_type": "24h_Volume_USDT",
-    "value": 2187904595.374087,
-    "z_score": 2.612373612081997,
-    "message": "Bất thường Volume_USDT 24h cho SUIUSDT: 2187904595.37 (Z-score: 2.61)",
-    "notified": 0
-  },
-  {
-    "id": 625,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-01T08:00:00",
-    "data_type": "24h_OI_Value_USDT",
-    "value": 34717437549.1872,
-    "z_score": 2.8435597347583617,
-    "message": "Bất thường OI_Value_USDT 24h cho AAVEUSDT: 34717437549.19 (Z-score: 2.84)",
-    "notified": 0
-  },
-  {
-    "id": 630,
-    "symbol": "1000BONKUSDT",
-    "timestamp": "2025-06-01T08:00:00",
-    "data_type": "24h_Volume_USDT",
-    "value": 1498323.7061269614,
-    "z_score": 2.59131418988823,
-    "message": "Bất thường Volume_USDT 24h cho 1000BONKUSDT: 1498323.71 (Z-score: 2.59)",
     "notified": 0
   }
 ]
