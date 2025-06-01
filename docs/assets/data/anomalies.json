@@ -1,5 +1,15 @@
 [
   {
+    "id": 779,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-01T21:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 133110794.73204,
+    "z_score": 4.136596954917346,
+    "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 133110794.73 (Z-score: 4.14)",
+    "notified": 1
+  },
+  {
     "id": 778,
     "symbol": "AIXBTUSDT",
     "timestamp": "2025-06-01T20:04:46",
@@ -487,16 +497,6 @@
     "value": 16643600.0248,
     "z_score": 3.881312016566626,
     "message": "Bất thường OI_Value_USDT 30d cho RENDERUSDT: 16643600.02 (Z-score: 3.88)",
-    "notified": 1
-  },
-  {
-    "id": 690,
-    "symbol": "HBARUSDT",
-    "timestamp": "2025-06-01T12:04:56",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 35275375.44886,
-    "z_score": 3.4839734693415094,
-    "message": "Bất thường OI_Value_USDT 30d cho HBARUSDT: 35275375.45 (Z-score: 3.48)",
     "notified": 1
   }
 ]
