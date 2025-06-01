@@ -1,5 +1,15 @@
 [
   {
+    "id": 764,
+    "symbol": "ENSUSDT",
+    "timestamp": "2025-06-01T18:26:40",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 14163092.1768,
+    "z_score": 2.7043594451331723,
+    "message": "Bất thường OI_Value_USDT 30d cho ENSUSDT: 14163092.18 (Z-score: 2.70)",
+    "notified": 1
+  },
+  {
     "id": 751,
     "symbol": "ADAUSDT",
     "timestamp": "2025-06-01T17:21:56",
@@ -487,16 +497,6 @@
     "value": 32718932.284500003,
     "z_score": 2.5032465269571067,
     "message": "Bất thường OI_Value_USDT 30d cho ETCUSDT: 32718932.28 (Z-score: 2.50)",
-    "notified": 1
-  },
-  {
-    "id": 680,
-    "symbol": "CAKEUSDT",
-    "timestamp": "2025-06-01T10:31:04",
-    "data_type": "correlation_24h",
-    "value": -0.7554,
-    "z_score": 2.2662,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.755 (strong_negative)",
     "notified": 1
   }
 ]
