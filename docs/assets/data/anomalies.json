@@ -1,5 +1,35 @@
 [
   {
+    "id": 789,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T02:01:57",
+    "data_type": "correlation_24h",
+    "value": -0.7381,
+    "z_score": 2.2142999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.738 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 787,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T01:46:48",
+    "data_type": "correlation_24h",
+    "value": -0.7902,
+    "z_score": 2.3706,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.790 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 788,
+    "symbol": "AAVEUSDT",
+    "timestamp": "2025-06-02T01:37:35",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 138482444.16,
+    "z_score": 3.57323570496005,
+    "message": "Bất thường OI_Value_USDT 30d cho AAVEUSDT: 138482444.16 (Z-score: 3.57)",
+    "notified": 1
+  },
+  {
     "id": 786,
     "symbol": "TRUMPUSDT",
     "timestamp": "2025-06-02T01:16:37",
@@ -467,36 +497,6 @@
     "value": 15851511.937631024,
     "z_score": 2.918004046172007,
     "message": "Bất thường Volume_USDT 24h cho AIXBTUSDT: 15851511.94 (Z-score: 2.92)",
-    "notified": 1
-  },
-  {
-    "id": 700,
-    "symbol": "CAKEUSDT",
-    "timestamp": "2025-06-01T12:53:39",
-    "data_type": "correlation_24h",
-    "value": -0.7203,
-    "z_score": 2.1609000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.720 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 699,
-    "symbol": "RENDERUSDT",
-    "timestamp": "2025-06-01T12:37:18",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 16719844.724100001,
-    "z_score": 3.27487777264782,
-    "message": "Bất thường OI_Value_USDT 30d cho RENDERUSDT: 16719844.72 (Z-score: 3.27)",
-    "notified": 1
-  },
-  {
-    "id": 698,
-    "symbol": "HBARUSDT",
-    "timestamp": "2025-06-01T12:36:58",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 35197142.12928,
-    "z_score": 2.69227872630477,
-    "message": "Bất thường OI_Value_USDT 30d cho HBARUSDT: 35197142.13 (Z-score: 2.69)",
     "notified": 1
   }
 ]
