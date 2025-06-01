@@ -1,5 +1,65 @@
 [
   {
+    "id": 728,
+    "symbol": "ORDIUSDT",
+    "timestamp": "2025-06-01T16:36:03",
+    "data_type": "correlation_24h",
+    "value": -0.7083,
+    "z_score": 2.1249000000000002,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ORDIUSDT: -0.708 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 727,
+    "symbol": "TONUSDT",
+    "timestamp": "2025-06-01T16:19:41",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 49192694.021249995,
+    "z_score": 3.060045913773295,
+    "message": "Bất thường OI_Value_USDT 30d cho TONUSDT: 49192694.02 (Z-score: 3.06)",
+    "notified": 1
+  },
+  {
+    "id": 726,
+    "symbol": "ALGOUSDT",
+    "timestamp": "2025-06-01T16:19:38",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 14502081.42005,
+    "z_score": 2.717251585689314,
+    "message": "Bất thường OI_Value_USDT 30d cho ALGOUSDT: 14502081.42 (Z-score: 2.72)",
+    "notified": 1
+  },
+  {
+    "id": 725,
+    "symbol": "CAKEUSDT",
+    "timestamp": "2025-06-01T16:19:24",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 16072701.2394,
+    "z_score": 3.0388917734509904,
+    "message": "Bất thường OI_Value_USDT 30d cho CAKEUSDT: 16072701.24 (Z-score: 3.04)",
+    "notified": 1
+  },
+  {
+    "id": 724,
+    "symbol": "OPUSDT",
+    "timestamp": "2025-06-01T16:19:10",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 34537931.68153,
+    "z_score": 2.855973091012945,
+    "message": "Bất thường OI_Value_USDT 30d cho OPUSDT: 34537931.68 (Z-score: 2.86)",
+    "notified": 1
+  },
+  {
+    "id": 723,
+    "symbol": "1000SHIBUSDT",
+    "timestamp": "2025-06-01T16:19:02",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 44179325.429639995,
+    "z_score": 2.634861347379762,
+    "message": "Bất thường OI_Value_USDT 30d cho 1000SHIBUSDT: 44179325.43 (Z-score: 2.63)",
+    "notified": 1
+  },
+  {
     "id": 721,
     "symbol": "ORDIUSDT",
     "timestamp": "2025-06-01T16:04:33",
@@ -437,66 +497,6 @@
     "value": 200606026.5372722,
     "z_score": 2.5210099758117894,
     "message": "Bất thường Volume_USDT 24h cho DOGEUSDT: 200606026.54 (Z-score: 2.52)",
-    "notified": 1
-  },
-  {
-    "id": 660,
-    "symbol": "ETCUSDT",
-    "timestamp": "2025-06-01T09:00:00",
-    "data_type": "24h_Volume_USDT",
-    "value": 989376330.4606069,
-    "z_score": 2.6050810776338524,
-    "message": "Bất thường Volume_USDT 24h cho ETCUSDT: 989376330.46 (Z-score: 2.61)",
-    "notified": 1
-  },
-  {
-    "id": 662,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-01T09:00:00",
-    "data_type": "24h_OI_Value_USDT",
-    "value": 33848437500.448376,
-    "z_score": 2.8459963227262004,
-    "message": "Bất thường OI_Value_USDT 24h cho AAVEUSDT: 33848437500.45 (Z-score: 2.85)",
-    "notified": 1
-  },
-  {
-    "id": 663,
-    "symbol": "WLDUSDT",
-    "timestamp": "2025-06-01T09:00:00",
-    "data_type": "24h_OI_Value_USDT",
-    "value": 63735727.31884108,
-    "z_score": 2.5399747451301438,
-    "message": "Bất thường OI_Value_USDT 24h cho WLDUSDT: 63735727.32 (Z-score: 2.54)",
-    "notified": 1
-  },
-  {
-    "id": 665,
-    "symbol": "1000BONKUSDT",
-    "timestamp": "2025-06-01T09:00:00",
-    "data_type": "24h_Volume_USDT",
-    "value": 1381664.4975125217,
-    "z_score": 2.5493244736913105,
-    "message": "Bất thường Volume_USDT 24h cho 1000BONKUSDT: 1381664.50 (Z-score: 2.55)",
-    "notified": 1
-  },
-  {
-    "id": 666,
-    "symbol": "FILUSDT",
-    "timestamp": "2025-06-01T09:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 54099260.302,
-    "z_score": 2.501955418382925,
-    "message": "Bất thường OI_Value_USDT 30d cho FILUSDT: 54099260.30 (Z-score: 2.50)",
-    "notified": 1
-  },
-  {
-    "id": 668,
-    "symbol": "PENDLEUSDT",
-    "timestamp": "2025-06-01T09:00:00",
-    "data_type": "24h_Volume_USDT",
-    "value": 128723863.85360016,
-    "z_score": 2.5841417988319497,
-    "message": "Bất thường Volume_USDT 24h cho PENDLEUSDT: 128723863.85 (Z-score: 2.58)",
     "notified": 1
   }
 ]
