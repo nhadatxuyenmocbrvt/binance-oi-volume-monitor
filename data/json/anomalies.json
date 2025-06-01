@@ -1,5 +1,15 @@
 [
   {
+    "id": 751,
+    "symbol": "ADAUSDT",
+    "timestamp": "2025-06-01T17:21:56",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 156273096.902,
+    "z_score": 2.5607495208952673,
+    "message": "Bất thường OI_Value_USDT 30d cho ADAUSDT: 156273096.90 (Z-score: 2.56)",
+    "notified": 1
+  },
+  {
     "id": 745,
     "symbol": "OPUSDT",
     "timestamp": "2025-06-01T17:00:00",
@@ -487,16 +497,6 @@
     "value": -0.7257,
     "z_score": 2.1771000000000003,
     "message": "Tương quan âm bất thường OI-Volume 24h cho GALAUSDT: -0.726 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 678,
-    "symbol": "CAKEUSDT",
-    "timestamp": "2025-06-01T09:58:50",
-    "data_type": "correlation_24h",
-    "value": -0.7565,
-    "z_score": 2.2695,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.756 (strong_negative)",
     "notified": 1
   }
 ]
