@@ -30,6 +30,16 @@
     "notified": 1
   },
   {
+    "id": 768,
+    "symbol": "1000SHIBUSDT",
+    "timestamp": "2025-06-01T17:00:00",
+    "data_type": "24h_OI_Value_USDT",
+    "value": 554844.9888802362,
+    "z_score": 2.725090510972909,
+    "message": "Bất thường OI_Value_USDT 24h cho 1000SHIBUSDT: 554844.99 (Z-score: 2.73)",
+    "notified": 1
+  },
+  {
     "id": 741,
     "symbol": "EIGENUSDT",
     "timestamp": "2025-06-01T16:51:28",
@@ -487,16 +497,6 @@
     "value": -0.7257,
     "z_score": 2.1771000000000003,
     "message": "Tương quan âm bất thường OI-Volume 24h cho GALAUSDT: -0.726 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 681,
-    "symbol": "ETCUSDT",
-    "timestamp": "2025-06-01T10:37:52",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 32718932.284500003,
-    "z_score": 2.5032465269571067,
-    "message": "Bất thường OI_Value_USDT 30d cho ETCUSDT: 32718932.28 (Z-score: 2.50)",
     "notified": 1
   }
 ]
