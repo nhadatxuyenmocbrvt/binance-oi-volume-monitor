@@ -1,5 +1,25 @@
 [
   {
+    "id": 791,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T03:02:19",
+    "data_type": "correlation_24h",
+    "value": -0.7154,
+    "z_score": 2.1462000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.715 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 792,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T03:02:19",
+    "data_type": "correlation_24h",
+    "value": -0.738,
+    "z_score": 2.214,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.738 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 790,
     "symbol": "TRUMPUSDT",
     "timestamp": "2025-06-02T02:32:08",
@@ -477,26 +497,6 @@
     "value": -0.7481,
     "z_score": 2.2443,
     "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.748 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 701,
-    "symbol": "UNIUSDT",
-    "timestamp": "2025-06-01T13:00:00",
-    "data_type": "24h_OI_Value_USDT",
-    "value": 631057512.32424,
-    "z_score": 4.120958185933592,
-    "message": "Bất thường OI_Value_USDT 24h cho UNIUSDT: 631057512.32 (Z-score: 4.12)",
-    "notified": 1
-  },
-  {
-    "id": 703,
-    "symbol": "RENDERUSDT",
-    "timestamp": "2025-06-01T13:00:00",
-    "data_type": "24h_OI_Value_USDT",
-    "value": 65671326.03944159,
-    "z_score": 2.5864879199562942,
-    "message": "Bất thường OI_Value_USDT 24h cho RENDERUSDT: 65671326.04 (Z-score: 2.59)",
     "notified": 1
   }
 ]
