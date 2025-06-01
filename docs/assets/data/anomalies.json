@@ -1,5 +1,15 @@
 [
   {
+    "id": 786,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T01:16:37",
+    "data_type": "correlation_24h",
+    "value": -0.7902,
+    "z_score": 2.3706,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.790 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 785,
     "symbol": "TRUMPUSDT",
     "timestamp": "2025-06-02T00:46:20",
@@ -487,16 +497,6 @@
     "value": 35197142.12928,
     "z_score": 2.69227872630477,
     "message": "Bất thường OI_Value_USDT 30d cho HBARUSDT: 35197142.13 (Z-score: 2.69)",
-    "notified": 1
-  },
-  {
-    "id": 702,
-    "symbol": "FARTCOINUSDT",
-    "timestamp": "2025-06-01T12:36:56",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 78286475.5303,
-    "z_score": 2.553665371174919,
-    "message": "Bất thường OI_Value_USDT 30d cho FARTCOINUSDT: 78286475.53 (Z-score: 2.55)",
     "notified": 1
   }
 ]
