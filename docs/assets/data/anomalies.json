@@ -1,5 +1,35 @@
 [
   {
+    "id": 801,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T05:03:58",
+    "data_type": "correlation_24h",
+    "value": -0.7549,
+    "z_score": 2.2647,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.755 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 799,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T05:03:57",
+    "data_type": "correlation_24h",
+    "value": -0.79,
+    "z_score": 2.37,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.790 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 800,
+    "symbol": "XLMUSDT",
+    "timestamp": "2025-06-02T05:03:57",
+    "data_type": "correlation_24h",
+    "value": -0.767,
+    "z_score": 2.301,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho XLMUSDT: -0.767 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 797,
     "symbol": "TRXUSDT",
     "timestamp": "2025-06-02T04:32:59",
@@ -467,36 +497,6 @@
     "value": 14136893.020000001,
     "z_score": 2.527928103859258,
     "message": "Bất thường OI_Value_USDT 30d cho ENSUSDT: 14136893.02 (Z-score: 2.53)",
-    "notified": 1
-  },
-  {
-    "id": 755,
-    "symbol": "LTCUSDT",
-    "timestamp": "2025-06-01T16:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 130671444.37815,
-    "z_score": 2.519525118224267,
-    "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 130671444.38 (Z-score: 2.52)",
-    "notified": 1
-  },
-  {
-    "id": 717,
-    "symbol": "ADAUSDT",
-    "timestamp": "2025-06-01T15:46:51",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 151541136.8016,
-    "z_score": 2.51634452420669,
-    "message": "Bất thường OI_Value_USDT 30d cho ADAUSDT: 151541136.80 (Z-score: 2.52)",
-    "notified": 1
-  },
-  {
-    "id": 716,
-    "symbol": "CAKEUSDT",
-    "timestamp": "2025-06-01T15:33:03",
-    "data_type": "correlation_24h",
-    "value": -0.7116,
-    "z_score": 2.1348000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho CAKEUSDT: -0.712 (strong_negative)",
     "notified": 1
   }
 ]
