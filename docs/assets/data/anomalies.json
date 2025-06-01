@@ -1,5 +1,15 @@
 [
   {
+    "id": 784,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T00:03:15",
+    "data_type": "correlation_24h",
+    "value": -0.7597,
+    "z_score": 2.2791,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.760 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 783,
     "symbol": "ETHFIUSDT",
     "timestamp": "2025-06-01T23:31:05",
@@ -487,16 +497,6 @@
     "value": 32022801.1255,
     "z_score": 2.5713175436443105,
     "message": "Bất thường OI_Value_USDT 30d cho LDOUSDT: 32022801.13 (Z-score: 2.57)",
-    "notified": 1
-  },
-  {
-    "id": 695,
-    "symbol": "UNIUSDT",
-    "timestamp": "2025-06-01T12:36:21",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 101328606.03999999,
-    "z_score": 3.3088028738187307,
-    "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 101328606.04 (Z-score: 3.31)",
     "notified": 1
   }
 ]
