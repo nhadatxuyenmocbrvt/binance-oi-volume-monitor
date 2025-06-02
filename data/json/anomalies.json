@@ -1,5 +1,25 @@
 [
   {
+    "id": 831,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T09:18:24",
+    "data_type": "correlation_24h",
+    "value": -0.7019,
+    "z_score": 2.1056999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.702 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 832,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T09:18:24",
+    "data_type": "correlation_24h",
+    "value": -0.7893,
+    "z_score": 2.3679,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.789 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 826,
     "symbol": "XLMUSDT",
     "timestamp": "2025-06-02T08:45:49",
@@ -420,6 +440,26 @@
     "notified": 1
   },
   {
+    "id": 829,
+    "symbol": "PENDLEUSDT",
+    "timestamp": "2025-06-01T23:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 24790431.848,
+    "z_score": 3.71912459192553,
+    "message": "Bất thường OI_Value_USDT 30d cho PENDLEUSDT: 24790431.85 (Z-score: 3.72)",
+    "notified": 1
+  },
+  {
+    "id": 830,
+    "symbol": "LPTUSDT",
+    "timestamp": "2025-06-01T23:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 32503490.256599996,
+    "z_score": 4.016100281493486,
+    "message": "Bất thường OI_Value_USDT 30d cho LPTUSDT: 32503490.26 (Z-score: 4.02)",
+    "notified": 1
+  },
+  {
     "id": 779,
     "symbol": "LTCUSDT",
     "timestamp": "2025-06-01T21:00:00",
@@ -457,46 +497,6 @@
     "value": 14163092.1768,
     "z_score": 2.7043594451331723,
     "message": "Bất thường OI_Value_USDT 30d cho ENSUSDT: 14163092.18 (Z-score: 2.70)",
-    "notified": 1
-  },
-  {
-    "id": 751,
-    "symbol": "ADAUSDT",
-    "timestamp": "2025-06-01T17:21:56",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 156273096.902,
-    "z_score": 2.5607495208952673,
-    "message": "Bất thường OI_Value_USDT 30d cho ADAUSDT: 156273096.90 (Z-score: 2.56)",
-    "notified": 1
-  },
-  {
-    "id": 745,
-    "symbol": "OPUSDT",
-    "timestamp": "2025-06-01T17:00:00",
-    "data_type": "24h_OI_Value_USDT",
-    "value": 21872019.594859764,
-    "z_score": 2.616385769659054,
-    "message": "Bất thường OI_Value_USDT 24h cho OPUSDT: 21872019.59 (Z-score: 2.62)",
-    "notified": 1
-  },
-  {
-    "id": 768,
-    "symbol": "1000SHIBUSDT",
-    "timestamp": "2025-06-01T17:00:00",
-    "data_type": "24h_OI_Value_USDT",
-    "value": 554844.9888802362,
-    "z_score": 2.725090510972909,
-    "message": "Bất thường OI_Value_USDT 24h cho 1000SHIBUSDT: 554844.99 (Z-score: 2.73)",
-    "notified": 1
-  },
-  {
-    "id": 741,
-    "symbol": "EIGENUSDT",
-    "timestamp": "2025-06-01T16:51:28",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 14526744.67195,
-    "z_score": 2.642256284318559,
-    "message": "Bất thường OI_Value_USDT 30d cho EIGENUSDT: 14526744.67 (Z-score: 2.64)",
     "notified": 1
   }
 ]
