@@ -1,5 +1,35 @@
 [
   {
+    "id": 818,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T07:42:24",
+    "data_type": "correlation_24h",
+    "value": -0.811,
+    "z_score": 2.4330000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.811 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 819,
+    "symbol": "XLMUSDT",
+    "timestamp": "2025-06-02T07:42:24",
+    "data_type": "correlation_24h",
+    "value": -0.7719,
+    "z_score": 2.3157,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho XLMUSDT: -0.772 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 820,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T07:42:24",
+    "data_type": "correlation_24h",
+    "value": -0.7799,
+    "z_score": 2.3397,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.780 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 815,
     "symbol": "XLMUSDT",
     "timestamp": "2025-06-02T07:10:43",
@@ -467,36 +497,6 @@
     "value": 52572973.5088,
     "z_score": 2.6674953679310303,
     "message": "Bất thường OI_Value_USDT 30d cho FILUSDT: 52572973.51 (Z-score: 2.67)",
-    "notified": 1
-  },
-  {
-    "id": 734,
-    "symbol": "APTUSDT",
-    "timestamp": "2025-06-01T16:50:57",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 41496668.8785,
-    "z_score": 3.287953110353205,
-    "message": "Bất thường OI_Value_USDT 30d cho APTUSDT: 41496668.88 (Z-score: 3.29)",
-    "notified": 1
-  },
-  {
-    "id": 730,
-    "symbol": "DOTUSDT",
-    "timestamp": "2025-06-01T16:50:54",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 63287469.09159999,
-    "z_score": 2.780303524580817,
-    "message": "Bất thường OI_Value_USDT 30d cho DOTUSDT: 63287469.09 (Z-score: 2.78)",
-    "notified": 1
-  },
-  {
-    "id": 733,
-    "symbol": "OPUSDT",
-    "timestamp": "2025-06-01T16:50:52",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 34126646.0523,
-    "z_score": 3.2483329293502687,
-    "message": "Bất thường OI_Value_USDT 30d cho OPUSDT: 34126646.05 (Z-score: 3.25)",
     "notified": 1
   }
 ]
