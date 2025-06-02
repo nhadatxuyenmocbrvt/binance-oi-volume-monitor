@@ -1,5 +1,35 @@
 [
   {
+    "id": 850,
+    "symbol": "NEARUSDT",
+    "timestamp": "2025-06-02T15:07:46",
+    "data_type": "correlation_24h",
+    "value": -0.7387,
+    "z_score": 2.2161,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.739 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 849,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T15:07:45",
+    "data_type": "correlation_24h",
+    "value": -0.728,
+    "z_score": 2.184,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.728 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 848,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-02T15:00:00",
+    "data_type": "24h_Volume_USDT",
+    "value": 12679318288.455498,
+    "z_score": 3.9697141664998212,
+    "message": "Bất thường Volume_USDT 24h cho LTCUSDT: 12679318288.46 (Z-score: 3.97)",
+    "notified": 1
+  },
+  {
     "id": 847,
     "symbol": "TRXUSDT",
     "timestamp": "2025-06-02T14:36:08",
@@ -467,36 +497,6 @@
     "value": -0.7381,
     "z_score": 2.2142999999999997,
     "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.738 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 787,
-    "symbol": "TRUMPUSDT",
-    "timestamp": "2025-06-02T01:46:48",
-    "data_type": "correlation_24h",
-    "value": -0.7902,
-    "z_score": 2.3706,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.790 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 841,
-    "symbol": "LPTUSDT",
-    "timestamp": "2025-06-02T01:38:19",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 29004144.628399998,
-    "z_score": 3.548376240974336,
-    "message": "Bất thường OI_Value_USDT 30d cho LPTUSDT: 29004144.63 (Z-score: 3.55)",
-    "notified": 1
-  },
-  {
-    "id": 788,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-02T01:37:35",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 138482444.16,
-    "z_score": 3.57323570496005,
-    "message": "Bất thường OI_Value_USDT 30d cho AAVEUSDT: 138482444.16 (Z-score: 3.57)",
     "notified": 1
   }
 ]
