@@ -1,5 +1,15 @@
 [
   {
+    "id": 860,
+    "symbol": "ENSUSDT",
+    "timestamp": "2025-06-02T21:27:19",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 15281285.8608,
+    "z_score": 4.30871005353242,
+    "message": "Bất thường OI_Value_USDT 30d cho ENSUSDT: 15281285.86 (Z-score: 4.31)",
+    "notified": 1
+  },
+  {
     "id": 859,
     "symbol": "CGPTUSDT",
     "timestamp": "2025-06-02T16:43:46",
@@ -487,16 +497,6 @@
     "value": -0.767,
     "z_score": 2.301,
     "message": "Tương quan âm bất thường OI-Volume 24h cho XLMUSDT: -0.767 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 797,
-    "symbol": "TRXUSDT",
-    "timestamp": "2025-06-02T04:32:59",
-    "data_type": "correlation_24h",
-    "value": -0.7597,
-    "z_score": 2.2791,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.760 (strong_negative)",
     "notified": 1
   }
 ]
