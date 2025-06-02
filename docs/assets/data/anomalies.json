@@ -1,5 +1,15 @@
 [
   {
+    "id": 895,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-06-03T06:40:14",
+    "data_type": "correlation_24h",
+    "value": -0.7181,
+    "z_score": 2.1543,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.718 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 893,
     "symbol": "BTCUSDT",
     "timestamp": "2025-06-03T06:08:22",
@@ -487,16 +497,6 @@
     "value": 140872824.84535,
     "z_score": 4.83010232433986,
     "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 140872824.85 (Z-score: 4.83)",
-    "notified": 1
-  },
-  {
-    "id": 844,
-    "symbol": "TRXUSDT",
-    "timestamp": "2025-06-02T14:04:12",
-    "data_type": "correlation_24h",
-    "value": -0.7062,
-    "z_score": 2.1186000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.706 (strong_negative)",
     "notified": 1
   }
 ]
