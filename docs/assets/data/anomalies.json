@@ -1,5 +1,15 @@
 [
   {
+    "id": 861,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-06-02T23:03:52",
+    "data_type": "correlation_24h",
+    "value": -0.7187,
+    "z_score": 2.1561,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.719 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 860,
     "symbol": "ENSUSDT",
     "timestamp": "2025-06-02T21:27:19",
@@ -487,16 +497,6 @@
     "value": -0.79,
     "z_score": 2.37,
     "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.790 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 800,
-    "symbol": "XLMUSDT",
-    "timestamp": "2025-06-02T05:03:57",
-    "data_type": "correlation_24h",
-    "value": -0.767,
-    "z_score": 2.301,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho XLMUSDT: -0.767 (strong_negative)",
     "notified": 1
   }
 ]
