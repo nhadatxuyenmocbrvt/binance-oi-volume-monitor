@@ -1,5 +1,35 @@
 [
   {
+    "id": 826,
+    "symbol": "XLMUSDT",
+    "timestamp": "2025-06-02T08:45:49",
+    "data_type": "correlation_24h",
+    "value": -0.7235,
+    "z_score": 2.1705,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho XLMUSDT: -0.724 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 827,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T08:45:49",
+    "data_type": "correlation_24h",
+    "value": -0.7864,
+    "z_score": 2.3592,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.786 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 825,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T08:45:48",
+    "data_type": "correlation_24h",
+    "value": -0.7499,
+    "z_score": 2.2497,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.750 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 822,
     "symbol": "TRXUSDT",
     "timestamp": "2025-06-02T08:14:08",
@@ -467,36 +497,6 @@
     "value": 14526744.67195,
     "z_score": 2.642256284318559,
     "message": "Bất thường OI_Value_USDT 30d cho EIGENUSDT: 14526744.67 (Z-score: 2.64)",
-    "notified": 1
-  },
-  {
-    "id": 740,
-    "symbol": "ALGOUSDT",
-    "timestamp": "2025-06-01T16:51:20",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 14408656.868989998,
-    "z_score": 3.042502801753203,
-    "message": "Bất thường OI_Value_USDT 30d cho ALGOUSDT: 14408656.87 (Z-score: 3.04)",
-    "notified": 1
-  },
-  {
-    "id": 739,
-    "symbol": "POLUSDT",
-    "timestamp": "2025-06-01T16:51:14",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 15723613.330740001,
-    "z_score": 2.8547483862696628,
-    "message": "Bất thường OI_Value_USDT 30d cho POLUSDT: 15723613.33 (Z-score: 2.85)",
-    "notified": 1
-  },
-  {
-    "id": 738,
-    "symbol": "1000FLOKIUSDT",
-    "timestamp": "2025-06-01T16:51:09",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 10842501.3025,
-    "z_score": 4.008746231148648,
-    "message": "Bất thường OI_Value_USDT 30d cho 1000FLOKIUSDT: 10842501.30 (Z-score: 4.01)",
     "notified": 1
   }
 ]
