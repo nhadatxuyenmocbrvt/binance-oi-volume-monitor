@@ -1,5 +1,35 @@
 [
   {
+    "id": 815,
+    "symbol": "XLMUSDT",
+    "timestamp": "2025-06-02T07:10:43",
+    "data_type": "correlation_24h",
+    "value": -0.7719,
+    "z_score": 2.3157,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho XLMUSDT: -0.772 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 816,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T07:10:43",
+    "data_type": "correlation_24h",
+    "value": -0.7799,
+    "z_score": 2.3397,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.780 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 814,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T07:10:42",
+    "data_type": "correlation_24h",
+    "value": -0.811,
+    "z_score": 2.4330000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.811 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 811,
     "symbol": "TRXUSDT",
     "timestamp": "2025-06-02T06:39:01",
@@ -467,36 +497,6 @@
     "value": 34126646.0523,
     "z_score": 3.2483329293502687,
     "message": "Bất thường OI_Value_USDT 30d cho OPUSDT: 34126646.05 (Z-score: 3.25)",
-    "notified": 1
-  },
-  {
-    "id": 732,
-    "symbol": "1000SHIBUSDT",
-    "timestamp": "2025-06-01T16:50:44",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 43844674.10673,
-    "z_score": 3.1347238655022753,
-    "message": "Bất thường OI_Value_USDT 30d cho 1000SHIBUSDT: 43844674.11 (Z-score: 3.13)",
-    "notified": 1
-  },
-  {
-    "id": 731,
-    "symbol": "LDOUSDT",
-    "timestamp": "2025-06-01T16:50:41",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 30272946.5456,
-    "z_score": 2.591519202542181,
-    "message": "Bất thường OI_Value_USDT 30d cho LDOUSDT: 30272946.55 (Z-score: 2.59)",
-    "notified": 1
-  },
-  {
-    "id": 729,
-    "symbol": "ADAUSDT",
-    "timestamp": "2025-06-01T16:50:14",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 154643547.84449998,
-    "z_score": 2.842490564884941,
-    "message": "Bất thường OI_Value_USDT 30d cho ADAUSDT: 154643547.84 (Z-score: 2.84)",
     "notified": 1
   }
 ]
