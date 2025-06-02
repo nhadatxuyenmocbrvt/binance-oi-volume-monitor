@@ -1,5 +1,15 @@
 [
   {
+    "id": 838,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T10:38:46",
+    "data_type": "correlation_24h",
+    "value": -0.7281,
+    "z_score": 2.1843,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.728 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 837,
     "symbol": "TRUMPUSDT",
     "timestamp": "2025-06-02T10:06:54",
@@ -440,6 +450,16 @@
     "notified": 1
   },
   {
+    "id": 839,
+    "symbol": "1000FLOKIUSDT",
+    "timestamp": "2025-06-02T00:34:40",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 11543229.450590001,
+    "z_score": 3.5774606321297977,
+    "message": "Bất thường OI_Value_USDT 30d cho 1000FLOKIUSDT: 11543229.45 (Z-score: 3.58)",
+    "notified": 1
+  },
+  {
     "id": 784,
     "symbol": "TRUMPUSDT",
     "timestamp": "2025-06-02T00:03:15",
@@ -477,26 +497,6 @@
     "value": 40727014.71174,
     "z_score": 3.7239323857963518,
     "message": "Bất thường OI_Value_USDT 30d cho XLMUSDT: 40727014.71 (Z-score: 3.72)",
-    "notified": 1
-  },
-  {
-    "id": 829,
-    "symbol": "PENDLEUSDT",
-    "timestamp": "2025-06-01T23:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 24790431.848,
-    "z_score": 3.71912459192553,
-    "message": "Bất thường OI_Value_USDT 30d cho PENDLEUSDT: 24790431.85 (Z-score: 3.72)",
-    "notified": 1
-  },
-  {
-    "id": 830,
-    "symbol": "LPTUSDT",
-    "timestamp": "2025-06-01T23:00:00",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 32503490.256599996,
-    "z_score": 4.016100281493486,
-    "message": "Bất thường OI_Value_USDT 30d cho LPTUSDT: 32503490.26 (Z-score: 4.02)",
     "notified": 1
   }
 ]
