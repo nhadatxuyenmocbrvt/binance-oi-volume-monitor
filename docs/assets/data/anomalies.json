@@ -1,5 +1,35 @@
 [
   {
+    "id": 893,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-06-03T06:08:22",
+    "data_type": "correlation_24h",
+    "value": -0.7181,
+    "z_score": 2.1543,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.718 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 894,
+    "symbol": "AIXBTUSDT",
+    "timestamp": "2025-06-03T06:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": 9.408162919954448,
+    "z_score": 1.8816325839908896,
+    "message": "OI-Price divergence 24h cho AIXBTUSDT: OI +9.41%, Price -2.33%",
+    "notified": 1
+  },
+  {
+    "id": 892,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-06-03T05:53:16",
+    "data_type": "correlation_24h",
+    "value": -0.8036,
+    "z_score": 2.4108,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.804 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 891,
     "symbol": "FARTCOINUSDT",
     "timestamp": "2025-06-03T05:36:39",
@@ -467,36 +497,6 @@
     "value": -0.7062,
     "z_score": 2.1186000000000003,
     "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.706 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 843,
-    "symbol": "NEARUSDT",
-    "timestamp": "2025-06-02T13:32:22",
-    "data_type": "correlation_24h",
-    "value": -0.7123,
-    "z_score": 2.1369000000000002,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.712 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 842,
-    "symbol": "NEARUSDT",
-    "timestamp": "2025-06-02T13:01:32",
-    "data_type": "correlation_24h",
-    "value": -0.7123,
-    "z_score": 2.1369000000000002,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.712 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 838,
-    "symbol": "TRUMPUSDT",
-    "timestamp": "2025-06-02T10:38:46",
-    "data_type": "correlation_24h",
-    "value": -0.7281,
-    "z_score": 2.1843,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.728 (strong_negative)",
     "notified": 1
   }
 ]
