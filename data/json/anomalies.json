@@ -1,5 +1,35 @@
 [
   {
+    "id": 847,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T14:36:08",
+    "data_type": "correlation_24h",
+    "value": -0.7062,
+    "z_score": 2.1186000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.706 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 846,
+    "symbol": "1000SHIBUSDT",
+    "timestamp": "2025-06-02T14:19:48",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 45081594.975584,
+    "z_score": 3.7185154473813538,
+    "message": "Bất thường OI_Value_USDT 30d cho 1000SHIBUSDT: 45081594.98 (Z-score: 3.72)",
+    "notified": 1
+  },
+  {
+    "id": 845,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-02T14:19:26",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 140872824.84535,
+    "z_score": 4.83010232433986,
+    "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 140872824.85 (Z-score: 4.83)",
+    "notified": 1
+  },
+  {
     "id": 844,
     "symbol": "TRXUSDT",
     "timestamp": "2025-06-02T14:04:12",
@@ -467,36 +497,6 @@
     "value": 138482444.16,
     "z_score": 3.57323570496005,
     "message": "Bất thường OI_Value_USDT 30d cho AAVEUSDT: 138482444.16 (Z-score: 3.57)",
-    "notified": 1
-  },
-  {
-    "id": 786,
-    "symbol": "TRUMPUSDT",
-    "timestamp": "2025-06-02T01:16:37",
-    "data_type": "correlation_24h",
-    "value": -0.7902,
-    "z_score": 2.3706,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.790 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 840,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-02T01:05:53",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 146369384.172,
-    "z_score": 4.096135577556329,
-    "message": "Bất thường OI_Value_USDT 30d cho AAVEUSDT: 146369384.17 (Z-score: 4.10)",
-    "notified": 1
-  },
-  {
-    "id": 785,
-    "symbol": "TRUMPUSDT",
-    "timestamp": "2025-06-02T00:46:20",
-    "data_type": "correlation_24h",
-    "value": -0.7597,
-    "z_score": 2.2791,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.760 (strong_negative)",
     "notified": 1
   }
 ]
