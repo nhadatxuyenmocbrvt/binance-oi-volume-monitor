@@ -1,5 +1,45 @@
 [
   {
+    "id": 822,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T08:14:08",
+    "data_type": "correlation_24h",
+    "value": -0.7499,
+    "z_score": 2.2497,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.750 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 823,
+    "symbol": "XLMUSDT",
+    "timestamp": "2025-06-02T08:14:08",
+    "data_type": "correlation_24h",
+    "value": -0.7235,
+    "z_score": 2.1705,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho XLMUSDT: -0.724 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 824,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T08:14:08",
+    "data_type": "correlation_24h",
+    "value": -0.7864,
+    "z_score": 2.3592,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.786 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 821,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-06-02T07:57:39",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 96165007.551,
+    "z_score": 4.331282425582075,
+    "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 96165007.55 (Z-score: 4.33)",
+    "notified": 1
+  },
+  {
     "id": 818,
     "symbol": "TRXUSDT",
     "timestamp": "2025-06-02T07:42:24",
@@ -457,46 +497,6 @@
     "value": 10842501.3025,
     "z_score": 4.008746231148648,
     "message": "Bất thường OI_Value_USDT 30d cho 1000FLOKIUSDT: 10842501.30 (Z-score: 4.01)",
-    "notified": 1
-  },
-  {
-    "id": 737,
-    "symbol": "CAKEUSDT",
-    "timestamp": "2025-06-01T16:51:06",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 15925924.615999999,
-    "z_score": 3.2556872376264687,
-    "message": "Bất thường OI_Value_USDT 30d cho CAKEUSDT: 15925924.62 (Z-score: 3.26)",
-    "notified": 1
-  },
-  {
-    "id": 736,
-    "symbol": "TAOUSDT",
-    "timestamp": "2025-06-01T16:51:05",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 57353311.168,
-    "z_score": 2.5752192189520633,
-    "message": "Bất thường OI_Value_USDT 30d cho TAOUSDT: 57353311.17 (Z-score: 2.58)",
-    "notified": 1
-  },
-  {
-    "id": 735,
-    "symbol": "ONDOUSDT",
-    "timestamp": "2025-06-01T16:51:03",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 60666574.651870005,
-    "z_score": 3.2941162609953283,
-    "message": "Bất thường OI_Value_USDT 30d cho ONDOUSDT: 60666574.65 (Z-score: 3.29)",
-    "notified": 1
-  },
-  {
-    "id": 773,
-    "symbol": "FILUSDT",
-    "timestamp": "2025-06-01T16:51:02",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 52572973.5088,
-    "z_score": 2.6674953679310303,
-    "message": "Bất thường OI_Value_USDT 30d cho FILUSDT: 52572973.51 (Z-score: 2.67)",
     "notified": 1
   }
 ]
