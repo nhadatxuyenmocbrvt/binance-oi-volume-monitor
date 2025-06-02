@@ -1,5 +1,15 @@
 [
   {
+    "id": 843,
+    "symbol": "NEARUSDT",
+    "timestamp": "2025-06-02T13:32:22",
+    "data_type": "correlation_24h",
+    "value": -0.7123,
+    "z_score": 2.1369000000000002,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.712 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 842,
     "symbol": "NEARUSDT",
     "timestamp": "2025-06-02T13:01:32",
@@ -487,16 +497,6 @@
     "value": 11543229.450590001,
     "z_score": 3.5774606321297977,
     "message": "Bất thường OI_Value_USDT 30d cho 1000FLOKIUSDT: 11543229.45 (Z-score: 3.58)",
-    "notified": 1
-  },
-  {
-    "id": 784,
-    "symbol": "TRUMPUSDT",
-    "timestamp": "2025-06-02T00:03:15",
-    "data_type": "correlation_24h",
-    "value": -0.7597,
-    "z_score": 2.2791,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.760 (strong_negative)",
     "notified": 1
   }
 ]
