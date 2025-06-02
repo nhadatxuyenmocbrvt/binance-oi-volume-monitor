@@ -1,5 +1,25 @@
 [
   {
+    "id": 834,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-02T09:50:03",
+    "data_type": "correlation_24h",
+    "value": -0.7019,
+    "z_score": 2.1056999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.702 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 835,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-02T09:50:03",
+    "data_type": "correlation_24h",
+    "value": -0.7893,
+    "z_score": 2.3679,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.789 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 831,
     "symbol": "TRXUSDT",
     "timestamp": "2025-06-02T09:18:24",
@@ -430,6 +450,16 @@
     "notified": 1
   },
   {
+    "id": 833,
+    "symbol": "PENDLEUSDT",
+    "timestamp": "2025-06-01T23:30:57",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 25157528.9568,
+    "z_score": 3.5860755448550483,
+    "message": "Bất thường OI_Value_USDT 30d cho PENDLEUSDT: 25157528.96 (Z-score: 3.59)",
+    "notified": 1
+  },
+  {
     "id": 782,
     "symbol": "XLMUSDT",
     "timestamp": "2025-06-01T23:30:09",
@@ -467,36 +497,6 @@
     "value": 133110794.73204,
     "z_score": 4.136596954917346,
     "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 133110794.73 (Z-score: 4.14)",
-    "notified": 1
-  },
-  {
-    "id": 778,
-    "symbol": "AIXBTUSDT",
-    "timestamp": "2025-06-01T20:04:46",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 13205212.335900001,
-    "z_score": 2.5312133685271485,
-    "message": "Bất thường OI_Value_USDT 30d cho AIXBTUSDT: 13205212.34 (Z-score: 2.53)",
-    "notified": 1
-  },
-  {
-    "id": 774,
-    "symbol": "AIXBTUSDT",
-    "timestamp": "2025-06-01T19:30:13",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 13083343.79331,
-    "z_score": 2.799750927189246,
-    "message": "Bất thường OI_Value_USDT 30d cho AIXBTUSDT: 13083343.79 (Z-score: 2.80)",
-    "notified": 1
-  },
-  {
-    "id": 764,
-    "symbol": "ENSUSDT",
-    "timestamp": "2025-06-01T18:26:40",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 14163092.1768,
-    "z_score": 2.7043594451331723,
-    "message": "Bất thường OI_Value_USDT 30d cho ENSUSDT: 14163092.18 (Z-score: 2.70)",
     "notified": 1
   }
 ]
