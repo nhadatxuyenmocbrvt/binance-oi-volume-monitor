@@ -440,6 +440,16 @@
     "notified": 1
   },
   {
+    "id": 840,
+    "symbol": "AAVEUSDT",
+    "timestamp": "2025-06-02T01:05:53",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 146369384.172,
+    "z_score": 4.096135577556329,
+    "message": "Bất thường OI_Value_USDT 30d cho AAVEUSDT: 146369384.17 (Z-score: 4.10)",
+    "notified": 1
+  },
+  {
     "id": 785,
     "symbol": "TRUMPUSDT",
     "timestamp": "2025-06-02T00:46:20",
@@ -487,16 +497,6 @@
     "value": 25157528.9568,
     "z_score": 3.5860755448550483,
     "message": "Bất thường OI_Value_USDT 30d cho PENDLEUSDT: 25157528.96 (Z-score: 3.59)",
-    "notified": 1
-  },
-  {
-    "id": 782,
-    "symbol": "XLMUSDT",
-    "timestamp": "2025-06-01T23:30:09",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 40727014.71174,
-    "z_score": 3.7239323857963518,
-    "message": "Bất thường OI_Value_USDT 30d cho XLMUSDT: 40727014.71 (Z-score: 3.72)",
     "notified": 1
   }
 ]
