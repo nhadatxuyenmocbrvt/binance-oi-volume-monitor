@@ -1,5 +1,15 @@
 [
   {
+    "id": 842,
+    "symbol": "NEARUSDT",
+    "timestamp": "2025-06-02T13:01:32",
+    "data_type": "correlation_24h",
+    "value": -0.7123,
+    "z_score": 2.1369000000000002,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.712 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 838,
     "symbol": "TRUMPUSDT",
     "timestamp": "2025-06-02T10:38:46",
@@ -487,16 +497,6 @@
     "value": -0.7597,
     "z_score": 2.2791,
     "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.760 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 783,
-    "symbol": "ETHFIUSDT",
-    "timestamp": "2025-06-01T23:31:05",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 27818621.85784,
-    "z_score": 4.628672228117361,
-    "message": "Bất thường OI_Value_USDT 30d cho ETHFIUSDT: 27818621.86 (Z-score: 4.63)",
     "notified": 1
   }
 ]
