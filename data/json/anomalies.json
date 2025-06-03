@@ -1,5 +1,35 @@
 [
   {
+    "id": 910,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-06-03T21:00:00",
+    "data_type": "24h_OI_Value_USDT",
+    "value": 860394791.456264,
+    "z_score": 4.422569618152626,
+    "message": "Bất thường OI_Value_USDT 24h cho UNIUSDT: 860394791.46 (Z-score: 4.42)",
+    "notified": 1
+  },
+  {
+    "id": 911,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-06-03T21:00:00",
+    "data_type": "24h_Volume_USDT",
+    "value": 2026497267.5781,
+    "z_score": 4.140286571142966,
+    "message": "Bất thường Volume_USDT 24h cho UNIUSDT: 2026497267.58 (Z-score: 4.14)",
+    "notified": 1
+  },
+  {
+    "id": 912,
+    "symbol": "TAOUSDT",
+    "timestamp": "2025-06-03T21:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": 10.557011400577755,
+    "z_score": 2.111402280115551,
+    "message": "OI-Price divergence 24h cho TAOUSDT: OI +10.56%, Price -3.61%",
+    "notified": 1
+  },
+  {
     "id": 908,
     "symbol": "TAOUSDT",
     "timestamp": "2025-06-03T19:00:00",
@@ -467,36 +497,6 @@
     "value": -0.7187,
     "z_score": 2.1561,
     "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.719 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 860,
-    "symbol": "ENSUSDT",
-    "timestamp": "2025-06-02T21:27:19",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 15281285.8608,
-    "z_score": 4.30871005353242,
-    "message": "Bất thường OI_Value_USDT 30d cho ENSUSDT: 15281285.86 (Z-score: 4.31)",
-    "notified": 1
-  },
-  {
-    "id": 859,
-    "symbol": "CGPTUSDT",
-    "timestamp": "2025-06-02T16:43:46",
-    "data_type": "correlation_24h",
-    "value": -0.7166,
-    "z_score": 2.1498,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho CGPTUSDT: -0.717 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 858,
-    "symbol": "NEARUSDT",
-    "timestamp": "2025-06-02T16:43:45",
-    "data_type": "correlation_24h",
-    "value": -0.7353,
-    "z_score": 2.2058999999999997,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.735 (strong_negative)",
     "notified": 1
   }
 ]
