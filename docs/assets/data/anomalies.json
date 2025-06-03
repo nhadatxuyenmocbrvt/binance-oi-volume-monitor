@@ -1,5 +1,15 @@
 [
   {
+    "id": 908,
+    "symbol": "TAOUSDT",
+    "timestamp": "2025-06-03T19:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": 7.077966127147792,
+    "z_score": 1.4155932254295585,
+    "message": "OI-Price divergence 24h cho TAOUSDT: OI +7.08%, Price -4.27%",
+    "notified": 1
+  },
+  {
     "id": 904,
     "symbol": "TAOUSDT",
     "timestamp": "2025-06-03T18:00:00",
@@ -57,6 +67,46 @@
     "value": -12.221013693211695,
     "z_score": 2.444202738642339,
     "message": "OI-Price divergence 24h cho LPTUSDT: OI -12.22%, Price +2.19%",
+    "notified": 1
+  },
+  {
+    "id": 909,
+    "symbol": "BOMEUSDT",
+    "timestamp": "2025-06-03T09:03:33",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 11423403.0063,
+    "z_score": 4.122480527903241,
+    "message": "Bất thường OI_Value_USDT 30d cho BOMEUSDT: 11423403.01 (Z-score: 4.12)",
+    "notified": 1
+  },
+  {
+    "id": 907,
+    "symbol": "FARTCOINUSDT",
+    "timestamp": "2025-06-03T09:02:49",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 76224350.26592,
+    "z_score": 4.128224691945709,
+    "message": "Bất thường OI_Value_USDT 30d cho FARTCOINUSDT: 76224350.27 (Z-score: 4.13)",
+    "notified": 1
+  },
+  {
+    "id": 906,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-06-03T09:02:18",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 98080556.58,
+    "z_score": 4.3780432730159395,
+    "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 98080556.58 (Z-score: 4.38)",
+    "notified": 1
+  },
+  {
+    "id": 905,
+    "symbol": "LINKUSDT",
+    "timestamp": "2025-06-03T09:02:16",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 87123368.1443,
+    "z_score": 4.071943533273907,
+    "message": "Bất thường OI_Value_USDT 30d cho LINKUSDT: 87123368.14 (Z-score: 4.07)",
     "notified": 1
   },
   {
@@ -447,56 +497,6 @@
     "value": -0.7353,
     "z_score": 2.2058999999999997,
     "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.735 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 857,
-    "symbol": "TRXUSDT",
-    "timestamp": "2025-06-02T16:43:44",
-    "data_type": "correlation_24h",
-    "value": -0.7244,
-    "z_score": 2.1732,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.724 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 879,
-    "symbol": "BOMEUSDT",
-    "timestamp": "2025-06-02T16:28:22",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 9514795.212255001,
-    "z_score": 4.21929504684611,
-    "message": "Bất thường OI_Value_USDT 30d cho BOMEUSDT: 9514795.21 (Z-score: 4.22)",
-    "notified": 1
-  },
-  {
-    "id": 855,
-    "symbol": "CGPTUSDT",
-    "timestamp": "2025-06-02T16:11:57",
-    "data_type": "correlation_24h",
-    "value": -0.7166,
-    "z_score": 2.1498,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho CGPTUSDT: -0.717 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 854,
-    "symbol": "NEARUSDT",
-    "timestamp": "2025-06-02T16:11:56",
-    "data_type": "correlation_24h",
-    "value": -0.7353,
-    "z_score": 2.2058999999999997,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.735 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 853,
-    "symbol": "TRXUSDT",
-    "timestamp": "2025-06-02T16:11:55",
-    "data_type": "correlation_24h",
-    "value": -0.7244,
-    "z_score": 2.1732,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.724 (strong_negative)",
     "notified": 1
   }
 ]
