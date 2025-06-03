@@ -1,5 +1,15 @@
 [
   {
+    "id": 896,
+    "symbol": "AIXBTUSDT",
+    "timestamp": "2025-06-03T07:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": 9.156716436461611,
+    "z_score": 1.8313432872923223,
+    "message": "OI-Price divergence 24h cho AIXBTUSDT: OI +9.16%, Price -2.90%",
+    "notified": 1
+  },
+  {
     "id": 895,
     "symbol": "BTCUSDT",
     "timestamp": "2025-06-03T06:40:14",
@@ -487,16 +497,6 @@
     "value": 45081594.975584,
     "z_score": 3.7185154473813538,
     "message": "Bất thường OI_Value_USDT 30d cho 1000SHIBUSDT: 45081594.98 (Z-score: 3.72)",
-    "notified": 1
-  },
-  {
-    "id": 845,
-    "symbol": "LTCUSDT",
-    "timestamp": "2025-06-02T14:19:26",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 140872824.84535,
-    "z_score": 4.83010232433986,
-    "message": "Bất thường OI_Value_USDT 30d cho LTCUSDT: 140872824.85 (Z-score: 4.83)",
     "notified": 1
   }
 ]
