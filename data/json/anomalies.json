@@ -340,6 +340,16 @@
     "notified": 1
   },
   {
+    "id": 899,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-03T00:32:46",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 80721924.39092001,
+    "z_score": 4.410418758764493,
+    "message": "Bất thường OI_Value_USDT 30d cho TRXUSDT: 80721924.39 (Z-score: 4.41)",
+    "notified": 1
+  },
+  {
     "id": 862,
     "symbol": "SOLUSDT",
     "timestamp": "2025-06-02T23:35:36",
@@ -487,16 +497,6 @@
     "value": 12679318288.455498,
     "z_score": 3.9697141664998212,
     "message": "Bất thường Volume_USDT 24h cho LTCUSDT: 12679318288.46 (Z-score: 3.97)",
-    "notified": 1
-  },
-  {
-    "id": 847,
-    "symbol": "TRXUSDT",
-    "timestamp": "2025-06-02T14:36:08",
-    "data_type": "correlation_24h",
-    "value": -0.7062,
-    "z_score": 2.1186000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.706 (strong_negative)",
     "notified": 1
   }
 ]
