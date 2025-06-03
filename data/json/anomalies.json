@@ -1,5 +1,25 @@
 [
   {
+    "id": 915,
+    "symbol": "TAOUSDT",
+    "timestamp": "2025-06-04T00:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": 7.327145443745914,
+    "z_score": 1.4654290887491828,
+    "message": "OI-Price divergence 24h cho TAOUSDT: OI +7.33%, Price -4.62%",
+    "notified": 1
+  },
+  {
+    "id": 914,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-03T23:57:04",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 143215084.9965,
+    "z_score": 4.469722113642832,
+    "message": "Bất thường OI_Value_USDT 30d cho TRUMPUSDT: 143215085.00 (Z-score: 4.47)",
+    "notified": 1
+  },
+  {
     "id": 913,
     "symbol": "TAOUSDT",
     "timestamp": "2025-06-03T22:00:00",
@@ -477,26 +497,6 @@
     "value": -0.7144,
     "z_score": 2.1432,
     "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.714 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 899,
-    "symbol": "TRXUSDT",
-    "timestamp": "2025-06-03T00:32:46",
-    "data_type": "30d_OI_Value_USDT",
-    "value": 80721924.39092001,
-    "z_score": 4.410418758764493,
-    "message": "Bất thường OI_Value_USDT 30d cho TRXUSDT: 80721924.39 (Z-score: 4.41)",
-    "notified": 1
-  },
-  {
-    "id": 862,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-06-02T23:35:36",
-    "data_type": "correlation_24h",
-    "value": -0.7187,
-    "z_score": 2.1561,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.719 (strong_negative)",
     "notified": 1
   }
 ]
