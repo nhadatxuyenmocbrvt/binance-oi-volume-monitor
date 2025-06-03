@@ -1,5 +1,15 @@
 [
   {
+    "id": 901,
+    "symbol": "LPTUSDT",
+    "timestamp": "2025-06-03T12:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": -13.074340249276991,
+    "z_score": 2.6148680498553984,
+    "message": "OI-Price divergence 24h cho LPTUSDT: OI -13.07%, Price +2.26%",
+    "notified": 1
+  },
+  {
     "id": 900,
     "symbol": "LPTUSDT",
     "timestamp": "2025-06-03T11:00:00",
@@ -487,16 +497,6 @@
     "value": -0.7387,
     "z_score": 2.2161,
     "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.739 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 849,
-    "symbol": "TRXUSDT",
-    "timestamp": "2025-06-02T15:07:45",
-    "data_type": "correlation_24h",
-    "value": -0.728,
-    "z_score": 2.184,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRXUSDT: -0.728 (strong_negative)",
     "notified": 1
   }
 ]
