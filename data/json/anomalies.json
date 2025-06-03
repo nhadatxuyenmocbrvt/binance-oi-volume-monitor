@@ -1,5 +1,15 @@
 [
   {
+    "id": 920,
+    "symbol": "TAOUSDT",
+    "timestamp": "2025-06-04T06:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": 5.855479555340741,
+    "z_score": 1.1710959110681483,
+    "message": "OI-Price divergence 24h cho TAOUSDT: OI +5.86%, Price -3.45%",
+    "notified": 1
+  },
+  {
     "id": 919,
     "symbol": "TAOUSDT",
     "timestamp": "2025-06-04T05:00:00",
@@ -487,16 +497,6 @@
     "value": -0.7294,
     "z_score": 2.1882,
     "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.729 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 867,
-    "symbol": "FARTCOINUSDT",
-    "timestamp": "2025-06-03T01:06:04",
-    "data_type": "correlation_24h",
-    "value": -0.707,
-    "z_score": 2.121,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho FARTCOINUSDT: -0.707 (strong_negative)",
     "notified": 1
   }
 ]
