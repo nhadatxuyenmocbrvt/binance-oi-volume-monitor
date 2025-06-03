@@ -1,5 +1,15 @@
 [
   {
+    "id": 913,
+    "symbol": "TAOUSDT",
+    "timestamp": "2025-06-03T22:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": 13.527262814914721,
+    "z_score": 2.705452562982944,
+    "message": "OI-Price divergence 24h cho TAOUSDT: OI +13.53%, Price -2.08%",
+    "notified": 1
+  },
+  {
     "id": 910,
     "symbol": "UNIUSDT",
     "timestamp": "2025-06-03T21:00:00",
@@ -483,16 +493,6 @@
     "id": 862,
     "symbol": "SOLUSDT",
     "timestamp": "2025-06-02T23:35:36",
-    "data_type": "correlation_24h",
-    "value": -0.7187,
-    "z_score": 2.1561,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.719 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 861,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-06-02T23:03:52",
     "data_type": "correlation_24h",
     "value": -0.7187,
     "z_score": 2.1561,
