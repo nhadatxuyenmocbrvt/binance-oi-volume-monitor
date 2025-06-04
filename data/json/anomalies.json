@@ -220,6 +220,16 @@
     "notified": 1
   },
   {
+    "id": 929,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-03T14:00:00",
+    "data_type": "24h_Volume_USDT",
+    "value": 14845892052.4218,
+    "z_score": 4.144529504734098,
+    "message": "Bất thường Volume_USDT 24h cho LTCUSDT: 14845892052.42 (Z-score: 4.14)",
+    "notified": 1
+  },
+  {
     "id": 902,
     "symbol": "LPTUSDT",
     "timestamp": "2025-06-03T13:00:00",
@@ -487,16 +497,6 @@
     "value": -0.7837,
     "z_score": 2.3510999999999997,
     "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.784 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 877,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-06-03T03:14:14",
-    "data_type": "correlation_24h",
-    "value": -0.7211,
-    "z_score": 2.1633,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.721 (strong_negative)",
     "notified": 1
   }
 ]
