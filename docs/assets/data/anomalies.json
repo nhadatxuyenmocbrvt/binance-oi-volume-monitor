@@ -190,6 +190,26 @@
     "notified": 1
   },
   {
+    "id": 930,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-06-03T20:00:00",
+    "data_type": "24h_OI_Value_USDT",
+    "value": 591705141.0583041,
+    "z_score": 4.080872950413528,
+    "message": "Bất thường OI_Value_USDT 24h cho UNIUSDT: 591705141.06 (Z-score: 4.08)",
+    "notified": 1
+  },
+  {
+    "id": 931,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-06-03T20:00:00",
+    "data_type": "24h_Volume_USDT",
+    "value": 1261321587.771024,
+    "z_score": 4.347325144604373,
+    "message": "Bất thường Volume_USDT 24h cho UNIUSDT: 1261321587.77 (Z-score: 4.35)",
+    "notified": 1
+  },
+  {
     "id": 908,
     "symbol": "TAOUSDT",
     "timestamp": "2025-06-03T19:00:00",
@@ -477,26 +497,6 @@
     "value": -0.7211,
     "z_score": 2.1633,
     "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.721 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 878,
-    "symbol": "FARTCOINUSDT",
-    "timestamp": "2025-06-03T03:14:16",
-    "data_type": "correlation_24h",
-    "value": -0.8087,
-    "z_score": 2.4261,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho FARTCOINUSDT: -0.809 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 876,
-    "symbol": "BTCUSDT",
-    "timestamp": "2025-06-03T03:14:14",
-    "data_type": "correlation_24h",
-    "value": -0.7837,
-    "z_score": 2.3510999999999997,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.784 (strong_negative)",
     "notified": 1
   }
 ]
