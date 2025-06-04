@@ -1,5 +1,35 @@
 [
   {
+    "id": 924,
+    "symbol": "SOLUSDT",
+    "timestamp": "2025-06-04T08:16:40",
+    "data_type": "correlation_24h",
+    "value": -0.7301,
+    "z_score": 2.1902999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.730 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 925,
+    "symbol": "WIFUSDT",
+    "timestamp": "2025-06-04T08:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": 8.727727691760082,
+    "z_score": 1.7455455383520164,
+    "message": "OI-Price divergence 24h cho WIFUSDT: OI +8.73%, Price -2.30%",
+    "notified": 1
+  },
+  {
+    "id": 923,
+    "symbol": "WIFUSDT",
+    "timestamp": "2025-06-04T07:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": 7.816432010656395,
+    "z_score": 1.563286402131279,
+    "message": "OI-Price divergence 24h cho WIFUSDT: OI +7.82%, Price -2.95%",
+    "notified": 1
+  },
+  {
     "id": 920,
     "symbol": "TAOUSDT",
     "timestamp": "2025-06-04T06:00:00",
@@ -467,36 +497,6 @@
     "value": -0.7169,
     "z_score": 2.1507,
     "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.717 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 872,
-    "symbol": "FARTCOINUSDT",
-    "timestamp": "2025-06-03T02:10:32",
-    "data_type": "correlation_24h",
-    "value": -0.7733,
-    "z_score": 2.3199,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho FARTCOINUSDT: -0.773 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 871,
-    "symbol": "SOLUSDT",
-    "timestamp": "2025-06-03T02:10:31",
-    "data_type": "correlation_24h",
-    "value": -0.7169,
-    "z_score": 2.1507,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho SOLUSDT: -0.717 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 870,
-    "symbol": "BTCUSDT",
-    "timestamp": "2025-06-03T02:10:30",
-    "data_type": "correlation_24h",
-    "value": -0.7647,
-    "z_score": 2.2941000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.765 (strong_negative)",
     "notified": 1
   }
 ]
