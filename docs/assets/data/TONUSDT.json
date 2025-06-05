@@ -1,6 +1,6 @@
 {
   "symbol": "TONUSDT",
-  "last_update": "2025-06-05T23:31:09.601475",
+  "last_update": "2025-06-06T00:03:30.889213",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 14652621.5,
-      "open_interest_value": 43841405.31779178,
-      "avg_open_interest": 14652621.5,
-      "avg_open_interest_value": 43841405.31779178
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 13908313.3,
       "open_interest_value": 44445405.98148,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 51358723.103,
       "avg_open_interest": 16018565.0,
       "avg_open_interest_value": 51358723.103
+    },
+    {
+      "timestamp": "2025-06-06T00:03:13",
+      "open_interest": 16090784.6,
+      "open_interest_value": 51815544.56892,
+      "avg_open_interest": 16090784.6,
+      "avg_open_interest_value": 51815544.56892
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.751832981235243,
       "volume_change_1h": 1.66281314758824,
       "oi_change_1h": 1.270357646314236
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 3.2093,
+      "quote_volume": 80949217.55437,
+      "open_interest_value": 51636715.28904,
+      "price_change_1h": -1.0391612704286175,
+      "volume_change_1h": 8.112376857384369,
+      "oi_change_1h": -1.722721566873057
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 3.013,
-      "quote_volume": 28802817.91095,
-      "open_interest_value": 43962640.2455,
-      "avg_open_interest_value": 43962640.2455,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 3.2125,

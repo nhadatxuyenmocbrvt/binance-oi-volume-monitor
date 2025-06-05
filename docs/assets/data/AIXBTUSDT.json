@@ -1,6 +1,6 @@
 {
   "symbol": "AIXBTUSDT",
-  "last_update": "2025-06-05T23:31:09.837396",
+  "last_update": "2025-06-06T00:03:31.123141",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 63444557.0,
-      "open_interest_value": 10236170.83864837,
-      "avg_open_interest": 63444557.0,
-      "avg_open_interest_value": 10236170.83864837
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 68884606.0,
       "open_interest_value": 13759011.20244,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 14492987.65227,
       "avg_open_interest": 80934761.0,
       "avg_open_interest_value": 14492987.65227
+    },
+    {
+      "timestamp": "2025-06-06T00:03:20",
+      "open_interest": 80898340.0,
+      "open_interest_value": 14458151.3248,
+      "avg_open_interest": 80898340.0,
+      "avg_open_interest_value": 14458151.3248
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -1.7192131500943133,
       "volume_change_1h": 0.7660276417909206,
       "oi_change_1h": -0.7062600157671888
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.17775,
+      "quote_volume": 83406293.3193,
+      "open_interest_value": 14351155.85925,
+      "price_change_1h": -2.5279666593551235,
+      "volume_change_1h": 2.895978693303604,
+      "oi_change_1h": -3.695192530554291
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.17105,
-      "quote_volume": 75356976.63638,
-      "open_interest_value": 10247118.3091,
-      "avg_open_interest_value": 10247118.3091,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.2003,

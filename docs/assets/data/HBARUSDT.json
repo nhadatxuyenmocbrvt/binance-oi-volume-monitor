@@ -1,6 +1,6 @@
 {
   "symbol": "HBARUSDT",
-  "last_update": "2025-06-05T23:31:08.739113",
+  "last_update": "2025-06-06T00:03:30.002756",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 189568774.0,
-      "open_interest_value": 33035854.51769256,
-      "avg_open_interest": 189568774.0,
-      "avg_open_interest_value": 33035854.51769256
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 199405441.0,
       "open_interest_value": 38136180.91825745,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 34366616.698599994,
       "avg_open_interest": 207090188.0,
       "avg_open_interest_value": 34366616.698599994
+    },
+    {
+      "timestamp": "2025-06-06T00:02:47",
+      "open_interest": 206707153.0,
+      "open_interest_value": 34280314.25352,
+      "avg_open_interest": 206707153.0,
+      "avg_open_interest_value": 34280314.25352
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.47938638542665096,
       "volume_change_1h": -3.465673320506209,
       "oi_change_1h": 0.6685281060943196
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.16554,
+      "quote_volume": 38547772.02788,
+      "open_interest_value": 34202317.896299995,
+      "price_change_1h": -1.2762404580152689,
+      "volume_change_1h": 3.0871061907447435,
+      "oi_change_1h": -1.705947079937948
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.17565,
-      "quote_volume": 47526362.61874,
-      "open_interest_value": 34507481.18664,
-      "avg_open_interest_value": 34507481.18664,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.19523,

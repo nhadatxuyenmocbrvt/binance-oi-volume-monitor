@@ -1,6 +1,6 @@
 {
   "symbol": "LINKUSDT",
-  "last_update": "2025-06-05T23:31:07.448343",
+  "last_update": "2025-06-06T00:03:28.683436",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 6004911.54,
-      "open_interest_value": 81415939.48255011,
-      "avg_open_interest": 6004911.54,
-      "avg_open_interest_value": 81415939.48255011
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 6366097.17,
       "open_interest_value": 98903209.38539071,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 83851180.84665,
       "avg_open_interest": 6190563.37,
       "avg_open_interest_value": 83851180.84665
+    },
+    {
+      "timestamp": "2025-06-06T00:02:08",
+      "open_interest": 6191342.36,
+      "open_interest_value": 83744096.76136,
+      "avg_open_interest": 6191342.36,
+      "avg_open_interest_value": 83744096.76136
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.109585037989471,
       "volume_change_1h": -1.787517554150139,
       "oi_change_1h": 0.4008102888087531
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 13.502,
+      "quote_volume": 225590310.959,
+      "open_interest_value": 83492734.74993001,
+      "price_change_1h": -1.4668320805662902,
+      "volume_change_1h": 6.177133983059264,
+      "oi_change_1h": -2.011105033309082
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 13.81,
-      "quote_volume": 233623140.14853,
-      "open_interest_value": 90424679.27541044,
-      "avg_open_interest_value": 90424679.27541044,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 15.883,

@@ -1,6 +1,6 @@
 {
   "symbol": "SUIUSDT",
-  "last_update": "2025-06-05T23:31:07.803621",
+  "last_update": "2025-06-06T00:03:29.033677",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 78120344.7,
-      "open_interest_value": 254691381.1800896,
-      "avg_open_interest": 78120344.7,
-      "avg_open_interest_value": 254691381.1800896
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 95087144.0,
       "open_interest_value": 372342238.4752,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 254484536.02352002,
       "avg_open_interest": 82097082.4,
       "avg_open_interest_value": 254484536.02352002
+    },
+    {
+      "timestamp": "2025-06-06T00:02:19",
+      "open_interest": 82975951.8,
+      "open_interest_value": 256478667.0138,
+      "avg_open_interest": 82975951.8,
+      "avg_open_interest_value": 256478667.0138
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.5968064505888749,
       "volume_change_1h": -0.8204571755816958,
       "oi_change_1h": 0.2566737699281984
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 3.0737,
+      "quote_volume": 598322718.99255,
+      "open_interest_value": 255063898.18007997,
+      "price_change_1h": -1.8394915849647073,
+      "volume_change_1h": 7.553509403975707,
+      "oi_change_1h": -0.5724917081575623
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 3.329,
-      "quote_volume": 1108570520.30517,
-      "open_interest_value": 256074010.85571468,
-      "avg_open_interest_value": 256074010.85571468,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 4.0355,

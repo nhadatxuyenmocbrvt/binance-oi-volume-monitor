@@ -1,6 +1,6 @@
 {
   "symbol": "WLDUSDT",
-  "last_update": "2025-06-05T23:31:08.095524",
+  "last_update": "2025-06-06T00:03:29.330581",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 58496818.0,
-      "open_interest_value": 53343248.3342,
-      "avg_open_interest": 58496818.0,
-      "avg_open_interest_value": 53343248.3342
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 59090805.0,
       "open_interest_value": 61218073.98,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 51905043.71519999,
       "avg_open_interest": 47632416.0,
       "avg_open_interest_value": 51905043.71519999
+    },
+    {
+      "timestamp": "2025-06-06T00:02:27",
+      "open_interest": 47481953.0,
+      "open_interest_value": 51831299.89479999,
+      "avg_open_interest": 47481953.0,
+      "avg_open_interest_value": 51831299.89479999
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.413780696230992,
       "volume_change_1h": -3.875971488979736,
       "oi_change_1h": -0.46077400681491104
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 1.0871,
+      "quote_volume": 138104840.6337,
+      "open_interest_value": 51650239.7579,
+      "price_change_1h": -1.806521542769399,
+      "volume_change_1h": 3.881635099537946,
+      "oi_change_1h": -2.1563861505231463
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.9288,
-      "quote_volume": 142088191.2124,
-      "open_interest_value": 57574307.0532,
-      "avg_open_interest_value": 57574307.0532,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 1.0631,

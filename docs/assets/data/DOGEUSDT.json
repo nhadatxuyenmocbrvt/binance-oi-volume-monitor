@@ -1,6 +1,6 @@
 {
   "symbol": "DOGEUSDT",
-  "last_update": "2025-06-05T23:31:07.047298",
+  "last_update": "2025-06-06T00:03:28.316170",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 1566925498.0,
-      "open_interest_value": 266117005.65776232,
-      "avg_open_interest": 1566925498.0,
-      "avg_open_interest_value": 266117005.65776232
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 1787044594.0,
       "open_interest_value": 341133088.49211806,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 348977232.76416004,
       "avg_open_interest": 1906562679.0,
       "avg_open_interest_value": 348977232.76416004
+    },
+    {
+      "timestamp": "2025-06-06T00:01:58",
+      "open_interest": 1924987816.0,
+      "open_interest_value": 349019540.91896,
+      "avg_open_interest": 1924987816.0,
+      "avg_open_interest_value": 349019540.91896
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.31617220846287053,
       "volume_change_1h": -1.3329187557869413,
       "oi_change_1h": -0.23721585871456147
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.18104,
+      "quote_volume": 943858283.16876,
+      "open_interest_value": 348234560.47040004,
+      "price_change_1h": -4.297721626050642,
+      "volume_change_1h": 31.356825836249534,
+      "oi_change_1h": 1.2294081815751357
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.17193,
-      "quote_volume": 686530208.04984,
-      "open_interest_value": 268071402.72894,
-      "avg_open_interest_value": 268071402.72894,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.19807,

@@ -1,6 +1,6 @@
 {
   "symbol": "AAVEUSDT",
-  "last_update": "2025-06-05T23:31:07.917585",
+  "last_update": "2025-06-06T00:03:29.153639",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 436065.5,
-      "open_interest_value": 73546807.23,
-      "avg_open_interest": 436065.5,
-      "avg_open_interest_value": 73546807.23
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 513596.2,
       "open_interest_value": 101886454.64480348,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 156711311.27999997,
       "avg_open_interest": 610603.2,
       "avg_open_interest_value": 156711311.27999997
+    },
+    {
+      "timestamp": "2025-06-06T00:02:22",
+      "open_interest": 609362.8,
+      "open_interest_value": 156502647.924,
+      "avg_open_interest": 609362.8,
+      "avg_open_interest_value": 156502647.924
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.24635282343430706,
       "volume_change_1h": -3.9984903380092014,
       "oi_change_1h": 0.42413829946268067
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 255.81,
+      "quote_volume": 289315128.904,
+      "open_interest_value": 155873303.127,
+      "price_change_1h": -1.773989171754408,
+      "volume_change_1h": 2.4590815102434,
+      "oi_change_1h": -2.3248156059743406
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 171.94,
-      "quote_volume": 170197119.495,
-      "open_interest_value": 87225196.32,
-      "avg_open_interest_value": 87225196.32,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 206.18,

@@ -1,6 +1,6 @@
 {
   "symbol": "NEIROUSDT",
-  "last_update": "2025-06-05T23:31:09.206310",
+  "last_update": "2025-06-06T00:03:30.475966",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 63140227611.0,
-      "open_interest_value": 12825043.03234632,
-      "avg_open_interest": 63140227611.0,
-      "avg_open_interest_value": 12825043.03234632
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 66537648581.0,
       "open_interest_value": 17374310.79747072,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 20691812.6176316,
       "avg_open_interest": 48997898692.0,
       "avg_open_interest_value": 20691812.6176316
+    },
+    {
+      "timestamp": "2025-06-06T00:03:01",
+      "open_interest": 48757182351.0,
+      "open_interest_value": 20785186.8362313,
+      "avg_open_interest": 48757182351.0,
+      "avg_open_interest_value": 20785186.8362313
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.3026775320139771,
       "volume_change_1h": -3.857493770901698,
       "oi_change_1h": 0.2755294224428208
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.0004238,
+      "quote_volume": 135611281.0587288,
+      "open_interest_value": 20683635.2200062,
+      "price_change_1h": -1.6248839368616546,
+      "volume_change_1h": 3.5823160754768697,
+      "oi_change_1h": -1.2276393452723995
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.0002084,
-      "quote_volume": 33069387.2024495,
-      "open_interest_value": 13555686.23968,
-      "avg_open_interest_value": 13555686.23968,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.0002731,

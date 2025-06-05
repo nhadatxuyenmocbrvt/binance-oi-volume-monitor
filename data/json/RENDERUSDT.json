@@ -1,6 +1,6 @@
 {
   "symbol": "RENDERUSDT",
-  "last_update": "2025-06-05T23:31:09.378258",
+  "last_update": "2025-06-06T00:03:30.653907",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 4686431.6,
-      "open_interest_value": 19195516.42058773,
-      "avg_open_interest": 4686431.6,
-      "avg_open_interest_value": 19195516.42058773
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 4849035.1,
       "open_interest_value": 22553044.62231011,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 15507744.392700002,
       "avg_open_interest": 4172113.1,
       "avg_open_interest_value": 15507744.392700002
+    },
+    {
+      "timestamp": "2025-06-06T00:03:06",
+      "open_interest": 4212429.3,
+      "open_interest_value": 15581775.9807,
+      "avg_open_interest": 4212429.3,
+      "avg_open_interest_value": 15581775.9807
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.5577689243027864,
       "volume_change_1h": 0.7168327284260935,
       "oi_change_1h": -0.10089940818049901
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 3.688,
+      "quote_volume": 31441710.6786,
+      "open_interest_value": 15525109.908,
+      "price_change_1h": -2.5884838880084486,
+      "volume_change_1h": 5.034274228344057,
+      "oi_change_1h": -1.7998719358254298
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 4.206,
-      "quote_volume": 62803525.8754,
-      "open_interest_value": 21868876.35828433,
-      "avg_open_interest_value": 21868876.35828433,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 4.717,

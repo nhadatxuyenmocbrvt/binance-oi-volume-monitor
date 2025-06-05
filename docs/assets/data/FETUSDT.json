@@ -1,6 +1,6 @@
 {
   "symbol": "FETUSDT",
-  "last_update": "2025-06-05T23:31:09.031016",
+  "last_update": "2025-06-06T00:03:30.303021",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 37856531.0,
-      "open_interest_value": 25044869.76165699,
-      "avg_open_interest": 37856531.0,
-      "avg_open_interest_value": 25044869.76165699
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 37082330.0,
       "open_interest_value": 28549685.867,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 32738508.1584,
       "avg_open_interest": 43838388.0,
       "avg_open_interest_value": 32738508.1584
+    },
+    {
+      "timestamp": "2025-06-06T00:02:56",
+      "open_interest": 43681210.0,
+      "open_interest_value": 32769643.742,
+      "avg_open_interest": 43681210.0,
+      "avg_open_interest_value": 32769643.742
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.40202308390610714,
       "volume_change_1h": -1.6525015111784704,
       "oi_change_1h": -0.6336924426675619
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.7493,
+      "quote_volume": 108245315.6063,
+      "open_interest_value": 32766853.782899998,
+      "price_change_1h": -2.43489583333334,
+      "volume_change_1h": 6.102447663956536,
+      "oi_change_1h": 1.0448202402799553
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.6746,
-      "quote_volume": 88461409.5023,
-      "open_interest_value": 26503738.364,
-      "avg_open_interest_value": 26503738.364,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.7792,

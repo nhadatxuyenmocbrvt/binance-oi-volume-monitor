@@ -1,6 +1,6 @@
 {
   "symbol": "WIFUSDT",
-  "last_update": "2025-06-05T23:31:07.973563",
+  "last_update": "2025-06-06T00:03:29.210621",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 83735654.2,
-      "open_interest_value": 45722499.97038159,
-      "avg_open_interest": 83735654.2,
-      "avg_open_interest_value": 45722499.97038159
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 82444724.9,
       "open_interest_value": 55713982.56228587,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 63497500.48697999,
       "avg_open_interest": 75972123.1,
       "avg_open_interest_value": 63497500.48697999
+    },
+    {
+      "timestamp": "2025-06-06T00:02:24",
+      "open_interest": 76854046.5,
+      "open_interest_value": 64526657.4414,
+      "avg_open_interest": 76854046.5,
+      "avg_open_interest_value": 64526657.4414
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -1.1412103746397717,
       "volume_change_1h": -1.6391434564096623,
       "oi_change_1h": -1.0440953618872464
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.8349,
+      "quote_volume": 389278747.76775,
+      "open_interest_value": 64523071.75247999,
+      "price_change_1h": -2.646921641791051,
+      "volume_change_1h": 2.8927038455113707,
+      "oi_change_1h": -3.4869064588823195
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.5748,
-      "quote_volume": 200997221.65757,
-      "open_interest_value": 46733698.67148645,
-      "avg_open_interest_value": 46733698.67148645,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.6912,

@@ -1,6 +1,6 @@
 {
   "symbol": "FILUSDT",
-  "last_update": "2025-06-05T23:31:08.795095",
+  "last_update": "2025-06-06T00:03:30.060739",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 20302502.2,
-      "open_interest_value": 51643530.06894598,
-      "avg_open_interest": 20302502.2,
-      "avg_open_interest_value": 51643530.06894598
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 20021598.0,
       "open_interest_value": 57226810.5677322,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 54785704.01759999,
       "avg_open_interest": 22055436.4,
       "avg_open_interest_value": 54785704.01759999
+    },
+    {
+      "timestamp": "2025-06-06T00:02:49",
+      "open_interest": 22062159.1,
+      "open_interest_value": 54956838.318100005,
+      "avg_open_interest": 22062159.1,
+      "avg_open_interest_value": 54956838.318100005
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.4790419161676651,
       "volume_change_1h": -1.729574205308338,
       "oi_change_1h": 1.295134861430396
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 2.488,
+      "quote_volume": 127682900.722,
+      "open_interest_value": 54823589.4063,
+      "price_change_1h": -1.1521652761223644,
+      "volume_change_1h": 2.8887284515349387,
+      "oi_change_1h": -1.2822195564315424
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 2.584,
-      "quote_volume": 90069057.0785,
-      "open_interest_value": 52246937.8416,
-      "avg_open_interest_value": 52246937.8416,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 2.929,

@@ -1,6 +1,6 @@
 {
   "symbol": "NEARUSDT",
-  "last_update": "2025-06-05T23:31:08.323246",
+  "last_update": "2025-06-06T00:03:29.566505",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 17593720.0,
-      "open_interest_value": 39404667.3514784,
-      "avg_open_interest": 17593720.0,
-      "avg_open_interest_value": 39404667.3514784
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 18562397.0,
       "open_interest_value": 48743232.53975014,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 46869390.396,
       "avg_open_interest": 19504532.0,
       "avg_open_interest_value": 46869390.396
+    },
+    {
+      "timestamp": "2025-06-06T00:02:34",
+      "open_interest": 19531148.0,
+      "open_interest_value": 47050535.532,
+      "avg_open_interest": 19531148.0,
+      "avg_open_interest_value": 47050535.532
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.8522727272727235,
       "volume_change_1h": -3.099768122853972,
       "oi_change_1h": -0.6600706881116775
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 2.405,
+      "quote_volume": 97907981.047,
+      "open_interest_value": 46959712.54,
+      "price_change_1h": -1.5554645927138868,
+      "volume_change_1h": 7.405836510141696,
+      "oi_change_1h": -2.1705328216779027
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 2.284,
-      "quote_volume": 110898602.091,
-      "open_interest_value": 39858140.504,
-      "avg_open_interest_value": 39858140.504,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 2.734,

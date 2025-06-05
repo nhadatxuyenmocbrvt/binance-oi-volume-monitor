@@ -1,6 +1,6 @@
 {
   "symbol": "1000SHIBUSDT",
-  "last_update": "2025-06-05T23:31:08.155505",
+  "last_update": "2025-06-06T00:03:29.387564",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 2846580268.0,
-      "open_interest_value": 35940723.20314924,
-      "avg_open_interest": 2846580268.0,
-      "avg_open_interest_value": 35940723.20314924
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 3044368947.0,
       "open_interest_value": 42752073.122721,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 42025257.23506,
       "avg_open_interest": 3336661948.0,
       "avg_open_interest_value": 42025257.23506
+    },
+    {
+      "timestamp": "2025-06-06T00:02:29",
+      "open_interest": 3324562355.0,
+      "open_interest_value": 41902783.92242,
+      "avg_open_interest": 3324562355.0,
+      "avg_open_interest_value": 41902783.92242
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.15626220798499246,
       "volume_change_1h": -2.244977643025013,
       "oi_change_1h": -0.09011042942987961
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.01257,
+      "quote_volume": 100938417.634588,
+      "open_interest_value": 41849809.704472,
+      "price_change_1h": -1.6354957351905535,
+      "volume_change_1h": 10.09153291983619,
+      "oi_change_1h": -2.0672218284511743
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.0128,
-      "quote_volume": 75899487.800783,
-      "open_interest_value": 37884328.50743897,
-      "avg_open_interest_value": 37884328.50743897,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.014392,

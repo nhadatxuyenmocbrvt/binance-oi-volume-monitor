@@ -1,6 +1,6 @@
 {
   "symbol": "XRPUSDT",
-  "last_update": "2025-06-05T23:31:06.931334",
+  "last_update": "2025-06-06T00:03:28.199213",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 248071623.3,
-      "open_interest_value": 523715884.09866977,
-      "avg_open_interest": 248071623.3,
-      "avg_open_interest_value": 523715884.09866977
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 240249275.7,
       "open_interest_value": 546038553.81096,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 579110558.65456,
       "avg_open_interest": 266822041.4,
       "avg_open_interest_value": 579110558.65456
+    },
+    {
+      "timestamp": "2025-06-06T00:01:54",
+      "open_interest": 267163560.2,
+      "open_interest_value": 579317463.93768,
+      "avg_open_interest": 267163560.2,
+      "avg_open_interest_value": 579317463.93768
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.31838442645318266,
       "volume_change_1h": -3.2107517633144034,
       "oi_change_1h": -0.4580803604545376
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 2.1664,
+      "quote_volume": 938534663.7937,
+      "open_interest_value": 578913271.0691999,
+      "price_change_1h": -1.1498448622011466,
+      "volume_change_1h": 6.5562573975157346,
+      "oi_change_1h": -0.9226039353948896
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 2.1255,
-      "quote_volume": 889327788.43697,
-      "open_interest_value": 529445769.56719,
-      "avg_open_interest_value": 529445769.56719,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 2.3266,

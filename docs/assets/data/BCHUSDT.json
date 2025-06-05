@@ -1,6 +1,6 @@
 {
   "symbol": "BCHUSDT",
-  "last_update": "2025-06-05T23:31:08.379229",
+  "last_update": "2025-06-06T00:03:29.631489",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 262448.403,
-      "open_interest_value": 93788065.99033144,
-      "avg_open_interest": 262448.403,
-      "avg_open_interest_value": 93788065.99033144
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 324036.812,
       "open_interest_value": 135573673.1810156,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 108074906.888,
       "avg_open_interest": 270525.424,
       "avg_open_interest_value": 108074906.888
+    },
+    {
+      "timestamp": "2025-06-06T00:02:36",
+      "open_interest": 270753.907,
+      "open_interest_value": 107949582.7209,
+      "avg_open_interest": 270753.907,
+      "avg_open_interest_value": 107949582.7209
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.40144620371525086,
       "volume_change_1h": 1.8056643741374505,
       "oi_change_1h": -0.08380527727118577
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 397.71,
+      "quote_volume": 113436966.71,
+      "open_interest_value": 107638378.88292,
+      "price_change_1h": -1.2293249888243296,
+      "volume_change_1h": 3.8368982278627244,
+      "oi_change_1h": -1.0155042032459638
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 383.45,
-      "quote_volume": 210304331.9974,
-      "open_interest_value": 105675290.3122344,
-      "avg_open_interest_value": 105675290.3122344,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 421.49,

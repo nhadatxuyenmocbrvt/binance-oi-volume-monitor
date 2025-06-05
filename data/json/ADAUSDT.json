@@ -1,6 +1,6 @@
 {
   "symbol": "ADAUSDT",
-  "last_update": "2025-06-05T23:31:06.989317",
+  "last_update": "2025-06-06T00:03:28.258167",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 200912729.0,
-      "open_interest_value": 132381397.1381,
-      "avg_open_interest": 200912729.0,
-      "avg_open_interest_value": 132381397.1381
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 196542434.0,
       "open_interest_value": 145459219.69706643,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 156127249.7585,
       "avg_open_interest": 235450535.0,
       "avg_open_interest_value": 156127249.7585
+    },
+    {
+      "timestamp": "2025-06-06T00:01:56",
+      "open_interest": 236627062.0,
+      "open_interest_value": 156434150.6882,
+      "avg_open_interest": 236627062.0,
+      "avg_open_interest_value": 156434150.6882
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.059320777102173504,
       "volume_change_1h": -2.4776450161612735,
       "oi_change_1h": 0.054158024008708956
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.6609,
+      "quote_volume": 393096412.9468,
+      "open_interest_value": 156424164.9824,
+      "price_change_1h": -1.9290695948953867,
+      "volume_change_1h": 6.599115564032614,
+      "oi_change_1h": -1.210603222206523
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.6713,
-      "quote_volume": 409498344.7936,
-      "open_interest_value": 139955385.089,
-      "avg_open_interest_value": 139955385.089,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.7693,

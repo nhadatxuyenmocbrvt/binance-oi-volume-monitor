@@ -1,6 +1,6 @@
 {
   "symbol": "LTCUSDT",
-  "last_update": "2025-06-05T23:31:07.385324",
+  "last_update": "2025-06-06T00:03:28.616456",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 1944638.441,
-      "open_interest_value": 170346012.99841565,
-      "avg_open_interest": 1944638.441,
-      "avg_open_interest_value": 170346012.99841565
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 1963183.769,
       "open_interest_value": 182343703.44814485,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 131784784.22889,
       "avg_open_interest": 1521588.549,
       "avg_open_interest_value": 131784784.22889
+    },
+    {
+      "timestamp": "2025-06-06T00:02:07",
+      "open_interest": 1521611.643,
+      "open_interest_value": 131558542.65377998,
+      "avg_open_interest": 1521611.643,
+      "avg_open_interest_value": 131558542.65377998
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.3758542141230049,
       "volume_change_1h": -0.6154036684498352,
       "oi_change_1h": -0.13125782733650754
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 86.39,
+      "quote_volume": 139104691.82,
+      "open_interest_value": 131465960.65822001,
+      "price_change_1h": -1.2347090431004897,
+      "volume_change_1h": 4.748810554440067,
+      "oi_change_1h": -1.4313095082501774
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 89.5,
-      "quote_volume": 462572828.51352,
-      "open_interest_value": 164588480.79108,
-      "avg_open_interest_value": 164588480.79108,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 94.93,

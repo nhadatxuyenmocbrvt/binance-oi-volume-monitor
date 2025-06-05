@@ -1,6 +1,6 @@
 {
   "symbol": "ETHFIUSDT",
-  "last_update": "2025-06-05T23:31:09.717439",
+  "last_update": "2025-06-06T00:03:31.006174",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 16974097.3,
-      "open_interest_value": 8758730.44993169,
-      "avg_open_interest": 16974097.3,
-      "avg_open_interest_value": 8758730.44993169
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 24216202.4,
       "open_interest_value": 17170368.02855109,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 24513169.24716,
       "avg_open_interest": 22374196.1,
       "avg_open_interest_value": 24513169.24716
+    },
+    {
+      "timestamp": "2025-06-06T00:03:17",
+      "open_interest": 22232857.1,
+      "open_interest_value": 24596209.809730005,
+      "avg_open_interest": 22232857.1,
+      "avg_open_interest_value": 24596209.809730005
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -1.2473460721868366,
       "volume_change_1h": -5.993330632372317,
       "oi_change_1h": -0.04029670872151894
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 1.1,
+      "quote_volume": 124350386.28647,
+      "open_interest_value": 24468564.450000003,
+      "price_change_1h": -1.4601809549404263,
+      "volume_change_1h": -3.7423558932127285,
+      "oi_change_1h": -1.7552880837446476
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.5487,
-      "quote_volume": 17363588.77939,
-      "open_interest_value": 8315193.36507,
-      "avg_open_interest_value": 8315193.36507,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.7137,

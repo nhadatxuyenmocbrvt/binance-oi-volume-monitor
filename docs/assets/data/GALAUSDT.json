@@ -1,6 +1,6 @@
 {
   "symbol": "GALAUSDT",
-  "last_update": "2025-06-05T23:31:08.211487",
+  "last_update": "2025-06-06T00:03:29.445544",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 1202434814.0,
-      "open_interest_value": 17988436.84178814,
-      "avg_open_interest": 1202434814.0,
-      "avg_open_interest_value": 17988436.84178814
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 1145513552.0,
       "open_interest_value": 19725743.36544,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 19339250.0724,
       "avg_open_interest": 1216305036.0,
       "avg_open_interest_value": 19339250.0724
+    },
+    {
+      "timestamp": "2025-06-06T00:02:31",
+      "open_interest": 1219246736.0,
+      "open_interest_value": 19434792.971839998,
+      "avg_open_interest": 1219246736.0,
+      "avg_open_interest_value": 19434792.971839998
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.061500615006147556,
       "volume_change_1h": -4.635205490061687,
       "oi_change_1h": 0.25947550995331947
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.01587,
+      "quote_volume": 58706592.67629,
+      "open_interest_value": 19342565.071379997,
+      "price_change_1h": -2.4585125998770807,
+      "volume_change_1h": 6.546704230607898,
+      "oi_change_1h": -2.844221408372644
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.01518,
-      "quote_volume": 40391692.69299,
-      "open_interest_value": 18193988.88009,
-      "avg_open_interest_value": 18193988.88009,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.01782,

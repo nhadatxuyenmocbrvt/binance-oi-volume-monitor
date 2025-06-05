@@ -1,6 +1,6 @@
 {
   "symbol": "EIGENUSDT",
-  "last_update": "2025-06-05T23:31:09.780414",
+  "last_update": "2025-06-06T00:03:31.064156",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 13739864.8,
-      "open_interest_value": 10452199.43116271,
-      "avg_open_interest": 13739864.8,
-      "avg_open_interest_value": 10452199.43116271
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 15705629.5,
       "open_interest_value": 15663224.30035,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 16115444.62512,
       "avg_open_interest": 11264815.2,
       "avg_open_interest_value": 16115444.62512
+    },
+    {
+      "timestamp": "2025-06-06T00:03:18",
+      "open_interest": 11324403.5,
+      "open_interest_value": 16149731.831349999,
+      "avg_open_interest": 11324403.5,
+      "avg_open_interest_value": 16149731.831349999
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.2687801516195737,
       "volume_change_1h": -8.821894898477577,
       "oi_change_1h": -0.02240919827301127
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 1.4281,
+      "quote_volume": 106700661.82026,
+      "open_interest_value": 16153006.605319997,
+      "price_change_1h": -1.842051000068744,
+      "volume_change_1h": -5.78242415070068,
+      "oi_change_1h": -1.6152331005749394
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.7742,
-      "quote_volume": 24665643.78228,
-      "open_interest_value": 10871012.2161036,
-      "avg_open_interest_value": 10871012.2161036,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 1.1275,

@@ -1,6 +1,6 @@
 {
   "symbol": "CAKEUSDT",
-  "last_update": "2025-06-05T23:31:08.971037",
+  "last_update": "2025-06-06T00:03:30.241039",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 6833862.0,
-      "open_interest_value": 13738894.98244452,
-      "avg_open_interest": 6833862.0,
-      "avg_open_interest_value": 13738894.98244452
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 7181142.0,
       "open_interest_value": 15833699.9958,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 18999497.234,
       "avg_open_interest": 8004844.0,
       "avg_open_interest_value": 18999497.234
+    },
+    {
+      "timestamp": "2025-06-06T00:02:54",
+      "open_interest": 7787171.0,
+      "open_interest_value": 18500760.8618,
+      "avg_open_interest": 7787171.0,
+      "avg_open_interest_value": 18500760.8618
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.4896062404049638,
       "volume_change_1h": -0.8509172736514791,
       "oi_change_1h": -0.018281530324716622
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 2.3768,
+      "quote_volume": 83420479.419,
+      "open_interest_value": 18497829.760500003,
+      "price_change_1h": -0.8964683317349821,
+      "volume_change_1h": 1.6304505403978535,
+      "oi_change_1h": -3.576340000944833
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 2.0296,
-      "quote_volume": 28319184.4337,
-      "open_interest_value": 13571221.1962,
-      "avg_open_interest_value": 13571221.1962,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 2.2393,

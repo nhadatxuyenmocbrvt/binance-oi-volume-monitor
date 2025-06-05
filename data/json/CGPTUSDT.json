@@ -1,6 +1,6 @@
 {
   "symbol": "CGPTUSDT",
-  "last_update": "2025-06-05T23:31:09.893385",
+  "last_update": "2025-06-06T00:03:31.184440",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 16979852.0,
-      "open_interest_value": 1894736.00887812,
-      "avg_open_interest": 16979852.0,
-      "avg_open_interest_value": 1894736.00887812
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 18564364.0,
       "open_interest_value": 2357806.59191532,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 2266039.64635,
       "avg_open_interest": 21207671.0,
       "avg_open_interest_value": 2266039.64635
+    },
+    {
+      "timestamp": "2025-06-06T00:03:22",
+      "open_interest": 21102281.0,
+      "open_interest_value": 2252246.45113,
+      "avg_open_interest": 21102281.0,
+      "avg_open_interest_value": 2252246.45113
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.6883259911894279,
       "volume_change_1h": -3.6346463104649493,
       "oi_change_1h": -0.4288657550593626
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.10648,
+      "quote_volume": 3832093.03968,
+      "open_interest_value": 2246214.4469600003,
+      "price_change_1h": -1.5987431845485587,
+      "volume_change_1h": 1.4618753819846537,
+      "oi_change_1h": -2.030115326147765
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.11657,
-      "quote_volume": 9374147.11355,
-      "open_interest_value": 1804503.78801,
-      "avg_open_interest_value": 1804503.78801,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.1269,

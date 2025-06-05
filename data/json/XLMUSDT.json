@@ -1,6 +1,6 @@
 {
   "symbol": "XLMUSDT",
-  "last_update": "2025-06-05T23:31:07.692271",
+  "last_update": "2025-06-06T00:03:28.918362",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 124764845.0,
-      "open_interest_value": 32264443.4372838,
-      "avg_open_interest": 124764845.0,
-      "avg_open_interest_value": 32264443.4372838
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 134412680.0,
       "open_interest_value": 38279387.1372,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 37914555.90735,
       "avg_open_interest": 144408897.0,
       "avg_open_interest_value": 37914555.90735
+    },
+    {
+      "timestamp": "2025-06-06T00:02:15",
+      "open_interest": 144409722.0,
+      "open_interest_value": 37911884.316659994,
+      "avg_open_interest": 144409722.0,
+      "avg_open_interest_value": 37911884.316659994
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.3797563543389816,
       "volume_change_1h": -1.868007833068986,
       "oi_change_1h": -0.2697793718040338
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.26182,
+      "quote_volume": 46154297.40823,
+      "open_interest_value": 37816356.05176,
+      "price_change_1h": -1.1813549726363546,
+      "volume_change_1h": 2.815226169844397,
+      "oi_change_1h": -1.2715040040736325
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.26021,
-      "quote_volume": 36226036.1407,
-      "open_interest_value": 33734406.55484,
-      "avg_open_interest_value": 33734406.55484,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.29101,

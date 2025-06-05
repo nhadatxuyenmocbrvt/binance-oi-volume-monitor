@@ -1,6 +1,6 @@
 {
   "symbol": "BOMEUSDT",
-  "last_update": "2025-06-05T23:31:10.009304",
+  "last_update": "2025-06-06T00:03:31.306433",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 5408494054.0,
-      "open_interest_value": 7291893.93842442,
-      "avg_open_interest": 5408494054.0,
-      "avg_open_interest_value": 7291893.93842442
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 5675981031.0,
       "open_interest_value": 9084861.71859798,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 9544062.870888,
       "avg_open_interest": 5319990452.0,
       "avg_open_interest_value": 9544062.870888
+    },
+    {
+      "timestamp": "2025-06-06T00:03:25",
+      "open_interest": 5327750461.0,
+      "open_interest_value": 9595278.580261001,
+      "avg_open_interest": 5327750461.0,
+      "avg_open_interest_value": 9595278.580261001
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.3262642740619864,
       "volume_change_1h": -4.3548600595595115,
       "oi_change_1h": -0.7869713882064493
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.001796,
+      "quote_volume": 29988148.520378,
+      "open_interest_value": 9570889.842388,
+      "price_change_1h": -2.018548827059461,
+      "volume_change_1h": 3.4289358924923867,
+      "oi_change_1h": -1.9331042179417712
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.001391,
-      "quote_volume": 15661593.864116,
-      "open_interest_value": 7223389.979792,
-      "avg_open_interest_value": 7223389.979792,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.001638,

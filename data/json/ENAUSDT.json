@@ -1,6 +1,6 @@
 {
   "symbol": "ENAUSDT",
-  "last_update": "2025-06-05T23:31:09.660456",
+  "last_update": "2025-06-06T00:03:30.948200",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 370499497.0,
-      "open_interest_value": 97991025.94476932,
-      "avg_open_interest": 370499497.0,
-      "avg_open_interest_value": 97991025.94476932
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 379028504.0,
       "open_interest_value": 122706975.94662304,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 127470242.27520001,
       "avg_open_interest": 415347808.0,
       "avg_open_interest_value": 127470242.27520001
+    },
+    {
+      "timestamp": "2025-06-06T00:03:15",
+      "open_interest": 419571221.0,
+      "open_interest_value": 128304879.38180001,
+      "avg_open_interest": 419571221.0,
+      "avg_open_interest_value": 128304879.38180001
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": 0.8455284552845501,
       "volume_change_1h": -3.204054265292153,
       "oi_change_1h": 1.4900588128486807
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.3061,
+      "quote_volume": 403346779.9049,
+      "open_interest_value": 128170151.7229,
+      "price_change_1h": -1.289906481780072,
+      "volume_change_1h": -9.794514401715766,
+      "oi_change_1h": -1.240604031753286
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.2673,
-      "quote_volume": 179809883.7313,
-      "open_interest_value": 98631972.16832323,
-      "avg_open_interest_value": 98631972.16832323,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.3406,

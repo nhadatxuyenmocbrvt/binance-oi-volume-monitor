@@ -1,6 +1,6 @@
 {
   "symbol": "TAOUSDT",
-  "last_update": "2025-06-05T23:31:08.915054",
+  "last_update": "2025-06-06T00:03:30.183059",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 135982.92,
-      "open_interest_value": 48698795.57312942,
-      "avg_open_interest": 135982.92,
-      "avg_open_interest_value": 48698795.57312942
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 144968.271,
       "open_interest_value": 60432923.13177,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 55666157.50859,
       "avg_open_interest": 150787.327,
       "avg_open_interest_value": 55666157.50859
+    },
+    {
+      "timestamp": "2025-06-06T00:02:52",
+      "open_interest": 150853.53,
+      "open_interest_value": 55631764.7934,
+      "avg_open_interest": 150853.53,
+      "avg_open_interest_value": 55631764.7934
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.040306328093504575,
       "volume_change_1h": -1.0654667549527672,
       "oi_change_1h": -0.6645159764222917
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 368.8,
+      "quote_volume": 110027598.03,
+      "open_interest_value": 55508478.652,
+      "price_change_1h": -0.8602150537634378,
+      "volume_change_1h": 2.2637451157862474,
+      "oi_change_1h": -1.1052501871433924
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 367.71,
-      "quote_volume": 167355483.24046,
-      "open_interest_value": 52544133.5156,
-      "avg_open_interest_value": 52544133.5156,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 423.0,

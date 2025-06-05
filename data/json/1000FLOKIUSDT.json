@@ -1,6 +1,6 @@
 {
   "symbol": "1000FLOKIUSDT",
-  "last_update": "2025-06-05T23:31:09.088999",
+  "last_update": "2025-06-06T00:03:30.361001",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 142310391.0,
-      "open_interest_value": 10626331.1270091,
-      "avg_open_interest": 142310391.0,
-      "avg_open_interest_value": 10626331.1270091
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 142198320.0,
       "open_interest_value": 12829268.9407872,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 10563861.88638,
       "avg_open_interest": 131735402.0,
       "avg_open_interest_value": 10563861.88638
+    },
+    {
+      "timestamp": "2025-06-06T00:02:57",
+      "open_interest": 132551934.0,
+      "open_interest_value": 10691638.996439999,
+      "avg_open_interest": 132551934.0,
+      "avg_open_interest_value": 10691638.996439999
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.3176154409968194,
       "volume_change_1h": -2.080463291227828,
       "oi_change_1h": -0.07268880342372246
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 0.08058,
+      "quote_volume": 33021411.55448,
+      "open_interest_value": 10648704.44585,
+      "price_change_1h": -1.2500000000000087,
+      "volume_change_1h": 6.2683385887807725,
+      "oi_change_1h": -2.3492628607008084
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 0.07648,
-      "quote_volume": 26702308.57247,
-      "open_interest_value": 11609197.57069,
-      "avg_open_interest_value": 11609197.57069,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 0.09155,

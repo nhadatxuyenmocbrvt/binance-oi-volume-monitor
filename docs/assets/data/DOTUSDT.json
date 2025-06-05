@@ -1,6 +1,6 @@
 {
   "symbol": "DOTUSDT",
-  "last_update": "2025-06-05T23:31:08.497189",
+  "last_update": "2025-06-06T00:03:29.756444",
   "klines": {
     "1h": [
       {
@@ -3305,13 +3305,6 @@
   },
   "open_interest": [
     {
-      "timestamp": "2025-05-07T20:00:00",
-      "open_interest": 14145104.9,
-      "open_interest_value": 55165909.11,
-      "avg_open_interest": 14145104.9,
-      "avg_open_interest_value": 55165909.11
-    },
-    {
       "timestamp": "2025-05-08T20:00:00",
       "open_interest": 14576196.1,
       "open_interest_value": 63085776.7208,
@@ -3513,6 +3506,13 @@
       "open_interest_value": 66088033.821600005,
       "avg_open_interest": 16638477.8,
       "avg_open_interest_value": 66088033.821600005
+    },
+    {
+      "timestamp": "2025-06-06T00:02:40",
+      "open_interest": 16593070.8,
+      "open_interest_value": 66073607.92560001,
+      "avg_open_interest": 16593070.8,
+      "avg_open_interest_value": 66073607.92560001
     }
   ],
   "tracking_24h": [
@@ -3596,19 +3596,18 @@
       "price_change_1h": -0.14917951268026422,
       "volume_change_1h": -2.749225542908048,
       "oi_change_1h": -0.22192335308717404
+    },
+    {
+      "hour_timestamp": "2025-06-06T00:00:00",
+      "price": 3.968,
+      "quote_volume": 96006298.552,
+      "open_interest_value": 65902591.0912,
+      "price_change_1h": -1.195219123505977,
+      "volume_change_1h": 4.875342237044036,
+      "oi_change_1h": -1.2568371524875914
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-07T00:00:00",
-      "price": 3.967,
-      "quote_volume": 80035576.5216,
-      "open_interest_value": 57990050.01871692,
-      "avg_open_interest_value": 57990050.01871692,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-08T00:00:00",
       "price": 4.455,
