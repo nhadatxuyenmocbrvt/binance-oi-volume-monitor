@@ -1,5 +1,35 @@
 [
   {
+    "id": 2344,
+    "symbol": "LDOUSDT",
+    "timestamp": "2025-06-07T02:08:34",
+    "data_type": "correlation_24h",
+    "value": -0.8379,
+    "z_score": 2.5137,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LDOUSDT: -0.838 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2342,
+    "symbol": "1000PEPEUSDT",
+    "timestamp": "2025-06-07T02:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": -5.966100800042876,
+    "z_score": 1.1932201600085752,
+    "message": "OI-Price divergence 24h cho 1000PEPEUSDT: OI -5.97%, Price +2.01%",
+    "notified": 1
+  },
+  {
+    "id": 2345,
+    "symbol": "TAOUSDT",
+    "timestamp": "2025-06-07T02:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": -6.197550554970822,
+    "z_score": 1.2395101109941644,
+    "message": "OI-Price divergence 24h cho TAOUSDT: OI -6.20%, Price +3.75%",
+    "notified": 1
+  },
+  {
     "id": 2341,
     "symbol": "LDOUSDT",
     "timestamp": "2025-06-07T01:51:56",
@@ -467,36 +497,6 @@
     "value": -0.745,
     "z_score": 2.235,
     "message": "Tương quan âm bất thường OI-Volume 24h cho DOTUSDT: -0.745 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2293,
-    "symbol": "LINKUSDT",
-    "timestamp": "2025-06-06T22:53:40",
-    "data_type": "correlation_24h",
-    "value": -0.7139,
-    "z_score": 2.1417,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho LINKUSDT: -0.714 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2294,
-    "symbol": "UNIUSDT",
-    "timestamp": "2025-06-06T22:53:40",
-    "data_type": "correlation_24h",
-    "value": -0.8112,
-    "z_score": 2.4336,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho UNIUSDT: -0.811 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2295,
-    "symbol": "1000PEPEUSDT",
-    "timestamp": "2025-06-06T22:53:40",
-    "data_type": "correlation_24h",
-    "value": -0.768,
-    "z_score": 2.3040000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho 1000PEPEUSDT: -0.768 (strong_negative)",
     "notified": 1
   }
 ]
