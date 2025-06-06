@@ -20,6 +20,16 @@
     "notified": 1
   },
   {
+    "id": 2349,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-07T03:00:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 135101676.1461,
+    "z_score": 4.0304631725899895,
+    "message": "Bất thường OI_Value_USDT 30d cho TRUMPUSDT: 135101676.15 (Z-score: 4.03)",
+    "notified": 1
+  },
+  {
     "id": 2346,
     "symbol": "LDOUSDT",
     "timestamp": "2025-06-07T02:40:17",
@@ -487,16 +497,6 @@
     "value": -0.75,
     "z_score": 2.25,
     "message": "Tương quan âm bất thường OI-Volume 24h cho BCHUSDT: -0.750 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2302,
-    "symbol": "APTUSDT",
-    "timestamp": "2025-06-06T22:53:41",
-    "data_type": "correlation_24h",
-    "value": -0.8713,
-    "z_score": 2.6139,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho APTUSDT: -0.871 (strong_negative)",
     "notified": 1
   }
 ]
