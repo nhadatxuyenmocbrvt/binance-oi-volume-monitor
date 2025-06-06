@@ -1,5 +1,95 @@
 [
   {
+    "id": 2336,
+    "symbol": "ENAUSDT",
+    "timestamp": "2025-06-07T00:48:25",
+    "data_type": "correlation_24h",
+    "value": -0.7131,
+    "z_score": 2.1393,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ENAUSDT: -0.713 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2333,
+    "symbol": "APTUSDT",
+    "timestamp": "2025-06-07T00:48:24",
+    "data_type": "correlation_24h",
+    "value": -0.7702,
+    "z_score": 2.3106,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho APTUSDT: -0.770 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2335,
+    "symbol": "TAOUSDT",
+    "timestamp": "2025-06-07T00:48:24",
+    "data_type": "correlation_24h",
+    "value": -0.7298,
+    "z_score": 2.1894,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TAOUSDT: -0.730 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2327,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-06-07T00:48:23",
+    "data_type": "correlation_24h",
+    "value": -0.7047,
+    "z_score": 2.1141,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho UNIUSDT: -0.705 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2329,
+    "symbol": "TRUMPUSDT",
+    "timestamp": "2025-06-07T00:48:23",
+    "data_type": "correlation_24h",
+    "value": -0.7659,
+    "z_score": 2.2977,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.766 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2330,
+    "symbol": "WIFUSDT",
+    "timestamp": "2025-06-07T00:48:23",
+    "data_type": "correlation_24h",
+    "value": -0.779,
+    "z_score": 2.337,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho WIFUSDT: -0.779 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2331,
+    "symbol": "LDOUSDT",
+    "timestamp": "2025-06-07T00:48:23",
+    "data_type": "correlation_24h",
+    "value": -0.929,
+    "z_score": 2.787,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LDOUSDT: -0.929 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2332,
+    "symbol": "WLDUSDT",
+    "timestamp": "2025-06-07T00:48:23",
+    "data_type": "correlation_24h",
+    "value": -0.7539,
+    "z_score": 2.2617000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho WLDUSDT: -0.754 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2326,
+    "symbol": "BNBUSDT",
+    "timestamp": "2025-06-07T00:48:22",
+    "data_type": "correlation_24h",
+    "value": -0.8213,
+    "z_score": 2.4639,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.821 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 2325,
     "symbol": "ENAUSDT",
     "timestamp": "2025-06-06T23:42:10",
@@ -170,16 +260,6 @@
     "notified": 1
   },
   {
-    "id": 2307,
-    "symbol": "TRXUSDT",
-    "timestamp": "2025-06-06T23:00:00",
-    "data_type": "oi_price_divergence_24h",
-    "value": -6.738066569620706,
-    "z_score": 1.3476133139241413,
-    "message": "OI-Price divergence 24h cho TRXUSDT: OI -6.74%, Price +2.35%",
-    "notified": 1
-  },
-  {
     "id": 2313,
     "symbol": "POLUSDT",
     "timestamp": "2025-06-06T23:00:00",
@@ -187,6 +267,26 @@
     "value": 10668301.639099563,
     "z_score": 4.063866443757701,
     "message": "Bất thường Volume_USDT 24h cho POLUSDT: 10668301.64 (Z-score: 4.06)",
+    "notified": 1
+  },
+  {
+    "id": 2328,
+    "symbol": "TRXUSDT",
+    "timestamp": "2025-06-06T23:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": -7.45112015193828,
+    "z_score": 1.490224030387656,
+    "message": "OI-Price divergence 24h cho TRXUSDT: OI -7.45%, Price +2.09%",
+    "notified": 1
+  },
+  {
+    "id": 2334,
+    "symbol": "TAOUSDT",
+    "timestamp": "2025-06-06T23:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": -6.833168205295438,
+    "z_score": 1.3666336410590876,
+    "message": "OI-Price divergence 24h cho TAOUSDT: OI -6.83%, Price +2.18%",
     "notified": 1
   },
   {
@@ -397,106 +497,6 @@
     "value": -0.8117,
     "z_score": 2.4351,
     "message": "Tương quan âm bất thường OI-Volume 24h cho FETUSDT: -0.812 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2277,
-    "symbol": "1000PEPEUSDT",
-    "timestamp": "2025-06-06T20:20:19",
-    "data_type": "correlation_24h",
-    "value": -0.8243,
-    "z_score": 2.4729,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho 1000PEPEUSDT: -0.824 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2278,
-    "symbol": "TRUMPUSDT",
-    "timestamp": "2025-06-06T20:20:19",
-    "data_type": "correlation_24h",
-    "value": -0.9577,
-    "z_score": 2.8731,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.958 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2279,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-06T20:20:19",
-    "data_type": "correlation_24h",
-    "value": -0.8441,
-    "z_score": 2.5322999999999998,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.844 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2280,
-    "symbol": "WIFUSDT",
-    "timestamp": "2025-06-06T20:20:19",
-    "data_type": "correlation_24h",
-    "value": -0.8328,
-    "z_score": 2.4984,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho WIFUSDT: -0.833 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2281,
-    "symbol": "WLDUSDT",
-    "timestamp": "2025-06-06T20:20:19",
-    "data_type": "correlation_24h",
-    "value": -0.9099,
-    "z_score": 2.7297000000000002,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho WLDUSDT: -0.910 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2282,
-    "symbol": "GALAUSDT",
-    "timestamp": "2025-06-06T20:20:19",
-    "data_type": "correlation_24h",
-    "value": -0.7414,
-    "z_score": 2.2241999999999997,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho GALAUSDT: -0.741 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2283,
-    "symbol": "1000BONKUSDT",
-    "timestamp": "2025-06-06T20:20:19",
-    "data_type": "correlation_24h",
-    "value": -0.8579,
-    "z_score": 2.5737,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho 1000BONKUSDT: -0.858 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2284,
-    "symbol": "NEARUSDT",
-    "timestamp": "2025-06-06T20:20:19",
-    "data_type": "correlation_24h",
-    "value": -0.7769,
-    "z_score": 2.3307,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.777 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2285,
-    "symbol": "APTUSDT",
-    "timestamp": "2025-06-06T20:20:19",
-    "data_type": "correlation_24h",
-    "value": -0.9035,
-    "z_score": 2.7104999999999997,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho APTUSDT: -0.903 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2272,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-06-06T20:20:18",
-    "data_type": "correlation_24h",
-    "value": -0.804,
-    "z_score": 2.412,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.804 (strong_negative)",
     "notified": 1
   }
 ]
