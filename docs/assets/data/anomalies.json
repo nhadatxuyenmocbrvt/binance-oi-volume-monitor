@@ -1,5 +1,15 @@
 [
   {
+    "id": 2348,
+    "symbol": "TAOUSDT",
+    "timestamp": "2025-06-07T04:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": -5.268677406870617,
+    "z_score": 1.0537354813741233,
+    "message": "OI-Price divergence 24h cho TAOUSDT: OI -5.27%, Price +3.19%",
+    "notified": 1
+  },
+  {
     "id": 2347,
     "symbol": "WIFUSDT",
     "timestamp": "2025-06-07T03:00:00",
@@ -487,16 +497,6 @@
     "value": -0.8713,
     "z_score": 2.6139,
     "message": "Tương quan âm bất thường OI-Volume 24h cho APTUSDT: -0.871 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2290,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-06-06T22:53:40",
-    "data_type": "correlation_24h",
-    "value": -0.8938,
-    "z_score": 2.6814,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.894 (strong_negative)",
     "notified": 1
   }
 ]
