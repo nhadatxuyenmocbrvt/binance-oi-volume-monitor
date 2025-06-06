@@ -38,13 +38,13 @@ class TelegramBot:
         self.connection_status = None
         self.last_connection_test = None
         
-        # Thêm biến đếm cảnh báo
-        self.alert_count = 0
+        # Thêm biến đếm cảnh báo theo từng coin
+        self.alert_counts = {}  # Format: {'BTCUSDT': 0, 'ETHUSDT': 0, ...}
         self.alert_date = datetime.now().date()
-        self.max_daily_alerts = 2  # Tối đa 2 cảnh báo mỗi ngày
+        self.max_daily_alerts = 4  # Tối đa 4 cảnh báo mỗi ngày cho mỗi coin
         
         logger.info("Khởi tạo Telegram Bot")
-        logger.info(f"Đã cấu hình giới hạn cảnh báo: {self.max_daily_alerts}/ngày")
+        logger.info(f"Đã cấu hình giới hạn cảnh báo: {self.max_daily_alerts}/ngày/coin")
         
         # Kiểm tra kết nối khi khởi tạo
         self.test_connection()
@@ -123,6 +123,32 @@ class TelegramBot:
         
         self.last_connection_test = datetime.now()
         return self.connection_status
+    
+    def _check_alert_limit(self, symbol):
+        """Kiểm tra xem có còn trong giới hạn cảnh báo cho symbol hay không"""
+        # Kiểm tra và reset counter nếu đã sang ngày mới
+        current_date = datetime.now().date()
+        if current_date > self.alert_date:
+            logger.info(f"📅 Ngày mới bắt đầu, reset bộ đếm cảnh báo")
+            self.alert_counts = {}
+            self.alert_date = current_date
+            
+        # Nếu symbol chưa trong dictionary, thêm vào
+        if symbol not in self.alert_counts:
+            self.alert_counts[symbol] = 0
+            
+        # Kiểm tra giới hạn
+        if self.alert_counts[symbol] >= self.max_daily_alerts:
+            logger.warning(f"⚠️ Đã đạt giới hạn cảnh báo cho {symbol}: {self.alert_counts[symbol]}/{self.max_daily_alerts}")
+            return False
+        return True
+    
+    def _increment_alert_count(self, symbol):
+        """Tăng số đếm cảnh báo cho một symbol"""
+        if symbol not in self.alert_counts:
+            self.alert_counts[symbol] = 0
+        self.alert_counts[symbol] += 1
+        logger.info(f"📊 {symbol}: Đã gửi {self.alert_counts[symbol]}/{self.max_daily_alerts} cảnh báo hôm nay")
     
     def send_message(self, message, retry_count=0):
         """Gửi tin nhắn văn bản đến Telegram với xử lý lỗi tốt hơn"""
@@ -260,6 +286,13 @@ class TelegramBot:
     def send_anomaly_alert(self, anomaly):
         """Gửi cảnh báo về bất thường đến Telegram với xử lý lỗi tốt hơn"""
         try:
+            symbol = anomaly['symbol']
+            
+            # Kiểm tra giới hạn cảnh báo cho symbol này
+            if not self._check_alert_limit(symbol):
+                logger.info(f"⏩ Bỏ qua cảnh báo cho {symbol} do đã đạt giới hạn {self.max_daily_alerts}/ngày")
+                return False
+            
             # Định dạng thời gian
             if isinstance(anomaly['timestamp'], datetime):
                 timestamp_str = anomaly['timestamp'].strftime('%Y-%m-%d %H:%M:%S')
@@ -267,12 +300,11 @@ class TelegramBot:
                 timestamp_str = str(anomaly['timestamp'])
             
             # Tạo URL TradingView cho coin tương ứng
-            symbol = anomaly['symbol']
             tradingview_url = f"https://www.tradingview.com/chart/?symbol=BINANCE:{symbol}PERP"
             
             # Tạo tin nhắn cảnh báo
             message = f"🚨 <b>CẢNH BÁO BẤT THƯỜNG</b> 🚨\n\n"
-            message += f"🪙 <b>Symbol:</b> {anomaly['symbol']}\n"
+            message += f"🪙 <b>Symbol:</b> {symbol}\n"
             message += f"📊 <b>Loại dữ liệu:</b> {anomaly['data_type']}\n"
             message += f"⏰ <b>Thời gian:</b> {timestamp_str}\n"
             message += f"📈 <b>Giá trị:</b> {anomaly['value']:.2f}\n"
@@ -280,7 +312,12 @@ class TelegramBot:
             message += f"📝 <b>Thông tin:</b> {anomaly['message']}\n\n"
             message += f"🔗 <a href='{tradingview_url}'>Xem chi tiết trên TradingView</a>"
             
-            return self.send_message(message)
+            # Gửi tin nhắn
+            if self.send_message(message):
+                # Tăng bộ đếm cho symbol này
+                self._increment_alert_count(symbol)
+                return True
+            return False
         except Exception as e:
             logger.error(f"❌ Lỗi khi gửi cảnh báo bất thường: {str(e)}")
             return False
@@ -334,18 +371,6 @@ class TelegramBot:
     def send_anomalies(self, db):
         """Gửi tất cả các cảnh báo bất thường chưa được thông báo với xử lý lỗi tốt hơn"""
         try:
-            # Kiểm tra và reset counter nếu đã sang ngày mới
-            current_date = datetime.now().date()
-            if current_date > self.alert_date:
-                logger.info(f"📅 Ngày mới bắt đầu, reset bộ đếm cảnh báo từ {self.alert_count} về 0")
-                self.alert_count = 0
-                self.alert_date = current_date
-                
-            # Kiểm tra số lượng cảnh báo đã gửi trong ngày
-            if self.alert_count >= self.max_daily_alerts:
-                logger.warning(f"⚠️ Đã đạt giới hạn cảnh báo hàng ngày ({self.alert_count}/{self.max_daily_alerts}), bỏ qua gửi cảnh báo mới")
-                return False
-            
             # Kiểm tra kết nối trước khi thử
             if not self.test_connection():
                 logger.warning("⚠️ Không thể gửi cảnh báo do kết nối Telegram không khả dụng")
@@ -358,19 +383,35 @@ class TelegramBot:
                 logger.info("ℹ️ Không có bất thường nào cần thông báo")
                 return True
             
-            logger.info(f"🔔 Tìm thấy {len(anomalies_df)} cảnh báo, sẽ gửi tối đa {self.max_daily_alerts - self.alert_count} cảnh báo")
+            # Nhóm anomalies theo symbol
+            anomalies_by_symbol = {}
+            for _, anomaly in anomalies_df.iterrows():
+                symbol = anomaly['symbol']
+                if symbol not in anomalies_by_symbol:
+                    anomalies_by_symbol[symbol] = []
+                anomalies_by_symbol[symbol].append(anomaly)
             
-            # Sắp xếp theo Z-score để ưu tiên các bất thường nghiêm trọng nhất
-            anomalies_df = anomalies_df.sort_values(by='z_score', ascending=False)
+            logger.info(f"🔔 Tìm thấy cảnh báo cho {len(anomalies_by_symbol)} symbols")
             
             sent_count = 0
             failed_count = 0
             
-            # Chỉ xử lý số lượng cảnh báo còn lại trong giới hạn
-            max_to_send = min(len(anomalies_df), self.max_daily_alerts - self.alert_count)
-            anomalies_to_process = anomalies_df.head(max_to_send)
-            
-            for _, anomaly in anomalies_to_process.iterrows():
+            # Xử lý cảnh báo cho từng symbol
+            for symbol, anomalies in anomalies_by_symbol.items():
+                # Kiểm tra giới hạn cảnh báo cho symbol này
+                if not self._check_alert_limit(symbol):
+                    logger.info(f"⏩ Bỏ qua {len(anomalies)} cảnh báo cho {symbol} do đã đạt giới hạn {self.max_daily_alerts}/ngày")
+                    # Đánh dấu tất cả cảnh báo của symbol này là đã thông báo
+                    for anomaly in anomalies:
+                        db.mark_anomaly_as_notified(anomaly['id'])
+                    continue
+                
+                # Sắp xếp anomalies theo z_score (giảm dần) để lấy cảnh báo quan trọng nhất
+                sorted_anomalies = sorted(anomalies, key=lambda x: abs(x['z_score']), reverse=True)
+                
+                # Chỉ lấy anomaly đầu tiên (có z_score cao nhất)
+                anomaly = sorted_anomalies[0]
+                
                 # Tạo đối tượng anomaly để gửi
                 anomaly_obj = {
                     'id': anomaly['id'],
@@ -385,12 +426,10 @@ class TelegramBot:
                 # Gửi cảnh báo
                 logger.info(f"🔔 Đang gửi cảnh báo cho {anomaly['symbol']} - {anomaly['data_type']}")
                 if self.send_anomaly_alert(anomaly_obj):
-                    # Đánh dấu là đã thông báo
-                    db.mark_anomaly_as_notified(anomaly['id'])
+                    # Đánh dấu TẤT CẢ anomalies của symbol này là đã thông báo
+                    for a in anomalies:
+                        db.mark_anomaly_as_notified(a['id'])
                     sent_count += 1
-                    self.alert_count += 1  # Tăng bộ đếm
-                    
-                    logger.info(f"✅ Đã gửi cảnh báo {self.alert_count}/{self.max_daily_alerts} trong ngày")
                     
                     # Đợi một chút để tránh gửi quá nhiều tin nhắn cùng lúc
                     time.sleep(1.5)
@@ -403,19 +442,14 @@ class TelegramBot:
                         logger.warning("⚠️ Đã có 3 lỗi liên tiếp, tạm dừng gửi cảnh báo")
                         break
             
-            # Đánh dấu tất cả các cảnh báo còn lại là đã thông báo
-            if len(anomalies_df) > max_to_send:
-                remaining_anomalies = anomalies_df.iloc[max_to_send:]
-                for _, anomaly in remaining_anomalies.iterrows():
-                    db.mark_anomaly_as_notified(anomaly['id'])
-                    logger.info(f"✅ Đã đánh dấu anomaly ID {anomaly['id']} ({anomaly['symbol']}) là đã thông báo (đã đạt giới hạn)")
+            # Thống kê kết quả
+            total_anomalies = sum(len(anomalies) for anomalies in anomalies_by_symbol.values())
+            logger.info(f"📊 Kết quả: Đã gửi {sent_count}/{len(anomalies_by_symbol)} cảnh báo, tổng cộng {total_anomalies} anomalies")
             
-            logger.info(f"📊 Kết quả: Đã gửi {sent_count}/{len(anomalies_df)} cảnh báo ({self.alert_count}/{self.max_daily_alerts} trong ngày), {failed_count} thất bại")
-            
-            # Cảnh báo các bất thường còn lại chưa được thông báo
-            if len(anomalies_df) > max_to_send:
-                remaining = len(anomalies_df) - max_to_send
-                logger.warning(f"⚠️ Còn {remaining} cảnh báo không được gửi do đạt giới hạn hàng ngày")
+            # Log thông tin về giới hạn cảnh báo hiện tại
+            logger.info(f"📈 Tình trạng giới hạn cảnh báo hiện tại:")
+            for symbol, count in self.alert_counts.items():
+                logger.info(f"   - {symbol}: {count}/{self.max_daily_alerts}")
             
             return sent_count > 0
         except Exception as e:
@@ -468,12 +502,21 @@ class TelegramBot:
             
     def send_test_message(self):
         """Gửi tin nhắn kiểm tra để xác minh kết nối Telegram"""
+        # Tạo thông tin về giới hạn cảnh báo
+        alert_limits_info = ""
+        if self.alert_counts:
+            for symbol, count in self.alert_counts.items():
+                alert_limits_info += f"- {symbol}: {count}/{self.max_daily_alerts}\n"
+        else:
+            alert_limits_info = "Chưa có cảnh báo nào được gửi hôm nay"
+            
         test_message = (
             "🧪 <b>Kiểm tra kết nối Telegram</b>\n\n"
             f"⏰ Thời gian: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
             "✅ Kết nối thành công!\n\n"
-            f"🔢 Giới hạn cảnh báo: {self.alert_count}/{self.max_daily_alerts} trong ngày\n"
+            f"🔢 Giới hạn cảnh báo: {self.max_daily_alerts}/ngày/coin\n"
             f"📅 Ngày hiện tại: {self.alert_date}\n\n"
+            f"<b>Số cảnh báo đã gửi hôm nay:</b>\n{alert_limits_info}\n\n"
             "Bot đã sẵn sàng gửi cảnh báo và báo cáo."
         )
         return self.send_message(test_message)
@@ -487,7 +530,7 @@ class TelegramBot:
                 return False
                 
             self.max_daily_alerts = limit
-            logger.info(f"✅ Đã thiết lập giới hạn cảnh báo: {self.max_daily_alerts}/ngày")
+            logger.info(f"✅ Đã thiết lập giới hạn cảnh báo: {self.max_daily_alerts}/ngày/coin")
             return True
         except ValueError:
             logger.error(f"❌ Giá trị giới hạn cảnh báo không hợp lệ: {limit}")

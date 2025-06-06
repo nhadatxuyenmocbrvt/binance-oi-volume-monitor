@@ -88137,3 +88137,115 @@
 2025-06-06 20:04:51,397 - data_collector.binance_api - INFO - 📊 Current OI for BOMEUSDT: 5279225356.0
 2025-06-06 20:04:51,779 - data_collector.binance_api - INFO - 📈 Ticker for BOMEUSDT: 0.0017730
 2025-06-06 20:04:51,780 - data_collector.binance_api - INFO - 💰 Current OI Value (USDT) for BOMEUSDT: 9360066.556188
+2025-06-06 21:47:05,550 - data_collector.binance_api - INFO - 🔧 Khởi tạo OptimizedBinanceAPI - Focus OI & Volume [FIXED]
+2025-06-06 21:47:05,954 - data_collector.binance_api - INFO - 🕒 Server time updated: 2025-06-06 21:47:05.942000
+2025-06-06 21:47:06,348 - data_collector.binance_api - INFO - ✅ API connection test successful
+2025-06-06 21:47:06,737 - data_collector.binance_api - INFO - 📋 Symbol BTCUSDT info cached: onboard=2019-09-25 15:00:00
+2025-06-06 21:47:06,740 - data_collector.binance_api - INFO - 📊 Requesting klines for BTCUSDT 1d: 2025-05-08 00:00:00 - 2025-06-06 21:47:06.748000
+2025-06-06 21:47:07,096 - data_collector.binance_api - INFO - 📊 Sample volume: 317422.469, Quote volume: 31823810370.5613
+2025-06-06 21:47:07,097 - data_collector.binance_api - INFO - ✅ Retrieved 30 klines for BTCUSDT 1d
+2025-06-06 21:47:07,614 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-05-08 00:00:00 - 2025-05-11 00:00:00
+2025-06-06 21:47:07,968 - data_collector.binance_api - INFO - 📊 Sample OI value: 81443.133
+2025-06-06 21:47:07,969 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 7899223105.87445
+2025-06-06 21:47:07,972 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=81443.133, Value=7899223105.87445
+2025-06-06 21:47:07,973 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for BTCUSDT 1d
+2025-06-06 21:47:07,974 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 78466.358 - 81443.133
+2025-06-06 21:47:07,975 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 7899223105.87445 - 8209223649.263992
+2025-06-06 21:47:07,976 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 3 points from 2025-05-08 00:00:00
+2025-06-06 21:47:08,989 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-05-11 01:00:00 - 2025-05-14 01:00:00
+2025-06-06 21:47:09,344 - data_collector.binance_api - INFO - 📊 Sample OI value: 79950.718
+2025-06-06 21:47:09,346 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8377955788.502
+2025-06-06 21:47:09,348 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=79950.718, Value=8377955788.502
+2025-06-06 21:47:09,349 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for BTCUSDT 1d
+2025-06-06 21:47:09,350 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 79950.718 - 81619.983
+2025-06-06 21:47:09,351 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8377955788.502 - 8464401080.6286
+2025-06-06 21:47:09,352 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 3 points from 2025-05-11 01:00:00
+2025-06-06 21:47:10,365 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-05-14 02:00:00 - 2025-05-17 02:00:00
+2025-06-06 21:47:10,762 - data_collector.binance_api - INFO - 📊 Sample OI value: 82270.93
+2025-06-06 21:47:10,764 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8562944751.768545
+2025-06-06 21:47:10,767 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=82270.93, Value=8562944751.768545
+2025-06-06 21:47:10,768 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for BTCUSDT 1d
+2025-06-06 21:47:10,769 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 3: 79526.047 - 82270.93
+2025-06-06 21:47:10,770 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8249316381.357 - 8562944751.768545
+2025-06-06 21:47:10,771 - data_collector.binance_api - INFO - 📊 OI Chunk 3: 3 points from 2025-05-14 02:00:00
+2025-06-06 21:47:11,784 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-05-17 03:00:00 - 2025-05-20 03:00:00
+2025-06-06 21:47:12,142 - data_collector.binance_api - INFO - 📊 Sample OI value: 80264.766
+2025-06-06 21:47:12,144 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8301053492.611923
+2025-06-06 21:47:12,147 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=80264.766, Value=8301053492.611923
+2025-06-06 21:47:12,148 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for BTCUSDT 1d
+2025-06-06 21:47:12,149 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 4: 78568.756 - 80978.929
+2025-06-06 21:47:12,150 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8099126645.3748 - 8617426094.356068
+2025-06-06 21:47:12,151 - data_collector.binance_api - INFO - 📊 OI Chunk 4: 3 points from 2025-05-17 03:00:00
+2025-06-06 21:47:13,165 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-05-20 04:00:00 - 2025-05-23 04:00:00
+2025-06-06 21:47:13,522 - data_collector.binance_api - INFO - 📊 Sample OI value: 82341.786
+2025-06-06 21:47:13,524 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8690457550.997253
+2025-06-06 21:47:13,526 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=82341.786, Value=8690457550.997253
+2025-06-06 21:47:13,527 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for BTCUSDT 1d
+2025-06-06 21:47:13,528 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 5: 82341.786 - 86980.918
+2025-06-06 21:47:13,529 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8690457550.997253 - 9534103033.489956
+2025-06-06 21:47:13,530 - data_collector.binance_api - INFO - 📊 OI Chunk 5: 3 points from 2025-05-20 04:00:00
+2025-06-06 21:47:14,535 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-05-23 05:00:00 - 2025-05-26 05:00:00
+2025-06-06 21:47:14,888 - data_collector.binance_api - INFO - 📊 Sample OI value: 88030.201
+2025-06-06 21:47:14,890 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 9829760874.49534
+2025-06-06 21:47:14,893 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=88030.201, Value=9829760874.49534
+2025-06-06 21:47:14,894 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for BTCUSDT 1d
+2025-06-06 21:47:14,895 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 6: 84035.595 - 88030.201
+2025-06-06 21:47:14,896 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 9014803055.702242 - 9829760874.49534
+2025-06-06 21:47:14,897 - data_collector.binance_api - INFO - 📊 OI Chunk 6: 3 points from 2025-05-23 05:00:00
+2025-06-06 21:47:15,907 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-05-26 06:00:00 - 2025-05-29 06:00:00
+2025-06-06 21:47:16,307 - data_collector.binance_api - INFO - 📊 Sample OI value: 87959.179
+2025-06-06 21:47:16,308 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 9583671511.206099
+2025-06-06 21:47:16,309 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=87959.179, Value=9583671511.206099
+2025-06-06 21:47:16,310 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for BTCUSDT 1d
+2025-06-06 21:47:16,311 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 7: 86811.242 - 90182.612
+2025-06-06 21:47:16,311 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 9452815373.5106 - 9866399705.151667
+2025-06-06 21:47:16,312 - data_collector.binance_api - INFO - 📊 OI Chunk 7: 3 points from 2025-05-26 06:00:00
+2025-06-06 21:47:17,319 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-05-29 07:00:00 - 2025-06-01 07:00:00
+2025-06-06 21:47:17,673 - data_collector.binance_api - INFO - 📊 Sample OI value: 87222.658
+2025-06-06 21:47:17,675 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 9395886387.734
+2025-06-06 21:47:17,678 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=87222.658, Value=9395886387.734
+2025-06-06 21:47:17,679 - data_collector.binance_api - INFO - ✅ Retrieved 4 OI points for BTCUSDT 1d
+2025-06-06 21:47:17,680 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 8: 82415.954 - 87222.658
+2025-06-06 21:47:17,681 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8567138418.3 - 9395886387.734
+2025-06-06 21:47:17,682 - data_collector.binance_api - INFO - 📊 OI Chunk 8: 4 points from 2025-05-29 07:00:00
+2025-06-06 21:47:18,695 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-06-01 08:00:00 - 2025-06-04 08:00:00
+2025-06-06 21:47:19,049 - data_collector.binance_api - INFO - 📊 Sample OI value: 82804.416
+2025-06-06 21:47:19,050 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8743286238.031088
+2025-06-06 21:47:19,052 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=82804.416, Value=8743286238.031088
+2025-06-06 21:47:19,053 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for BTCUSDT 1d
+2025-06-06 21:47:19,053 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 9: 82000.887 - 82804.416
+2025-06-06 21:47:19,054 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8676341651.6073 - 8743286238.031088
+2025-06-06 21:47:19,054 - data_collector.binance_api - INFO - 📊 OI Chunk 9: 3 points from 2025-06-01 08:00:00
+2025-06-06 21:47:20,071 - data_collector.binance_api - INFO - 🔢 Requesting OI for BTCUSDT 1d: 2025-06-04 09:00:00 - 2025-06-06 21:47:20.463000
+2025-06-06 21:47:20,406 - data_collector.binance_api - INFO - 📊 Sample OI value: 80790.898
+2025-06-06 21:47:20,407 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 8454447353.182428
+2025-06-06 21:47:20,410 - data_collector.binance_api - INFO - 🔍 Sample OI data for BTCUSDT: OI=80790.898, Value=8454447353.182428
+2025-06-06 21:47:20,411 - data_collector.binance_api - INFO - ✅ Retrieved 2 OI points for BTCUSDT 1d
+2025-06-06 21:47:20,412 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 10: 80790.898 - 82247.529
+2025-06-06 21:47:20,413 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 8344727370.5523 - 8454447353.182428
+2025-06-06 21:47:20,413 - data_collector.binance_api - INFO - 📊 OI Chunk 10: 2 points from 2025-06-04 09:00:00
+2025-06-06 21:47:21,433 - data_collector.binance_api - INFO - ✅ Total 30 OI points collected for BTCUSDT (10 chunks)
+2025-06-06 21:47:21,434 - data_collector.binance_api - INFO - 📈 Final OI data summary for BTCUSDT:
+2025-06-06 21:47:21,436 - data_collector.binance_api - INFO -    - OI range: 78466.358 - 90182.612
+2025-06-06 21:47:21,436 - data_collector.binance_api - INFO -    - OI value range: 7899223105.87445 - 9866399705.151667
+2025-06-06 21:47:21,437 - data_collector.binance_api - INFO -    - Date range: 2025-05-08 00:00:00 - 2025-06-06 00:00:00
+2025-06-06 21:47:22,851 - data_collector.binance_api - INFO - 📋 Symbol ETHUSDT info cached: onboard=2019-09-25 15:00:00
+2025-06-06 21:47:22,854 - data_collector.binance_api - INFO - 📊 Requesting klines for ETHUSDT 1d: 2025-05-08 00:00:00 - 2025-06-06 21:47:22.836000
+2025-06-06 21:47:23,201 - data_collector.binance_api - INFO - 📊 Sample volume: 13290171.723, Quote volume: 26775043415.66911
+2025-06-06 21:47:23,203 - data_collector.binance_api - INFO - ✅ Retrieved 30 klines for ETHUSDT 1d
+2025-06-06 21:47:23,708 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1d: 2025-05-08 00:00:00 - 2025-05-11 00:00:00
+2025-06-06 21:47:24,056 - data_collector.binance_api - INFO - 📊 Sample OI value: 1609851.424
+2025-06-06 21:47:24,057 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 2914539412.06656
+2025-06-06 21:47:24,059 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1609851.424, Value=2914539412.06656
+2025-06-06 21:47:24,060 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for ETHUSDT 1d
+2025-06-06 21:47:24,060 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 1: 1609851.424 - 1771711.027
+2025-06-06 21:47:24,061 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 2914539412.06656 - 4063310508.348
+2025-06-06 21:47:24,061 - data_collector.binance_api - INFO - 📊 OI Chunk 1: 3 points from 2025-05-08 00:00:00
+2025-06-06 21:47:25,069 - data_collector.binance_api - INFO - 🔢 Requesting OI for ETHUSDT 1d: 2025-05-11 01:00:00 - 2025-05-14 01:00:00
+2025-06-06 21:47:25,421 - data_collector.binance_api - INFO - 📊 Sample OI value: 1815091.531
+2025-06-06 21:47:25,423 - data_collector.binance_api - INFO - 💰 Sample OI value (USDT): 4688506152.308491
+2025-06-06 21:47:25,426 - data_collector.binance_api - INFO - 🔍 Sample OI data for ETHUSDT: OI=1815091.531, Value=4688506152.308491
+2025-06-06 21:47:25,427 - data_collector.binance_api - INFO - ✅ Retrieved 3 OI points for ETHUSDT 1d
+2025-06-06 21:47:25,428 - data_collector.binance_api - INFO - 🔍 OI value range for chunk 2: 1706704.704 - 1815091.531
+2025-06-06 21:47:25,429 - data_collector.binance_api - INFO - 🔍 OI value in USD range: 4289943546.3101473 - 4688506152.308491
+2025-06-06 21:47:25,430 - data_collector.binance_api - INFO - 📊 OI Chunk 2: 3 points from 2025-05-11 01:00:00

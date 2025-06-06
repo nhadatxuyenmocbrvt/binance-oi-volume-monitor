@@ -23263,3 +23263,22 @@
 2025-06-06 20:04:50,770 - data_collector.historical_data - INFO -    📈 Saved Ticker: 0.001774 (-5.437%), Quote Volume: 46,814,436.25 USDT
 2025-06-06 20:04:51,781 - data_collector.historical_data - INFO -    📊 OI: 5,279,225,356 contracts, Value: 9,360,066.56 USDT
 2025-06-06 20:04:52,095 - data_collector.historical_data - INFO - ✅ Realtime collection: 56/56 success
+2025-06-06 21:47:06,351 - data_collector.historical_data - INFO - 🔧 Khởi tạo OptimizedHistoricalDataCollector với 56 symbols
+2025-06-06 21:47:06,351 - data_collector.historical_data - INFO - 📊 Symbols: BTCUSDT, ETHUSDT, BNBUSDT, XRPUSDT, ADAUSDT, DOGEUSDT, SOLUSDT, DOTUSDT, AVAXUSDT, PNUTUSDT, LTCUSDT, LINKUSDT, UNIUSDT, TRXUSDT, ETCUSDT, XLMUSDT, 1000PEPEUSDT, SUIUSDT, TRUMPUSDT, AAVEUSDT, WIFUSDT, LDOUSDT, WLDUSDT, 1000SHIBUSDT, GALAUSDT, 1000BONKUSDT, NEARUSDT, BCHUSDT, OPUSDT, DOTUSDT, INJUSDT, APTUSDT, FARTCOINUSDT, HBARUSDT, FILUSDT, ONDOUSDT, TAOUSDT, CAKEUSDT, FETUSDT, 1000FLOKIUSDT, ATHUSDT, NEIROUSDT, POLUSDT, ORDIUSDT, RENDERUSDT, PENDLEUSDT, ALGOUSDT, LPTUSDT, TONUSDT, ENAUSDT, ETHFIUSDT, EIGENUSDT, AIXBTUSDT, CGPTUSDT, ENSUSDT, BOMEUSDT
+2025-06-06 21:47:06,353 - data_collector.historical_data - INFO - ⏰ Timeframes: 1h, 4h, 1d
+2025-06-06 21:47:06,353 - data_collector.historical_data - INFO - 📅 Lookback: 29 days
+2025-06-06 21:47:06,354 - data_collector.historical_data - INFO - 📅 Bắt đầu thu thập dữ liệu 30d daily - OI & Volume focus
+2025-06-06 21:47:06,355 - data_collector.historical_data - INFO - 📅 30d range: 2025-05-08 → 2025-06-07
+2025-06-06 21:47:06,355 - data_collector.historical_data - INFO - 📊 [1/56] Thu thập 30d data cho BTCUSDT
+2025-06-06 21:47:06,356 - data_collector.historical_data - INFO -    📈 Collecting daily klines for BTCUSDT
+2025-06-06 21:47:07,100 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 117,477.53, Quote Volume = 12,126,954,018.18 USDT
+2025-06-06 21:47:07,100 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-06-06 21:47:07,613 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for BTCUSDT (phương pháp mới)
+2025-06-06 21:47:21,439 - data_collector.historical_data - INFO -    📊 BTCUSDT daily OI value: 8,344,727,370.55 USDT
+2025-06-06 21:47:21,439 - data_collector.historical_data - INFO -    ✅ 30 daily OI points collected (phương pháp 1)
+2025-06-06 21:47:21,440 - data_collector.historical_data - INFO -    🎯 BTCUSDT: Success
+2025-06-06 21:47:22,442 - data_collector.historical_data - INFO - 📊 [2/56] Thu thập 30d data cho ETHUSDT
+2025-06-06 21:47:22,443 - data_collector.historical_data - INFO -    📈 Collecting daily klines for ETHUSDT
+2025-06-06 21:47:23,205 - data_collector.historical_data - INFO -    🔍 Kiểm tra giá trị: Volume ngày gần nhất = 3,932,275.85, Quote Volume = 9,676,479,902.49 USDT
+2025-06-06 21:47:23,206 - data_collector.historical_data - INFO -    ✅ 30 daily klines collected
+2025-06-06 21:47:23,707 - data_collector.historical_data - INFO -    📊 Collecting 30d OI for ETHUSDT (phương pháp mới)
