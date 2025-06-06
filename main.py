@@ -385,15 +385,15 @@ def schedule_optimized_tasks():
     logger.info("✅ Lịch phát hiện bất thường tối ưu: mỗi 15 phút")
     
     # 📱 GỬI BÁO CÁO TELEGRAM: MỖI NGÀY LÚC 20:00
-    schedule.every().day.at("20:00").do(send_daily_report)
-    logger.info("✅ Lịch gửi báo cáo Telegram: mỗi ngày lúc 20:00")
+    # schedule.every().day.at("20:00").do(send_daily_report)
+    # logger.info("✅ Lịch gửi báo cáo Telegram: mỗi ngày lúc 20:00")
     
     logger.info("🎯 Đã thiết lập lịch trình tối ưu:")
     logger.info("   📊 Dữ liệu lịch sử: 24h/lần")
     logger.info("   ⏰ Tracking 24h: mỗi giờ đúng")
     logger.info("   ⚡ Realtime + Reports: 30 phút/lần") 
     logger.info("   🔍 Anomaly detection: 15 phút/lần")
-    logger.info("   📱 Daily Telegram: 1 lần/ngày")
+    # logger.info("   📱 Daily Telegram: 1 lần/ngày")
 
 def run_scheduled_tasks():
     """Chạy các tác vụ đã lên lịch"""

@@ -48,10 +48,18 @@ WEB_OUTPUT_DIR = './docs/assets/data'
 ENABLE_24H_TRACKING = True
 
 # Cấu hình cho phân tích dữ liệu
-SYMBOLS = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'DOGEUSDT']
+SYMBOLS = [
+    "BTCUSDT", "ETHUSDT", "BNBUSDT", "XRPUSDT", "ADAUSDT", "DOGEUSDT", "SOLUSDT", "DOTUSDT", "AVAXUSDT", "PNUTUSDT",
+    "LTCUSDT", "LINKUSDT", "UNIUSDT", "TRXUSDT", "ETCUSDT", "XLMUSDT", "1000PEPEUSDT", "SUIUSDT", "TRUMPUSDT", "AAVEUSDT",
+    "WIFUSDT", "LDOUSDT", "WLDUSDT", "1000SHIBUSDT", "GALAUSDT", "1000BONKUSDT", "NEARUSDT", "BCHUSDT", "OPUSDT", "DOTUSDT",
+    "INJUSDT", "APTUSDT", "FARTCOINUSDT", "HBARUSDT", "FILUSDT", "ONDOUSDT", "TAOUSDT", "CAKEUSDT", "FETUSDT", "1000FLOKIUSDT",
+    "ATHUSDT", "NEIROUSDT", "POLUSDT", "ORDIUSDT", "RENDERUSDT", "PENDLEUSDT", "ALGOUSDT", "LPTUSDT", "TONUSDT", "ENAUSDT",
+    "ETHFIUSDT", "EIGENUSDT", "AIXBTUSDT", "CGPTUSDT", "ENSUSDT", "BOMEUSDT",
+    # Thêm các cặp tiền khác...
+]
 TIMEFRAMES = ['1h', '4h', '1d']
 LOOKBACK_DAYS = 29
-ANOMALY_THRESHOLD = 2.5  # Số lần độ lệch chuẩn để xác định bất thường
+ANOMALY_THRESHOLD = 4  # Số lần độ lệch chuẩn để xác định bất thường
 
 # Cấu hình cho cập nhật dữ liệu
 UPDATE_INTERVAL = 60  # Cập nhật mỗi 60 giây cho dữ liệu realtime
@@ -61,8 +69,8 @@ UPDATE_INTERVAL = 60  # Cập nhật mỗi 60 giây cho dữ liệu realtime
 # Cấu hình proxy cho Telegram (tùy chọn)
 # Để trống nếu không sử dụng proxy
 PROXY_SETTINGS = {
-    'http': 'http://mitchellcryptogroup:mcg396879@104.252.149.34:5448',
-    'https': 'http://mitchellcryptogroup:mcg396879@104.252.149.34:5448'  # Thêm thông tin xác thực
+    'http': 'http://mitchellcryptogroup:mcg396879@45.252.58.93:6722',
+    'https': 'http://mitchellcryptogroup:mcg396879@45.252.58.93:6722'  # Thêm thông tin xác thực
 }
 
 # Tùy chọn xác thực cho proxy
@@ -73,3 +81,6 @@ PROXY_PASSWORD = 'mcg396879'
 TELEGRAM_TIMEOUT = 15  # Thời gian chờ request (giây)
 TELEGRAM_MAX_RETRIES = 3  # Số lần thử lại tối đa
 TELEGRAM_BACKOFF_FACTOR = 0.5  # Hệ số cho exponential backoff
+
+# Tắt báo cáo hàng ngày
+ENABLE_DAILY_REPORTS = False
