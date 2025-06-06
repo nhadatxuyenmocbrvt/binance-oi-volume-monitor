@@ -1,5 +1,15 @@
 [
   {
+    "id": 2347,
+    "symbol": "WIFUSDT",
+    "timestamp": "2025-06-07T03:00:00",
+    "data_type": "oi_price_divergence_24h",
+    "value": -6.428350265250576,
+    "z_score": 1.2856700530501153,
+    "message": "OI-Price divergence 24h cho WIFUSDT: OI -6.43%, Price +2.54%",
+    "notified": 1
+  },
+  {
     "id": 2346,
     "symbol": "LDOUSDT",
     "timestamp": "2025-06-07T02:40:17",
@@ -487,16 +497,6 @@
     "value": -0.8938,
     "z_score": 2.6814,
     "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.894 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2291,
-    "symbol": "DOGEUSDT",
-    "timestamp": "2025-06-06T22:53:40",
-    "data_type": "correlation_24h",
-    "value": -0.7906,
-    "z_score": 2.3718,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho DOGEUSDT: -0.791 (strong_negative)",
     "notified": 1
   }
 ]
