@@ -1,26 +1,8 @@
 {
   "symbol": "ORDIUSDT",
-  "last_update": "2025-06-06T23:41:57.719360",
+  "last_update": "2025-06-07T00:33:10.036603",
   "klines": {
     "1h": [
-      {
-        "open_time": "2025-05-30T16:00:00",
-        "open": 9.409,
-        "high": 9.463,
-        "low": 8.84,
-        "close": 8.962,
-        "volume": 1716940.4,
-        "quote_volume": 15541378.1931
-      },
-      {
-        "open_time": "2025-05-30T17:00:00",
-        "open": 8.962,
-        "high": 9.044,
-        "low": 8.775,
-        "close": 8.906,
-        "volume": 784020.7,
-        "quote_volume": 6981737.2275
-      },
       {
         "open_time": "2025-05-30T18:00:00",
         "open": 8.905,
@@ -1509,23 +1491,32 @@
       {
         "open_time": "2025-06-06T15:00:00",
         "open": 8.41,
-        "high": 8.455,
-        "low": 8.38,
-        "close": 8.401,
-        "volume": 90156.7,
-        "quote_volume": 758342.1975
+        "high": 8.498,
+        "low": 8.313,
+        "close": 8.358,
+        "volume": 323526.7,
+        "quote_volume": 2717793.1683
+      },
+      {
+        "open_time": "2025-06-06T16:00:00",
+        "open": 8.359,
+        "high": 8.362,
+        "low": 8.212,
+        "close": 8.235,
+        "volume": 314482.3,
+        "quote_volume": 2608429.2902
+      },
+      {
+        "open_time": "2025-06-06T17:00:00",
+        "open": 8.235,
+        "high": 8.243,
+        "low": 8.194,
+        "close": 8.203,
+        "volume": 58732.4,
+        "quote_volume": 483012.1225
       }
     ],
     "4h": [
-      {
-        "open_time": "2025-05-09T16:00:00",
-        "open": 9.175,
-        "high": 9.305,
-        "low": 9.009,
-        "close": 9.135,
-        "volume": 1629204.9,
-        "quote_volume": 14942687.0545
-      },
       {
         "open_time": "2025-05-09T20:00:00",
         "open": 9.135,
@@ -3023,11 +3014,20 @@
       {
         "open_time": "2025-06-06T12:00:00",
         "open": 8.175,
-        "high": 8.455,
+        "high": 8.498,
         "low": 8.165,
-        "close": 8.401,
-        "volume": 1059542.2,
-        "quote_volume": 8819257.0139
+        "close": 8.358,
+        "volume": 1292912.2,
+        "quote_volume": 10778707.9847
+      },
+      {
+        "open_time": "2025-06-06T16:00:00",
+        "open": 8.359,
+        "high": 8.362,
+        "low": 8.194,
+        "close": 8.203,
+        "volume": 373214.7,
+        "quote_volume": 3091441.4127
       }
     ],
     "1d": [
@@ -3295,22 +3295,15 @@
       {
         "open_time": "2025-06-06T00:00:00",
         "open": 7.878,
-        "high": 8.455,
+        "high": 8.498,
         "low": 7.804,
-        "close": 8.401,
-        "volume": 5515211.2,
-        "quote_volume": 44985834.3946
+        "close": 8.203,
+        "volume": 6121795.9,
+        "quote_volume": 50036726.7781
       }
     ]
   },
   "open_interest": [
-    {
-      "timestamp": "2025-05-08T20:00:00",
-      "open_interest": 2578645.9,
-      "open_interest_value": 20670425.5344,
-      "avg_open_interest": 2578645.9,
-      "avg_open_interest_value": 20670425.5344
-    },
     {
       "timestamp": "2025-05-09T20:00:00",
       "open_interest": 2659853.4,
@@ -3513,18 +3506,16 @@
       "open_interest_value": 22352194.292000003,
       "avg_open_interest": 2697911.2,
       "avg_open_interest_value": 22352194.292000003
+    },
+    {
+      "timestamp": "2025-06-07T00:32:46",
+      "open_interest": 2692165.6,
+      "open_interest_value": 21868461.1688,
+      "avg_open_interest": 2692165.6,
+      "avg_open_interest_value": 21868461.1688
     }
   ],
   "tracking_24h": [
-    {
-      "hour_timestamp": "2025-06-06T00:00:00",
-      "price": 8.515,
-      "quote_volume": 50494714.4416,
-      "open_interest_value": 21480483.311,
-      "price_change_1h": -2.774606074446204,
-      "volume_change_1h": 7.522234769803903,
-      "oi_change_1h": -2.9695342949574126
-    },
     {
       "hour_timestamp": "2025-06-06T01:00:00",
       "price": 8.569,
@@ -3707,16 +3698,6 @@
     }
   ],
   "tracking_30d": [
-    {
-      "date_timestamp": "2025-05-08T00:00:00",
-      "price": 8.232,
-      "quote_volume": 59670684.5996,
-      "open_interest_value": 17713306.688,
-      "avg_open_interest_value": 17713306.688,
-      "price_change_1d": 0.0,
-      "volume_change_1d": 0.0,
-      "oi_change_1d": 0.0
-    },
     {
       "date_timestamp": "2025-05-09T00:00:00",
       "price": 9.26,
