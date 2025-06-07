@@ -1,5 +1,35 @@
 [
   {
+    "id": 2412,
+    "symbol": "RENDERUSDT",
+    "timestamp": "2025-06-07T17:04:26",
+    "data_type": "correlation_24h",
+    "value": -0.7442,
+    "z_score": 2.2325999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho RENDERUSDT: -0.744 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2411,
+    "symbol": "AAVEUSDT",
+    "timestamp": "2025-06-07T17:04:25",
+    "data_type": "correlation_24h",
+    "value": -0.7291,
+    "z_score": 2.1873,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.729 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2410,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-07T17:04:24",
+    "data_type": "correlation_24h",
+    "value": -0.816,
+    "z_score": 2.448,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.816 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 2408,
     "symbol": "RENDERUSDT",
     "timestamp": "2025-06-07T16:32:42",
@@ -467,36 +497,6 @@
     "value": -0.7508,
     "z_score": 2.2524,
     "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.751 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2361,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-07T09:16:19",
-    "data_type": "correlation_24h",
-    "value": -0.7337,
-    "z_score": 2.2011000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.734 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2362,
-    "symbol": "TAOUSDT",
-    "timestamp": "2025-06-07T09:00:00",
-    "data_type": "oi_price_divergence_24h",
-    "value": -6.088436823653378,
-    "z_score": 1.2176873647306756,
-    "message": "OI-Price divergence 24h cho TAOUSDT: OI -6.09%, Price +2.18%",
-    "notified": 1
-  },
-  {
-    "id": 2356,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-07T08:44:29",
-    "data_type": "correlation_24h",
-    "value": -0.7476,
-    "z_score": 2.2428,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.748 (strong_negative)",
     "notified": 1
   }
 ]
