@@ -1,5 +1,45 @@
 [
   {
+    "id": 2396,
+    "symbol": "RENDERUSDT",
+    "timestamp": "2025-06-07T14:57:06",
+    "data_type": "correlation_24h",
+    "value": -0.784,
+    "z_score": 2.3520000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho RENDERUSDT: -0.784 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2397,
+    "symbol": "TONUSDT",
+    "timestamp": "2025-06-07T14:57:06",
+    "data_type": "correlation_24h",
+    "value": -0.7604,
+    "z_score": 2.2812,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TONUSDT: -0.760 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2395,
+    "symbol": "AAVEUSDT",
+    "timestamp": "2025-06-07T14:57:04",
+    "data_type": "correlation_24h",
+    "value": -0.7681,
+    "z_score": 2.3043,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.768 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2394,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-07T14:57:03",
+    "data_type": "correlation_24h",
+    "value": -0.8048,
+    "z_score": 2.4143999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.805 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 2392,
     "symbol": "RENDERUSDT",
     "timestamp": "2025-06-07T14:25:19",
@@ -457,46 +497,6 @@
     "value": -0.8379,
     "z_score": 2.5137,
     "message": "Tương quan âm bất thường OI-Volume 24h cho LDOUSDT: -0.838 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2342,
-    "symbol": "1000PEPEUSDT",
-    "timestamp": "2025-06-07T02:00:00",
-    "data_type": "oi_price_divergence_24h",
-    "value": -5.966100800042876,
-    "z_score": 1.1932201600085752,
-    "message": "OI-Price divergence 24h cho 1000PEPEUSDT: OI -5.97%, Price +2.01%",
-    "notified": 1
-  },
-  {
-    "id": 2345,
-    "symbol": "TAOUSDT",
-    "timestamp": "2025-06-07T02:00:00",
-    "data_type": "oi_price_divergence_24h",
-    "value": -6.197550554970822,
-    "z_score": 1.2395101109941644,
-    "message": "OI-Price divergence 24h cho TAOUSDT: OI -6.20%, Price +3.75%",
-    "notified": 1
-  },
-  {
-    "id": 2341,
-    "symbol": "LDOUSDT",
-    "timestamp": "2025-06-07T01:51:56",
-    "data_type": "correlation_24h",
-    "value": -0.9151,
-    "z_score": 2.7453000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho LDOUSDT: -0.915 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2340,
-    "symbol": "BNBUSDT",
-    "timestamp": "2025-06-07T01:36:49",
-    "data_type": "correlation_24h",
-    "value": -0.7185,
-    "z_score": 2.1555,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BNBUSDT: -0.719 (strong_negative)",
     "notified": 1
   }
 ]
