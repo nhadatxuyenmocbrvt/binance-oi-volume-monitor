@@ -1,5 +1,35 @@
 [
   {
+    "id": 2367,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-07T10:19:45",
+    "data_type": "correlation_24h",
+    "value": -0.7757,
+    "z_score": 2.3270999999999997,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.776 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2368,
+    "symbol": "AAVEUSDT",
+    "timestamp": "2025-06-07T10:19:45",
+    "data_type": "correlation_24h",
+    "value": -0.7407,
+    "z_score": 2.2221,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.741 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2366,
+    "symbol": "TONUSDT",
+    "timestamp": "2025-06-07T10:04:38",
+    "data_type": "correlation_24h",
+    "value": -0.7016,
+    "z_score": 2.1048,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TONUSDT: -0.702 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 2364,
     "symbol": "AAVEUSDT",
     "timestamp": "2025-06-07T09:47:57",
@@ -400,6 +430,16 @@
     "notified": 1
   },
   {
+    "id": 2365,
+    "symbol": "WIFUSDT",
+    "timestamp": "2025-06-06T23:40:57",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 59266212.571200006,
+    "z_score": 4.319827449062981,
+    "message": "Bất thường OI_Value_USDT 30d cho WIFUSDT: 59266212.57 (Z-score: 4.32)",
+    "notified": 1
+  },
+  {
     "id": 2319,
     "symbol": "TAOUSDT",
     "timestamp": "2025-06-06T23:25:48",
@@ -457,46 +497,6 @@
     "value": -0.7521,
     "z_score": 2.2563,
     "message": "Tương quan âm bất thường OI-Volume 24h cho ENAUSDT: -0.752 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2312,
-    "symbol": "FILUSDT",
-    "timestamp": "2025-06-06T23:10:26",
-    "data_type": "correlation_24h",
-    "value": -0.7122,
-    "z_score": 2.1366,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho FILUSDT: -0.712 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2308,
-    "symbol": "TRUMPUSDT",
-    "timestamp": "2025-06-06T23:10:25",
-    "data_type": "correlation_24h",
-    "value": -0.8502,
-    "z_score": 2.5505999999999998,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho TRUMPUSDT: -0.850 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2309,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-06T23:10:25",
-    "data_type": "correlation_24h",
-    "value": -0.7344,
-    "z_score": 2.2032000000000003,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.734 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2310,
-    "symbol": "LDOUSDT",
-    "timestamp": "2025-06-06T23:10:25",
-    "data_type": "correlation_24h",
-    "value": -0.9102,
-    "z_score": 2.7306,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho LDOUSDT: -0.910 (strong_negative)",
     "notified": 1
   }
 ]
