@@ -1,5 +1,45 @@
 [
   {
+    "id": 2408,
+    "symbol": "RENDERUSDT",
+    "timestamp": "2025-06-07T16:32:42",
+    "data_type": "correlation_24h",
+    "value": -0.768,
+    "z_score": 2.3040000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho RENDERUSDT: -0.768 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2409,
+    "symbol": "TONUSDT",
+    "timestamp": "2025-06-07T16:32:42",
+    "data_type": "correlation_24h",
+    "value": -0.7092,
+    "z_score": 2.1276,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TONUSDT: -0.709 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2407,
+    "symbol": "AAVEUSDT",
+    "timestamp": "2025-06-07T16:32:41",
+    "data_type": "correlation_24h",
+    "value": -0.7517,
+    "z_score": 2.2551,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.752 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2406,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-07T16:32:40",
+    "data_type": "correlation_24h",
+    "value": -0.8145,
+    "z_score": 2.4435000000000002,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.815 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 2404,
     "symbol": "RENDERUSDT",
     "timestamp": "2025-06-07T16:01:34",
@@ -457,46 +497,6 @@
     "value": -0.7476,
     "z_score": 2.2428,
     "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.748 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2355,
-    "symbol": "LTCUSDT",
-    "timestamp": "2025-06-07T08:44:28",
-    "data_type": "correlation_24h",
-    "value": -0.7382,
-    "z_score": 2.2146,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.738 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2354,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-07T08:12:45",
-    "data_type": "correlation_24h",
-    "value": -0.7476,
-    "z_score": 2.2428,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.748 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2353,
-    "symbol": "LTCUSDT",
-    "timestamp": "2025-06-07T08:12:44",
-    "data_type": "correlation_24h",
-    "value": -0.7382,
-    "z_score": 2.2146,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.738 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2358,
-    "symbol": "TAOUSDT",
-    "timestamp": "2025-06-07T08:00:00",
-    "data_type": "oi_price_divergence_24h",
-    "value": -5.197969667051072,
-    "z_score": 1.0395939334102144,
-    "message": "OI-Price divergence 24h cho TAOUSDT: OI -5.20%, Price +2.63%",
     "notified": 1
   }
 ]
