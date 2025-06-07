@@ -1,5 +1,35 @@
 [
   {
+    "id": 2426,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-07T20:46:33",
+    "data_type": "correlation_24h",
+    "value": -0.7698,
+    "z_score": 2.3094,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.770 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2425,
+    "symbol": "EIGENUSDT",
+    "timestamp": "2025-06-07T20:31:02",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 15440880.05782,
+    "z_score": 4.162035935097499,
+    "message": "Bất thường OI_Value_USDT 30d cho EIGENUSDT: 15440880.06 (Z-score: 4.16)",
+    "notified": 1
+  },
+  {
+    "id": 2424,
+    "symbol": "UNIUSDT",
+    "timestamp": "2025-06-07T20:30:00",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 92177932.049,
+    "z_score": 4.871931243005433,
+    "message": "Bất thường OI_Value_USDT 30d cho UNIUSDT: 92177932.05 (Z-score: 4.87)",
+    "notified": 1
+  },
+  {
     "id": 2422,
     "symbol": "LTCUSDT",
     "timestamp": "2025-06-07T20:14:45",
@@ -467,36 +497,6 @@
     "value": -0.7478,
     "z_score": 2.2434000000000003,
     "message": "Tương quan âm bất thường OI-Volume 24h cho TONUSDT: -0.748 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2374,
-    "symbol": "LTCUSDT",
-    "timestamp": "2025-06-07T11:23:13",
-    "data_type": "correlation_24h",
-    "value": -0.7896,
-    "z_score": 2.3688,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.790 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2375,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-07T11:23:13",
-    "data_type": "correlation_24h",
-    "value": -0.7528,
-    "z_score": 2.2584,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.753 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2372,
-    "symbol": "RENDERUSDT",
-    "timestamp": "2025-06-07T11:08:06",
-    "data_type": "correlation_24h",
-    "value": -0.7121,
-    "z_score": 2.1363,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho RENDERUSDT: -0.712 (strong_negative)",
     "notified": 1
   }
 ]
