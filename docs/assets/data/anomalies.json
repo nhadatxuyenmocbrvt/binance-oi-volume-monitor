@@ -1,5 +1,45 @@
 [
   {
+    "id": 2404,
+    "symbol": "RENDERUSDT",
+    "timestamp": "2025-06-07T16:01:34",
+    "data_type": "correlation_24h",
+    "value": -0.768,
+    "z_score": 2.3040000000000003,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho RENDERUSDT: -0.768 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2405,
+    "symbol": "TONUSDT",
+    "timestamp": "2025-06-07T16:01:34",
+    "data_type": "correlation_24h",
+    "value": -0.7092,
+    "z_score": 2.1276,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho TONUSDT: -0.709 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2402,
+    "symbol": "LTCUSDT",
+    "timestamp": "2025-06-07T16:01:32",
+    "data_type": "correlation_24h",
+    "value": -0.8145,
+    "z_score": 2.4435000000000002,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho LTCUSDT: -0.815 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2403,
+    "symbol": "AAVEUSDT",
+    "timestamp": "2025-06-07T16:01:32",
+    "data_type": "correlation_24h",
+    "value": -0.7517,
+    "z_score": 2.2551,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.752 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 2400,
     "symbol": "RENDERUSDT",
     "timestamp": "2025-06-07T15:28:48",
@@ -457,46 +497,6 @@
     "value": -5.197969667051072,
     "z_score": 1.0395939334102144,
     "message": "OI-Price divergence 24h cho TAOUSDT: OI -5.20%, Price +2.63%",
-    "notified": 1
-  },
-  {
-    "id": 2352,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-07T07:41:02",
-    "data_type": "correlation_24h",
-    "value": -0.7345,
-    "z_score": 2.2035,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.735 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2350,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-07T07:09:19",
-    "data_type": "correlation_24h",
-    "value": -0.7345,
-    "z_score": 2.2035,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.735 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2351,
-    "symbol": "TAOUSDT",
-    "timestamp": "2025-06-07T07:00:00",
-    "data_type": "oi_price_divergence_24h",
-    "value": -5.576349120591684,
-    "z_score": 1.1152698241183368,
-    "message": "OI-Price divergence 24h cho TAOUSDT: OI -5.58%, Price +2.82%",
-    "notified": 1
-  },
-  {
-    "id": 2348,
-    "symbol": "TAOUSDT",
-    "timestamp": "2025-06-07T04:00:00",
-    "data_type": "oi_price_divergence_24h",
-    "value": -5.268677406870617,
-    "z_score": 1.0537354813741233,
-    "message": "OI-Price divergence 24h cho TAOUSDT: OI -5.27%, Price +3.19%",
     "notified": 1
   }
 ]
