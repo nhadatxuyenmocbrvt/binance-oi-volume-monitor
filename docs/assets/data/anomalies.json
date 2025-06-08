@@ -1,5 +1,15 @@
 [
   {
+    "id": 2674,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-06-08T14:50:41",
+    "data_type": "correlation_24h",
+    "value": -0.9133,
+    "z_score": 2.7399,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.913 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 2673,
     "symbol": "BTCUSDT",
     "timestamp": "2025-06-08T14:34:10",
@@ -487,16 +497,6 @@
     "value": -0.7693,
     "z_score": 2.3079,
     "message": "Tương quan âm bất thường OI-Volume 24h cho HBARUSDT: -0.769 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2622,
-    "symbol": "DOGEUSDT",
-    "timestamp": "2025-06-08T08:29:05",
-    "data_type": "correlation_24h",
-    "value": -0.7776,
-    "z_score": 2.3327999999999998,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho DOGEUSDT: -0.778 (strong_negative)",
     "notified": 1
   }
 ]
