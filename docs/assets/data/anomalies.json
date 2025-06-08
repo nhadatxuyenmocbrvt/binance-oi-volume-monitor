@@ -1,5 +1,35 @@
 [
   {
+    "id": 2682,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-06-08T18:35:12",
+    "data_type": "correlation_24h",
+    "value": -0.769,
+    "z_score": 2.307,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.769 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2684,
+    "symbol": "ORDIUSDT",
+    "timestamp": "2025-06-08T18:34:33",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 21712463.206,
+    "z_score": 4.146973579155545,
+    "message": "Bất thường OI_Value_USDT 30d cho ORDIUSDT: 21712463.21 (Z-score: 4.15)",
+    "notified": 1
+  },
+  {
+    "id": 2683,
+    "symbol": "APTUSDT",
+    "timestamp": "2025-06-08T18:34:07",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 41938565.81200001,
+    "z_score": 4.936794544102464,
+    "message": "Bất thường OI_Value_USDT 30d cho APTUSDT: 41938565.81 (Z-score: 4.94)",
+    "notified": 1
+  },
+  {
     "id": 2681,
     "symbol": "ETHUSDT",
     "timestamp": "2025-06-08T18:03:16",
@@ -467,36 +497,6 @@
     "value": -0.7895,
     "z_score": 2.3685,
     "message": "Tương quan âm bất thường OI-Volume 24h cho PENDLEUSDT: -0.789 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2632,
-    "symbol": "HBARUSDT",
-    "timestamp": "2025-06-08T09:00:50",
-    "data_type": "correlation_24h",
-    "value": -0.7402,
-    "z_score": 2.2206,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho HBARUSDT: -0.740 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2629,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-06-08T09:00:49",
-    "data_type": "correlation_24h",
-    "value": -0.9576,
-    "z_score": 2.8728,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.958 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2630,
-    "symbol": "DOGEUSDT",
-    "timestamp": "2025-06-08T09:00:49",
-    "data_type": "correlation_24h",
-    "value": -0.7333,
-    "z_score": 2.1999,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho DOGEUSDT: -0.733 (strong_negative)",
     "notified": 1
   }
 ]
