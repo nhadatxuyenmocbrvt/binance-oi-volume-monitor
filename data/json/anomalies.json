@@ -1,5 +1,15 @@
 [
   {
+    "id": 2692,
+    "symbol": "NEARUSDT",
+    "timestamp": "2025-06-09T04:32:52",
+    "data_type": "correlation_24h",
+    "value": -0.795,
+    "z_score": 2.3850000000000002,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.795 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 2690,
     "symbol": "NEARUSDT",
     "timestamp": "2025-06-09T04:02:35",
@@ -97,6 +107,16 @@
     "value": -0.769,
     "z_score": 2.307,
     "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.769 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2691,
+    "symbol": "APTUSDT",
+    "timestamp": "2025-06-08T18:02:23",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 39235430.3025,
+    "z_score": 4.667358472659897,
+    "message": "Bất thường OI_Value_USDT 30d cho APTUSDT: 39235430.30 (Z-score: 4.67)",
     "notified": 1
   },
   {
@@ -477,26 +497,6 @@
     "value": -0.7494,
     "z_score": 2.2481999999999998,
     "message": "Tương quan âm bất thường OI-Volume 24h cho HBARUSDT: -0.749 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2642,
-    "symbol": "PENDLEUSDT",
-    "timestamp": "2025-06-08T09:32:35",
-    "data_type": "correlation_24h",
-    "value": -0.7634,
-    "z_score": 2.2902,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho PENDLEUSDT: -0.763 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2637,
-    "symbol": "ETHUSDT",
-    "timestamp": "2025-06-08T09:32:33",
-    "data_type": "correlation_24h",
-    "value": -0.9571,
-    "z_score": 2.8712999999999997,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.957 (strong_negative)",
     "notified": 1
   }
 ]
