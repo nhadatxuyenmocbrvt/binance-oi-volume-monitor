@@ -1,5 +1,35 @@
 [
   {
+    "id": 2668,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-06-08T13:30:38",
+    "data_type": "correlation_24h",
+    "value": -0.8049,
+    "z_score": 2.4147,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.805 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2666,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-06-08T13:15:29",
+    "data_type": "correlation_24h",
+    "value": -0.9137,
+    "z_score": 2.7411,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.914 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2667,
+    "symbol": "XRPUSDT",
+    "timestamp": "2025-06-08T13:13:50",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 580368011.98098,
+    "z_score": 4.595941604762188,
+    "message": "Bất thường OI_Value_USDT 30d cho XRPUSDT: 580368011.98 (Z-score: 4.60)",
+    "notified": 1
+  },
+  {
     "id": 2665,
     "symbol": "BTCUSDT",
     "timestamp": "2025-06-08T12:58:53",
@@ -467,36 +497,6 @@
     "value": -0.8721,
     "z_score": 2.6163,
     "message": "Tương quan âm bất thường OI-Volume 24h cho ENSUSDT: -0.872 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2616,
-    "symbol": "HBARUSDT",
-    "timestamp": "2025-06-08T07:57:22",
-    "data_type": "correlation_24h",
-    "value": -0.8016,
-    "z_score": 2.4048,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho HBARUSDT: -0.802 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2617,
-    "symbol": "PENDLEUSDT",
-    "timestamp": "2025-06-08T07:57:22",
-    "data_type": "correlation_24h",
-    "value": -0.8542,
-    "z_score": 2.5625999999999998,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho PENDLEUSDT: -0.854 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2615,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-08T07:57:21",
-    "data_type": "correlation_24h",
-    "value": -0.8716,
-    "z_score": 2.6148000000000002,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.872 (strong_negative)",
     "notified": 1
   }
 ]
