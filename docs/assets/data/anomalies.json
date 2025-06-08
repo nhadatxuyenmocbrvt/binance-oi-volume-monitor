@@ -1,5 +1,15 @@
 [
   {
+    "id": 2685,
+    "symbol": "AAVEUSDT",
+    "timestamp": "2025-06-08T23:52:09",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 154334219.328,
+    "z_score": 4.396305589472592,
+    "message": "Bất thường OI_Value_USDT 30d cho AAVEUSDT: 154334219.33 (Z-score: 4.40)",
+    "notified": 1
+  },
+  {
     "id": 2682,
     "symbol": "ETHUSDT",
     "timestamp": "2025-06-08T18:35:12",
@@ -487,16 +497,6 @@
     "value": -0.7965,
     "z_score": 2.3895,
     "message": "Tương quan âm bất thường OI-Volume 24h cho ENSUSDT: -0.796 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2633,
-    "symbol": "PENDLEUSDT",
-    "timestamp": "2025-06-08T09:00:51",
-    "data_type": "correlation_24h",
-    "value": -0.7895,
-    "z_score": 2.3685,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho PENDLEUSDT: -0.789 (strong_negative)",
     "notified": 1
   }
 ]
