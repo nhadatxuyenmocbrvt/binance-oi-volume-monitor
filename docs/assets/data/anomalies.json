@@ -1,5 +1,35 @@
 [
   {
+    "id": 2671,
+    "symbol": "BTCUSDT",
+    "timestamp": "2025-06-08T14:02:22",
+    "data_type": "correlation_24h",
+    "value": -0.7661,
+    "z_score": 2.2983000000000002,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.766 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2669,
+    "symbol": "ETHUSDT",
+    "timestamp": "2025-06-08T13:47:13",
+    "data_type": "correlation_24h",
+    "value": -0.9137,
+    "z_score": 2.7411,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.914 (strong_negative)",
+    "notified": 1
+  },
+  {
+    "id": 2670,
+    "symbol": "XRPUSDT",
+    "timestamp": "2025-06-08T13:45:35",
+    "data_type": "30d_OI_Value_USDT",
+    "value": 587865712.0368099,
+    "z_score": 4.157052865064205,
+    "message": "Bất thường OI_Value_USDT 30d cho XRPUSDT: 587865712.04 (Z-score: 4.16)",
+    "notified": 1
+  },
+  {
     "id": 2668,
     "symbol": "BTCUSDT",
     "timestamp": "2025-06-08T13:30:38",
@@ -467,36 +497,6 @@
     "value": -0.9605,
     "z_score": 2.8815,
     "message": "Tương quan âm bất thường OI-Volume 24h cho ETHUSDT: -0.961 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2620,
-    "symbol": "AAVEUSDT",
-    "timestamp": "2025-06-08T08:12:40",
-    "data_type": "correlation_24h",
-    "value": -0.8076,
-    "z_score": 2.4228,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho AAVEUSDT: -0.808 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2619,
-    "symbol": "BTCUSDT",
-    "timestamp": "2025-06-08T08:12:38",
-    "data_type": "correlation_24h",
-    "value": -0.8546,
-    "z_score": 2.5638,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.855 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2618,
-    "symbol": "ENSUSDT",
-    "timestamp": "2025-06-08T07:57:23",
-    "data_type": "correlation_24h",
-    "value": -0.8721,
-    "z_score": 2.6163,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ENSUSDT: -0.872 (strong_negative)",
     "notified": 1
   }
 ]
