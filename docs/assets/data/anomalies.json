@@ -1,5 +1,15 @@
 [
   {
+    "id": 2686,
+    "symbol": "NEARUSDT",
+    "timestamp": "2025-06-09T02:01:48",
+    "data_type": "correlation_24h",
+    "value": -0.7201,
+    "z_score": 2.1603,
+    "message": "Tương quan âm bất thường OI-Volume 24h cho NEARUSDT: -0.720 (strong_negative)",
+    "notified": 1
+  },
+  {
     "id": 2685,
     "symbol": "AAVEUSDT",
     "timestamp": "2025-06-08T23:52:09",
@@ -487,16 +497,6 @@
     "value": -0.853,
     "z_score": 2.559,
     "message": "Tương quan âm bất thường OI-Volume 24h cho BTCUSDT: -0.853 (strong_negative)",
-    "notified": 1
-  },
-  {
-    "id": 2634,
-    "symbol": "ENSUSDT",
-    "timestamp": "2025-06-08T09:00:52",
-    "data_type": "correlation_24h",
-    "value": -0.7965,
-    "z_score": 2.3895,
-    "message": "Tương quan âm bất thường OI-Volume 24h cho ENSUSDT: -0.796 (strong_negative)",
     "notified": 1
   }
 ]
